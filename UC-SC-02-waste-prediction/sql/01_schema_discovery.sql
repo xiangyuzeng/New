@@ -1,0 +1,318 @@
+-- ============================================================================
+-- UC-SC-02: Waste Prediction & Reduction — Source Schema Discovery
+-- ============================================================================
+-- Purpose:  Read-only reference documenting all 8 source databases with
+--           column-level detail, reason code mappings, and data lineage.
+-- Usage:    DO NOT EXECUTE — this file is documentation only.
+-- Author:   DBA/Infrastructure Team
+-- Created:  2026-02-18
+-- ============================================================================
+
+-- ┌─────────────────────────────────────────────────────────────────────────┐
+-- │ DATABASE 1: scm_shopstock  (aws-luckyus-scm-shopstock-rw)              │
+-- │ Purpose: Stock change events — consumption, transfers, adjustments     │
+-- │ Volume:  ~9.1M stock change records                                    │
+-- │ Note:    Day-partitioned tables (Mon-Sun)                              │
+-- └─────────────────────────────────────────────────────────────────────────┘
+
+-- Day-partitioned table pattern: t_stock_shop_change_record_{dow}
+-- Tables: t_stock_shop_change_record_mon .. t_stock_shop_change_record_sun
+-- All 7 tables share identical schema:
+--
+-- Key columns:
+--   id                BIGINT          PK
+--   shop_dept_id      BIGINT          Store ID (门店ID)
+--   goods_mid         VARCHAR         Goods code — GS-level (货物编号)
+--   reason_code       VARCHAR         Event reason code (原因代码)
+--   reason_type       INT             Event reason type (原因类型)
+--   total_adjust_num  DECIMAL         Quantity adjustment (调整数量)
+--                                     Negative = consumption/transfer out
+--                                     Positive = receipt/transfer in
+--   operated_time     DATETIME        Event timestamp (操作时间)
+--   adjust_time       DATETIME        Adjustment timestamp (调整时间)
+--   remark            VARCHAR         Remarks (备注)
+--   create_time       DATETIME        Record creation time
+--   update_time       DATETIME        Last update time
+--
+-- Reason Code Mapping (validated in UC-SC-01):
+-- ┌──────────┬──────────────┬───────────────────────────────────────────┐
+-- │ Code     │ Type         │ Description                               │
+-- ├──────────┼──────────────┼───────────────────────────────────────────┤
+-- │ 025      │ Consumption  │ Manual consumption (手动消耗)              │
+-- │ 1001     │ Consumption  │ Auto consumption - recipe (自动消耗-配方)   │
+-- │ 1002     │ Consumption  │ Auto consumption - sale (自动消耗-销售)     │
+-- │ 1006     │ Transfer OUT │ Transfer out (调拨出库), reason_type=2006  │
+-- │ 1009     │ Transfer IN  │ Transfer in (调拨入库), reason_type=2006   │
+-- │ 015      │ Receipt      │ Purchase receipt (采购入库)                │
+-- │ 020      │ Adjustment   │ Inventory adjustment (库存调整)            │
+-- │ 030      │ Loss         │ Inventory loss (盘亏)                     │
+-- │ 035      │ Gain         │ Inventory gain (盘盈)                     │
+-- └──────────┴──────────────┴───────────────────────────────────────────┘
+--
+-- Consumption extraction formula:
+--   WHERE reason_code IN ('025','1001','1002')
+--     AND total_adjust_num < 0
+--   → SUM(ABS(total_adjust_num)) grouped by date/store/SKU
+--
+-- Transfer extraction:
+--   OUT: reason_code='1006', reason_type=2006, avg qty = -507.12
+--   IN:  reason_code='1009', reason_type=2006, avg qty = +474.32
+--   ~6% volume loss between OUT and IN (transit shrinkage)
+
+
+-- ┌─────────────────────────────────────────────────────────────────────────┐
+-- │ DATABASE 2: opqualitycontrol  (aws-luckyus-opqualitycontrol-rw)        │
+-- │ Purpose: Expiry tracking, disposal records, shelf-life configuration   │
+-- │ Volume:  139K expiry labels, 2.1K shelf-life configs, 4.1K disposals  │
+-- └─────────────────────────────────────────────────────────────────────────┘
+
+-- Table: t_goods_abandon_task_form
+-- Purpose: Disposal/waste task records (废弃任务表)
+-- Key columns:
+--   id                    BIGINT      PK
+--   dept_id               BIGINT      Store ID (门店ID)
+--   spec_mid              VARCHAR     Goods code GS-level (规格编号)
+--   abandoned_date        DATETIME    Disposal date/time (废弃日期)
+--   abandon_amount_normal DECIMAL     Normal-temp waste qty (常温废弃量)
+--   abandon_amount_frozen DECIMAL     Frozen waste qty (冷冻废弃量)
+--   abandon_amount_refrigerated DECIMAL  Refrigerated waste qty (冷藏废弃量)
+--   task_status           INT         Task status (任务状态)
+--   create_time           DATETIME    Record creation time
+--   update_time           DATETIME    Last update time
+--
+-- Total waste qty = abandon_amount_normal + abandon_amount_frozen
+--                 + abandon_amount_refrigerated
+
+-- Table: t_expiry_print_log
+-- Purpose: Expiry label printing records (到期标签打印记录)
+-- Key columns:
+--   id                BIGINT      PK
+--   dept_id           BIGINT      Store ID (门店ID)
+--   spec_mid          VARCHAR     Goods code GS-level (规格编号)
+--   expire_time       DATETIME    Expiry timestamp (到期时间)
+--   print_time        DATETIME    Label print time (打印时间)
+--   print_type        INT         Print type (打印类型)
+--   collection_code   VARCHAR     Batch/collection identifier (批次号)
+--   create_time       DATETIME    Record creation time
+--
+-- Used for batch-level risk scoring:
+--   hours_remaining = expire_time - NOW()
+
+-- Table: t_goods_expiry_config
+-- Purpose: Shelf-life configuration per SKU (保质期配置)
+-- Key columns:
+--   id                    BIGINT      PK
+--   spec_mid              VARCHAR     Goods code GS-level (规格编号)
+--   goods_name            VARCHAR     Product name (商品名称)
+--   open_time_data        INT         Open-package expiry value (开封有效期值)
+--   open_time_unit        INT         Open-package unit: 1=days, 2=hours
+--   container_time_data   INT         Container storage value (容器存储有效期值)
+--   container_time_unit   INT         Container unit: 1=days, 2=hours
+--   thaw_time_data        INT         Thaw expiry value (解冻有效期值)
+--   thaw_time_unit        INT         Thaw unit: 1=days, 2=hours
+--   is_deleted            TINYINT     Soft delete flag (删除标记)
+--   create_time           DATETIME    Record creation time
+--   update_time           DATETIME    Last update time
+--
+-- Shelf-life tier classification:
+--   Convert to hours: if time_unit=1 → hours = time_data * 24
+--                     if time_unit=2 → hours = time_data
+--   min_expiry_hours = MIN(open_hours, container_hours, thaw_hours) [non-null]
+--   ULTRA_SHORT: min_expiry_hours < 24      (fresh milk, opened syrups)
+--   SHORT:       min_expiry_hours 24-72     (1-3 days, thawed ingredients)
+--   MEDIUM:      min_expiry_hours 72-336    (3-14 days, sealed dairy)
+--   LONG:        min_expiry_hours > 336     (14+ days, beans, dry goods)
+
+
+-- ┌─────────────────────────────────────────────────────────────────────────┐
+-- │ DATABASE 3: opproduction  (aws-luckyus-opproduction-rw)                │
+-- │ Purpose: Production orders, remake tracking, loss reasons              │
+-- │ Volume:  495K production records, 585K commodity details, 8 loss types │
+-- └─────────────────────────────────────────────────────────────────────────┘
+
+-- Table: t_production
+-- Purpose: Production/order records (生产单)
+-- Key columns:
+--   id                BIGINT      PK
+--   dept_id           BIGINT      Store ID (门店ID)
+--   product_status    INT         Status: 10=pending, 20=in-progress,
+--                                         30=completed, 50=abnormal, 90=cancelled
+--   order_create_time DATETIME    Order creation time (下单时间)
+--   order_complete_time DATETIME  Order completion time (完成时间)
+--   create_time       DATETIME    Record creation time
+--
+-- Remake waste detection:
+--   product_status IN (50, 90) → abnormal/cancelled after production started
+--   These represent material waste from failed production attempts
+
+-- Table: t_production_commodity_detail
+-- Purpose: Commodity/material detail per production order (生产单物料明细)
+-- Key columns:
+--   id                BIGINT      PK
+--   production_id     BIGINT      FK → t_production.id
+--   spu_code          VARCHAR     SPU code (产品编号)
+--   goods_code        VARCHAR     GS-level goods code (货物编号)
+--   use_amount        DECIMAL     Amount used (使用量)
+--   create_time       DATETIME    Record creation time
+--
+-- Link to raw material waste via BOM explosion:
+--   production_id → t_production (for status check)
+--   spu_code → t_formula_spu (for material breakdown)
+
+-- Table: t_production_loss_reason
+-- Purpose: Production loss reason codes (生产损耗原因)
+-- Key columns:
+--   id                BIGINT      PK
+--   loss_reason_code  VARCHAR     Reason code (损耗原因代码)
+--   loss_reason_name  VARCHAR     Reason name (损耗原因名称)
+--   is_deleted        TINYINT     Soft delete flag
+-- Known values: 8 loss reason types
+
+
+-- ┌─────────────────────────────────────────────────────────────────────────┐
+-- │ DATABASE 4: ireplenishment  (aws-luckyus-ireplenishment-rw)            │
+-- │ Purpose: Demand forecast predictions (algorithm-generated)             │
+-- │ Volume:  ~2.5M forecast records                                        │
+-- └─────────────────────────────────────────────────────────────────────────┘
+
+-- Table: t_replenishment_forecast (or similar)
+-- Purpose: Algorithm-generated demand predictions (需求预测)
+-- Key columns:
+--   id                BIGINT      PK
+--   dept_id           BIGINT      Store ID (门店ID)
+--   goods_code        VARCHAR     Goods code (货物编号)
+--   forecast_date     DATE        Forecast target date (预测日期)
+--   vlt_avg_demand    DECIMAL     Average demand forecast (平均需求预测)
+--   order_num         DECIMAL     Suggested order quantity (建议订货量)
+--   create_time       DATETIME    Record creation time
+--
+-- UC-SC-01 baseline MAPE: 37.8% (above 30% threshold)
+-- UC-SC-02 targets: <25% MAPE with enhanced model v1
+
+
+-- ┌─────────────────────────────────────────────────────────────────────────┐
+-- │ DATABASE 5: pubdm  (aws-luckyus-pubdm-rw)                             │
+-- │ Purpose: Product master data — goods hierarchy, categories             │
+-- └─────────────────────────────────────────────────────────────────────────┘
+
+-- Table: t_mdm_goods
+-- Purpose: Product master (商品主数据)
+-- Key columns:
+--   id                BIGINT      PK
+--   goods_code        VARCHAR     Goods code GS-level (货物编号)
+--   goods_name        VARCHAR     Product name (商品名称)
+--   large_class_code  VARCHAR     Category code (大类编号)
+--   large_class_name  VARCHAR     Category name (大类名称)
+--   middle_class_code VARCHAR     Sub-category code (中类编号)
+--   middle_class_name VARCHAR     Sub-category name (中类名称)
+--   unit_name         VARCHAR     Unit of measure (单位名称)
+--   status            INT         Active status (状态)
+--   is_deleted        TINYINT     Soft delete flag
+
+
+-- ┌─────────────────────────────────────────────────────────────────────────┐
+-- │ DATABASE 6: opshop  (aws-luckyus-opshop-rw)                            │
+-- │ Purpose: Store master data — location, status, type                    │
+-- └─────────────────────────────────────────────────────────────────────────┘
+
+-- Table: t_shop_info
+-- Purpose: Store master (门店信息)
+-- Key columns:
+--   id                BIGINT      PK
+--   dept_id           BIGINT      Department/store ID (部门ID)
+--   shop_name         VARCHAR     Store name (门店名称)
+--   shop_code         VARCHAR     Store code (门店编号)
+--   province          VARCHAR     Province/state (省份)
+--   city              VARCHAR     City (城市)
+--   address           VARCHAR     Street address (地址)
+--   shop_status       INT         Store status (门店状态)
+--   shop_type         INT         Store type (门店类型)
+--   is_deleted        TINYINT     Soft delete flag
+--
+-- Active Manhattan stores (10):
+--   1127, 1128, 1140, 1141, 20008, 20010, 20011, 20027, 20031, 20032
+
+
+-- ┌─────────────────────────────────────────────────────────────────────────┐
+-- │ DATABASE 7: scmcommodity  (aws-luckyus-scmcommodity-rw)                │
+-- │ Purpose: BOM/recipes — SPU to GS material mapping                      │
+-- └─────────────────────────────────────────────────────────────────────────┘
+
+-- Table: t_formula_spu
+-- Purpose: Bill of Materials / recipe formulas (配方表)
+-- Key columns:
+--   id                BIGINT      PK
+--   spu_code          VARCHAR     SPU code (成品编号)
+--   goods_code        VARCHAR     GS-level material code (物料编号)
+--   dosage            DECIMAL     Material dosage per unit (用量)
+--   formula_status    INT         Formula status: 1=active (配方状态)
+--   is_deleted        TINYINT     Soft delete flag
+--
+-- Used for remake waste BOM explosion:
+--   remake_count * dosage = material_waste_from_remakes
+
+
+-- ┌─────────────────────────────────────────────────────────────────────────┐
+-- │ DATABASE 8: salesorder  (aws-luckyus-salesorder-rw)                     │
+-- │ Purpose: Sales transactions — orders and order items                    │
+-- └─────────────────────────────────────────────────────────────────────────┘
+
+-- Table: t_order
+-- Purpose: Sales order headers (销售订单)
+-- Key columns:
+--   id                BIGINT      PK
+--   order_no          VARCHAR     Order number (订单号)
+--   dept_id           BIGINT      Store ID (门店ID)
+--   order_status      INT         Order status (订单状态)
+--   order_amount      DECIMAL     Order total amount (订单金额)
+--   pay_amount        DECIMAL     Paid amount (支付金额)
+--   order_time        DATETIME    Order time (下单时间)
+--   create_time       DATETIME    Record creation time
+
+-- Table: t_order_item
+-- Purpose: Sales order line items (订单明细)
+-- Key columns:
+--   id                BIGINT      PK
+--   order_id          BIGINT      FK → t_order.id
+--   spu_code          VARCHAR     SPU code (产品编号)
+--   goods_name        VARCHAR     Product name (商品名称)
+--   quantity          INT         Quantity ordered (数量)
+--   unit_price        DECIMAL     Unit price (单价)
+--   item_amount       DECIMAL     Line item amount (明细金额)
+
+
+-- ============================================================================
+-- DATA LINEAGE SUMMARY
+-- ============================================================================
+--
+-- Source DB                → Staging Table            → Analytics Table
+-- ─────────────────────────────────────────────────────────────────────────────
+-- scm_shopstock            → tmp_stock_changes        → waste_consumption_daily
+--   (stock change records)                            → waste_daily_detail
+--                                                     → waste_transfer_recommendations
+--
+-- opqualitycontrol         → tmp_abandon_tasks        → waste_daily_detail
+--   (disposal tasks)       → tmp_expiry_prints        → waste_batch_risk_score
+--                          → tmp_shelf_life_config    → waste_shelf_life_config
+--
+-- opproduction             → tmp_production           → waste_daily_detail (remakes)
+--   (production orders)    → tmp_commodity
+--
+-- ireplenishment           → tmp_predictions          → waste_consumption_daily
+--   (demand forecasts)                                  (predicted_demand column)
+--
+-- pubdm                    → tmp_goods                → (name/category enrichment)
+--   (product master)
+--
+-- opshop                   → tmp_stores               → (store name enrichment)
+--   (store master)
+--
+-- scmcommodity             → tmp_formula              → waste_daily_detail (BOM)
+--   (BOM/recipes)
+--
+-- salesorder               → (future use)             → (demand signal enhancement)
+--   (sales transactions)
+--
+-- ============================================================================
+-- END OF SCHEMA DISCOVERY DOCUMENT
+-- ============================================================================

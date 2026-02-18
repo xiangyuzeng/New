@@ -1,0 +1,683 @@
+{
+  "__inputs": [
+    {
+      "name": "DS_MYSQL",
+      "label": "MySQL - dbatest",
+      "description": "aws-luckyus-dbatest-rw → schema test",
+      "type": "datasource",
+      "pluginId": "mysql",
+      "pluginName": "MySQL"
+    }
+  ],
+  "__requires": [
+    { "type": "grafana", "id": "grafana", "name": "Grafana", "version": "10.0.0" },
+    { "type": "datasource", "id": "mysql", "name": "MySQL", "version": "1.0.0" },
+    { "type": "panel", "id": "timeseries", "name": "Time series", "version": "" },
+    { "type": "panel", "id": "stat", "name": "Stat", "version": "" },
+    { "type": "panel", "id": "table", "name": "Table", "version": "" },
+    { "type": "panel", "id": "piechart", "name": "Pie chart", "version": "" },
+    { "type": "panel", "id": "barchart", "name": "Bar chart", "version": "" },
+    { "type": "panel", "id": "bargauge", "name": "Bar gauge", "version": "" }
+  ],
+  "id": null,
+  "uid": "uc-sc-02-waste-command-center",
+  "title": "UC-SC-02 — Waste Command Center",
+  "description": "Waste Prediction & Reduction dashboard for 10 Manhattan Luckin Coffee stores. Monitors waste rates, risk scores, forecast accuracy, transfers, and alerts.",
+  "tags": ["uc-sc-02", "waste", "supply-chain", "luckin-usa"],
+  "style": "dark",
+  "timezone": "America/New_York",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "links": [],
+  "liveNow": false,
+  "refresh": "5m",
+  "schemaVersion": 39,
+  "time": { "from": "now-7d", "to": "now" },
+  "timepicker": {
+    "refresh_intervals": ["5m", "15m", "30m", "1h"],
+    "time_options": ["1d", "7d", "14d", "30d", "90d"]
+  },
+  "templating": {
+    "list": [
+      {
+        "name": "store",
+        "type": "query",
+        "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+        "definition": "SELECT DISTINCT CONCAT(shop_dept_id, ' - ', shop_name) AS __text, shop_dept_id AS __value FROM test.waste_daily_detail WHERE waste_date >= DATE_SUB(CURDATE(), INTERVAL 30 DAY) ORDER BY shop_name",
+        "query": "SELECT DISTINCT CONCAT(shop_dept_id, ' - ', shop_name) AS __text, shop_dept_id AS __value FROM test.waste_daily_detail WHERE waste_date >= DATE_SUB(CURDATE(), INTERVAL 30 DAY) ORDER BY shop_name",
+        "includeAll": true,
+        "multi": true,
+        "allValue": "",
+        "current": { "text": "All", "value": "$__all" },
+        "refresh": 2,
+        "sort": 1,
+        "label": "Store"
+      },
+      {
+        "name": "shelf_tier",
+        "type": "custom",
+        "query": "ULTRA_SHORT,SHORT,MEDIUM,LONG",
+        "includeAll": true,
+        "multi": true,
+        "current": { "text": "All", "value": "$__all" },
+        "label": "Shelf Tier"
+      }
+    ]
+  },
+  "annotations": { "list": [] },
+  "panels": [
+    {
+      "id": 1,
+      "title": "Overall Waste Rate (Rolling 7d)",
+      "type": "stat",
+      "gridPos": { "h": 4, "w": 4, "x": 0, "y": 0 },
+      "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit",
+          "decimals": 2,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "value": null, "color": "green" },
+              { "value": 0.04, "color": "yellow" },
+              { "value": 0.05, "color": "orange" },
+              { "value": 0.08, "color": "red" }
+            ]
+          },
+          "color": { "mode": "thresholds" }
+        },
+        "overrides": []
+      },
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "colorMode": "background", "graphMode": "area", "textMode": "auto", "orientation": "auto" },
+      "targets": [
+        {
+          "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+          "rawSql": "SELECT waste_rate FROM test.waste_summary WHERE period_type = 'ROLLING_7D' AND dimension_type = 'OVERALL' ORDER BY period_end DESC LIMIT 1",
+          "format": "table",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Total Waste Cost (Rolling 7d)",
+      "type": "stat",
+      "gridPos": { "h": 4, "w": 4, "x": 4, "y": 0 },
+      "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "currencyUSD",
+          "decimals": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "value": null, "color": "green" },
+              { "value": 500, "color": "yellow" },
+              { "value": 1000, "color": "red" }
+            ]
+          },
+          "color": { "mode": "thresholds" }
+        },
+        "overrides": []
+      },
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "colorMode": "background", "graphMode": "none", "textMode": "auto", "orientation": "auto" },
+      "targets": [
+        {
+          "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+          "rawSql": "SELECT total_waste_cost FROM test.waste_summary WHERE period_type = 'ROLLING_7D' AND dimension_type = 'OVERALL' ORDER BY period_end DESC LIMIT 1",
+          "format": "table",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Forecast MAPE (v1)",
+      "type": "stat",
+      "gridPos": { "h": 4, "w": 4, "x": 8, "y": 0 },
+      "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit",
+          "decimals": 1,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "value": null, "color": "green" },
+              { "value": 0.20, "color": "yellow" },
+              { "value": 0.25, "color": "orange" },
+              { "value": 0.35, "color": "red" }
+            ]
+          },
+          "color": { "mode": "thresholds" }
+        },
+        "overrides": []
+      },
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "colorMode": "background", "graphMode": "area", "textMode": "auto", "orientation": "auto" },
+      "targets": [
+        {
+          "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+          "rawSql": "SELECT waste_mape FROM test.waste_summary WHERE period_type = 'ROLLING_7D' AND dimension_type = 'OVERALL' ORDER BY period_end DESC LIMIT 1",
+          "format": "table",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "CRITICAL Risk Batches (Today)",
+      "type": "stat",
+      "gridPos": { "h": 4, "w": 4, "x": 12, "y": 0 },
+      "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "decimals": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "value": null, "color": "green" },
+              { "value": 5, "color": "yellow" },
+              { "value": 10, "color": "orange" },
+              { "value": 20, "color": "red" }
+            ]
+          },
+          "color": { "mode": "thresholds" }
+        },
+        "overrides": []
+      },
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "colorMode": "background", "graphMode": "none", "textMode": "auto", "orientation": "auto" },
+      "targets": [
+        {
+          "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+          "rawSql": "SELECT COUNT(*) AS critical_batches FROM test.waste_batch_risk_score WHERE score_date = CURDATE() AND risk_tier = 'CRITICAL'",
+          "format": "table",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Active Alerts (Unacknowledged)",
+      "type": "stat",
+      "gridPos": { "h": 4, "w": 4, "x": 16, "y": 0 },
+      "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "decimals": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "value": null, "color": "green" },
+              { "value": 1, "color": "yellow" },
+              { "value": 3, "color": "orange" },
+              { "value": 5, "color": "red" }
+            ]
+          },
+          "color": { "mode": "thresholds" }
+        },
+        "overrides": []
+      },
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "colorMode": "background", "graphMode": "none", "textMode": "auto", "orientation": "auto" },
+      "targets": [
+        {
+          "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+          "rawSql": "SELECT COUNT(*) AS active_alerts FROM test.waste_alerts WHERE is_acknowledged = FALSE AND alert_date >= DATE_SUB(CURDATE(), INTERVAL 3 DAY)",
+          "format": "table",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Pending Transfers",
+      "type": "stat",
+      "gridPos": { "h": 4, "w": 4, "x": 20, "y": 0 },
+      "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "decimals": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "value": null, "color": "blue" },
+              { "value": 1, "color": "green" },
+              { "value": 5, "color": "yellow" }
+            ]
+          },
+          "color": { "mode": "thresholds" }
+        },
+        "overrides": []
+      },
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "colorMode": "background", "graphMode": "none", "textMode": "auto", "orientation": "auto" },
+      "targets": [
+        {
+          "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+          "rawSql": "SELECT COUNT(*) AS pending_transfers FROM test.waste_transfer_recommendations WHERE status = 'PENDING' AND recommendation_date >= DATE_SUB(CURDATE(), INTERVAL 3 DAY)",
+          "format": "table",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Waste Rate Trend by Store",
+      "description": "Daily waste rate per store over the selected time range",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 4 },
+      "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit",
+          "decimals": 2,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "fillOpacity": 10,
+            "pointSize": 5,
+            "showPoints": "auto",
+            "lineWidth": 2,
+            "spanNulls": true
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": { "displayMode": "table", "placement": "right", "calcs": ["mean", "lastNotNull"] },
+        "tooltip": { "mode": "multi", "sort": "desc" }
+      },
+      "targets": [
+        {
+          "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+          "rawSql": "SELECT\n  waste_date AS time,\n  CONCAT(shop_dept_id, ' - ', shop_name) AS metric,\n  SUM(waste_qty_total) / NULLIF(SUM(waste_qty_total) + SUM(consumption_qty), 0) AS value\nFROM test.waste_daily_detail\nWHERE waste_date BETWEEN $__timeFrom() AND $__timeTo()\n  AND ($__all OR shop_dept_id IN ($store))\n  AND ($__all OR shelf_life_tier IN ($shelf_tier))\nGROUP BY waste_date, shop_dept_id, shop_name\nORDER BY waste_date",
+          "format": "time_series",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Risk Score Distribution (Today)",
+      "description": "Batch risk tier distribution for the current scoring date",
+      "type": "piechart",
+      "gridPos": { "h": 8, "w": 6, "x": 12, "y": 4 },
+      "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": [
+          { "matcher": { "id": "byName", "options": "CRITICAL" }, "properties": [{ "id": "color", "value": { "fixedColor": "red", "mode": "fixed" } }] },
+          { "matcher": { "id": "byName", "options": "HIGH" }, "properties": [{ "id": "color", "value": { "fixedColor": "orange", "mode": "fixed" } }] },
+          { "matcher": { "id": "byName", "options": "MEDIUM" }, "properties": [{ "id": "color", "value": { "fixedColor": "yellow", "mode": "fixed" } }] },
+          { "matcher": { "id": "byName", "options": "LOW" }, "properties": [{ "id": "color", "value": { "fixedColor": "green", "mode": "fixed" } }] }
+        ]
+      },
+      "options": {
+        "legend": { "displayMode": "table", "placement": "right", "values": ["value", "percent"] },
+        "pieType": "donut",
+        "tooltip": { "mode": "single" },
+        "reduceOptions": { "calcs": ["lastNotNull"] }
+      },
+      "targets": [
+        {
+          "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+          "rawSql": "SELECT risk_tier, COUNT(*) AS count\nFROM test.waste_batch_risk_score\nWHERE score_date = (\n  SELECT MAX(score_date) FROM test.waste_batch_risk_score WHERE score_date <= CURDATE()\n)\n  AND ($__all OR shop_dept_id IN ($store))\nGROUP BY risk_tier\nORDER BY FIELD(risk_tier, 'CRITICAL','HIGH','MEDIUM','LOW')",
+          "format": "table",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Waste by Shelf-Life Tier",
+      "description": "Total waste cost by shelf-life tier over the selected period",
+      "type": "barchart",
+      "gridPos": { "h": 8, "w": 6, "x": 18, "y": 4 },
+      "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "currencyUSD",
+          "custom": { "fillOpacity": 80, "gradientMode": "scheme" }
+        },
+        "overrides": [
+          { "matcher": { "id": "byName", "options": "ULTRA_SHORT" }, "properties": [{ "id": "color", "value": { "fixedColor": "red", "mode": "fixed" } }] },
+          { "matcher": { "id": "byName", "options": "SHORT" }, "properties": [{ "id": "color", "value": { "fixedColor": "orange", "mode": "fixed" } }] },
+          { "matcher": { "id": "byName", "options": "MEDIUM" }, "properties": [{ "id": "color", "value": { "fixedColor": "yellow", "mode": "fixed" } }] },
+          { "matcher": { "id": "byName", "options": "LONG" }, "properties": [{ "id": "color", "value": { "fixedColor": "green", "mode": "fixed" } }] }
+        ]
+      },
+      "options": {
+        "orientation": "horizontal",
+        "legend": { "displayMode": "list", "placement": "bottom" },
+        "tooltip": { "mode": "single" },
+        "xTickLabelRotation": 0,
+        "barWidth": 0.8,
+        "showValue": "auto"
+      },
+      "targets": [
+        {
+          "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+          "rawSql": "SELECT\n  COALESCE(shelf_life_tier, 'UNKNOWN') AS shelf_life_tier,\n  SUM(waste_cost) AS waste_cost\nFROM test.waste_daily_detail\nWHERE waste_date BETWEEN $__timeFrom() AND $__timeTo()\n  AND ($__all OR shop_dept_id IN ($store))\nGROUP BY shelf_life_tier\nORDER BY FIELD(shelf_life_tier, 'ULTRA_SHORT','SHORT','MEDIUM','LONG','UNKNOWN')",
+          "format": "table",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Forecast Accuracy: v1 vs Baseline MAPE",
+      "description": "Daily MAPE comparison: v1 forecast model vs ireplenishment baseline",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 12 },
+      "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit",
+          "decimals": 1,
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "fillOpacity": 5,
+            "pointSize": 4,
+            "showPoints": "auto",
+            "lineWidth": 2,
+            "spanNulls": true
+          }
+        },
+        "overrides": [
+          {
+            "matcher": { "id": "byName", "options": "v1_mape" },
+            "properties": [{ "id": "color", "value": { "fixedColor": "green", "mode": "fixed" } }, { "id": "displayName", "value": "v1 Model MAPE" }]
+          },
+          {
+            "matcher": { "id": "byName", "options": "baseline_mape" },
+            "properties": [{ "id": "color", "value": { "fixedColor": "red", "mode": "fixed" } }, { "id": "displayName", "value": "iReplenishment MAPE" }]
+          },
+          {
+            "matcher": { "id": "byName", "options": "target_line" },
+            "properties": [
+              { "id": "color", "value": { "fixedColor": "blue", "mode": "fixed" } },
+              { "id": "displayName", "value": "Target (25%)" },
+              { "id": "custom.lineStyle", "value": { "fill": "dash", "dash": [10, 10] } },
+              { "id": "custom.fillOpacity", "value": 0 }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "legend": { "displayMode": "table", "placement": "bottom", "calcs": ["mean", "lastNotNull"] },
+        "tooltip": { "mode": "multi", "sort": "desc" }
+      },
+      "targets": [
+        {
+          "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+          "rawSql": "SELECT\n  consumption_date AS time,\n  AVG(v1_abs_pct_error) AS v1_mape,\n  AVG(abs_pct_error) AS baseline_mape,\n  0.25 AS target_line\nFROM test.waste_consumption_daily\nWHERE consumption_date BETWEEN $__timeFrom() AND $__timeTo()\n  AND actual_consumption > 0\n  AND ($__all OR shop_dept_id IN ($store))\nGROUP BY consumption_date\nORDER BY consumption_date",
+          "format": "time_series",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "title": "Waste Cost by Store (Bar Gauge)",
+      "description": "Total waste cost per store over the selected period",
+      "type": "bargauge",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 12 },
+      "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "currencyUSD",
+          "decimals": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "value": null, "color": "green" },
+              { "value": 200, "color": "yellow" },
+              { "value": 500, "color": "orange" },
+              { "value": 1000, "color": "red" }
+            ]
+          },
+          "color": { "mode": "thresholds" }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": { "calcs": ["lastNotNull"] },
+        "orientation": "horizontal",
+        "displayMode": "gradient",
+        "showUnfilled": true,
+        "minVizWidth": 8,
+        "minVizHeight": 16,
+        "valueMode": "color",
+        "namePlacement": "auto"
+      },
+      "targets": [
+        {
+          "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+          "rawSql": "SELECT\n  CONCAT(shop_dept_id, ' - ', shop_name) AS metric,\n  SUM(waste_cost) AS value\nFROM test.waste_daily_detail\nWHERE waste_date BETWEEN $__timeFrom() AND $__timeTo()\n  AND ($__all OR shelf_life_tier IN ($shelf_tier))\nGROUP BY shop_dept_id, shop_name\nORDER BY value DESC",
+          "format": "table",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "title": "Active Alerts",
+      "description": "Unacknowledged waste alerts from the past 7 days",
+      "type": "table",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 20 },
+      "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": [
+          {
+            "matcher": { "id": "byName", "options": "alert_type" },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background",
+                  "mode": "basic"
+                }
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  { "type": "value", "options": { "CRITICAL": { "color": "red", "text": "CRITICAL" } } },
+                  { "type": "value", "options": { "WARNING": { "color": "orange", "text": "WARNING" } } },
+                  { "type": "value", "options": { "BIAS": { "color": "yellow", "text": "BIAS" } } },
+                  { "type": "value", "options": { "TREND": { "color": "blue", "text": "TREND" } } },
+                  { "type": "value", "options": { "EXPIRY_SURGE": { "color": "purple", "text": "EXPIRY_SURGE" } } }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": { "id": "byName", "options": "metric_value" },
+            "properties": [{ "id": "unit", "value": "percentunit" }, { "id": "decimals", "value": 2 }]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "sortBy": [{ "displayName": "alert_date", "desc": true }],
+        "footer": { "show": true, "countRows": true, "reducer": ["count"] },
+        "cellHeight": "sm"
+      },
+      "targets": [
+        {
+          "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+          "rawSql": "SELECT\n  alert_date,\n  alert_type,\n  entity_type,\n  entity_name,\n  metric_name,\n  metric_value,\n  threshold_value,\n  description,\n  recommended_action\nFROM test.waste_alerts\nWHERE is_acknowledged = FALSE\n  AND alert_date >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)\nORDER BY alert_date DESC, FIELD(alert_type, 'CRITICAL','WARNING','BIAS','TREND','EXPIRY_SURGE')\nLIMIT 50",
+          "format": "table",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "title": "Transfer Recommendations",
+      "description": "Pending transfer recommendations with net benefit analysis",
+      "type": "table",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 20 },
+      "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": [
+          {
+            "matcher": { "id": "byName", "options": "net_benefit" },
+            "properties": [{ "id": "unit", "value": "currencyUSD" }, { "id": "decimals", "value": 2 }]
+          },
+          {
+            "matcher": { "id": "byName", "options": "waste_savings_est" },
+            "properties": [{ "id": "unit", "value": "currencyUSD" }, { "id": "decimals", "value": 2 }]
+          },
+          {
+            "matcher": { "id": "byName", "options": "source_risk_score" },
+            "properties": [
+              { "id": "unit", "value": "short" },
+              { "id": "decimals", "value": 0 },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    { "value": null, "color": "green" },
+                    { "value": 40, "color": "yellow" },
+                    { "value": 60, "color": "orange" },
+                    { "value": 80, "color": "red" }
+                  ]
+                }
+              },
+              { "id": "custom.cellOptions", "value": { "type": "color-background", "mode": "basic" } }
+            ]
+          },
+          {
+            "matcher": { "id": "byName", "options": "hours_left" },
+            "properties": [
+              { "id": "unit", "value": "h" },
+              { "id": "decimals", "value": 1 },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    { "value": null, "color": "red" },
+                    { "value": 12, "color": "orange" },
+                    { "value": 24, "color": "yellow" },
+                    { "value": 48, "color": "green" }
+                  ]
+                }
+              },
+              { "id": "custom.cellOptions", "value": { "type": "color-text" } }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "sortBy": [{ "displayName": "net_benefit", "desc": true }],
+        "footer": { "show": true, "countRows": true, "reducer": ["count"] },
+        "cellHeight": "sm"
+      },
+      "targets": [
+        {
+          "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+          "rawSql": "SELECT\n  recommendation_date,\n  source_store_name,\n  dest_store_name,\n  goods_name,\n  transfer_qty,\n  source_hours_to_expiry AS hours_left,\n  source_risk_score,\n  waste_savings_est,\n  net_benefit,\n  status\nFROM test.waste_transfer_recommendations\nWHERE recommendation_date >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)\n  AND status = 'PENDING'\nORDER BY net_benefit DESC\nLIMIT 50",
+          "format": "table",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "title": "Daily Waste Cost Trend",
+      "description": "Stacked daily waste cost by shelf-life tier",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 28 },
+      "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "currencyUSD",
+          "decimals": 0,
+          "custom": {
+            "drawStyle": "bars",
+            "fillOpacity": 80,
+            "stacking": { "mode": "normal", "group": "A" },
+            "lineWidth": 1,
+            "barAlignment": 0
+          }
+        },
+        "overrides": [
+          { "matcher": { "id": "byName", "options": "ULTRA_SHORT" }, "properties": [{ "id": "color", "value": { "fixedColor": "red", "mode": "fixed" } }] },
+          { "matcher": { "id": "byName", "options": "SHORT" }, "properties": [{ "id": "color", "value": { "fixedColor": "orange", "mode": "fixed" } }] },
+          { "matcher": { "id": "byName", "options": "MEDIUM" }, "properties": [{ "id": "color", "value": { "fixedColor": "yellow", "mode": "fixed" } }] },
+          { "matcher": { "id": "byName", "options": "LONG" }, "properties": [{ "id": "color", "value": { "fixedColor": "green", "mode": "fixed" } }] }
+        ]
+      },
+      "options": {
+        "legend": { "displayMode": "table", "placement": "bottom", "calcs": ["sum"] },
+        "tooltip": { "mode": "multi", "sort": "desc" }
+      },
+      "targets": [
+        {
+          "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+          "rawSql": "SELECT\n  waste_date AS time,\n  COALESCE(shelf_life_tier, 'UNKNOWN') AS metric,\n  SUM(waste_cost) AS value\nFROM test.waste_daily_detail\nWHERE waste_date BETWEEN $__timeFrom() AND $__timeTo()\n  AND ($__all OR shop_dept_id IN ($store))\nGROUP BY waste_date, shelf_life_tier\nORDER BY waste_date",
+          "format": "time_series",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "title": "Pipeline Health",
+      "description": "Recent pipeline run status and duration",
+      "type": "table",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 28 },
+      "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": [
+          {
+            "matcher": { "id": "byName", "options": "status" },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": { "type": "color-background", "mode": "basic" }
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  { "type": "value", "options": { "SUCCESS": { "color": "green", "text": "SUCCESS" } } },
+                  { "type": "value", "options": { "PARTIAL": { "color": "orange", "text": "PARTIAL" } } },
+                  { "type": "value", "options": { "FAILED": { "color": "red", "text": "FAILED" } } },
+                  { "type": "value", "options": { "RUNNING": { "color": "blue", "text": "RUNNING" } } }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": { "id": "byName", "options": "duration_seconds" },
+            "properties": [{ "id": "unit", "value": "s" }]
+          }
+        ]
+      },
+      "options": {
+        "showHeader": true,
+        "sortBy": [{ "displayName": "run_start", "desc": true }],
+        "cellHeight": "sm"
+      },
+      "targets": [
+        {
+          "datasource": { "type": "mysql", "uid": "${DS_MYSQL}" },
+          "rawSql": "SELECT\n  run_id,\n  step_name,\n  run_start,\n  run_end,\n  duration_seconds,\n  data_date_start AS data_date,\n  status,\n  COALESCE(error_message, '') AS error_message\nFROM test.waste_pipeline_run_log\nWHERE step_name = 'sp_waste_daily_refresh'\nORDER BY run_start DESC\nLIMIT 14",
+          "format": "table",
+          "refId": "A"
+        }
+      ]
+    }
+  ],
+  "version": 1
+}
