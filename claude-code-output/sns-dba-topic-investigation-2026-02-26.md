@@ -92,7 +92,7 @@ However, `sns:ListSubscriptions` (all topics) succeeded. From the global subscri
 |-----------|--------|
 | `sns:ListTopics` | Allowed |
 | `sns:ListSubscriptions` | Allowed |
-| `sns:Subscribe` | **Granted** (LSOP approved, ready to use) |
+| `sns:Subscribe` | **Denied** (LSOP approved but IAM policy NOT yet applied) |
 | `sns:GetTopicAttributes` | Denied |
 | `sns:ListSubscriptionsByTopic` | Denied |
 | `elasticache:DescribeCacheClusters` | Allowed |
@@ -112,7 +112,7 @@ However, `sns:ListSubscriptions` (all topics) succeeded. From the global subscri
 | ElastiCache clusters → wechat topic | **7** |
 | ElastiCache clusters → no notification | **68** |
 | Expected daily notifications | ~3 SnapshotComplete events (09:00-10:00 UTC window) |
-| Can `databasecheck` subscribe emails? | **YES** — `sns:Subscribe` granted |
+| Can `databasecheck` subscribe emails? | **NO** — `sns:Subscribe` denied (IAM policy not yet applied) |
 
 ### Blockers & Limitations
 
@@ -135,7 +135,7 @@ From `/app/elasticache-notification-action-plan-2026-02-11.md`:
 
 | Person | Email | Status |
 |--------|-------|--------|
-| 翔宇 (Xiangyu Zeng) | xiangyu.zeng@lkcoffee.com | Ready to add |
+| 翔宇 (Xiangyu Zeng) | xiangyu.zeng@luckincoffee.us | **BLOCKED** — sns:Subscribe denied |
 | 东尧 (Dongyao) | **NEEDS EMAIL** | Email not confirmed in prior investigation |
 
 ### Action: Awaiting User Confirmation
