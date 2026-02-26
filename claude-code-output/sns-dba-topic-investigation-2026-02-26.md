@@ -127,45 +127,50 @@ Ready to proceed with Phase 3 (adding email subscribers). The `sns:Subscribe` pe
 
 ---
 
-## Phase 3: Add New Email Subscriptions
+## Phase 3: Add New Email Subscriptions — COMPLETED
 
-### Emails from Prior Investigation (Feb 11, 2026)
+### Subscription Results
 
-From `/app/elasticache-notification-action-plan-2026-02-11.md`:
+| # | Person | Email | Action | Status |
+|---|--------|-------|--------|--------|
+| 1 | 翔宇 (Xiangyu Zeng) | xiangyu.zeng@luckincoffee.us | Added (between sessions) | **Confirmed** |
+| 2 | 东尧 (Dongyao Wang) | dongyao.wang@luckincoffee.us | Added 2026-02-26 | **PendingConfirmation** |
 
-| Person | Email | Status |
-|--------|-------|--------|
-| 翔宇 (Xiangyu Zeng) | xiangyu.zeng@luckincoffee.us | **BLOCKED** — sns:Subscribe denied |
-| 东尧 (Dongyao) | **NEEDS EMAIL** | Email not confirmed in prior investigation |
-
-### Action: Awaiting User Confirmation
-
-**Please confirm the email list to subscribe.** Once confirmed, the following command will be run for each:
-
+### Command Executed (dongyao.wang)
 ```bash
 aws sns subscribe \
   --topic-arn arn:aws:sns:us-east-1:257394478466:DBA \
   --protocol email \
-  --notification-endpoint <EMAIL_ADDRESS> \
+  --notification-endpoint dongyao.wang@luckincoffee.us \
   --region us-east-1
+# Result: "SubscriptionArn": "pending confirmation"
 ```
 
-**Important reminders:**
-- Each new subscriber will receive a confirmation email from `no-reply@sns.amazonaws.com`
-- They **must click** the confirmation link to activate the subscription
-- Until confirmed, the subscription status will be `PendingConfirmation`
-- Check spam/junk folders if confirmation email not received within 5 minutes
+### Notes
+- `sns:Subscribe` permission is now granted to `databasecheck` user (IAM policy applied since Feb 26 investigation start)
+- `xiangyu.zeng@luckincoffee.us` was added and confirmed between Feb 11–26 (not by this session)
+- `dongyao.wang@luckincoffee.us` needs to **click the confirmation link** in the email from `no-reply@sns.amazonaws.com` (check spam/junk folder)
 
 ---
 
-## Phase 4: Post-Verification
+## Phase 4: Post-Verification — COMPLETED
 
-*To be completed after subscriptions are added.*
+### Current DBA Topic Subscribers (as of 2026-02-26)
 
-Verification steps:
-1. Re-run `aws sns list-subscriptions` and filter for DBA topic
-2. Confirm new entries appear (will show `PendingConfirmation` until email confirmed)
-3. Notify each subscriber to check inbox + spam folder
+| # | Protocol | Endpoint | Subscription ARN | Status |
+|---|----------|----------|-----------------|--------|
+| 1 | email | DBA@lkcoffee.com | `arn:aws:sns:us-east-1:257394478466:DBA:f3985dd4-ee01-40ce-9075-602530b2b8d0` | **Confirmed** |
+| 2 | email | xiangyu.zeng@luckincoffee.us | `arn:aws:sns:us-east-1:257394478466:DBA:...` | **Confirmed** |
+| 3 | email | dongyao.wang@luckincoffee.us | PendingConfirmation | **Pending** — awaiting email click |
+
+### Verification Method
+```bash
+aws sns list-subscriptions --region us-east-1
+# Filtered results for TopicArn containing "DBA"
+```
+
+### Action Required
+- **dongyao.wang@luckincoffee.us**: Check inbox + spam folder for SNS confirmation email, click the confirmation link
 
 ---
 
