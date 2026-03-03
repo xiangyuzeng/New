@@ -4,10 +4,12 @@ Generated: 2026-03-03
 
 1. NODE INVENTORY
 --------------------------------------
-Source: EKS describe-nodegroup API + ASG instance listing (EKSReadOnly IAM policy)
-Note: kubectl top nodes still blocked — EKSReadOnly covers EKS control plane APIs only.
-      K8s cluster API access requires aws-auth ConfigMap or EKS access entry for IAM user databasecheck.
+Source: EKS describe-nodegroup API + ASG instance listing + CloudWatch EC2 per-instance metrics
+Note: kubectl top nodes still blocked — access entry exists but no access policy associated (403 Forbidden).
+      Two fixes needed: (1) associate AmazonEKSViewPolicy with databasecheck access entry,
+                         (2) install metrics-server addon on both clusters.
       ContainerInsights not enabled — no per-pod CPU/memory breakdown available.
+      CWAgent not installed — no memory utilization metrics available.
 
 Cluster: prod-native-eks-us
   Nodegroup: eksNativeNodegroup
@@ -16,10 +18,10 @@ Cluster: prod-native-eks-us
     K8s Version:   1.34
     AMI Type:      CUSTOM
     Health:        ACTIVE, no issues
-    Instances:
-      i-04f5d14a1fafdea36  us-east-1a  Healthy/InService
-      i-05ebee32958e4dc1c  us-east-1a  Healthy/InService
-      i-09a76a8b0f16c4c39  us-east-1a  Healthy/InService
+    Instances (with 30-day avg CloudWatch EC2 CPUUtilization):
+      i-04f5d14a1fafdea36  us-east-1a  Healthy/InService  1.03% avg CPU
+      i-05ebee32958e4dc1c  us-east-1a  Healthy/InService  1.26% avg CPU
+      i-09a76a8b0f16c4c39  us-east-1a  Healthy/InService  1.44% avg CPU
 
 Cluster: prod-worker01-eks-us
   Nodegroup: eksnodegroupworker
@@ -28,7 +30,7 @@ Cluster: prod-worker01-eks-us
     K8s Version:   1.34
     AMI Type:      CUSTOM
     Health:        ACTIVE, no issues
-    Instances (13x, all us-east-1a, all Healthy/InService):
+    Instances (13x, all us-east-1a, all Healthy/InService, no per-instance CloudWatch data):
       i-008bcc3ebb6540c47  i-02ca1ae2ce2bfc9f9  i-03cf1b8e12e1b27e9
       i-041d95e8b3856f4e1  i-04e08e8ab9e7ebfcd  i-0552e925b8e3fab63
       i-05f2e8b2ab4c57e2e  i-07ceaa4cec1e18cbf  i-08e67ed94b9ac3a9b
@@ -41,7 +43,7 @@ Cluster: prod-worker01-eks-us
     K8s Version:   1.34
     AMI Type:      CUSTOM
     Health:        ACTIVE, no issues
-    Instances (4x, all us-east-1a, all Healthy/InService):
+    Instances (4x, all us-east-1a, all Healthy/InService, per-instance CloudWatch not checked):
       i-01dbd46f2a9fbc18b  i-035fa15e22fbc4e9c
       i-07d3b6c78e99ab1e0  i-0c1c29e7a85e13f4d
 
@@ -147,7 +149,9 @@ Date           Avg %    Max %
 ----------------
 a) SEVERE UNDERUTILIZATION:
    - eksNativeNodegroup (3x m6i.4xlarge): ~1.4% avg CPU across 48 vCPUs (using ~0.7 vCPU)
+     Per-instance CloudWatch confirms: 1.03%, 1.26%, 1.44% avg CPU
    - eksnodegroupworker (13x m6i.8xlarge): ~2.0% avg CPU across 416 vCPUs (using ~8.3 vCPU)
+     Per-instance CloudWatch: not available (ASG-level only)
    - Combined: 464 vCPUs allocated, ~9 vCPU actually used = 98% idle compute
 
 b) COST IMPACT:
@@ -159,12 +163,21 @@ c) RIGHTSIZING OPPORTUNITY:
    - eksnodegroupworker may need analysis of memory/network before downsizing
    - Memory and network metrics needed for complete rightsizing recommendation
 
-d) RECOMMENDATIONS:
-   1. Enable ContainerInsights on both clusters for per-pod resource visibility
-   2. Collect memory utilization data (CloudWatch MemoryUtilization if available)
-   3. Analyze pod resource requests/limits vs actual usage before rightsizing
-   4. Consider Karpenter for dynamic node provisioning based on actual demand
-   5. Graviton migration (15% savings) is confirmed safe given low utilization headroom
+d) ACCESS GAPS (blocking kubectl top nodes):
+   - Access entry exists for databasecheck on both clusters (authentication OK)
+   - No access policy associated → 403 Forbidden on all K8s API calls
+   - Fix: associate AmazonEKSViewPolicy or AmazonEKSClusterAdminPolicy
+   - Metrics Server addon not installed → kubectl top will fail even with full RBAC
+   - Fix: aws eks create-addon --addon-name metrics-server on both clusters
+
+e) RECOMMENDATIONS:
+   1. Associate access policy with databasecheck access entry on both clusters
+   2. Install metrics-server addon on both clusters for kubectl top
+   3. Enable ContainerInsights on both clusters for per-pod resource visibility
+   4. Install CWAgent for memory utilization metrics
+   5. Analyze pod resource requests/limits vs actual usage before rightsizing
+   6. Consider Karpenter for dynamic node provisioning based on actual demand
+   7. Graviton migration (15% savings) is confirmed safe given low utilization headroom
 
 6. CROSS-REFERENCE
 -------------------
