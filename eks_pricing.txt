@@ -1,0 +1,98 @@
+EKS Cost Optimization — Pricing & Inventory Summary
+Generated: 2026-03-03
+============================================================
+
+1. EKS CLUSTER NODEGROUPS (us-east-1)
+--------------------------------------
+Cluster: prod-native-eks-us
+  Nodegroup: eksNativeNodegroup (baseline: 3x m6i.4xlarge)
+
+Cluster: prod-worker01-eks-us
+  Nodegroup: eksnodegroupworker (baseline: 13x m6i.8xlarge)
+  Nodegroup: nodegroup           (baseline: 4x m6i.4xlarge)
+
+2. ON-DEMAND PRICING (us-east-1, Linux, Shared)
+-------------------------------------------------
+Type            vCPU  RAM(GiB)  USD/hr     Monthly(730h)  EDP Monthly(x0.69)
+m6i.4xlarge      16    64       $0.7680    $560.64        $386.84
+m6i.8xlarge      32   128       $1.5360    $1,121.28      $773.68
+m7g.4xlarge      16    64       $0.6528    $476.54        $328.82
+m7g.8xlarge      32   128       $1.3056    $953.09        $657.63
+
+Graviton (m7g) savings vs Intel (m6i):
+  4xlarge: $0.768 → $0.6528 = 15.0% cheaper
+  8xlarge: $1.536 → $1.3056 = 15.0% cheaper
+
+3. CURRENT MONTHLY COST (On-Demand @ EDP 0.69)
+------------------------------------------------
+Cluster: prod-native-eks-us
+  3x m6i.4xlarge: 3 × $386.84 = $1,160.53/mo
+
+Cluster: prod-worker01-eks-us
+  13x m6i.8xlarge: 13 × $773.68 = $10,057.90/mo
+   4x m6i.4xlarge:  4 × $386.84 =  $1,547.37/mo
+  Subtotal:                        $11,605.27/mo
+
+TOTAL EKS COMPUTE (EDP): $12,765.80/mo
+
+4. GRAVITON MIGRATION SCENARIO (m6i → m7g, same sizes)
+-------------------------------------------------------
+Cluster: prod-native-eks-us
+  3x m7g.4xlarge: 3 × $328.82 = $986.45/mo (was $1,160.53)
+
+Cluster: prod-worker01-eks-us
+  13x m7g.8xlarge: 13 × $657.63 = $8,549.22/mo
+   4x m7g.4xlarge:  4 × $328.82 = $1,315.27/mo
+  Subtotal:                       $9,864.49/mo
+
+TOTAL AFTER GRAVITON (EDP): $10,850.94/mo
+SAVINGS: $1,914.86/mo ($22,978/yr) = 15.0%
+
+5. ACTIVE RESERVED INSTANCES (EKS-relevant)
+---------------------------------------------
+Type             Count   End Date     Offering
+m6i.4xlarge          7   2026-08-27   No Upfront
+m6i.8xlarge         13   2026-08-27   No Upfront
+
+Note: 7x m6i.4xlarge RIs cover all 7 EKS nodes (3 native + 4 worker).
+      13x m6i.8xlarge RIs cover all 13 worker nodes exactly.
+      RIs expire 2026-08-27 (~6 months). Plan renewal or Graviton migration.
+
+All active RIs (15 total):
+Type             Count   End Date     Offering
+c5.large             1   2026-08-28   No Upfront
+c6i.2xlarge          7   2026-08-28   No Upfront
+c6i.4xlarge          1   2026-08-28   No Upfront
+c6i.large          129   2026-08-28   No Upfront
+c6i.xlarge          29   2026-08-28   No Upfront
+m4.large             1   2026-08-28   No Upfront
+m4.xlarge            1   2026-08-27   No Upfront
+m5.xlarge            5   2026-08-27   No Upfront
+m6a.large            3   2026-08-27   No Upfront
+m6a.xlarge           2   2026-08-27   No Upfront
+m6i.4xlarge          7   2026-08-27   No Upfront
+m6i.8xlarge         13   2026-08-27   No Upfront
+r6i.2xlarge          2   2026-08-28   No Upfront
+r6i.4xlarge          1   2026-08-27   No Upfront
+
+6. SAVINGS PLANS
+-----------------
+Status: NO ACTIVE SAVINGS PLANS (confirmed via savingsplans:DescribeSavingsPlans API).
+Conclusion: Account relies solely on Reserved Instances for compute discounts.
+Opportunity: Compute Savings Plans offer up to 66% discount and flex across instance families,
+             making them ideal for Graviton migration (m6i → m7g won't break coverage).
+
+7. RECOMMENDATIONS
+-------------------
+a) SHORT-TERM (before RI expiry 2026-08-27):
+   - Current RIs cover all EKS nodes exactly — no action needed until expiry.
+   - Begin Graviton (m7g) compatibility testing on non-prod workloads.
+
+b) AT RI RENEWAL (Aug 2026):
+   - Migrate to m7g (Graviton) instances before purchasing new RIs.
+   - Purchase m7g RIs instead of m6i RIs → save 15% on compute.
+   - Consider Compute Savings Plans for flexibility across instance families.
+
+c) POTENTIAL ANNUAL SAVINGS:
+   - Graviton migration alone: ~$22,978/yr (15%)
+   - Graviton + Savings Plans (vs On-Demand): additional 20-30% possible.
