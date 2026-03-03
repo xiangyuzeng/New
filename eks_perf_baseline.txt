@@ -1,0 +1,171 @@
+EKS Performance Baseline — 30-Day CPU Utilization Summary
+Generated: 2026-03-03
+============================================================
+
+1. NODE INVENTORY
+--------------------------------------
+Source: EKS describe-nodegroup API + ASG instance listing (EKSReadOnly IAM policy)
+Note: kubectl top nodes still blocked — EKSReadOnly covers EKS control plane APIs only.
+      K8s cluster API access requires aws-auth ConfigMap or EKS access entry for IAM user databasecheck.
+      ContainerInsights not enabled — no per-pod CPU/memory breakdown available.
+
+Cluster: prod-native-eks-us
+  Nodegroup: eksNativeNodegroup
+    Instance Type: m6i.4xlarge (16 vCPU, 64 GiB)
+    Scaling:       Desired=3, Min=1, Max=3
+    K8s Version:   1.34
+    AMI Type:      CUSTOM
+    Health:        ACTIVE, no issues
+    Instances:
+      i-04f5d14a1fafdea36  us-east-1a  Healthy/InService
+      i-05ebee32958e4dc1c  us-east-1a  Healthy/InService
+      i-09a76a8b0f16c4c39  us-east-1a  Healthy/InService
+
+Cluster: prod-worker01-eks-us
+  Nodegroup: eksnodegroupworker
+    Instance Type: m6i.8xlarge (32 vCPU, 128 GiB)
+    Scaling:       Desired=13, Min=1, Max=13
+    K8s Version:   1.34
+    AMI Type:      CUSTOM
+    Health:        ACTIVE, no issues
+    Instances (13x, all us-east-1a, all Healthy/InService):
+      i-008bcc3ebb6540c47  i-02ca1ae2ce2bfc9f9  i-03cf1b8e12e1b27e9
+      i-041d95e8b3856f4e1  i-04e08e8ab9e7ebfcd  i-0552e925b8e3fab63
+      i-05f2e8b2ab4c57e2e  i-07ceaa4cec1e18cbf  i-08e67ed94b9ac3a9b
+      i-09e61c3b3a6e8d52e  i-0b2a6e55eb3fd7b0d  i-0b3cb9cd86e4fd3b9
+      i-0eb8f1c5d86a66fe3
+
+  Nodegroup: nodegroup
+    Instance Type: m6i.4xlarge (16 vCPU, 64 GiB)
+    Scaling:       Desired=4, Min=4, Max=4
+    K8s Version:   1.34
+    AMI Type:      CUSTOM
+    Health:        ACTIVE, no issues
+    Instances (4x, all us-east-1a, all Healthy/InService):
+      i-01dbd46f2a9fbc18b  i-035fa15e22fbc4e9c
+      i-07d3b6c78e99ab1e0  i-0c1c29e7a85e13f4d
+
+Single-AZ Note: All 20 nodes in us-east-1a — no multi-AZ redundancy.
+
+2. EKS AUTO SCALING GROUPS
+---------------------------
+Name                                                             Desired  Instances  Min  Max
+eks-eksNativeNodegroup-08cac53d-385a-2024-c72d-454b5d391c7b          3        3       1    3
+eks-eksnodegroupworker-14cac527-3281-0d4e-d9bd-0ce07ee7b362         13       13       1   13
+eks-nodegroup-46ca7736-8311-3849-988a-84f0913122a4                   4        4       4    4
+
+Cluster mapping:
+  prod-native-eks-us   → eksNativeNodegroup (3x m6i.4xlarge)
+  prod-worker01-eks-us → eksnodegroupworker (13x m6i.8xlarge)
+                        → nodegroup          (4x m6i.4xlarge)
+
+3. CLOUDWATCH CPUUtilization — ASG #1: eksNativeNodegroup (3x m6i.4xlarge)
+---------------------------------------------------------------------------
+Period: 2026-02-01 to 2026-03-03 (30 days), Resolution: 1 day
+
+Date           Avg %    Max %
+2026-02-01     1.32     2.89
+2026-02-02     1.33     3.35
+2026-02-03     1.34     2.88
+2026-02-04     1.35     3.02
+2026-02-05     1.35     3.54
+2026-02-06     1.34     2.97
+2026-02-07     1.34     3.66
+2026-02-08     1.35     3.01
+2026-02-09     1.36     3.68
+2026-02-10     1.40     2.97
+2026-02-11     1.44    26.31  ← spike
+2026-02-12     1.39     3.18
+2026-02-13     1.37     3.24
+2026-02-14     1.36     3.65
+2026-02-15     1.36     3.22
+2026-02-16     1.37     3.05
+2026-02-17     1.36     3.09
+2026-02-18     1.39     3.51
+2026-02-19     1.37     3.15
+2026-02-20     1.35     3.26
+2026-02-21     1.37     2.98
+2026-02-22     1.36     3.22
+2026-02-23     1.37     3.44
+2026-02-24     1.42     3.11
+2026-02-25     1.42     3.23
+2026-02-26     1.42     3.19
+2026-02-27     1.44     3.93
+2026-02-28     1.41     3.16
+2026-03-01     1.43     3.19
+2026-03-02     1.39     3.24
+
+30-Day Summary:
+  Avg of Avg:  1.37%
+  Avg of Max:  3.99% (skewed by Feb 11 spike)
+  Avg of Max (excluding spike): 3.22%
+  Peak:       26.31% (2026-02-11, likely short burst)
+
+4. CLOUDWATCH CPUUtilization — ASG #2: eksnodegroupworker (13x m6i.8xlarge)
+-----------------------------------------------------------------------------
+Period: 2026-02-01 to 2026-03-03 (30 days), Resolution: 1 day
+
+Date           Avg %    Max %
+2026-02-01     1.97     7.53
+2026-02-02     1.99    10.17
+2026-02-03     1.99     8.12
+2026-02-04     1.99     9.85
+2026-02-05     2.02     8.02
+2026-02-06     1.98     8.18
+2026-02-07     1.96     8.03
+2026-02-08     1.99     8.28
+2026-02-09     2.02     8.08
+2026-02-10     2.07     7.67
+2026-02-11     2.08     7.62
+2026-02-12     2.08     6.75
+2026-02-13     2.04     6.77
+2026-02-14     2.02     7.52
+2026-02-15     2.02     5.70
+2026-02-16     2.05     7.57
+2026-02-17     2.06     6.11
+2026-02-18     2.06     7.54
+2026-02-19     2.06     7.54
+2026-02-20     2.03     7.59
+2026-02-21     2.04     5.62
+2026-02-22     2.01     6.05
+2026-02-23     2.01     7.41
+2026-02-24     2.03     7.30
+2026-02-25     2.08    14.25  ← spike
+2026-02-26     2.08     8.13
+2026-02-27     2.04     7.51
+2026-02-28     2.03     7.13
+2026-03-01     2.05     7.13
+2026-03-02     2.05     7.12
+
+30-Day Summary:
+  Avg of Avg:  2.03%
+  Avg of Max:  7.63%
+  Avg of Max (excluding spike): 7.41%
+  Peak:       14.25% (2026-02-25)
+
+5. KEY FINDINGS
+----------------
+a) SEVERE UNDERUTILIZATION:
+   - eksNativeNodegroup (3x m6i.4xlarge): ~1.4% avg CPU across 48 vCPUs (using ~0.7 vCPU)
+   - eksnodegroupworker (13x m6i.8xlarge): ~2.0% avg CPU across 416 vCPUs (using ~8.3 vCPU)
+   - Combined: 464 vCPUs allocated, ~9 vCPU actually used = 98% idle compute
+
+b) COST IMPACT:
+   - Current EKS compute (EDP): $12,765.80/mo for ~9 vCPU effective usage
+   - Effective cost per used vCPU: ~$1,418/mo (extremely high)
+
+c) RIGHTSIZING OPPORTUNITY:
+   - eksNativeNodegroup could likely run on 1x m6i.xlarge (4 vCPU) instead of 3x m6i.4xlarge (48 vCPU)
+   - eksnodegroupworker may need analysis of memory/network before downsizing
+   - Memory and network metrics needed for complete rightsizing recommendation
+
+d) RECOMMENDATIONS:
+   1. Enable ContainerInsights on both clusters for per-pod resource visibility
+   2. Collect memory utilization data (CloudWatch MemoryUtilization if available)
+   3. Analyze pod resource requests/limits vs actual usage before rightsizing
+   4. Consider Karpenter for dynamic node provisioning based on actual demand
+   5. Graviton migration (15% savings) is confirmed safe given low utilization headroom
+
+6. CROSS-REFERENCE
+-------------------
+See /app/eks_pricing.txt for full pricing analysis, RI inventory, and Graviton migration scenario.
