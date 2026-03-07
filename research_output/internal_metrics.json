@@ -1,0 +1,143 @@
+{
+  "extracted": "2026-03-07",
+  "data_window": "2026-02-05 to 2026-03-06",
+  "source": "Production MySQL (aws-luckyus-salesorder-rw, aws-luckyus-pubdm-rw)",
+  "notes": "Test stores excluded (shop_id NOT IN 0, 1138, 1089). Completed orders only (status=90).",
+
+  "business_metrics": {
+    "daily_average_orders": 2791,
+    "daily_average_revenue": 13930,
+    "average_order_value": 5.01,
+    "total_registered_users": 277000,
+    "cumulative_completed_orders": 466000,
+    "cumulative_revenue": 2190000,
+    "active_stores": 11,
+    "store_locations": "10 Manhattan + 1 JFK Airport kiosk",
+    "monthly_growth": [
+      {"month": "2025-07", "orders": 38268, "revenue": 151908, "unique_customers": 21836, "active_stores": 6},
+      {"month": "2025-08", "orders": 43311, "revenue": 188947, "unique_customers": 26321, "active_stores": 6},
+      {"month": "2025-09", "orders": 66496, "revenue": 312218, "unique_customers": 31981, "active_stores": 8},
+      {"month": "2025-10", "orders": 69734, "revenue": 338475, "unique_customers": 32041, "active_stores": 7},
+      {"month": "2025-11", "orders": 61817, "revenue": 292295, "unique_customers": 30263, "active_stores": 8},
+      {"month": "2025-12", "orders": 71419, "revenue": 354570, "unique_customers": 35700, "active_stores": 10},
+      {"month": "2026-01", "orders": 73368, "revenue": 362868, "unique_customers": 34533, "active_stores": 10},
+      {"month": "2026-02", "orders": 74853, "revenue": 375436, "unique_customers": 35608, "active_stores": 11},
+      {"month": "2026-03", "orders": 19590, "revenue": 96939, "unique_customers": 13625, "active_stores": 11, "note": "partial month through Mar 6"}
+    ],
+    "growth_highlights": {
+      "orders_growth_jul_to_feb": "95.7% (38K → 75K)",
+      "revenue_growth_jul_to_feb": "147.2% ($152K → $375K)",
+      "store_expansion_jul_to_feb": "6 → 11 stores",
+      "customer_growth_jul_to_feb": "63.1% (21.8K → 35.6K unique monthly)"
+    }
+  },
+
+  "product_intelligence": {
+    "total_active_skus_in_mdm": 1447,
+    "top_20_products_by_volume": [
+      {"rank": 1, "product": "Iced Coconut Latte", "units_sold": 8725, "avg_list_price": 6.00, "avg_paid_price": 3.00, "discount_pct": 46.7},
+      {"rank": 2, "product": "Latte", "units_sold": 7541, "avg_list_price": 6.00, "avg_paid_price": 3.00, "discount_pct": 43.7},
+      {"rank": 3, "product": "Iced Kyoto Matcha Latte", "units_sold": 6903, "avg_list_price": 6.00, "avg_paid_price": 3.00, "discount_pct": 47.8},
+      {"rank": 4, "product": "Sausage Egg & Cheese Croissant", "units_sold": 6212, "avg_list_price": 6.00, "avg_paid_price": 4.00, "discount_pct": 32.8},
+      {"rank": 5, "product": "Iced Latte", "units_sold": 5197, "avg_list_price": 6.00, "avg_paid_price": 3.00, "discount_pct": 40.7},
+      {"rank": 6, "product": "Drip Coffee", "units_sold": 4984, "avg_list_price": 3.00, "avg_paid_price": 2.00, "discount_pct": 35.8},
+      {"rank": 7, "product": "Iced Tiramisu Latte", "units_sold": 4248, "avg_list_price": 7.00, "avg_paid_price": 4.00, "discount_pct": 51.3},
+      {"rank": 8, "product": "Cold Brew", "units_sold": 4058, "avg_list_price": 5.00, "avg_paid_price": 3.00, "discount_pct": 35.7},
+      {"rank": 9, "product": "Coconut Latte", "units_sold": 3706, "avg_list_price": 6.00, "avg_paid_price": 3.00, "discount_pct": 47.4},
+      {"rank": 10, "product": "Tiramisu Latte", "units_sold": 3266, "avg_list_price": 7.00, "avg_paid_price": 4.00, "discount_pct": 51.5},
+      {"rank": 11, "product": "Iced Velvet Latte", "units_sold": 3199, "avg_list_price": 6.00, "avg_paid_price": 4.00, "discount_pct": 42.8},
+      {"rank": 12, "product": "Kyoto Matcha Latte", "units_sold": 3145, "avg_list_price": 6.00, "avg_paid_price": 3.00, "discount_pct": 46.6},
+      {"rank": 13, "product": "Americano", "units_sold": 3035, "avg_list_price": 4.00, "avg_paid_price": 3.00, "discount_pct": 34.8},
+      {"rank": 14, "product": "Iced Caramel Popcorn Latte", "units_sold": 2678, "avg_list_price": 7.00, "avg_paid_price": 4.00, "discount_pct": 47.1},
+      {"rank": 15, "product": "Iced Kyoto Matcha Coconut", "units_sold": 2514, "avg_list_price": 7.00, "avg_paid_price": 3.00, "discount_pct": 48.3},
+      {"rank": 16, "product": "Cappuccino", "units_sold": 2448, "avg_list_price": 6.00, "avg_paid_price": 3.00, "discount_pct": 42.5},
+      {"rank": 17, "product": "Iced Americano", "units_sold": 2312, "avg_list_price": 4.00, "avg_paid_price": 3.00, "discount_pct": 36.1},
+      {"rank": 18, "product": "Velvet Latte", "units_sold": 2243, "avg_list_price": 6.00, "avg_paid_price": 4.00, "discount_pct": 42.9},
+      {"rank": 19, "product": "Pistachio Oat Latte", "units_sold": 1840, "avg_list_price": 7.00, "avg_paid_price": 4.00, "discount_pct": 49.4},
+      {"rank": 20, "product": "Iced Spanish Latte", "units_sold": 1828, "avg_list_price": 7.00, "avg_paid_price": 4.00, "discount_pct": 42.4}
+    ],
+    "menu_categories": {
+      "signature_drinks": ["Coconut Latte", "Iced Coconut Latte", "Kyoto Matcha Latte", "Iced Kyoto Matcha Latte", "Iced Kyoto Matcha Coconut"],
+      "classic_coffee": ["Latte", "Iced Latte", "Americano", "Iced Americano", "Cappuccino", "Drip Coffee", "Cold Brew"],
+      "specialty_lattes": ["Tiramisu Latte", "Iced Tiramisu Latte", "Velvet Latte", "Iced Velvet Latte", "Caramel Popcorn Latte", "Iced Caramel Popcorn Latte", "Pistachio Oat Latte", "Spanish Latte", "Iced Spanish Latte"],
+      "food": ["Sausage Egg & Cheese Croissant", "Muffins", "Cookies", "Cakes", "Sandwiches", "Bread"]
+    }
+  },
+
+  "customer_behavior": {
+    "new_customers_per_week": 4224,
+    "new_customer_tracking_weeks": 37,
+    "repeat_customer_rate": 37.9,
+    "hourly_order_heatmap_est": [
+      {"hour_est": "07:00", "orders": 4319, "revenue": 22930, "pct_of_daily": 5.2},
+      {"hour_est": "08:00", "orders": 10612, "revenue": 52633, "pct_of_daily": 12.7},
+      {"hour_est": "09:00", "orders": 11368, "revenue": 58078, "pct_of_daily": 13.6, "note": "PEAK HOUR"},
+      {"hour_est": "10:00", "orders": 8887, "revenue": 46155, "pct_of_daily": 10.6},
+      {"hour_est": "11:00", "orders": 7292, "revenue": 38514, "pct_of_daily": 8.7},
+      {"hour_est": "12:00", "orders": 8165, "revenue": 40772, "pct_of_daily": 9.8},
+      {"hour_est": "13:00", "orders": 8461, "revenue": 40951, "pct_of_daily": 10.1},
+      {"hour_est": "14:00", "orders": 7036, "revenue": 33369, "pct_of_daily": 8.4},
+      {"hour_est": "15:00", "orders": 6152, "revenue": 29922, "pct_of_daily": 7.3},
+      {"hour_est": "16:00", "orders": 4603, "revenue": 21768, "pct_of_daily": 5.5},
+      {"hour_est": "17:00", "orders": 3476, "revenue": 16622, "pct_of_daily": 4.2},
+      {"hour_est": "18:00", "orders": 1947, "revenue": 9329, "pct_of_daily": 2.3},
+      {"hour_est": "19:00", "orders": 1208, "revenue": 5789, "pct_of_daily": 1.4},
+      {"hour_est": "20:00", "orders": 201, "revenue": 1056, "pct_of_daily": 0.2}
+    ],
+    "peak_hours_summary": {
+      "morning_rush_7am_10am": {"pct_of_orders": 42.1, "note": "Strongest demand window"},
+      "lunch_11am_2pm": {"pct_of_orders": 37.0, "note": "Second peak with food attach"},
+      "afternoon_3pm_5pm": {"pct_of_orders": 17.0},
+      "evening_6pm_8pm": {"pct_of_orders": 3.9}
+    }
+  },
+
+  "pricing_discounts": {
+    "category_level": [
+      {"category": "Drink", "units": 100547, "avg_list_price": 6.00, "avg_paid_price": 3.00, "discount_pct": 45.4, "total_revenue": 341172},
+      {"category": "Food", "units": 10443, "avg_list_price": 6.00, "avg_paid_price": 4.00, "discount_pct": 27.5, "total_revenue": 42406}
+    ],
+    "drink_to_food_ratio": "90.6% drinks / 9.4% food by units",
+    "revenue_split": "89.0% drinks / 11.0% food by revenue",
+    "pricing_strategy_summary": {
+      "drip_coffee": {"list": 3.00, "effective": 2.00, "note": "Entry-level, lowest price point"},
+      "classic_lattes": {"list": 6.00, "effective": 3.00, "note": "Core menu, ~42% discount"},
+      "specialty_lattes": {"list": 7.00, "effective": 4.00, "note": "Premium drinks, ~48% discount"},
+      "food_items": {"list": 6.00, "effective": 4.00, "note": "Lower discount to protect margins"},
+      "vs_starbucks": "Luckin effective price $3-4 vs Starbucks $5-7 for equivalent drinks — 40-50% cheaper"
+    }
+  },
+
+  "channel_mix": {
+    "channels": [
+      {"code": 2, "name": "Luckin App", "orders": 70055, "pct": 83.7, "avg_order_value": 5.00, "stores_using": 11},
+      {"code": 1, "name": "Walk-in / POS", "orders": 7641, "pct": 9.1, "avg_order_value": 5.00, "stores_using": 11},
+      {"code": 3, "name": "Third-party Delivery", "orders": 4817, "pct": 5.8, "avg_order_value": 7.00, "stores_using": 11},
+      {"code": 10, "name": "Catering / Bulk", "orders": 571, "pct": 0.7, "avg_order_value": 17.00, "stores_using": 9},
+      {"code": 8, "name": "Catering / Bulk", "orders": 463, "pct": 0.6, "avg_order_value": 17.00, "stores_using": 9},
+      {"code": 9, "name": "Corporate Orders", "orders": 180, "pct": 0.2, "avg_order_value": 16.00, "stores_using": 8}
+    ],
+    "summary": {
+      "app_first_model": "83.7% of all orders through Luckin App — true digital-native coffee brand",
+      "delivery_premium": "Third-party delivery AOV ($7) is 40% higher than app/walk-in ($5)",
+      "catering_opportunity": "Catering/corporate orders have 3x higher AOV ($16-17) but only 1.5% of volume"
+    }
+  },
+
+  "infrastructure": {
+    "aws_account": "257394478466",
+    "aws_region": "us-east-1",
+    "database_instances": 143,
+    "ec2_instances": 233,
+    "redis_clusters": 78,
+    "kafka_clusters": 2,
+    "kafka_topics": 308,
+    "eks_clusters": 3,
+    "documentdb_instances": 4,
+    "opensearch_clusters": 2,
+    "monthly_aws_spend": 49645,
+    "ai_use_cases_planned": 41,
+    "ai_departments_covered": 7,
+    "tech_stack_summary": "Cloud-native on AWS with MySQL, Redis, Kafka, Kubernetes, and AI/ML pipeline — same architecture powering 20,000+ stores in China"
+  }
+}
