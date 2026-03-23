@@ -1,0 +1,242 @@
+{
+  "report_metadata": {
+    "report_title": "Online vs Offline Registration Channel Attribution",
+    "report_date": "2026-03-23",
+    "date_range": {
+      "start": "2026-02-01",
+      "end": "2026-03-22"
+    },
+    "author": "David Zeng (DBA/Infrastructure Team)",
+    "requested_by": "Mai Shi (Marketing Manager)",
+    "data_source": "salescrm.t_user + salescrm.t_user_profile (aws-luckyus-salescrm-rw)"
+  },
+  "total_registrations": 37639,
+  "channels": {
+    "online": {
+      "total": 31409,
+      "percentage": 83.4,
+      "breakdown": [
+        {
+          "channel": "iOS App Store",
+          "origin_code": 6,
+          "users": 24645,
+          "percentage_of_total": 65.5,
+          "confidence": "high",
+          "method": "Direct count from salescrm.t_user origin=6"
+        },
+        {
+          "channel": "Android Google Play",
+          "origin_code": 5,
+          "users": 2713,
+          "percentage_of_total": 7.2,
+          "confidence": "high",
+          "method": "Direct count from salescrm.t_user origin=5"
+        },
+        {
+          "channel": "Referral / Friend Invite",
+          "origin_code": 4,
+          "users": 2712,
+          "percentage_of_total": 7.2,
+          "confidence": "high",
+          "method": "JOIN t_user (origin=4) with t_invitation_record"
+        },
+        {
+          "channel": "GGLMAP / Google Maps",
+          "origin_code": 4,
+          "users": 545,
+          "percentage_of_total": 1.4,
+          "confidence": "low",
+          "method": "Extrapolated from Mar 19 CDP sample (5.3% of H5)"
+        },
+        {
+          "channel": "Direct H5 / Other Online",
+          "origin_code": 4,
+          "users": 794,
+          "percentage_of_total": 2.1,
+          "confidence": "low",
+          "method": "Residual after subtracting referral, QR, GGLMAP from H5 total"
+        }
+      ]
+    },
+    "offline": {
+      "total": 6230,
+      "percentage": 16.6,
+      "breakdown": [
+        {
+          "channel": "In-store QR Scan",
+          "origin_code": 4,
+          "users": 6230,
+          "percentage_of_total": 16.6,
+          "confidence": "medium",
+          "method": "Timing proxy (registration-to-first-order < 15min, mixing model with iOS baseline)",
+          "estimation_range": {
+            "low": 6059,
+            "high": 6816,
+            "model_a_referral_baseline": 6816,
+            "model_b_ios_baseline": 6059,
+            "headline_uses": "model_b_conservative"
+          }
+        }
+      ],
+      "notes": [
+        "No Kiosk (origin=10), GrabFood (origin=11), EPoint (origin=12), or Foodpanda (origin=13) users exist",
+        "Offline is 100% in-store QR scan",
+        "QR touchpoint breakdown (A-frame vs counter vs table) is NOT available"
+      ]
+    }
+  },
+  "weekly_data": [
+    {
+      "week_label": "W1 Feb 1-7",
+      "ios": 2659,
+      "android": 297,
+      "h5_total": 1204,
+      "h5_referral": 355,
+      "h5_non_referral": 849,
+      "qr_estimate": 696,
+      "total": 4160,
+      "online_pct": 83.3,
+      "offline_pct": 16.7
+    },
+    {
+      "week_label": "W2 Feb 8-14",
+      "ios": 3036,
+      "android": 321,
+      "h5_total": 1315,
+      "h5_referral": 348,
+      "h5_non_referral": 967,
+      "qr_estimate": 793,
+      "total": 4672,
+      "online_pct": 83.0,
+      "offline_pct": 17.0
+    },
+    {
+      "week_label": "W3 Feb 15-21",
+      "ios": 3341,
+      "android": 375,
+      "h5_total": 1387,
+      "h5_referral": 333,
+      "h5_non_referral": 1054,
+      "qr_estimate": 864,
+      "total": 5103,
+      "online_pct": 83.1,
+      "offline_pct": 16.9
+    },
+    {
+      "week_label": "W4 Feb 22-28",
+      "ios": 2732,
+      "android": 345,
+      "h5_total": 1109,
+      "h5_referral": 320,
+      "h5_non_referral": 789,
+      "qr_estimate": 647,
+      "total": 4186,
+      "online_pct": 84.5,
+      "offline_pct": 15.5
+    },
+    {
+      "week_label": "W1 Mar 1-7",
+      "ios": 3692,
+      "android": 400,
+      "h5_total": 1529,
+      "h5_referral": 426,
+      "h5_non_referral": 1103,
+      "qr_estimate": 904,
+      "total": 5621,
+      "online_pct": 83.9,
+      "offline_pct": 16.1
+    },
+    {
+      "week_label": "W2 Mar 8-14",
+      "ios": 4567,
+      "android": 458,
+      "h5_total": 1846,
+      "h5_referral": 468,
+      "h5_non_referral": 1378,
+      "qr_estimate": 1130,
+      "total": 6871,
+      "online_pct": 83.6,
+      "offline_pct": 16.4
+    },
+    {
+      "week_label": "W3 Mar 15-21",
+      "ios": 3963,
+      "android": 435,
+      "h5_total": 1667,
+      "h5_referral": 418,
+      "h5_non_referral": 1249,
+      "qr_estimate": 1024,
+      "total": 6065,
+      "online_pct": 83.1,
+      "offline_pct": 16.9
+    },
+    {
+      "week_label": "W4 Mar 22",
+      "ios": 655,
+      "android": 82,
+      "h5_total": 224,
+      "h5_referral": 44,
+      "h5_non_referral": 180,
+      "qr_estimate": 148,
+      "total": 961,
+      "online_pct": 84.6,
+      "offline_pct": 15.4
+    }
+  ],
+  "timing_proxy": {
+    "description": "Registration-to-first-order timing analysis using t_user_profile.first_pay_time",
+    "segments": {
+      "h5_non_referral": {
+        "total": 7380,
+        "within_15min": 6831,
+        "within_15min_pct": 92.6
+      },
+      "ios_control": {
+        "total": 24599,
+        "within_15min": 17815,
+        "within_15min_pct": 72.4
+      },
+      "android_control": {
+        "total": 2704,
+        "within_15min": 1776,
+        "within_15min_pct": 65.7
+      },
+      "h5_referral": {
+        "total": 2705,
+        "within_15min": 1056,
+        "within_15min_pct": 39.0
+      }
+    },
+    "mixing_model": {
+      "formula": "observed_rate = x * QR_rate + (1-x) * online_rate",
+      "qr_rate_assumed": 0.97,
+      "model_a": {
+        "online_baseline": "referral (39.0%)",
+        "qr_share": 0.924,
+        "qr_users": 6816
+      },
+      "model_b": {
+        "online_baseline": "iOS (72.4%)",
+        "qr_share": 0.821,
+        "qr_users": 6059
+      },
+      "headline_estimate": {
+        "model_used": "model_b_conservative",
+        "qr_pct_of_non_referral_h5": 82,
+        "qr_users": 6230
+      }
+    },
+    "weekly_consistency": {
+      "min_rate": 89.9,
+      "max_rate": 94.4,
+      "range_pp": 4.5,
+      "assessment": "Remarkably stable across all 8 weeks"
+    }
+  },
+  "verification": {
+    "origin_sum_check": "24645 + 2713 + 10281 = 37639 ✓",
+    "h5_decomposition_check": "2712 + 545 + 794 + 6230 = 10281 ✓",
+    "online_offline_check": "31409 + 6230 = 37639 ✓",
+    "weekly_timing_consistency": "90-94% across all 8 weeks ✓"
+  }
+}
