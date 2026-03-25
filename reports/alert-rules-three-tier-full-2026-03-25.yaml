@@ -1,0 +1,1878 @@
+# Luckin Coffee USA — Full Three-Tier Alert Rules
+# Generated: 2026-03-25
+# Coverage: 10 categories, all rules expanded to Info / Warning / Critical
+#
+# Notification routing (Alertmanager):
+#   Info     → WeChat info channel, no phone, silent 05:00–11:00 UTC, repeat 4h
+#   Warning  → WeChat alert channel, on-call lead phone, silent 07:00–11:00 UTC, repeat 1h
+#   Critical → WeChat severe channel, all DevOps phone (24/7), repeat 15m
+#
+# Inhibit rules (Alertmanager inhibit_rules — configure separately):
+#   - Critical inhibits Warning + Info for same alertname_prefix + instance
+#   - RDS_Failover inhibits RDS_VipUnreachable + RDS_CpuUsage + RDS_ActiveThreads (same instance)
+#   - K8S_OomKilled inhibits K8S_PodRestart (same pod + namespace)
+#   - RDS_VipUnreachable inhibits BIZ_OrderVolume + BIZ_PaymentAmount (same env)
+
+groups:
+
+# ============================================================
+# BIZ — Business Metrics
+# ============================================================
+- name: biz.rules
+  rules:
+
+  # --- Order Volume ---
+  - alert: BIZ_OrderVolumeInfo
+    expr: sum(increase(business_completed_orders_total[10m])) < 20
+    for: 10m
+    labels:
+      severity: info
+      category: biz
+    annotations:
+      summary: "订单量偏低 (Info)"
+      description: "最近 10 分钟完成订单 < 20 单，当前值: {{ $value | printf \"%.0f\" }}"
+
+  - alert: BIZ_OrderVolumeWarning
+    expr: sum(increase(business_completed_orders_total[10m])) < 10
+    for: 10m
+    labels:
+      severity: warning
+      category: biz
+    annotations:
+      summary: "订单量明显下降 (Warning)"
+      description: "最近 10 分钟完成订单 < 10 单，当前值: {{ $value | printf \"%.0f\" }}"
+
+  - alert: BIZ_OrderVolumeCritical
+    expr: sum(increase(business_completed_orders_total[10m])) < 1
+    for: 5m
+    labels:
+      severity: critical
+      category: biz
+    annotations:
+      summary: "订单量接近归零 (Critical)"
+      description: "最近 10 分钟完成订单 < 1 单，疑似系统故障"
+
+  # --- Cancellation Rate ---
+  - alert: BIZ_CancellationSpikeInfo
+    expr: >
+      (sum(increase(business_cancelled_orders_total[5m])) /
+       sum(increase(business_completed_orders_total[5m]))) > 0.05
+      AND sum(increase(business_completed_orders_total[5m])) > 5
+    for: 10m
+    labels:
+      severity: info
+      category: biz
+    annotations:
+      summary: "取消率略高 (Info)"
+      description: "5 分钟取消率 > 5%，当前值: {{ $value | printf \"%.1f%%\" }}"
+
+  - alert: BIZ_CancellationSpikeWarning
+    expr: >
+      (sum(increase(business_cancelled_orders_total[5m])) /
+       sum(increase(business_completed_orders_total[5m]))) > 0.10
+      AND sum(increase(business_completed_orders_total[5m])) > 5
+    for: 10m
+    labels:
+      severity: warning
+      category: biz
+    annotations:
+      summary: "取消率偏高 (Warning)"
+      description: "5 分钟取消率 > 10%，当前值: {{ $value | printf \"%.1f%%\" }}"
+
+  - alert: BIZ_CancellationSpikeCritical
+    expr: >
+      (sum(increase(business_cancelled_orders_total[5m])) /
+       sum(increase(business_completed_orders_total[5m]))) > 0.25
+      AND sum(increase(business_completed_orders_total[5m])) > 5
+    for: 5m
+    labels:
+      severity: critical
+      category: biz
+    annotations:
+      summary: "取消率异常飙升 (Critical)"
+      description: "5 分钟取消率 > 25%，可能存在支付或履约故障"
+
+  # --- Payment Amount ---
+  # 前置条件：仅在订单量正常时评估，避免与低流量告警重叠
+  - alert: BIZ_PaymentAmountInfo
+    expr: >
+      sum(increase(business_payment_amount_total[10m])) < 800
+      AND sum(increase(business_completed_orders_total[10m])) > 5
+    for: 5m
+    labels:
+      severity: info
+      category: biz
+    annotations:
+      summary: "支付金额偏低 (Info)"
+      description: "10 分钟支付金额 < $800，当前值: ${{ $value | printf \"%.0f\" }}"
+
+  - alert: BIZ_PaymentAmountWarning
+    expr: >
+      sum(increase(business_payment_amount_total[10m])) < 400
+      AND sum(increase(business_completed_orders_total[10m])) > 5
+    for: 5m
+    labels:
+      severity: warning
+      category: biz
+    annotations:
+      summary: "支付金额明显下降 (Warning)"
+      description: "10 分钟支付金额 < $400，当前值: ${{ $value | printf \"%.0f\" }}"
+
+  - alert: BIZ_PaymentAmountCritical
+    expr: >
+      sum(increase(business_payment_amount_total[10m])) == 0
+      AND sum(increase(business_completed_orders_total[10m])) > 3
+    for: 5m
+    labels:
+      severity: critical
+      category: biz
+    annotations:
+      summary: "支付金额归零 (Critical)"
+      description: "存在订单但 10 分钟内支付金额为 $0，疑似支付通道故障"
+
+  # --- Registration ---
+  # 夜间静默：05:00–11:00 UTC (00:00–06:00 EST) 通过 Alertmanager time_intervals 配置
+  - alert: BIZ_RegistrationDropInfo
+    expr: >
+      sum(increase(business_registration_total[10m])) == 0
+      AND (hour() < 5 OR hour() >= 11)
+    for: 10m
+    labels:
+      severity: info
+      category: biz
+    annotations:
+      summary: "新用户注册暂停 (Info)"
+      description: "10 分钟内无新注册"
+
+  - alert: BIZ_RegistrationDropWarning
+    expr: >
+      sum(increase(business_registration_total[20m])) == 0
+      AND (hour() < 5 OR hour() >= 11)
+    for: 5m
+    labels:
+      severity: warning
+      category: biz
+    annotations:
+      summary: "新用户注册持续停止 (Warning)"
+      description: "20 分钟内无新注册，注册链路可能故障"
+
+  - alert: BIZ_RegistrationDropCritical
+    expr: >
+      sum(increase(business_registration_total[30m])) == 0
+      AND (hour() < 5 OR hour() >= 11)
+    for: 5m
+    labels:
+      severity: critical
+      category: biz
+    annotations:
+      summary: "新用户注册长时间停止 (Critical)"
+      description: "30 分钟内无新注册，注册服务故障"
+
+  # --- Traffic Anomaly (Drop only; spike demoted to Info) ---
+  - alert: BIZ_TrafficDropInfo
+    expr: traffic_rate < 0.50 * traffic_daily_avg_same_hour
+    for: 10m
+    labels:
+      severity: info
+      category: biz
+    annotations:
+      summary: "流量低于日均 50% (Info)"
+      description: "当前流量 {{ $value }} 低于同时段日均 50%"
+
+  - alert: BIZ_TrafficDropWarning
+    expr: traffic_rate < 0.30 * traffic_daily_avg_same_hour
+    for: 10m
+    labels:
+      severity: warning
+      category: biz
+    annotations:
+      summary: "流量大幅下降 (Warning)"
+      description: "当前流量低于同时段日均 70%"
+
+  - alert: BIZ_TrafficDropCritical
+    expr: traffic_rate < 0.10 * traffic_daily_avg_same_hour
+    for: 5m
+    labels:
+      severity: critical
+      category: biz
+    annotations:
+      summary: "流量接近归零 (Critical)"
+      description: "当前流量低于同时段日均 90%，疑似全链路故障"
+
+  # --- Order Latency P99 ---
+  - alert: BIZ_LatencyP99Info
+    expr: histogram_quantile(0.99, rate(order_service_duration_bucket[5m])) > 1.5
+    for: 5m
+    labels:
+      severity: info
+      category: biz
+    annotations:
+      summary: "订单接口 P99 延迟偏高 (Info)"
+      description: "P99 > 1.5s，当前值: {{ $value | printf \"%.2f\" }}s"
+
+  - alert: BIZ_LatencyP99Warning
+    expr: histogram_quantile(0.99, rate(order_service_duration_bucket[5m])) > 3.0
+    for: 5m
+    labels:
+      severity: warning
+      category: biz
+    annotations:
+      summary: "订单接口 P99 延迟高 (Warning)"
+      description: "P99 > 3s，当前值: {{ $value | printf \"%.2f\" }}s"
+
+  - alert: BIZ_LatencyP99Critical
+    expr: histogram_quantile(0.99, rate(order_service_duration_bucket[5m])) > 8.0
+    for: 3m
+    labels:
+      severity: critical
+      category: biz
+    annotations:
+      summary: "订单接口 P99 延迟严重 (Critical)"
+      description: "P99 > 8s，用户下单体验严重受损"
+
+
+# ============================================================
+# RDS — MySQL Databases
+# ============================================================
+- name: rds.rules
+  rules:
+
+  # --- CPU Usage ---
+  - alert: RDS_CpuUsageInfo
+    expr: aws_rds_cpuutilization_average > 65
+    for: 10m
+    labels:
+      severity: info
+      category: rds
+    annotations:
+      summary: "RDS CPU 偏高 (Info) — {{ $labels.dbinstance_identifier }}"
+      description: "CPU > 65%，当前值: {{ $value | printf \"%.1f\" }}%"
+
+  - alert: RDS_CpuUsageWarning
+    expr: aws_rds_cpuutilization_average > 80
+    for: 5m
+    labels:
+      severity: warning
+      category: rds
+    annotations:
+      summary: "RDS CPU 高 (Warning) — {{ $labels.dbinstance_identifier }}"
+      description: "CPU > 80%，当前值: {{ $value | printf \"%.1f\" }}%"
+
+  - alert: RDS_CpuUsageCritical
+    expr: aws_rds_cpuutilization_average > 90
+    for: 3m
+    labels:
+      severity: critical
+      category: rds
+    annotations:
+      summary: "RDS CPU 严重 (Critical) — {{ $labels.dbinstance_identifier }}"
+      description: "CPU > 90%，当前值: {{ $value | printf \"%.1f\" }}%"
+
+  # --- Slow Queries ---
+  - alert: RDS_SlowQueriesInfo
+    expr: rate(mysql_global_status_slow_queries[5m]) * 60 > 10
+    for: 5m
+    labels:
+      severity: info
+      category: rds
+    annotations:
+      summary: "慢查询增多 (Info) — {{ $labels.dbinstance_identifier }}"
+      description: "慢查询 > 10/min，当前值: {{ $value | printf \"%.0f\" }}/min"
+
+  - alert: RDS_SlowQueriesWarning
+    expr: rate(mysql_global_status_slow_queries[5m]) * 60 > 50
+    for: 5m
+    labels:
+      severity: warning
+      category: rds
+    annotations:
+      summary: "慢查询偏多 (Warning) — {{ $labels.dbinstance_identifier }}"
+      description: "慢查询 > 50/min，当前值: {{ $value | printf \"%.0f\" }}/min"
+
+  - alert: RDS_SlowQueriesCritical
+    expr: rate(mysql_global_status_slow_queries[5m]) * 60 > 200
+    for: 3m
+    labels:
+      severity: critical
+      category: rds
+    annotations:
+      summary: "慢查询爆发 (Critical) — {{ $labels.dbinstance_identifier }}"
+      description: "慢查询 > 200/min，当前值: {{ $value | printf \"%.0f\" }}/min"
+
+  # --- Active Threads ---
+  - alert: RDS_ActiveThreadsInfo
+    expr: mysql_global_status_threads_running > 25
+    for: 5m
+    labels:
+      severity: info
+      category: rds
+    annotations:
+      summary: "活跃连接偏多 (Info) — {{ $labels.dbinstance_identifier }}"
+      description: "活跃线程 > 25，当前值: {{ $value }}"
+
+  - alert: RDS_ActiveThreadsWarning
+    expr: mysql_global_status_threads_running > 50
+    for: 3m
+    labels:
+      severity: warning
+      category: rds
+    annotations:
+      summary: "活跃连接高 (Warning) — {{ $labels.dbinstance_identifier }}"
+      description: "活跃线程 > 50，当前值: {{ $value }}"
+
+  - alert: RDS_ActiveThreadsCritical
+    expr: mysql_global_status_threads_running > 100
+    for: 2m
+    labels:
+      severity: critical
+      category: rds
+    annotations:
+      summary: "活跃连接严重 (Critical) — {{ $labels.dbinstance_identifier }}"
+      description: "活跃线程 > 100，数据库可能过载"
+
+  # --- Disk Free (百分比 OR 绝对值，任一满足即触发) ---
+  # 设计意图：
+  #   小实例 (20GB)：5GB 绝对值先触发，防止百分比看起来 OK 但余量极少
+  #   大实例 (1TB)：百分比先触发 (20% = 200GB)，给足反应时间
+  #   快速增长场景：绝对值给出硬底线，不受增长速率影响
+  - alert: RDS_DiskFreeInfo
+    expr: >
+      (aws_rds_free_storage_space_average / aws_rds_allocated_storage_average) < 0.20
+      OR aws_rds_free_storage_space_average < 10737418240
+    for: 10m
+    labels:
+      severity: info
+      category: rds
+    annotations:
+      summary: "RDS 磁盘空间偏紧 (Info) — {{ $labels.dbinstance_identifier }}"
+      description: "剩余磁盘 < 20% 或 < 10GB，当前剩余: {{ $value | humanize1024 }}B"
+
+  - alert: RDS_DiskFreeWarning
+    expr: >
+      (aws_rds_free_storage_space_average / aws_rds_allocated_storage_average) < 0.15
+      OR aws_rds_free_storage_space_average < 5368709120
+    for: 5m
+    labels:
+      severity: warning
+      category: rds
+    annotations:
+      summary: "RDS 磁盘空间不足 (Warning) — {{ $labels.dbinstance_identifier }}"
+      description: "剩余磁盘 < 15% 或 < 5GB，当前剩余: {{ $value | humanize1024 }}B"
+
+  - alert: RDS_DiskFreeCritical
+    expr: >
+      (aws_rds_free_storage_space_average / aws_rds_allocated_storage_average) < 0.08
+      OR aws_rds_free_storage_space_average < 2147483648
+    for: 2m
+    labels:
+      severity: critical
+      category: rds
+    annotations:
+      summary: "RDS 磁盘濒临耗尽 (Critical) — {{ $labels.dbinstance_identifier }}"
+      description: "剩余磁盘 < 8% 或 < 2GB，数据库可能很快停止写入"
+
+  # --- FreeableMemory (百分比 OR 绝对值) ---
+  # 设计意图：
+  #   db.t4g.micro (1GB 内存)：绝对值先触发 (512MB = 50%，但该机型上已是告警线)
+  #   db.r6g.4xlarge (128GB 内存)：百分比先触发 (15% = 19.2GB)，绝对值不会先到
+  #   isalescdp 案例：1GB 实例，FreeableMemory 降至 82MB 触发 OOM，512MB 绝对值可提前 ~20min 预警
+  - alert: RDS_FreeableMemoryInfo
+    expr: >
+      (aws_rds_freeable_memory_average / aws_rds_total_memory_average) < 0.20
+      OR aws_rds_freeable_memory_average < 536870912
+    for: 10m
+    labels:
+      severity: info
+      category: rds
+    annotations:
+      summary: "RDS 可用内存偏低 (Info) — {{ $labels.dbinstance_identifier }}"
+      description: "FreeableMemory < 20% 或 < 512MB，当前值: {{ $value | humanize1024 }}B"
+
+  - alert: RDS_FreeableMemoryWarning
+    expr: >
+      (aws_rds_freeable_memory_average / aws_rds_total_memory_average) < 0.15
+      OR aws_rds_freeable_memory_average < 268435456
+    for: 5m
+    labels:
+      severity: warning
+      category: rds
+    annotations:
+      summary: "RDS 可用内存不足 (Warning) — {{ $labels.dbinstance_identifier }}"
+      description: "FreeableMemory < 15% 或 < 256MB，当前值: {{ $value | humanize1024 }}B"
+
+  - alert: RDS_FreeableMemoryCritical
+    expr: >
+      (aws_rds_freeable_memory_average / aws_rds_total_memory_average) < 0.10
+      OR aws_rds_freeable_memory_average < 134217728
+    for: 3m
+    labels:
+      severity: critical
+      category: rds
+    annotations:
+      summary: "RDS 内存危急，OOM 风险 (Critical) — {{ $labels.dbinstance_identifier }}"
+      description: "FreeableMemory < 10% 或 < 128MB，参考 isalescdp OOM failover 案例 (2026-03-12)"
+
+  # --- SwapUsage (新增) ---
+  - alert: RDS_SwapUsageInfo
+    expr: aws_rds_swap_usage_average > 104857600  # 100 MB
+    for: 10m
+    labels:
+      severity: info
+      category: rds
+    annotations:
+      summary: "RDS 开始使用 Swap (Info) — {{ $labels.dbinstance_identifier }}"
+      description: "SwapUsage > 100MB，当前值: {{ $value | humanize1024 }}B"
+
+  - alert: RDS_SwapUsageWarning
+    expr: aws_rds_swap_usage_average > 268435456  # 256 MB
+    for: 5m
+    labels:
+      severity: warning
+      category: rds
+    annotations:
+      summary: "RDS Swap 使用偏多 (Warning) — {{ $labels.dbinstance_identifier }}"
+      description: "SwapUsage > 256MB，内存压力加剧"
+
+  - alert: RDS_SwapUsageCritical
+    expr: aws_rds_swap_usage_average > 524288000  # 500 MB
+    for: 3m
+    labels:
+      severity: critical
+      category: rds
+    annotations:
+      summary: "RDS Swap 严重 (Critical) — {{ $labels.dbinstance_identifier }}"
+      description: "SwapUsage > 500MB，OOM failover 风险极高"
+
+  # --- Replica Lag (新增) ---
+  - alert: RDS_ReplicaLagInfo
+    expr: aws_rds_replica_lag_average > 10
+    for: 5m
+    labels:
+      severity: info
+      category: rds
+    annotations:
+      summary: "RDS 副本延迟 (Info) — {{ $labels.dbinstance_identifier }}"
+      description: "Replica lag > 10s，当前值: {{ $value | printf \"%.1f\" }}s"
+
+  - alert: RDS_ReplicaLagWarning
+    expr: aws_rds_replica_lag_average > 30
+    for: 5m
+    labels:
+      severity: warning
+      category: rds
+    annotations:
+      summary: "RDS 副本延迟偏大 (Warning) — {{ $labels.dbinstance_identifier }}"
+      description: "Replica lag > 30s，读写分离受影响"
+
+  - alert: RDS_ReplicaLagCritical
+    expr: aws_rds_replica_lag_average > 120
+    for: 3m
+    labels:
+      severity: critical
+      category: rds
+    annotations:
+      summary: "RDS 副本严重滞后 (Critical) — {{ $labels.dbinstance_identifier }}"
+      description: "Replica lag > 120s，从库数据严重不一致"
+
+  # --- VIP Unreachable ---
+  - alert: RDS_VipUnreachableInfo
+    expr: mysql_up == 0
+    for: 30s
+    labels:
+      severity: info
+      category: rds
+    annotations:
+      summary: "RDS VIP 探测失败 (Info) — {{ $labels.dbinstance_identifier }}"
+      description: "单次探测失败，可能为瞬断"
+
+  - alert: RDS_VipUnreachableWarning
+    expr: mysql_up == 0
+    for: 45s
+    labels:
+      severity: warning
+      category: rds
+    annotations:
+      summary: "RDS VIP 持续不可达 (Warning) — {{ $labels.dbinstance_identifier }}"
+      description: "VIP 不可达超过 45s，疑似正在 Failover"
+
+  - alert: RDS_VipUnreachableCritical
+    expr: mysql_up == 0
+    for: 1m
+    labels:
+      severity: critical
+      category: rds
+    annotations:
+      summary: "RDS VIP 不可达 (Critical) — {{ $labels.dbinstance_identifier }}"
+      description: "VIP 不可达超过 1 分钟，数据库服务中断"
+
+  # --- Failover ---
+  - alert: RDS_FailoverInfo
+    expr: aws_rds_failover_event == 1
+    for: 0m
+    labels:
+      severity: info
+      category: rds
+    annotations:
+      summary: "RDS Failover 事件触发 (Info) — {{ $labels.dbinstance_identifier }}"
+      description: "Failover 已触发，正在切换主节点"
+
+  - alert: RDS_FailoverWarning
+    expr: aws_rds_failover_in_progress_duration_seconds > 120
+    for: 0m
+    labels:
+      severity: warning
+      category: rds
+    annotations:
+      summary: "RDS Failover 时间过长 (Warning) — {{ $labels.dbinstance_identifier }}"
+      description: "Failover 已持续超过 2 分钟，切换异常"
+
+  - alert: RDS_FailoverCritical
+    expr: aws_rds_failover_event == 1
+    for: 0m
+    labels:
+      severity: critical
+      category: rds
+    annotations:
+      summary: "RDS Failover (Critical) — {{ $labels.dbinstance_identifier }}"
+      description: "主从切换事件，立即关注服务可用性"
+
+  # --- Exporter Down (新增) ---
+  - alert: RDS_ExporterDownInfo
+    expr: up{job="rds-exporter"} == 0
+    for: 1m
+    labels:
+      severity: info
+      category: rds
+    annotations:
+      summary: "RDS Exporter 采集中断 (Info) — {{ $labels.instance }}"
+
+  - alert: RDS_ExporterDownWarning
+    expr: up{job="rds-exporter"} == 0
+    for: 3m
+    labels:
+      severity: warning
+      category: rds
+    annotations:
+      summary: "RDS Exporter 持续中断 (Warning) — {{ $labels.instance }}"
+      description: "监控数据缺失 > 3min，存在盲区"
+
+  - alert: RDS_ExporterDownCritical
+    expr: up{job="rds-exporter"} == 0
+    for: 10m
+    labels:
+      severity: critical
+      category: rds
+    annotations:
+      summary: "RDS Exporter 长时间中断 (Critical) — {{ $labels.instance }}"
+      description: "监控数据缺失 > 10min，无法感知数据库状态"
+
+
+# ============================================================
+# REDIS — Redis / ElastiCache
+# ============================================================
+- name: redis.rules
+  rules:
+
+  # --- CPU Usage ---
+  - alert: REDIS_CpuUsageInfo
+    expr: redis_used_cpu_sys_percent > 50
+    for: 5m
+    labels:
+      severity: info
+      category: redis
+    annotations:
+      summary: "Redis CPU 偏高 (Info) — {{ $labels.instance }}"
+      description: "CPU > 50%，当前值: {{ $value | printf \"%.1f\" }}%"
+
+  - alert: REDIS_CpuUsageWarning
+    expr: redis_used_cpu_sys_percent > 70
+    for: 5m
+    labels:
+      severity: warning
+      category: redis
+    annotations:
+      summary: "Redis CPU 高 (Warning) — {{ $labels.instance }}"
+      description: "CPU > 70%，当前值: {{ $value | printf \"%.1f\" }}%"
+
+  - alert: REDIS_CpuUsageCritical
+    expr: redis_used_cpu_sys_percent > 90
+    for: 3m
+    labels:
+      severity: critical
+      category: redis
+    annotations:
+      summary: "Redis CPU 严重 (Critical) — {{ $labels.instance }}"
+      description: "CPU > 90%，Redis 单线程即将饱和"
+
+  # --- Memory Usage (百分比 OR 绝对剩余值) ---
+  # 设计意图：
+  #   小集群 (256MB maxmemory)：绝对值先触发；70% 时已用 179MB，剩余仅 77MB
+  #   大集群 (64GB maxmemory)：百分比先触发；绝对值 512MB 相当于只剩 0.8%，远晚于百分比告警
+  #   isales-market 案例：6.7GB 集群，内存从 61% 涨到 87% 仅用 20min，需要更早预警
+  - alert: REDIS_MemoryUsageInfo
+    expr: >
+      redis_memory_used_bytes / redis_memory_max_bytes > 0.70
+      OR (redis_memory_max_bytes - redis_memory_used_bytes) < 536870912
+    for: 5m
+    labels:
+      severity: info
+      category: redis
+    annotations:
+      summary: "Redis 内存使用偏高 (Info) — {{ $labels.instance }}"
+      description: "内存使用 > 70% 或剩余 < 512MB，当前使用: {{ $value | printf \"%.1f%%\" }}"
+
+  - alert: REDIS_MemoryUsageWarning
+    expr: >
+      redis_memory_used_bytes / redis_memory_max_bytes > 0.80
+      OR (redis_memory_max_bytes - redis_memory_used_bytes) < 268435456
+    for: 5m
+    labels:
+      severity: warning
+      category: redis
+    annotations:
+      summary: "Redis 内存使用高 (Warning) — {{ $labels.instance }}"
+      description: "内存使用 > 80% 或剩余 < 256MB"
+
+  - alert: REDIS_MemoryUsageCritical
+    expr: >
+      redis_memory_used_bytes / redis_memory_max_bytes > 0.95
+      OR (redis_memory_max_bytes - redis_memory_used_bytes) < 67108864
+    for: 1m
+    labels:
+      severity: critical
+      category: redis
+    annotations:
+      summary: "Redis 内存濒临耗尽 (Critical) — {{ $labels.instance }}"
+      description: "内存使用 > 95% 或剩余 < 64MB，Key 驱逐风险极高"
+
+  # --- Command Latency P99 ---
+  - alert: REDIS_LatencyInfo
+    expr: redis_latency_p99_milliseconds > 1
+    for: 5m
+    labels:
+      severity: info
+      category: redis
+    annotations:
+      summary: "Redis 命令延迟偏高 (Info) — {{ $labels.instance }}"
+      description: "P99 > 1ms，当前值: {{ $value | printf \"%.2f\" }}ms"
+
+  - alert: REDIS_LatencyWarning
+    expr: redis_latency_p99_milliseconds > 2
+    for: 5m
+    labels:
+      severity: warning
+      category: redis
+    annotations:
+      summary: "Redis 命令延迟高 (Warning) — {{ $labels.instance }}"
+      description: "P99 > 2ms，当前值: {{ $value | printf \"%.2f\" }}ms"
+
+  - alert: REDIS_LatencyCritical
+    expr: redis_latency_p99_milliseconds > 10
+    for: 3m
+    labels:
+      severity: critical
+      category: redis
+    annotations:
+      summary: "Redis 命令延迟严重 (Critical) — {{ $labels.instance }}"
+      description: "P99 > 10ms，服务响应严重退化"
+
+  # --- Key Evictions ---
+  - alert: REDIS_EvictionsInfo
+    expr: rate(redis_evicted_keys_total[5m]) * 60 > 100
+    for: 5m
+    labels:
+      severity: info
+      category: redis
+    annotations:
+      summary: "Redis Key 驱逐开始 (Info) — {{ $labels.instance }}"
+      description: "驱逐 > 100 keys/min，当前值: {{ $value | printf \"%.0f\" }}/min"
+
+  - alert: REDIS_EvictionsWarning
+    expr: rate(redis_evicted_keys_total[5m]) * 60 > 1000
+    for: 5m
+    labels:
+      severity: warning
+      category: redis
+    annotations:
+      summary: "Redis Key 驱逐偏多 (Warning) — {{ $labels.instance }}"
+      description: "驱逐 > 1000 keys/min，当前值: {{ $value | printf \"%.0f\" }}/min"
+
+  - alert: REDIS_EvictionsCritical
+    expr: rate(redis_evicted_keys_total[5m]) * 60 > 10000
+    for: 3m
+    labels:
+      severity: critical
+      category: redis
+    annotations:
+      summary: "Redis Key 大规模驱逐 (Critical) — {{ $labels.instance }}"
+      description: "驱逐 > 10000 keys/min，缓存数据大量丢失"
+
+  # --- Connection Ratio ---
+  - alert: REDIS_ConnectionRatioInfo
+    expr: redis_connected_clients / redis_max_clients > 0.50
+    for: 5m
+    labels:
+      severity: info
+      category: redis
+    annotations:
+      summary: "Redis 连接数偏多 (Info) — {{ $labels.instance }}"
+      description: "连接使用 > 50%，当前值: {{ $value | printf \"%.1f%%\" }}"
+
+  - alert: REDIS_ConnectionRatioWarning
+    expr: redis_connected_clients / redis_max_clients > 0.70
+    for: 5m
+    labels:
+      severity: warning
+      category: redis
+    annotations:
+      summary: "Redis 连接数高 (Warning) — {{ $labels.instance }}"
+      description: "连接使用 > 70%，当前值: {{ $value | printf \"%.1f%%\" }}"
+
+  - alert: REDIS_ConnectionRatioCritical
+    expr: redis_connected_clients / redis_max_clients > 0.90
+    for: 3m
+    labels:
+      severity: critical
+      category: redis
+    annotations:
+      summary: "Redis 连接数濒临耗尽 (Critical) — {{ $labels.instance }}"
+      description: "连接使用 > 90%，新连接将被拒绝"
+
+  # --- Network Bandwidth ---
+  - alert: REDIS_NetworkBandwidthInfo
+    expr: (rate(redis_net_input_bytes_total[5m]) + rate(redis_net_output_bytes_total[5m])) / 1048576 > 20
+    for: 5m
+    labels:
+      severity: info
+      category: redis
+    annotations:
+      summary: "Redis 网络带宽偏高 (Info) — {{ $labels.instance }}"
+      description: "带宽 > 20 Mbps，当前值: {{ $value | printf \"%.1f\" }} Mbps"
+
+  - alert: REDIS_NetworkBandwidthWarning
+    expr: (rate(redis_net_input_bytes_total[5m]) + rate(redis_net_output_bytes_total[5m])) / 1048576 > 32
+    for: 5m
+    labels:
+      severity: warning
+      category: redis
+    annotations:
+      summary: "Redis 网络带宽高 (Warning) — {{ $labels.instance }}"
+      description: "带宽 > 32 Mbps，当前值: {{ $value | printf \"%.1f\" }} Mbps"
+
+  - alert: REDIS_NetworkBandwidthCritical
+    expr: (rate(redis_net_input_bytes_total[5m]) + rate(redis_net_output_bytes_total[5m])) / 1048576 > 50
+    for: 3m
+    labels:
+      severity: critical
+      category: redis
+    annotations:
+      summary: "Redis 网络带宽严重 (Critical) — {{ $labels.instance }}"
+      description: "带宽 > 50 Mbps，网络可能成为瓶颈"
+
+  # --- Instance Down ---
+  - alert: REDIS_InstanceDownInfo
+    expr: redis_up == 0
+    for: 30s
+    labels:
+      severity: info
+      category: redis
+    annotations:
+      summary: "Redis 实例探测失败 (Info) — {{ $labels.instance }}"
+
+  - alert: REDIS_InstanceDownWarning
+    expr: redis_up == 0
+    for: 45s
+    labels:
+      severity: warning
+      category: redis
+    annotations:
+      summary: "Redis 实例持续不可达 (Warning) — {{ $labels.instance }}"
+
+  - alert: REDIS_InstanceDownCritical
+    expr: redis_up == 0
+    for: 1m
+    labels:
+      severity: critical
+      category: redis
+    annotations:
+      summary: "Redis 实例宕机 (Critical) — {{ $labels.instance }}"
+      description: "实例不可达超过 1 分钟"
+
+  # --- Exporter Down (新增) ---
+  - alert: REDIS_ExporterDownInfo
+    expr: up{job="redis-exporter"} == 0
+    for: 1m
+    labels:
+      severity: info
+      category: redis
+    annotations:
+      summary: "Redis Exporter 中断 (Info) — {{ $labels.instance }}"
+
+  - alert: REDIS_ExporterDownWarning
+    expr: up{job="redis-exporter"} == 0
+    for: 3m
+    labels:
+      severity: warning
+      category: redis
+    annotations:
+      summary: "Redis Exporter 持续中断 (Warning) — {{ $labels.instance }}"
+
+  - alert: REDIS_ExporterDownCritical
+    expr: up{job="redis-exporter"} == 0
+    for: 10m
+    labels:
+      severity: critical
+      category: redis
+    annotations:
+      summary: "Redis Exporter 长时间中断 (Critical) — {{ $labels.instance }}"
+
+
+# ============================================================
+# ES — Elasticsearch / OpenSearch
+# ============================================================
+- name: es.rules
+  rules:
+
+  # --- Cluster Health ---
+  - alert: ES_ClusterHealthInfo
+    expr: elasticsearch_cluster_health_status{color="green"} == 0
+    for: 3m
+    labels:
+      severity: info
+      category: es
+    annotations:
+      summary: "ES 集群非 Green 状态 (Info) — {{ $labels.cluster }}"
+
+  - alert: ES_ClusterHealthWarning
+    expr: elasticsearch_cluster_health_status{color="yellow"} == 1
+    for: 3m
+    labels:
+      severity: warning
+      category: es
+    annotations:
+      summary: "ES 集群 Yellow (Warning) — {{ $labels.cluster }}"
+      description: "副本分片未分配，集群降级运行"
+
+  - alert: ES_ClusterHealthCritical
+    expr: elasticsearch_cluster_health_status{color="red"} == 1
+    for: 1m
+    labels:
+      severity: critical
+      category: es
+    annotations:
+      summary: "ES 集群 Red (Critical) — {{ $labels.cluster }}"
+      description: "主分片不可用，数据丢失风险"
+
+  # --- Node CPU ---
+  - alert: ES_NodeCpuInfo
+    expr: elasticsearch_process_cpu_percent > 60
+    for: 5m
+    labels:
+      severity: info
+      category: es
+    annotations:
+      summary: "ES 节点 CPU 偏高 (Info) — {{ $labels.node }}"
+      description: "CPU > 60%，当前值: {{ $value | printf \"%.1f\" }}%"
+
+  - alert: ES_NodeCpuWarning
+    expr: elasticsearch_process_cpu_percent > 75
+    for: 5m
+    labels:
+      severity: warning
+      category: es
+    annotations:
+      summary: "ES 节点 CPU 高 (Warning) — {{ $labels.node }}"
+      description: "CPU > 75%，当前值: {{ $value | printf \"%.1f\" }}%"
+
+  - alert: ES_NodeCpuCritical
+    expr: elasticsearch_process_cpu_percent > 85
+    for: 3m
+    labels:
+      severity: critical
+      category: es
+    annotations:
+      summary: "ES 节点 CPU 严重 (Critical) — {{ $labels.node }}"
+      description: "CPU > 85%，当前值: {{ $value | printf \"%.1f\" }}%"
+
+  # --- Node Disk (百分比 OR 绝对值) ---
+  # ES 默认在磁盘使用率 85% 时停止分配新分片 (watermark.low)，90% 时迁移分片 (watermark.high)
+  # 绝对值兜底：单节点 < 20GB 时剩余百分比可能仍看起来安全
+  - alert: ES_NodeDiskInfo
+    expr: >
+      elasticsearch_filesystem_data_available_bytes / elasticsearch_filesystem_data_size_bytes < 0.25
+      OR elasticsearch_filesystem_data_available_bytes < 21474836480
+    for: 5m
+    labels:
+      severity: info
+      category: es
+    annotations:
+      summary: "ES 节点磁盘偏紧 (Info) — {{ $labels.node }}"
+      description: "磁盘剩余 < 25% 或 < 20GB，当前剩余: {{ $value | humanize1024 }}B"
+
+  - alert: ES_NodeDiskWarning
+    expr: >
+      elasticsearch_filesystem_data_available_bytes / elasticsearch_filesystem_data_size_bytes < 0.15
+      OR elasticsearch_filesystem_data_available_bytes < 10737418240
+    for: 5m
+    labels:
+      severity: warning
+      category: es
+    annotations:
+      summary: "ES 节点磁盘不足 (Warning) — {{ $labels.node }}"
+      description: "磁盘剩余 < 15% 或 < 10GB，接近 ES watermark.low(85%) 触发线"
+
+  - alert: ES_NodeDiskCritical
+    expr: >
+      elasticsearch_filesystem_data_available_bytes / elasticsearch_filesystem_data_size_bytes < 0.10
+      OR elasticsearch_filesystem_data_available_bytes < 5368709120
+    for: 3m
+    labels:
+      severity: critical
+      category: es
+    annotations:
+      summary: "ES 节点磁盘危急 (Critical) — {{ $labels.node }}"
+      description: "磁盘剩余 < 10% 或 < 5GB，ES 即将进入只读模式 (watermark.high=90%)"
+
+  # --- JVM Heap (新增) ---
+  - alert: ES_JvmHeapInfo
+    expr: elasticsearch_jvm_memory_used_bytes{area="heap"} / elasticsearch_jvm_memory_max_bytes{area="heap"} > 0.70
+    for: 5m
+    labels:
+      severity: info
+      category: es
+    annotations:
+      summary: "ES JVM Heap 偏高 (Info) — {{ $labels.node }}"
+      description: "Heap 使用 > 70%，当前值: {{ $value | printf \"%.1f%%\" }}"
+
+  - alert: ES_JvmHeapWarning
+    expr: elasticsearch_jvm_memory_used_bytes{area="heap"} / elasticsearch_jvm_memory_max_bytes{area="heap"} > 0.80
+    for: 5m
+    labels:
+      severity: warning
+      category: es
+    annotations:
+      summary: "ES JVM Heap 高 (Warning) — {{ $labels.node }}"
+      description: "Heap 使用 > 80%，GC 压力增大"
+
+  - alert: ES_JvmHeapCritical
+    expr: elasticsearch_jvm_memory_used_bytes{area="heap"} / elasticsearch_jvm_memory_max_bytes{area="heap"} > 0.90
+    for: 3m
+    labels:
+      severity: critical
+      category: es
+    annotations:
+      summary: "ES JVM Heap 危急 (Critical) — {{ $labels.node }}"
+      description: "Heap 使用 > 90%，OOM 风险，节点可能宕机"
+
+
+# ============================================================
+# MONGO — DocumentDB
+# ============================================================
+- name: mongo.rules
+  rules:
+
+  # --- CPU Usage ---
+  - alert: MONGO_CpuUsageInfo
+    expr: aws_docdb_cpuutilization_average > 50
+    for: 10m
+    labels:
+      severity: info
+      category: mongo
+    annotations:
+      summary: "DocumentDB CPU 偏高 (Info) — {{ $labels.dbcluster_identifier }}"
+      description: "CPU > 50%，当前值: {{ $value | printf \"%.1f\" }}%"
+
+  - alert: MONGO_CpuUsageWarning
+    expr: aws_docdb_cpuutilization_average > 70
+    for: 5m
+    labels:
+      severity: warning
+      category: mongo
+    annotations:
+      summary: "DocumentDB CPU 高 (Warning) — {{ $labels.dbcluster_identifier }}"
+      description: "CPU > 70%，当前值: {{ $value | printf \"%.1f\" }}%"
+
+  - alert: MONGO_CpuUsageCritical
+    expr: aws_docdb_cpuutilization_average > 90
+    for: 3m
+    labels:
+      severity: critical
+      category: mongo
+    annotations:
+      summary: "DocumentDB CPU 严重 (Critical) — {{ $labels.dbcluster_identifier }}"
+      description: "CPU > 90%，当前值: {{ $value | printf \"%.1f\" }}%"
+
+  # --- Freeable Memory (百分比 OR 绝对值) ---
+  # DocumentDB 实例规格差异大 (r6g.large=16GB 至 r6g.16xlarge=512GB)
+  # 绝对值兜底：防止小实例上百分比还没到线但实际余量已极少
+  - alert: MONGO_MemoryFreeInfo
+    expr: >
+      aws_docdb_freeable_memory_average / aws_docdb_total_memory_average < 0.30
+      OR aws_docdb_freeable_memory_average < 1073741824
+    for: 10m
+    labels:
+      severity: info
+      category: mongo
+    annotations:
+      summary: "DocumentDB 内存偏紧 (Info) — {{ $labels.dbcluster_identifier }}"
+      description: "可用内存 < 30% 或 < 1GB，当前剩余: {{ $value | humanize1024 }}B"
+
+  - alert: MONGO_MemoryFreeWarning
+    expr: >
+      aws_docdb_freeable_memory_average / aws_docdb_total_memory_average < 0.20
+      OR aws_docdb_freeable_memory_average < 536870912
+    for: 5m
+    labels:
+      severity: warning
+      category: mongo
+    annotations:
+      summary: "DocumentDB 内存不足 (Warning) — {{ $labels.dbcluster_identifier }}"
+      description: "可用内存 < 20% 或 < 512MB"
+
+  - alert: MONGO_MemoryFreeCritical
+    expr: >
+      aws_docdb_freeable_memory_average / aws_docdb_total_memory_average < 0.10
+      OR aws_docdb_freeable_memory_average < 268435456
+    for: 3m
+    labels:
+      severity: critical
+      category: mongo
+    annotations:
+      summary: "DocumentDB 内存危急 (Critical) — {{ $labels.dbcluster_identifier }}"
+      description: "可用内存 < 10% 或 < 256MB"
+
+  # --- Connection Ratio ---
+  - alert: MONGO_ConnectionRatioInfo
+    expr: aws_docdb_database_connections_average / aws_docdb_max_connections_average > 0.60
+    for: 10m
+    labels:
+      severity: info
+      category: mongo
+    annotations:
+      summary: "DocumentDB 连接数偏多 (Info) — {{ $labels.dbcluster_identifier }}"
+      description: "连接使用 > 60%"
+
+  - alert: MONGO_ConnectionRatioWarning
+    expr: aws_docdb_database_connections_average / aws_docdb_max_connections_average > 0.80
+    for: 5m
+    labels:
+      severity: warning
+      category: mongo
+    annotations:
+      summary: "DocumentDB 连接数高 (Warning) — {{ $labels.dbcluster_identifier }}"
+      description: "连接使用 > 80%"
+
+  - alert: MONGO_ConnectionRatioCritical
+    expr: aws_docdb_database_connections_average / aws_docdb_max_connections_average > 0.95
+    for: 3m
+    labels:
+      severity: critical
+      category: mongo
+    annotations:
+      summary: "DocumentDB 连接数濒临耗尽 (Critical) — {{ $labels.dbcluster_identifier }}"
+      description: "连接使用 > 95%，新连接将被拒绝"
+
+
+# ============================================================
+# K8S — Kubernetes / EKS
+# ============================================================
+- name: k8s.rules
+  rules:
+
+  # --- Pod CPU Usage ---
+  - alert: K8S_PodCpuUsageInfo
+    expr: rate(container_cpu_usage_seconds_total{container!=""}[5m]) / container_spec_cpu_quota * container_spec_cpu_period > 0.50
+    for: 10m
+    labels:
+      severity: info
+      category: k8s
+    annotations:
+      summary: "Pod CPU 偏高 (Info) — {{ $labels.pod }}"
+      description: "CPU > 50% request limit，当前值: {{ $value | printf \"%.1f%%\" }}"
+
+  - alert: K8S_PodCpuUsageWarning
+    expr: rate(container_cpu_usage_seconds_total{container!=""}[5m]) / container_spec_cpu_quota * container_spec_cpu_period > 0.70
+    for: 5m
+    labels:
+      severity: warning
+      category: k8s
+    annotations:
+      summary: "Pod CPU 高 (Warning) — {{ $labels.pod }}"
+      description: "CPU > 70% request limit"
+
+  - alert: K8S_PodCpuUsageCritical
+    expr: rate(container_cpu_usage_seconds_total{container!=""}[5m]) / container_spec_cpu_quota * container_spec_cpu_period > 0.90
+    for: 3m
+    labels:
+      severity: critical
+      category: k8s
+    annotations:
+      summary: "Pod CPU 严重 (Critical) — {{ $labels.pod }}"
+      description: "CPU > 90% request limit，Pod 可能被 throttle"
+
+  # --- Pod Restart ---
+  - alert: K8S_PodRestartInfo
+    expr: increase(kube_pod_container_status_restarts_total[10m]) > 1
+    for: 0m
+    labels:
+      severity: info
+      category: k8s
+    annotations:
+      summary: "Pod 发生重启 (Info) — {{ $labels.pod }}"
+      description: "10 分钟内重启 {{ $value }} 次"
+
+  - alert: K8S_PodRestartWarning
+    expr: increase(kube_pod_container_status_restarts_total[10m]) > 3
+    for: 0m
+    labels:
+      severity: warning
+      category: k8s
+    annotations:
+      summary: "Pod 频繁重启 (Warning) — {{ $labels.pod }}"
+      description: "10 分钟内重启 > 3 次，当前值: {{ $value }} 次"
+
+  - alert: K8S_PodRestartCritical
+    expr: increase(kube_pod_container_status_restarts_total[10m]) > 5
+    for: 0m
+    labels:
+      severity: critical
+      category: k8s
+    annotations:
+      summary: "Pod 重启风暴 (Critical) — {{ $labels.pod }}"
+      description: "10 分钟内重启 > 5 次，CrashLoopBackOff 风险"
+
+  # --- Pod Disk I/O ---
+  - alert: K8S_PodDiskIoInfo
+    expr: (rate(container_fs_reads_bytes_total[5m]) + rate(container_fs_writes_bytes_total[5m])) / 1048576 > 30
+    for: 5m
+    labels:
+      severity: info
+      category: k8s
+    annotations:
+      summary: "Pod 磁盘 I/O 偏高 (Info) — {{ $labels.pod }}"
+      description: "I/O > 30 MB/s，当前值: {{ $value | printf \"%.1f\" }} MB/s"
+
+  - alert: K8S_PodDiskIoWarning
+    expr: (rate(container_fs_reads_bytes_total[5m]) + rate(container_fs_writes_bytes_total[5m])) / 1048576 > 50
+    for: 5m
+    labels:
+      severity: warning
+      category: k8s
+    annotations:
+      summary: "Pod 磁盘 I/O 高 (Warning) — {{ $labels.pod }}"
+      description: "I/O > 50 MB/s"
+
+  - alert: K8S_PodDiskIoCritical
+    expr: (rate(container_fs_reads_bytes_total[5m]) + rate(container_fs_writes_bytes_total[5m])) / 1048576 > 100
+    for: 3m
+    labels:
+      severity: critical
+      category: k8s
+    annotations:
+      summary: "Pod 磁盘 I/O 严重 (Critical) — {{ $labels.pod }}"
+      description: "I/O > 100 MB/s，磁盘可能成为瓶颈"
+
+  # --- OOMKilled ---
+  - alert: K8S_OomKilledInfo
+    expr: kube_pod_container_status_last_terminated_reason{reason="OOMKilled"} == 1
+    for: 0m
+    labels:
+      severity: info
+      category: k8s
+    annotations:
+      summary: "Pod OOMKilled (Info) — {{ $labels.pod }}"
+      description: "容器因内存不足被杀死"
+
+  - alert: K8S_OomKilledWarning
+    expr: increase(kube_pod_container_status_restarts_total[30m]) > 2 and kube_pod_container_status_last_terminated_reason{reason="OOMKilled"} == 1
+    for: 0m
+    labels:
+      severity: warning
+      category: k8s
+    annotations:
+      summary: "Pod 反复 OOMKilled (Warning) — {{ $labels.pod }}"
+      description: "30 分钟内多次 OOM，内存 limit 可能需要调整"
+
+  - alert: K8S_OomKilledCritical
+    expr: increase(kube_pod_container_status_restarts_total[30m]) > 5 and kube_pod_container_status_last_terminated_reason{reason="OOMKilled"} == 1
+    for: 0m
+    labels:
+      severity: critical
+      category: k8s
+    annotations:
+      summary: "Pod OOM 风暴 (Critical) — {{ $labels.pod }}"
+      description: "30 分钟内 OOMKilled > 5 次，服务不可用"
+
+  # --- Node Heartbeat ---
+  - alert: K8S_NodeHeartbeatInfo
+    expr: kube_node_status_condition{condition="Ready",status="true"} == 0
+    for: 2m
+    labels:
+      severity: info
+      category: k8s
+    annotations:
+      summary: "K8S 节点心跳异常 (Info) — {{ $labels.node }}"
+
+  - alert: K8S_NodeHeartbeatWarning
+    expr: kube_node_status_condition{condition="Ready",status="true"} == 0
+    for: 3m
+    labels:
+      severity: warning
+      category: k8s
+    annotations:
+      summary: "K8S 节点 NotReady (Warning) — {{ $labels.node }}"
+      description: "节点 NotReady 超过 3 分钟，Pod 已开始迁移"
+
+  - alert: K8S_NodeHeartbeatCritical
+    expr: kube_node_status_condition{condition="Ready",status="true"} == 0
+    for: 5m
+    labels:
+      severity: critical
+      category: k8s
+    annotations:
+      summary: "K8S 节点宕机 (Critical) — {{ $labels.node }}"
+      description: "节点 NotReady 超过 5 分钟，集群容量下降"
+
+  # --- Node Disk/Memory Pressure (新增) ---
+  - alert: K8S_NodeDiskPressureInfo
+    expr: kube_node_status_condition{condition="DiskPressure",status="true"} == 1
+    for: 1m
+    labels:
+      severity: info
+      category: k8s
+    annotations:
+      summary: "K8S 节点磁盘压力 (Info) — {{ $labels.node }}"
+
+  - alert: K8S_NodeDiskPressureWarning
+    expr: kube_node_status_condition{condition="DiskPressure",status="true"} == 1
+    for: 3m
+    labels:
+      severity: warning
+      category: k8s
+    annotations:
+      summary: "K8S 节点磁盘压力持续 (Warning) — {{ $labels.node }}"
+
+  - alert: K8S_NodeDiskPressureCritical
+    expr: kube_node_status_condition{condition="DiskPressure",status="true"} == 1
+    for: 5m
+    labels:
+      severity: critical
+      category: k8s
+    annotations:
+      summary: "K8S 节点磁盘压力严重 (Critical) — {{ $labels.node }}"
+      description: "节点磁盘压力持续 5 分钟，Pod 驱逐可能开始"
+
+
+# ============================================================
+# VM — Virtual Machines (EC2)
+# ============================================================
+- name: vm.rules
+  rules:
+
+  # --- CPU Usage ---
+  - alert: VM_CpuUsageInfo
+    expr: aws_ec2_cpuutilization_average > 65
+    for: 10m
+    labels:
+      severity: info
+      category: vm
+    annotations:
+      summary: "EC2 CPU 偏高 (Info) — {{ $labels.instance_id }}"
+      description: "CPU > 65%，当前值: {{ $value | printf \"%.1f\" }}%"
+
+  - alert: VM_CpuUsageWarning
+    expr: aws_ec2_cpuutilization_average > 80
+    for: 5m
+    labels:
+      severity: warning
+      category: vm
+    annotations:
+      summary: "EC2 CPU 高 (Warning) — {{ $labels.instance_id }}"
+      description: "CPU > 80%"
+
+  - alert: VM_CpuUsageCritical
+    expr: aws_ec2_cpuutilization_average > 95
+    for: 3m
+    labels:
+      severity: critical
+      category: vm
+    annotations:
+      summary: "EC2 CPU 严重 (Critical) — {{ $labels.instance_id }}"
+      description: "CPU > 95%，系统近乎饱和"
+
+  # --- Memory Usage (百分比 OR 绝对剩余值) ---
+  # t3.small (2GB)：绝对值 512MB = 25%，比百分比条件先触发，给足预警时间
+  # r6i.4xlarge (128GB)：百分比先触发 (75% = 96GB 已用，剩余 32GB)
+  - alert: VM_MemoryUsageInfo
+    expr: >
+      (1 - node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes) > 0.75
+      OR node_memory_MemAvailable_bytes < 536870912
+    for: 10m
+    labels:
+      severity: info
+      category: vm
+    annotations:
+      summary: "EC2 内存偏高 (Info) — {{ $labels.instance }}"
+      description: "内存使用 > 75% 或可用 < 512MB，当前可用: {{ $value | humanize1024 }}B"
+
+  - alert: VM_MemoryUsageWarning
+    expr: >
+      (1 - node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes) > 0.85
+      OR node_memory_MemAvailable_bytes < 268435456
+    for: 5m
+    labels:
+      severity: warning
+      category: vm
+    annotations:
+      summary: "EC2 内存高 (Warning) — {{ $labels.instance }}"
+      description: "内存使用 > 85% 或可用 < 256MB"
+
+  - alert: VM_MemoryUsageCritical
+    expr: >
+      (1 - node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes) > 0.95
+      OR node_memory_MemAvailable_bytes < 104857600
+    for: 3m
+    labels:
+      severity: critical
+      category: vm
+    annotations:
+      summary: "EC2 内存危急 (Critical) — {{ $labels.instance }}"
+      description: "内存使用 > 95% 或可用 < 100MB，OOM Kill 风险"
+
+  # --- Disk Usage (百分比 OR 绝对剩余值) ---
+  # 绝对值基于典型 EC2 根卷场景：50GB 系统盘剩余 < 10GB 时即使百分比尚可也应告警
+  # 数据盘（如 dbtools 的 /data 挂载）规格更大，此时百分比条件会先触发
+  - alert: VM_DiskUsageInfo
+    expr: >
+      (1 - node_filesystem_avail_bytes / node_filesystem_size_bytes) > 0.75
+      OR node_filesystem_avail_bytes < 10737418240
+    for: 10m
+    labels:
+      severity: info
+      category: vm
+    annotations:
+      summary: "EC2 磁盘偏满 (Info) — {{ $labels.instance }}"
+      description: "磁盘使用 > 75% 或剩余 < 10GB，挂载点: {{ $labels.mountpoint }}"
+
+  - alert: VM_DiskUsageWarning
+    expr: >
+      (1 - node_filesystem_avail_bytes / node_filesystem_size_bytes) > 0.85
+      OR node_filesystem_avail_bytes < 5368709120
+    for: 5m
+    labels:
+      severity: warning
+      category: vm
+    annotations:
+      summary: "EC2 磁盘不足 (Warning) — {{ $labels.instance }}"
+      description: "磁盘使用 > 85% 或剩余 < 5GB"
+
+  - alert: VM_DiskUsageCritical
+    expr: >
+      (1 - node_filesystem_avail_bytes / node_filesystem_size_bytes) > 0.95
+      OR node_filesystem_avail_bytes < 2147483648
+    for: 3m
+    labels:
+      severity: critical
+      category: vm
+    annotations:
+      summary: "EC2 磁盘濒满 (Critical) — {{ $labels.instance }}"
+      description: "磁盘使用 > 95% 或剩余 < 2GB，写入即将失败"
+
+  # --- Network Errors ---
+  - alert: VM_NetworkErrorsInfo
+    expr: rate(node_network_transmit_errs_total[5m]) + rate(node_network_receive_errs_total[5m]) > 50
+    for: 5m
+    labels:
+      severity: info
+      category: vm
+    annotations:
+      summary: "EC2 网络错误偏多 (Info) — {{ $labels.instance }}"
+      description: "网络错误 > 50/s"
+
+  - alert: VM_NetworkErrorsWarning
+    expr: rate(node_network_transmit_errs_total[5m]) + rate(node_network_receive_errs_total[5m]) > 200
+    for: 5m
+    labels:
+      severity: warning
+      category: vm
+    annotations:
+      summary: "EC2 网络错误高 (Warning) — {{ $labels.instance }}"
+      description: "网络错误 > 200/s"
+
+  - alert: VM_NetworkErrorsCritical
+    expr: rate(node_network_transmit_errs_total[5m]) + rate(node_network_receive_errs_total[5m]) > 500
+    for: 3m
+    labels:
+      severity: critical
+      category: vm
+    annotations:
+      summary: "EC2 网络严重错误 (Critical) — {{ $labels.instance }}"
+      description: "网络错误 > 500/s，网卡或链路故障"
+
+  # --- Instance Down ---
+  - alert: VM_InstanceDownInfo
+    expr: up{job="node-exporter"} == 0
+    for: 30s
+    labels:
+      severity: info
+      category: vm
+    annotations:
+      summary: "EC2 实例采集中断 (Info) — {{ $labels.instance }}"
+
+  - alert: VM_InstanceDownWarning
+    expr: up{job="node-exporter"} == 0
+    for: 45s
+    labels:
+      severity: warning
+      category: vm
+    annotations:
+      summary: "EC2 实例可能宕机 (Warning) — {{ $labels.instance }}"
+
+  - alert: VM_InstanceDownCritical
+    expr: up{job="node-exporter"} == 0
+    for: 1m
+    labels:
+      severity: critical
+      category: vm
+    annotations:
+      summary: "EC2 实例宕机 (Critical) — {{ $labels.instance }}"
+
+
+# ============================================================
+# APM — Application Performance Monitoring
+# ============================================================
+- name: apm.rules
+  rules:
+
+  # --- Service Exceptions (改为比率) ---
+  - alert: APM_ServiceExceptionsInfo
+    expr: >
+      (sum by (service)(rate(service_exceptions_total[5m])) /
+       sum by (service)(rate(service_requests_total[5m]))) > 0.01
+      AND sum by (service)(rate(service_requests_total[5m])) * 60 > 10
+    for: 5m
+    labels:
+      severity: info
+      category: apm
+    annotations:
+      summary: "服务异常率偏高 (Info) — {{ $labels.service }}"
+      description: "异常率 > 1%，当前值: {{ $value | printf \"%.2f%%\" }}"
+
+  - alert: APM_ServiceExceptionsWarning
+    expr: >
+      (sum by (service)(rate(service_exceptions_total[5m])) /
+       sum by (service)(rate(service_requests_total[5m]))) > 0.02
+      AND sum by (service)(rate(service_requests_total[5m])) * 60 > 10
+    for: 5m
+    labels:
+      severity: warning
+      category: apm
+    annotations:
+      summary: "服务异常率高 (Warning) — {{ $labels.service }}"
+      description: "异常率 > 2%"
+
+  - alert: APM_ServiceExceptionsCritical
+    expr: >
+      (sum by (service)(rate(service_exceptions_total[5m])) /
+       sum by (service)(rate(service_requests_total[5m]))) > 0.05
+      AND sum by (service)(rate(service_requests_total[5m])) * 60 > 10
+    for: 3m
+    labels:
+      severity: critical
+      category: apm
+    annotations:
+      summary: "服务异常率严重 (Critical) — {{ $labels.service }}"
+      description: "异常率 > 5%，服务质量严重下降"
+
+  # --- Latency P99 ---
+  - alert: APM_LatencyP99Info
+    expr: histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[5m])) > 0.8
+    for: 5m
+    labels:
+      severity: info
+      category: apm
+    annotations:
+      summary: "接口 P99 延迟偏高 (Info) — {{ $labels.service }}"
+      description: "P99 > 800ms，当前值: {{ $value | printf \"%.2f\" }}s"
+
+  - alert: APM_LatencyP99Warning
+    expr: histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[5m])) > 1.5
+    for: 5m
+    labels:
+      severity: warning
+      category: apm
+    annotations:
+      summary: "接口 P99 延迟高 (Warning) — {{ $labels.service }}"
+      description: "P99 > 1.5s"
+
+  - alert: APM_LatencyP99Critical
+    expr: histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[5m])) > 5.0
+    for: 3m
+    labels:
+      severity: critical
+      category: apm
+    annotations:
+      summary: "接口 P99 延迟严重 (Critical) — {{ $labels.service }}"
+      description: "P99 > 5s，用户体验严重受损"
+
+  # --- Endpoint Failures (改为比率) ---
+  - alert: APM_EndpointFailuresInfo
+    expr: >
+      rate(endpoint_failures_total[5m]) /
+      rate(endpoint_requests_total[5m]) > 0.005
+      AND rate(endpoint_requests_total[5m]) * 60 > 10
+    for: 5m
+    labels:
+      severity: info
+      category: apm
+    annotations:
+      summary: "接口失败率偏高 (Info) — {{ $labels.endpoint }}"
+      description: "失败率 > 0.5%"
+
+  - alert: APM_EndpointFailuresWarning
+    expr: >
+      rate(endpoint_failures_total[5m]) /
+      rate(endpoint_requests_total[5m]) > 0.01
+      AND rate(endpoint_requests_total[5m]) * 60 > 10
+    for: 5m
+    labels:
+      severity: warning
+      category: apm
+    annotations:
+      summary: "接口失败率高 (Warning) — {{ $labels.endpoint }}"
+      description: "失败率 > 1%"
+
+  - alert: APM_EndpointFailuresCritical
+    expr: >
+      rate(endpoint_failures_total[5m]) /
+      rate(endpoint_requests_total[5m]) > 0.05
+      AND rate(endpoint_requests_total[5m]) * 60 > 10
+    for: 3m
+    labels:
+      severity: critical
+      category: apm
+    annotations:
+      summary: "接口失败率严重 (Critical) — {{ $labels.endpoint }}"
+      description: "失败率 > 5%"
+
+  # --- JVM Full GC ---
+  - alert: APM_JvmFullGcInfo
+    expr: increase(jvm_gc_collection_seconds_count{gc="PS MarkSweep"}[5m]) > 2
+    for: 5m
+    labels:
+      severity: info
+      category: apm
+    annotations:
+      summary: "JVM Full GC 开始 (Info) — {{ $labels.service }}"
+      description: "5 分钟内 Full GC > 2 次"
+
+  - alert: APM_JvmFullGcWarning
+    expr: increase(jvm_gc_collection_seconds_count{gc="PS MarkSweep"}[5m]) > 5
+    for: 5m
+    labels:
+      severity: warning
+      category: apm
+    annotations:
+      summary: "JVM Full GC 频繁 (Warning) — {{ $labels.service }}"
+      description: "5 分钟内 Full GC > 5 次，当前值: {{ $value }}"
+
+  - alert: APM_JvmFullGcCritical
+    expr: increase(jvm_gc_collection_seconds_count{gc="PS MarkSweep"}[5m]) > 10
+    for: 3m
+    labels:
+      severity: critical
+      category: apm
+    annotations:
+      summary: "JVM Full GC 风暴 (Critical) — {{ $labels.service }}"
+      description: "5 分钟内 Full GC > 10 次，服务几乎停止工作"
+
+  # --- Infra Health ---
+  - alert: APM_InfraHealthInfo
+    expr: apm_infra_component_up == 0
+    for: 2m
+    labels:
+      severity: info
+      category: apm
+    annotations:
+      summary: "APM 组件异常 (Info) — {{ $labels.component }}"
+
+  - alert: APM_InfraHealthWarning
+    expr: apm_infra_component_up == 0
+    for: 5m
+    labels:
+      severity: warning
+      category: apm
+    annotations:
+      summary: "APM 组件持续异常 (Warning) — {{ $labels.component }}"
+      description: "APM 基础设施组件 {{ $labels.component }} 宕机 > 5min"
+
+  - alert: APM_InfraHealthCritical
+    expr: apm_infra_component_up == 0
+    for: 10m
+    labels:
+      severity: critical
+      category: apm
+    annotations:
+      summary: "APM 组件长时间宕机 (Critical) — {{ $labels.component }}"
+      description: "APM 监控盲区超过 10 分钟"
+
+
+# ============================================================
+# PIPE — Data Pipeline
+# ============================================================
+- name: pipe.rules
+  rules:
+
+  # --- Golden Flow (实时核心链路) ---
+  - alert: PIPE_GoldenFlowInfo
+    expr: datalink_pipeline_delay_seconds{tier="golden"} > 120
+    for: 3m
+    labels:
+      severity: info
+      category: pipe
+    annotations:
+      summary: "黄金链路延迟 > 2min (Info)"
+      description: "延迟: {{ $value | printf \"%.0f\" }}s"
+
+  - alert: PIPE_GoldenFlowWarning
+    expr: datalink_pipeline_delay_seconds{tier="golden"} > 180
+    for: 3m
+    labels:
+      severity: warning
+      category: pipe
+    annotations:
+      summary: "黄金链路延迟 > 3min (Warning)"
+      description: "延迟: {{ $value | printf \"%.0f\" }}s，实时数据滞后"
+
+  - alert: PIPE_GoldenFlowCritical
+    expr: datalink_pipeline_delay_seconds{tier="golden"} > 300 OR datalink_pipeline_exceptions_total{tier="golden"} > 0
+    for: 3m
+    labels:
+      severity: critical
+      category: pipe
+    annotations:
+      summary: "黄金链路延迟 > 5min 或异常 (Critical)"
+      description: "实时核心数据链路故障"
+
+  # --- Core Pipeline ---
+  - alert: PIPE_CoreInfo
+    expr: datalink_pipeline_delay_seconds{tier="core"} > 300
+    for: 5m
+    labels:
+      severity: info
+      category: pipe
+    annotations:
+      summary: "核心链路延迟 > 5min (Info)"
+
+  - alert: PIPE_CoreWarning
+    expr: datalink_pipeline_delay_seconds{tier="core"} > 600 OR datalink_pipeline_exceptions_total{tier="core"} > 0
+    for: 5m
+    labels:
+      severity: warning
+      category: pipe
+    annotations:
+      summary: "核心链路延迟 > 10min (Warning)"
+
+  - alert: PIPE_CoreCritical
+    expr: datalink_pipeline_delay_seconds{tier="core"} > 1800
+    for: 5m
+    labels:
+      severity: critical
+      category: pipe
+    annotations:
+      summary: "核心链路延迟 > 30min (Critical)"
+      description: "核心业务数据严重滞后"
+
+  # --- Important Pipeline ---
+  - alert: PIPE_ImportantInfo
+    expr: datalink_pipeline_delay_seconds{tier="important"} > 900
+    for: 10m
+    labels:
+      severity: info
+      category: pipe
+    annotations:
+      summary: "重要链路延迟 > 15min (Info)"
+
+  - alert: PIPE_ImportantWarning
+    expr: datalink_pipeline_delay_seconds{tier="important"} > 1200 OR datalink_pipeline_exceptions_total{tier="important"} > 0
+    for: 10m
+    labels:
+      severity: warning
+      category: pipe
+    annotations:
+      summary: "重要链路延迟 > 20min (Warning)"
+
+  - alert: PIPE_ImportantCritical
+    expr: datalink_pipeline_delay_seconds{tier="important"} > 3600
+    for: 10m
+    labels:
+      severity: critical
+      category: pipe
+    annotations:
+      summary: "重要链路延迟 > 1hr (Critical)"
+
+  # --- Standard Pipeline ---
+  - alert: PIPE_StandardInfo
+    expr: datalink_pipeline_delay_seconds{tier="standard"} > 1800
+    for: 15m
+    labels:
+      severity: info
+      category: pipe
+    annotations:
+      summary: "标准链路延迟 > 30min (Info)"
+
+  - alert: PIPE_StandardWarning
+    expr: datalink_pipeline_delay_seconds{tier="standard"} > 3600 OR datalink_pipeline_exceptions_total{tier="standard"} > 0
+    for: 15m
+    labels:
+      severity: warning
+      category: pipe
+    annotations:
+      summary: "标准链路延迟 > 1hr (Warning)"
+
+  - alert: PIPE_StandardCritical
+    expr: datalink_pipeline_delay_seconds{tier="standard"} > 14400
+    for: 15m
+    labels:
+      severity: critical
+      category: pipe
+    annotations:
+      summary: "标准链路延迟 > 4hr (Critical)"
+      description: "标准数据链路严重积压"
+
+
+# ============================================================
+# PLAT — Platform Services
+# ============================================================
+- name: plat.rules
+  rules:
+
+  # --- SMS Delivery ---
+  - alert: PLAT_SmsDeliveryInfo
+    expr: sms_failure_rate > 0.02
+    for: 5m
+    labels:
+      severity: info
+      category: plat
+    annotations:
+      summary: "短信发送失败率偏高 (Info)"
+      description: "失败率 > 2%，当前值: {{ $value | printf \"%.1f%%\" }}"
+
+  - alert: PLAT_SmsDeliveryWarning
+    expr: sms_failure_rate > 0.05
+    for: 5m
+    labels:
+      severity: warning
+      category: plat
+    annotations:
+      summary: "短信发送失败率高 (Warning)"
+      description: "失败率 > 5%，验证码/通知送达受影响"
+
+  - alert: PLAT_SmsDeliveryCritical
+    expr: sms_failure_rate > 0.20
+    for: 3m
+    labels:
+      severity: critical
+      category: plat
+    annotations:
+      summary: "短信服务严重故障 (Critical)"
+      description: "失败率 > 20%，用户无法收到验证码"
+
+  # --- Risk Control ---
+  - alert: PLAT_RiskControlInfo
+    expr: risk_control_prewarning_triggered == 1
+    for: 5m
+    labels:
+      severity: info
+      category: plat
+    annotations:
+      summary: "风控预警触发 (Info)"
+      description: "风控系统检测到异常流量模式"
+
+  - alert: PLAT_RiskControlWarning
+    expr: risk_control_threshold_exceeded == 1
+    for: 5m
+    labels:
+      severity: warning
+      category: plat
+    annotations:
+      summary: "风控阈值超越 (Warning)"
+      description: "风险控制指标超过配置阈值"
+
+  - alert: PLAT_RiskControlCritical
+    expr: risk_control_circuit_breaker_open == 1
+    for: 1m
+    labels:
+      severity: critical
+      category: plat
+    annotations:
+      summary: "风控熔断器开启 (Critical)"
+      description: "风控熔断，部分交易可能被拦截"
+
+  # --- Gateway Error Rate ---
+  - alert: PLAT_GatewayErrorRateInfo
+    expr: gateway_error_rate > 0.02
+    for: 5m
+    labels:
+      severity: info
+      category: plat
+    annotations:
+      summary: "网关错误率偏高 (Info)"
+      description: "错误率 > 2%，当前值: {{ $value | printf \"%.1f%%\" }}"
+
+  - alert: PLAT_GatewayErrorRateWarning
+    expr: gateway_error_rate > 0.05
+    for: 5m
+    labels:
+      severity: warning
+      category: plat
+    annotations:
+      summary: "网关错误率高 (Warning)"
+      description: "错误率 > 5%，用户请求成功率下降"
+
+  - alert: PLAT_GatewayErrorRateCritical
+    expr: gateway_error_rate > 0.15
+    for: 3m
+    labels:
+      severity: critical
+      category: plat
+    annotations:
+      summary: "网关错误率严重 (Critical)"
+      description: "错误率 > 15%，大量请求失败"
+
+
+# ============================================================
+# MSK — Kafka / Amazon MSK (新增)
+# ============================================================
+- name: msk.rules
+  rules:
+
+  - alert: MSK_ConsumerLagInfo
+    expr: kafka_consumer_group_lag > 5000
+    for: 5m
+    labels:
+      severity: info
+      category: msk
+    annotations:
+      summary: "Kafka 消费者积压 (Info) — {{ $labels.group }}/{{ $labels.topic }}"
+      description: "Lag > 5000，当前值: {{ $value }}"
+
+  - alert: MSK_ConsumerLagWarning
+    expr: kafka_consumer_group_lag > 10000
+    for: 5m
+    labels:
+      severity: warning
+      category: msk
+    annotations:
+      summary: "Kafka 消费者积压偏多 (Warning) — {{ $labels.group }}/{{ $labels.topic }}"
+      description: "Lag > 10000，消费速度跟不上生产速度"
+
+  - alert: MSK_ConsumerLagCritical
+    expr: kafka_consumer_group_lag > 100000
+    for: 3m
+    labels:
+      severity: critical
+      category: msk
+    annotations:
+      summary: "Kafka 消费者严重积压 (Critical) — {{ $labels.group }}/{{ $labels.topic }}"
+      description: "Lag > 100000，数据管道严重滞后"
