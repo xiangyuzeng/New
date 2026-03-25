@@ -1,31 +1,40 @@
 #!/usr/bin/env bash
 #
-# QA Store Audit Monthly Analysis Report — Pipeline Runner
+# QA Store Audit v3 — Pipeline Runner
 #
 # Usage:
-#   bash run.sh <excel_file.xlsx> [YYYY-MM]
+#   bash run.sh <inspection.xlsx> [checklist.xlsx] [YYYY-MM]
 #
 # Arguments:
 #   $1  Path to the QA inspection Excel file (.xlsx)
-#   $2  Analysis month in YYYY-MM format (optional; auto-detects latest month)
+#   $2  Path to QA checklist benchmark (.xlsx, optional — pass '-' to skip)
+#   $3  Analysis month in YYYY-MM format (optional; auto-detects latest month)
 #
 # Output:
-#   output/qa_analysis_results_YYYY-MM.json   — Analysis data (JSON)
-#   output/qa_summary_YYYY-MM.csv             — Summary metrics (CSV)
-#   output/QA门店巡检月度分析报告_YYYY年MM月.docx  — Final report (DOCX)
+#   output/qa-analysis-YYYY-MM/
+#     00_summary.json
+#     01_store_performance.csv
+#     02_module_analysis.csv
+#     03_store_module_matrix.csv
+#     04_risk_detail.csv
+#     05_s_items_detail.csv
+#     06_trend_data.csv
+#     07_module_mapping_audit.csv
 #
 
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 INPUT_FILE="${1:-}"
-MONTH="${2:-}"
+CHECKLIST="${2:-}"
+MONTH="${3:-}"
 OUTPUT_DIR="${SCRIPT_DIR}/output"
 
 if [ -z "$INPUT_FILE" ]; then
-    echo "Usage: bash run.sh <excel_file.xlsx> [YYYY-MM]"
+    echo "Usage: bash run.sh <inspection.xlsx> [checklist.xlsx] [YYYY-MM]"
     echo ""
-    echo "  excel_file.xlsx  Path to the QA inspection data Excel file"
+    echo "  inspection.xlsx  Path to the QA inspection data Excel file"
+    echo "  checklist.xlsx   Path to QA checklist benchmark (optional, pass '-' to skip)"
     echo "  YYYY-MM          Analysis month (optional, auto-detects latest month)"
     exit 1
 fi
@@ -36,52 +45,29 @@ if [ ! -f "$INPUT_FILE" ]; then
 fi
 
 echo "============================================"
-echo "QA Store Audit Monthly Analysis Report"
+echo "QA Store Audit v3 Analysis"
 echo "============================================"
-echo "Input:  $INPUT_FILE"
-echo "Month:  ${MONTH:-auto-detect}"
-echo "Output: $OUTPUT_DIR/"
+echo "Input:     $INPUT_FILE"
+echo "Checklist: ${CHECKLIST:-(none)}"
+echo "Month:     ${MONTH:-auto-detect}"
 echo ""
 
-# Step 0: Install dependencies
-echo "=== Step 0: Installing dependencies ==="
-pip3 install --break-system-packages -q pandas openpyxl 2>/dev/null || pip3 install -q pandas openpyxl 2>/dev/null || pip install -q pandas openpyxl
-cd "${SCRIPT_DIR}/generate-docx" && npm install --silent 2>/dev/null
-cd "${SCRIPT_DIR}"
-echo "  Dependencies ready."
-echo ""
+# Install dependencies if needed
+pip3 install --break-system-packages -q pandas openpyxl 2>/dev/null || \
+pip3 install -q pandas openpyxl 2>/dev/null || true
 
-# Step 1: Python analysis
-echo "=== Step 1: Running Python analysis ==="
-PYTHON_ARGS="--output-dir ${OUTPUT_DIR}"
-[ -n "$INPUT_FILE" ] && PYTHON_ARGS="--input $INPUT_FILE $PYTHON_ARGS"
-[ -n "$MONTH" ] && PYTHON_ARGS="--month $MONTH $PYTHON_ARGS"
-
-python3 analyze/run_analysis.py $PYTHON_ARGS
-echo ""
-
-# Find the generated JSON
-JSON_FILE=$(ls -t "${OUTPUT_DIR}"/qa_analysis_results_*.json 2>/dev/null | head -1)
-if [ -z "$JSON_FILE" ]; then
-    echo "ERROR: No analysis JSON found in ${OUTPUT_DIR}/"
-    exit 1
+# Build CLI args
+PYTHON_ARGS="--input $INPUT_FILE --output-dir ${OUTPUT_DIR}"
+if [ -n "$CHECKLIST" ] && [ "$CHECKLIST" != "-" ] && [ -f "$CHECKLIST" ]; then
+    PYTHON_ARGS="$PYTHON_ARGS --checklist $CHECKLIST"
 fi
-echo "  JSON output: $JSON_FILE"
+[ -n "$MONTH" ] && PYTHON_ARGS="$PYTHON_ARGS --month $MONTH"
 
-# Step 2: Node.js DOCX generation
-echo ""
-echo "=== Step 2: Generating DOCX report ==="
-node generate-docx/generate_report.js "$JSON_FILE" "$OUTPUT_DIR"
-echo ""
+# Run analysis
+cd "${SCRIPT_DIR}"
+python3 analyze/run_analysis.py $PYTHON_ARGS
 
-# Summary
-echo "============================================"
-echo "Pipeline complete!"
-echo "============================================"
 echo ""
-echo "Output files:"
-ls -la "${OUTPUT_DIR}"/*.json 2>/dev/null || true
-ls -la "${OUTPUT_DIR}"/*.csv 2>/dev/null || true
-ls -la "${OUTPUT_DIR}"/*.docx 2>/dev/null || true
-echo ""
+echo "============================================"
 echo "Done."
+echo "============================================"

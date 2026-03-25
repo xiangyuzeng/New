@@ -1,225 +1,157 @@
 """
-Layer 2: 12-Module Risk Analysis.
-Maps 38 labels to 12 modules, analyzes issue distribution and severity.
+Layer 2: Module Analysis — produces 02_module_analysis.csv + 03_store_module_matrix.csv.
 """
 
 import logging
+from pathlib import Path
 
 import pandas as pd
 
-from config import (
-    DEDUCTION_SEVERITY,
-    LABEL_TO_MODULE,
-    MODULE_ENGLISH,
-    MODULE_ORDER,
-    SEVERITY_ORDER,
-)
+from config import MODULES, MODULE_ORDER
 
 logger = logging.getLogger(__name__)
 
 
-def analyze_modules(df, layer1_result, total_stores):
-    """
-    Analyze issues grouped by 12 modules.
+def build_module_analysis(df, total_stores, output_dir):
+    """Build module analysis and write 02 + 03 CSV files.
 
     Args:
-        df: Full DataFrame for the analysis month (all inspections, not just latest)
-        layer1_result: Layer 1 results (for cross-referencing stores)
-        total_stores: Total number of unique stores in the month
+        df: Current month DataFrame with module assignments
+        total_stores: Total unique stores
+        output_dir: Path to output directory
 
-    Returns:
-        dict with layer2 results
+    Returns dict with summary metrics for 00_summary.json.
     """
+    output_dir = Path(output_dir)
+
     if df.empty:
+        _write_empty(output_dir)
         return _empty_result()
 
-    # Map labels to modules
-    df = df.copy()
-    df['module'] = df['label'].map(LABEL_TO_MODULE).fillna('其他')
+    # Issues: exclude O items (deduction_value == 0) for counting
+    issues = df[df['deduction_value'] != 0].copy()
 
-    # Map deduction types to severity codes
-    df['severity'] = df['deduction_type'].map(
-        lambda x: DEDUCTION_SEVERITY.get(x, {}).get('code', 'O')
-    )
-
-    # Filter to actual issues (deduction_value != 0 or has a non-empty description)
-    issues = df[
-        (df['deduction_value'].fillna(0) != 0) |
-        (df['issue_description'].fillna('').str.strip() != '')
-    ].copy()
-
-    if issues.empty:
-        return _empty_result()
-
-    # Unmapped labels
-    unmapped = df[df['module'] == '其他']['label'].unique().tolist()
-    if unmapped:
-        logger.warning(f"Unmapped labels (assigned to '其他'): {unmapped}")
-
-    # Per-module analysis
+    # --- FILE 02: Module Analysis ---
     modules = []
-    for module_name in MODULE_ORDER + (['其他'] if '其他' in issues['module'].values else []):
-        mod_issues = issues[issues['module'] == module_name]
-        if mod_issues.empty:
-            continue
+    for mid in MODULE_ORDER:
+        mod_info = MODULES[mid]
+        mod_issues = issues[issues['module_id'] == mid]
 
-        # Severity breakdown
-        severity_counts = {}
-        for sev in SEVERITY_ORDER:
-            count = int((mod_issues['severity'] == sev).sum())
-            if count > 0:
-                severity_counts[sev] = count
+        sev_counts = mod_issues['severity'].value_counts().to_dict() if not mod_issues.empty else {}
+        affected = mod_issues['store_serial'].nunique() if not mod_issues.empty else 0
+        affected_pct = round(affected / max(total_stores, 1) * 100, 1)
+        total_deduction = float(mod_issues['deduction_value'].sum()) if not mod_issues.empty else 0
 
-        # Affected stores
-        affected_stores = mod_issues['store_serial'].nunique()
-
-        # Total deductions
-        total_deductions = float(mod_issues['deduction_value'].fillna(0).sum())
-
-        # Top issues (most frequent issue descriptions)
-        top_issues = _get_top_issues(mod_issues, top_n=5)
-
-        # Store-level detail for this module
-        store_issues = (
-            mod_issues.groupby(['store_serial', 'store_name'])
-            .agg(
-                issue_count=('deduction_value', 'count'),
-                total_deduction=('deduction_value', 'sum'),
-            )
-            .reset_index()
-            .sort_values('total_deduction')
-            .to_dict('records')
-        )
+        # Top 3 raw Label values
+        top_labels = ''
+        if not mod_issues.empty and 'label' in mod_issues.columns:
+            top = mod_issues['label'].value_counts().head(3).index.tolist()
+            top_labels = ', '.join(str(l) for l in top)
 
         modules.append({
-            'module_name': module_name,
-            'module_name_en': MODULE_ENGLISH.get(module_name, module_name),
+            'module_id': mid,
+            'module_name_cn': mod_info['cn'],
+            'module_name_en': mod_info['en'],
             'issue_count': len(mod_issues),
-            'affected_store_count': affected_stores,
-            'affected_store_pct': round(affected_stores / max(total_stores, 1) * 100, 1),
-            'total_deductions': round(total_deductions, 1),
-            'severity_breakdown': severity_counts,
-            'has_critical': severity_counts.get('S', 0) > 0,
-            'is_systemic': affected_stores > total_stores * 0.5,
-            'top_issues': top_issues,
-            'store_issues': store_issues,
+            'total_deduction': round(total_deduction, 1),
+            's_count': sev_counts.get('S', 0),
+            'm_count': sev_counts.get('M', 0),
+            'g_count': sev_counts.get('G', 0),
+            'l_count': sev_counts.get('L', 0),
+            'affected_store_count': affected,
+            'affected_store_pct': affected_pct,
+            'is_systemic': affected_pct > 50,
+            'has_critical': sev_counts.get('S', 0) > 0,
+            'top_labels': top_labels,
         })
 
-    # Sort by issue count descending
-    modules.sort(key=lambda m: m['issue_count'], reverse=True)
+    # Also handle unmapped (module_id == 0)
+    unmapped_issues = issues[issues['module_id'] == 0]
+    if not unmapped_issues.empty:
+        sev_counts = unmapped_issues['severity'].value_counts().to_dict()
+        modules.append({
+            'module_id': 0,
+            'module_name_cn': '未分类',
+            'module_name_en': 'Uncategorized',
+            'issue_count': len(unmapped_issues),
+            'total_deduction': round(float(unmapped_issues['deduction_value'].sum()), 1),
+            's_count': sev_counts.get('S', 0),
+            'm_count': sev_counts.get('M', 0),
+            'g_count': sev_counts.get('G', 0),
+            'l_count': sev_counts.get('L', 0),
+            'affected_store_count': unmapped_issues['store_serial'].nunique(),
+            'affected_store_pct': round(unmapped_issues['store_serial'].nunique() / max(total_stores, 1) * 100, 1),
+            'is_systemic': False,
+            'has_critical': sev_counts.get('S', 0) > 0,
+            'top_labels': ', '.join(unmapped_issues['label'].value_counts().head(3).index.tolist()) if 'label' in unmapped_issues.columns else '',
+        })
 
-    # Rank
-    for i, mod in enumerate(modules):
-        mod['rank'] = i + 1
+    mod_df = pd.DataFrame(modules)
+    # Sort by total_deduction ASC (most negative first), then issue_count DESC
+    mod_df = mod_df.sort_values(
+        ['total_deduction', 'issue_count'], ascending=[True, False]
+    )
+    mod_df.to_csv(output_dir / '02_module_analysis.csv', index=False, encoding='utf-8-sig')
+    logger.info(f"Wrote 02_module_analysis.csv ({len(mod_df)} modules)")
 
-    # Cross-reference with Layer 1 stores
-    store_module_connection = _connect_to_stores(issues, layer1_result)
+    # --- FILE 03: Store × Module Matrix ---
+    if not issues.empty:
+        # Filter to modules 1-12 for matrix columns
+        matrix_issues = issues[issues['module_id'].between(1, 12)]
+        cross = matrix_issues.pivot_table(
+            index=['store_serial', 'store_name'],
+            columns='module_id',
+            values='deduction_value',
+            aggfunc='sum',
+            fill_value=0,
+        )
+        # Ensure all 12 module columns exist
+        for mid in MODULE_ORDER:
+            if mid not in cross.columns:
+                cross[mid] = 0
+        cross = cross[MODULE_ORDER]
+        # Rename columns to module_1, module_2, etc.
+        cross.columns = [f"module_{mid}" for mid in MODULE_ORDER]
+        cross['total_deduction'] = cross.sum(axis=1)
 
-    # Identify critical and systemic modules
-    critical_modules = [m['module_name'] for m in modules if m['has_critical']]
-    systemic_modules = [m['module_name'] for m in modules if m['is_systemic']]
+        # Add report_score from the data
+        store_scores = df.drop_duplicates('store_serial').set_index('store_serial')['report_score']
+        cross = cross.reset_index()
+        cross['report_score'] = cross['store_serial'].map(store_scores)
+
+        cross = cross.sort_values('total_deduction')
+    else:
+        cross = pd.DataFrame(columns=['store_serial', 'store_name'] +
+                             [f"module_{mid}" for mid in MODULE_ORDER] +
+                             ['total_deduction', 'report_score'])
+
+    cross.to_csv(output_dir / '03_store_module_matrix.csv', index=False, encoding='utf-8-sig')
+    logger.info(f"Wrote 03_store_module_matrix.csv ({len(cross)} stores)")
+
+    # Summary for JSON
+    ranked = mod_df[mod_df['module_id'] > 0].head(3)
+    systemic = mod_df[(mod_df['is_systemic']) & (mod_df['module_id'] > 0)]['module_name_cn'].tolist()
+    critical = mod_df[(mod_df['has_critical']) & (mod_df['module_id'] > 0)]['module_name_cn'].tolist()
 
     return {
-        'modules': modules,
-        'module_ranking': [m['module_name'] for m in modules],
-        'critical_modules': critical_modules,
-        'systemic_modules': systemic_modules,
-        'total_issues': len(issues),
-        'unmapped_labels': unmapped,
-        'store_module_connection': store_module_connection,
+        'module_df': mod_df,
+        'total_issues': int(len(issues)),
+        'top_3_modules': ranked[['module_id', 'module_name_cn', 'issue_count', 'total_deduction']].to_dict('records'),
+        'systemic_modules': systemic,
+        'critical_modules': critical,
     }
 
 
-def _get_top_issues(mod_issues, top_n=5):
-    """Get the most frequent issue descriptions in a module."""
-    descriptions = mod_issues['issue_description'].fillna('').str.strip()
-    descriptions = descriptions[descriptions != '']
-    if descriptions.empty:
-        # Fall back to check_items
-        descriptions = mod_issues['check_items'].fillna('').str.strip()
-        descriptions = descriptions[descriptions != '']
-
-    if descriptions.empty:
-        return []
-
-    counts = descriptions.value_counts().head(top_n)
-    result = []
-    for desc, count in counts.items():
-        stores = mod_issues[
-            mod_issues['issue_description'].fillna('').str.strip() == desc
-        ]['store_name'].unique().tolist()
-        result.append({
-            'description': str(desc)[:200],
-            'count': int(count),
-            'stores': stores[:10],
-        })
-    return result
-
-
-def _connect_to_stores(issues, layer1_result):
-    """Cross-reference modules back to Layer 1 store results."""
-    connection = {
-        'lowest_store_modules': [],
-        'highest_store_modules': [],
-        'most_improved_modules': [],
-    }
-
-    if not layer1_result or not layer1_result.get('store_scores'):
-        return connection
-
-    # Lowest scoring store: which modules drove the low score?
-    lowest = layer1_result.get('lowest_store', {})
-    if lowest.get('store_serial'):
-        store_issues = issues[issues['store_serial'] == lowest['store_serial']]
-        if not store_issues.empty:
-            module_deductions = (
-                store_issues.groupby('module')['deduction_value']
-                .sum()
-                .sort_values()
-                .reset_index()
-            )
-            module_deductions.columns = ['module', 'deduction']  # Fix column names after reset
-            connection['lowest_store_modules'] = [
-                {'module': row['module'], 'deduction': round(float(row['deduction']), 1)}
-                for _, row in module_deductions.iterrows()
-            ]
-
-    # Highest scoring store: which modules were clean?
-    highest = layer1_result.get('highest_store', {})
-    if highest.get('store_serial'):
-        store_issues = issues[issues['store_serial'] == highest['store_serial']]
-        affected_modules = set(store_issues['module'].unique()) if not store_issues.empty else set()
-        clean_modules = [m for m in MODULE_ORDER if m not in affected_modules]
-        connection['highest_store_modules'] = clean_modules
-
-    # Most improved store
-    improved = layer1_result.get('most_improved')
-    if improved and improved.get('store_serial'):
-        store_issues = issues[issues['store_serial'] == improved['store_serial']]
-        if not store_issues.empty:
-            connection['most_improved_modules'] = (
-                store_issues.groupby('module')['deduction_value']
-                .sum()
-                .sort_values()
-                .reset_index()
-                .rename(columns={'deduction_value': 'deduction'})
-                .to_dict('records')
-            )
-
-    return connection
+def _write_empty(output_dir):
+    output_dir = Path(output_dir)
+    pd.DataFrame(columns=[
+        'module_id', 'module_name_cn', 'module_name_en', 'issue_count',
+        'total_deduction', 's_count', 'm_count', 'g_count', 'l_count',
+        'affected_store_count', 'affected_store_pct', 'is_systemic', 'has_critical', 'top_labels',
+    ]).to_csv(output_dir / '02_module_analysis.csv', index=False, encoding='utf-8-sig')
+    pd.DataFrame().to_csv(output_dir / '03_store_module_matrix.csv', index=False, encoding='utf-8-sig')
 
 
 def _empty_result():
-    return {
-        'modules': [],
-        'module_ranking': [],
-        'critical_modules': [],
-        'systemic_modules': [],
-        'total_issues': 0,
-        'unmapped_labels': [],
-        'store_module_connection': {
-            'lowest_store_modules': [],
-            'highest_store_modules': [],
-            'most_improved_modules': [],
-        },
-    }
+    return {'module_df': pd.DataFrame(), 'total_issues': 0,
+            'top_3_modules': [], 'systemic_modules': [], 'critical_modules': []}

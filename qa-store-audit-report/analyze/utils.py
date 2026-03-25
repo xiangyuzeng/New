@@ -1,13 +1,13 @@
 """
-Shared utilities for QA Store Audit analysis.
-Column normalization, date parsing, anomaly detection, CSV export.
+Shared utilities for QA Store Audit analysis v3.
+Column normalization, date parsing, anomaly detection.
 """
 
-import csv
 import logging
-from datetime import datetime
 
 import pandas as pd
+
+from config import MODULES
 
 logger = logging.getLogger(__name__)
 
@@ -43,18 +43,15 @@ def normalize_columns(df):
     df.columns = [c.strip() for c in df.columns]
     rename_map = {}
     for orig, internal in EXPECTED_COLUMNS.items():
-        # Try exact match first
         if orig in df.columns:
             rename_map[orig] = internal
         else:
-            # Try case-insensitive match
             for col in df.columns:
                 if col.lower().strip() == orig.lower().strip():
                     rename_map[col] = internal
                     break
     df = df.rename(columns=rename_map)
 
-    # Log any unmapped columns
     mapped = set(rename_map.values())
     expected = set(EXPECTED_COLUMNS.values())
     missing = expected - mapped
@@ -65,14 +62,11 @@ def normalize_columns(df):
 
 
 def parse_date_column(series):
-    """Parse date columns that may be in multiple formats.
-    Returns a Series of datetime objects.
-    """
+    """Parse date columns that may be in multiple formats."""
     if series.dtype == 'datetime64[ns]':
         return series
 
     parsed = pd.to_datetime(series, format='%Y-%m-%d', errors='coerce')
-    # Try other formats for remaining NaTs
     mask = parsed.isna() & series.notna()
     if mask.any():
         for fmt in ['%m/%d/%Y', '%Y/%m/%d', '%d-%m-%Y', '%Y-%m-%d %H:%M:%S']:
@@ -93,9 +87,7 @@ def parse_datetime_column(series):
 
 
 def detect_anomalous_scores(df):
-    """Identify rows with anomalous negative scores.
-    Returns (clean_df, anomalous_df).
-    """
+    """Identify rows with anomalous negative scores. Returns (clean_df, anomalous_df)."""
     score_col = 'report_score'
     if score_col not in df.columns:
         return df, pd.DataFrame()
@@ -114,11 +106,7 @@ def detect_anomalous_scores(df):
 
 
 def get_analysis_month(df, specified_month=None):
-    """Determine the analysis month.
-    If specified_month is given (YYYY-MM), use it.
-    Otherwise auto-detect the latest month in data.
-    Returns (year, month) tuple and the prior month tuple.
-    """
+    """Determine the analysis month. Returns (year, month) and prior month tuples."""
     if 'check_date' not in df.columns:
         raise ValueError("No 'check_date' column found in data")
 
@@ -129,7 +117,6 @@ def get_analysis_month(df, specified_month=None):
         parts = specified_month.split('-')
         year, month = int(parts[0]), int(parts[1])
     else:
-        # Auto-detect: latest month in data
         valid_dates = dates.dropna()
         if valid_dates.empty:
             raise ValueError("No valid dates found in data")
@@ -137,7 +124,6 @@ def get_analysis_month(df, specified_month=None):
         year, month = latest.year, latest.month
         logger.info(f"Auto-detected analysis month: {year}-{month:02d}")
 
-    # Prior month
     if month == 1:
         prior_year, prior_month = year - 1, 12
     else:
@@ -156,9 +142,7 @@ def filter_by_month(df, year, month):
 
 
 def get_latest_inspection_per_store(df):
-    """For each store, keep only the latest inspection (by report_gen_time).
-    Returns a DataFrame with one row per store (the latest inspection's score).
-    """
+    """For each store, keep only the latest inspection (by report_gen_time)."""
     if 'report_gen_time' in df.columns:
         df['_parsed_gen_time'] = parse_datetime_column(df['report_gen_time'])
         sort_col = '_parsed_gen_time'
@@ -167,71 +151,15 @@ def get_latest_inspection_per_store(df):
     else:
         sort_col = 'check_date'
 
-    # Get unique inspections (one score per checklist)
     inspections = df.drop_duplicates(subset=['checklist_number']).copy()
-
-    # Sort by time desc, take first per store
     inspections = inspections.sort_values(sort_col, ascending=False)
     latest = inspections.groupby('store_serial').first().reset_index()
     return latest
 
 
-def export_summary_csv(results, output_path):
-    """Export a flat CSV summary from the analysis results."""
-    meta = results['metadata']
-    l1 = results['layer1_store_performance']
-
-    rows = []
-    # Header row with metadata
-    rows.append({
-        'metric': '分析月份',
-        'value': meta['analysis_month'],
-        'detail': f"共{meta['total_stores']}家门店, {meta['total_inspections']}次巡检",
-    })
-    rows.append({
-        'metric': '本月平均分',
-        'value': str(l1['monthly_average']),
-        'detail': '',
-    })
-    if l1.get('prior_month_average') is not None:
-        rows.append({
-            'metric': '上月平均分',
-            'value': str(l1['prior_month_average']),
-            'detail': f"变化: {l1.get('average_trend', 'N/A')}",
-        })
-    rows.append({
-        'metric': '最高分门店',
-        'value': str(l1['highest_store']['score']),
-        'detail': l1['highest_store']['name'],
-    })
-    rows.append({
-        'metric': '最低分门店',
-        'value': str(l1['lowest_store']['score']),
-        'detail': l1['lowest_store']['name'],
-    })
-
-    # Module summary
-    for mod in results['layer2_module_analysis']['modules']:
-        rows.append({
-            'metric': f"模块-{mod['module_name']}",
-            'value': str(mod['issue_count']),
-            'detail': f"影响{mod['affected_store_count']}家门店, 扣分{mod['total_deductions']}",
-        })
-
-    # Risk distribution
-    risk = results['layer3_risk_analysis']
-    for sev in ['S', 'M', 'G', 'L']:
-        count = risk['severity_distribution'].get(sev, 0)
-        pct = risk['severity_percentages'].get(sev, 0)
-        rows.append({
-            'metric': f"风险-{sev}项",
-            'value': str(count),
-            'detail': f"{pct}%",
-        })
-
-    with open(output_path, 'w', newline='', encoding='utf-8-sig') as f:
-        writer = csv.DictWriter(f, fieldnames=['metric', 'value', 'detail'])
-        writer.writeheader()
-        writer.writerows(rows)
-
-    logger.info(f"Summary CSV exported to {output_path}")
+def get_module_name(module_id, lang='cn'):
+    """Get module name by ID. Returns '未分类'/'Uncategorized' for unknown IDs."""
+    mod = MODULES.get(module_id)
+    if mod:
+        return mod[lang]
+    return '未分类' if lang == 'cn' else 'Uncategorized'

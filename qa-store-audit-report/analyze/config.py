@@ -1,109 +1,103 @@
 """
-Configuration constants for QA Store Audit Monthly Analysis.
-Label-to-module mapping, severity mapping, color scheme, CAPA keywords.
+Configuration constants for QA Store Audit v3.
+Module definitions, clause-based mapping, severity, attribution keywords.
 """
 
 # ---------------------------------------------------------------------------
-# 38 Label values → 12 analysis modules
+# V3 Module definitions (from QA checklist chapter structure)
+# Key: int module_id (1-12), matches clause number first digit
 # ---------------------------------------------------------------------------
-LABEL_TO_MODULE = {
-    # 1. 设备与工具 (Equipment & Utensils)
-    'Equipment and Food Processing Utensils': '设备与工具',
-    'Storage/Maintenance of Utensils': '设备与工具',
-    'Equipment Inspection and Maintenance': '设备与工具',
-    'Facility Inspection and Maintenance': '设备与工具',
-
-    # 2. 清洁消毒 (Cleaning & Disinfection)
-    'Procedures for Cleaning and Disinfection': '清洁消毒',
-    'Handwashing Standards': '清洁消毒',
-    'Disposable Gloves and Blue Bandages': '清洁消毒',
-
-    # 3. 温控管理 (Temperature Control)
-    'Devices for Monitoring the Temperatures of All Refrigerators and Freezers': '温控管理',
-    'Product Storage Conditions': '温控管理',
-
-    # 4. 储存管理 (Storage Management)
-    'Material Storage Location Specification': '储存管理',
-    'Storage and Inventory Transfer of Food': '储存管理',
-    'Approved Goods': '储存管理',
-    'Unqualified Goods': '储存管理',
-
-    # 5. 食品加工区域 (Food Processing Area)
-    'Food Processing Area': '食品加工区域',
-    'Operation Stand, Shelf, Cabinet and Water Sink': '食品加工区域',
-    'Cross Contamination': '食品加工区域',
-    'Avoidance of Falling Foreign Objects': '食品加工区域',
-
-    # 6. 水务与管道 (Water & Plumbing)
-    'Water Filtration Device': '水务与管道',
-    'Water Sinks & Pipes': '水务与管道',
-    'Grease traps&Residue traps&Sewer lines': '水务与管道',
-    'Potable Water Supply is Adequate': '水务与管道',
-
-    # 7. 虫害防控 (Pest Control)
-    'Insect Pest Control Facilities & Suppliers': '虫害防控',
-    'No Sign of Insect Pests': '虫害防控',
-    'No pests enter': '虫害防控',
-
-    # 8. 有效期管理 (Expiration Management)
-    'Expiration Date': '有效期管理',
-    'Food': '有效期管理',
-
-    # 9. 人员卫生 (Personal Hygiene)
-    'Personal Hygiene': '人员卫生',
-    "Employees' Health": '人员卫生',
-    'Personal certificate': '人员卫生',
-
-    # 10. 化学品管理 (Chemical Management)
-    'Chemical Mark/Storage': '化学品管理',
-
-    # 11. 环境与客区 (Environment & Customer Area)
-    'Customer Area': '环境与客区',
-    'Trash Cans': '环境与客区',
-    'Lights': '环境与客区',
-    'Workplace Safety': '环境与客区',
-
-    # 12. 证照与规范 (Licenses & Compliance)
-    'Licenses and certificates': '证照与规范',
-    'License Documents': '证照与规范',
-    'Government inspection': '证照与规范',
-    'Operating Specifications': '证照与规范',
-    'Requirements': '证照与规范',
+MODULES = {
+    1:  {'cn': '证照文件记录',         'en': 'Document Record'},
+    2:  {'cn': '员工健康与个人卫生',    'en': "Employees' Health & Personal Hygiene"},
+    3:  {'cn': '供应商管理',           'en': 'Approved Supplier'},
+    4:  {'cn': '交叉污染防控',         'en': 'Prevention of Cross-contamination'},
+    5:  {'cn': '清洁卫生',             'en': 'Sanitation and Hygiene'},
+    6:  {'cn': '产品与有效期管理',      'en': 'Product Procedures & Expiry Date Management'},
+    7:  {'cn': '设备设施维护',         'en': 'Maintenance of Equipment and Facilities'},
+    8:  {'cn': '化学品管理',           'en': 'Chemicals'},
+    9:  {'cn': '虫害防控',             'en': 'Pests Control'},
+    10: {'cn': '饮用水与管道系统',      'en': 'Potable Water, Pipes & Water Systems'},
+    11: {'cn': '工作场所安全',         'en': 'Workplace Safety'},
+    12: {'cn': '门店稽核管理',         'en': 'Store Audit Management Procedures'},
 }
 
-# Module display order (for consistent reporting)
-MODULE_ORDER = [
-    '设备与工具',
-    '清洁消毒',
-    '温控管理',
-    '储存管理',
-    '食品加工区域',
-    '水务与管道',
-    '虫害防控',
-    '有效期管理',
-    '人员卫生',
-    '化学品管理',
-    '环境与客区',
-    '证照与规范',
-]
+MODULE_ORDER = list(range(1, 13))
 
-MODULE_ENGLISH = {
-    '设备与工具': 'Equipment & Utensils',
-    '清洁消毒': 'Cleaning & Disinfection',
-    '温控管理': 'Temperature Control',
-    '储存管理': 'Storage Management',
-    '食品加工区域': 'Food Processing Area',
-    '水务与管道': 'Water & Plumbing',
-    '虫害防控': 'Pest Control',
-    '有效期管理': 'Expiration Management',
-    '人员卫生': 'Personal Hygiene',
-    '化学品管理': 'Chemical Management',
-    '环境与客区': 'Environment & Customer Area',
-    '证照与规范': 'Licenses & Compliance',
+# ---------------------------------------------------------------------------
+# Fallback: Label string → module ID (used ONLY when fuzzy text match fails)
+# ---------------------------------------------------------------------------
+LABEL_TO_MODULE_FALLBACK = {
+    # Module 1 - 证照文件记录
+    'Licenses and certificates': 1,
+    'License Documents': 1,
+    'Government inspection': 1,
+    # Module 2 - 员工健康与个人卫生
+    "Employees' Health": 2,
+    'Personal Hygiene': 2,
+    'Personal certificate': 2,
+    'Disposable Gloves and Blue Bandages': 2,
+    'Handwashing Standards': 2,
+    # Module 3 - 供应商管理
+    'Approved Goods': 3,
+    # Module 4 - 交叉污染防控
+    'Material Storage Location Specification': 4,
+    'Storage/Maintenance of Utensils': 4,
+    'Cross Contamination': 4,
+    'Avoidance of Falling Foreign Objects': 4,
+    # Module 5 - 清洁卫生
+    'Procedures for Cleaning and Disinfection': 5,
+    'Equipment and Food Processing Utensils': 5,
+    'Operation Stand, Shelf, Cabinet and Water Sink': 5,
+    'Food Processing Area': 5,
+    'Trash Cans': 5,
+    'Customer Area': 5,
+    # Module 6 - 产品与有效期管理
+    'Devices for Monitoring the Temperatures of All Refrigerators and Freezers': 6,
+    'Product Storage Conditions': 6,
+    'Expiration Date': 6,
+    'Food': 6,
+    'Operating Specifications': 6,
+    'Storage and Inventory Transfer of Food': 6,
+    'Unqualified Goods': 6,
+    # Module 7 - 设备设施维护
+    'Equipment Inspection and Maintenance': 7,
+    'Facility Inspection and Maintenance': 7,
+    'Lights': 7,
+    # Module 8 - 化学品管理
+    'Chemical Mark/Storage': 8,
+    # Module 9 - 虫害防控
+    'No Sign of Insect Pests': 9,
+    'Insect Pest Control Facilities & Suppliers': 9,
+    'No pests enter': 9,
+    # Module 10 - 饮用水与管道系统
+    'Water Sinks & Pipes': 10,
+    'Grease traps&Residue traps&Sewer lines': 10,
+    'Water Filtration Device': 10,
+    'Potable Water Supply is Adequate': 10,
+    # Module 11 - 工作场所安全
+    'Workplace Safety': 11,
+    # Module 12 - 门店稽核管理
+    'Requirements': 12,
 }
 
 # ---------------------------------------------------------------------------
-# Deduction type → severity mapping
+# Fuzzy matching thresholds
+# ---------------------------------------------------------------------------
+FUZZY_MATCH_THRESHOLD = 0.55
+FUZZY_MATCH_HIGH_CONFIDENCE = 0.80
+
+# ---------------------------------------------------------------------------
+# Severity prefix in Check items text
+# ---------------------------------------------------------------------------
+SEVERITY_PREFIX_MAP = {
+    '(S)': 'S',
+    '(M)': 'M',
+    '(L)': 'L',
+}
+
+# ---------------------------------------------------------------------------
+# Deduction type → severity mapping (unchanged from v1)
 # ---------------------------------------------------------------------------
 DEDUCTION_SEVERITY = {
     'Key': {'label_cn': 'S项', 'code': 'S', 'level': '关键项', 'description': 'Critical'},
@@ -116,48 +110,31 @@ DEDUCTION_SEVERITY = {
 SEVERITY_ORDER = ['S', 'M', 'G', 'L', 'O']
 
 # ---------------------------------------------------------------------------
-# Luckin color scheme (matches /app/luckin-ops-dashboard/scripts/generate_report.py)
-# ---------------------------------------------------------------------------
-COLORS = {
-    'NAVY': '#1F4E79',
-    'BLUE_ACCENT': '#2E75B6',
-    'LIGHT_BLUE_BG': '#D6E4F0',
-    'ALT_ROW': '#F2F2F2',
-    'BORDER_GRAY': '#BFBFBF',
-    'TEXT_DARK': '#2C3E50',
-    'GREEN': '#27AE60',
-    'RED': '#C0392B',
-    'WARNING_ORANGE': '#E67E22',
-    'CRITICAL_BG': '#FCE4EC',
-    'WARNING_BG': '#FDEBD0',
-    'HEALTHY_BG': '#D5F5E3',
-    'INFO_BG': '#D6E4F0',
-}
-
-# ---------------------------------------------------------------------------
-# CAPA keyword-based attribution
+# CAPA keyword-based responsibility attribution
 # ---------------------------------------------------------------------------
 ATTRIBUTION_KEYWORDS = {
     '机修': [
-        'broken', 'leaking', 'not working', 'needs repair', 'malfunction',
+        'broken', 'leaking', 'leak', 'not working', 'needs repair', 'malfunction',
         'damaged', 'out of order', 'defective', 'faulty', 'replace',
-        'maintenance', 'repair', 'fix',
-    ],
-    '门店': [
-        'dirty', 'not labeled', 'expired', 'not clean', 'missing label',
-        'no label', 'no date', 'not stored', 'improper', 'uncovered',
-        'not wearing', 'no gloves', 'no hairnet', 'temperature not recorded',
-        'not sanitized', 'not washed',
+        'maintenance', 'repair', 'fix', 'crack', 'missing part', 'machine',
+        '坏', '漏', '维修',
     ],
     '营建': [
-        'no air gap', 'pipes', 'construction', 'structural', 'plumbing',
-        'drainage', 'ventilation', 'ceiling', 'wall', 'floor damage',
-        'grease trap', 'sewer', 'installation',
+        'no air gap', 'construction', 'plumbing', 'structural', 'install',
+        'pipe', 'drain', 'grease trap', 'sewer', 'ventilation', 'ceiling',
+        'wall', 'floor damage', '管道', '施工', '改造',
+    ],
+    '门店': [
+        'dirty', 'expired', 'no label', 'not labeled', 'not covered',
+        'standing water', 'dust', 'mold', 'missing', 'not clean', 'not posted',
+        'uncovered', 'not wearing', 'no gloves', 'no hairnet',
+        'temperature not recorded', 'not sanitized', 'not washed', 'improper',
+        'no date', 'not stored',
     ],
 }
 
 # ---------------------------------------------------------------------------
-# SLA standards for CAPA
+# SLA standards
 # ---------------------------------------------------------------------------
 SLA_STANDARDS = {
     'S': {'days': 2, 'label': 'S项（关键项）', 'deadline': '2天'},
