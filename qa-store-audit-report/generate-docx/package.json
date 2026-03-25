@@ -1,0 +1,9 @@
+{
+  "name": "qa-store-audit-docx",
+  "version": "1.0.0",
+  "description": "Generate QA Store Audit Report as .docx for Luckin Coffee NA",
+  "main": "generate_report.js",
+  "dependencies": {
+    "docx": "^9.6.1"
+  }
+}
