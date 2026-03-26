@@ -1,0 +1,356 @@
+{
+  "timestamp": "2026-03-26T05:27:00.341210+00:00",
+  "dns": [
+    {
+      "hostname": "smtp.gmail.com",
+      "socket": {
+        "status": "OK",
+        "ips": [
+          "142.250.31.109"
+        ]
+      },
+      "getent": {
+        "status": "OK",
+        "output": "2607:f8b0:4004:c23::6d smtp.gmail.com"
+      }
+    },
+    {
+      "hostname": "imap.gmail.com",
+      "socket": {
+        "status": "OK",
+        "ips": [
+          "142.251.179.108",
+          "142.251.179.109"
+        ]
+      },
+      "getent": {
+        "status": "OK",
+        "output": "2607:f8b0:4004:c0b::6d imap.gmail.com\n2607:f8b0:4004:c0b::6c imap.gmail.com"
+      }
+    },
+    {
+      "hostname": "s3.us-east-1.amazonaws.com",
+      "socket": {
+        "status": "OK",
+        "ips": [
+          "16.15.219.121"
+        ]
+      },
+      "getent": {
+        "status": "OK",
+        "output": "16.15.219.121   s3.us-east-1.amazonaws.com"
+      }
+    },
+    {
+      "hostname": "sts.us-east-1.amazonaws.com",
+      "socket": {
+        "status": "OK",
+        "ips": [
+          "54.239.16.72"
+        ]
+      },
+      "getent": {
+        "status": "OK",
+        "output": "54.239.16.72    sts.us-east-1.amazonaws.com"
+      }
+    },
+    {
+      "hostname": "api.github.com",
+      "socket": {
+        "status": "OK",
+        "ips": [
+          "140.82.114.6"
+        ]
+      },
+      "getent": {
+        "status": "OK",
+        "output": "140.82.114.6    api.github.com"
+      }
+    },
+    {
+      "hostname": "hooks.slack.com",
+      "socket": {
+        "status": "OK",
+        "ips": [
+          "3.210.88.6",
+          "3.95.117.96",
+          "34.193.255.5",
+          "34.196.46.202",
+          "34.202.253.6",
+          "34.203.97.10",
+          "34.204.109.226",
+          "34.205.195.66",
+          "34.225.62.185",
+          "34.231.24.224",
+          "52.73.140.59",
+          "54.147.59.169",
+          "54.163.235.119",
+          "54.225.153.205",
+          "54.92.199.186"
+        ]
+      },
+      "getent": {
+        "status": "OK",
+        "output": "34.225.62.185   hooks.slack.com\n34.231.24.224   hooks.slack.com\n34.196.46.202   hooks.slack.com\n54.92.199.186   hooks.slack.com\n52.73.140.59    hooks.slack.com\n54.163.235.119  hooks.slack.com\n34.193.255.5    hooks.slack.com\n34.204.109.226  hooks.slack.com\n3.210.88.6      hooks.slack.com\n34.205.195.66   hooks.slack.com\n34.203.97.10    hooks.slack.com\n3.95.117.96     hooks.slack.com\n54.225.153.205  hooks.slack.com\n34.202.253.6    hooks.slack.com\n54.147.59.169   hooks.slack.com"
+      }
+    },
+    {
+      "hostname": "gmail.googleapis.com",
+      "socket": {
+        "status": "OK",
+        "ips": [
+          "142.250.31.95",
+          "142.251.111.95",
+          "142.251.16.95",
+          "142.251.163.95",
+          "142.251.167.95",
+          "142.251.179.95",
+          "172.253.115.95",
+          "172.253.122.95",
+          "172.253.62.95",
+          "172.253.63.95",
+          "192.178.155.95",
+          "192.178.218.95",
+          "64.233.180.95"
+        ]
+      },
+      "getent": {
+        "status": "OK",
+        "output": "2607:f8b0:4004:c0b::5f gmail.googleapis.com\n2607:f8b0:4004:c1f::5f gmail.googleapis.com\n2607:f8b0:4004:c08::5f gmail.googleapis.com\n2607:f8b0:4004:c19::5f gmail.googleapis.com"
+      }
+    },
+    {
+      "hostname": "oauth2.googleapis.com",
+      "socket": {
+        "status": "OK",
+        "ips": [
+          "142.251.16.95"
+        ]
+      },
+      "getent": {
+        "status": "OK",
+        "output": "2607:f8b0:4004:c0b::5f oauth2.googleapis.com"
+      }
+    }
+  ],
+  "tcp": [
+    {
+      "label": "SMTP TLS (STARTTLS)",
+      "host": "smtp.gmail.com",
+      "port": 587,
+      "status": "BLOCKED",
+      "latency_ms": 5005.8,
+      "error": "[Errno 99] Cannot assign requested address"
+    },
+    {
+      "label": "SMTP SSL",
+      "host": "smtp.gmail.com",
+      "port": 465,
+      "status": "BLOCKED",
+      "latency_ms": 5009.9,
+      "error": "[Errno 99] Cannot assign requested address"
+    },
+    {
+      "label": "SMTP Plain",
+      "host": "smtp.gmail.com",
+      "port": 25,
+      "status": "BLOCKED",
+      "latency_ms": 5007.1,
+      "error": "[Errno 99] Cannot assign requested address"
+    },
+    {
+      "label": "IMAP SSL",
+      "host": "imap.gmail.com",
+      "port": 993,
+      "status": "BLOCKED",
+      "latency_ms": 10016.3,
+      "error": "[Errno 99] Cannot assign requested address"
+    },
+    {
+      "label": "AWS S3 HTTPS",
+      "host": "s3.us-east-1.amazonaws.com",
+      "port": 443,
+      "status": "OPEN",
+      "latency_ms": 7.7,
+      "banner": ""
+    },
+    {
+      "label": "AWS STS HTTPS",
+      "host": "sts.us-east-1.amazonaws.com",
+      "port": 443,
+      "status": "OPEN",
+      "latency_ms": 8.2,
+      "banner": ""
+    },
+    {
+      "label": "GitHub API HTTPS",
+      "host": "api.github.com",
+      "port": 443,
+      "status": "OPEN",
+      "latency_ms": 7.6,
+      "banner": ""
+    },
+    {
+      "label": "Slack Webhook HTTPS",
+      "host": "hooks.slack.com",
+      "port": 443,
+      "status": "OPEN",
+      "latency_ms": 8.5,
+      "banner": ""
+    },
+    {
+      "label": "Gmail API HTTPS",
+      "host": "gmail.googleapis.com",
+      "port": 443,
+      "status": "OPEN",
+      "latency_ms": 7.1,
+      "banner": ""
+    },
+    {
+      "label": "Google OAuth HTTPS",
+      "host": "oauth2.googleapis.com",
+      "port": 443,
+      "status": "OPEN",
+      "latency_ms": 10.4,
+      "banner": ""
+    }
+  ],
+  "https": [
+    {
+      "label": "S3 Global",
+      "url": "https://s3.amazonaws.com",
+      "status": "OK",
+      "http_code": "307",
+      "time_s": "0.031611",
+      "ssl_verify": "OK"
+    },
+    {
+      "label": "STS Global",
+      "url": "https://sts.amazonaws.com",
+      "status": "OK",
+      "http_code": "302",
+      "time_s": "0.041232",
+      "ssl_verify": "OK"
+    },
+    {
+      "label": "GitHub API",
+      "url": "https://api.github.com",
+      "status": "OK",
+      "http_code": "200",
+      "time_s": "0.048819",
+      "ssl_verify": "OK"
+    },
+    {
+      "label": "Gmail REST API",
+      "url": "https://gmail.googleapis.com",
+      "status": "OK",
+      "http_code": "404",
+      "time_s": "0.045085",
+      "ssl_verify": "OK"
+    },
+    {
+      "label": "Google APIs",
+      "url": "https://www.googleapis.com",
+      "status": "OK",
+      "http_code": "404",
+      "time_s": "0.136182",
+      "ssl_verify": "OK"
+    },
+    {
+      "label": "Slack Webhooks",
+      "url": "https://hooks.slack.com",
+      "status": "OK",
+      "http_code": "302",
+      "time_s": "0.039760",
+      "ssl_verify": "OK"
+    }
+  ],
+  "aws_cli": {
+    "version": "aws-cli/2.34.16 Python/3.14.3 Linux/5.10.247-246.989.amzn2.x86_64 exe/x86_64.debian.12",
+    "identity": {
+      "status": "OK",
+      "data": {
+        "UserId": "AIDATX3PIBWBHOR7ZX46M",
+        "Account": "257394478466",
+        "Arn": "arn:aws:iam::257394478466:user/databasecheck"
+      }
+    },
+    "s3_ls": {
+      "status": "OK",
+      "sample": [
+        "2025-04-15 07:38:37 aws-cloudtrail-logs-257394478466-c7ff0779",
+        "2025-04-07 09:24:14 aws-emr-studio-aws-prod",
+        "2025-02-10 09:27:13 aws-logs-257394478466-us-east-1",
+        "2025-08-27 08:22:50 cf-templates-goevw3gunqnb-us-east-1",
+        "2025-08-27 08:30:10 cp-test-dynamic-image-tra-frontenddistributiontos3-7wcd6xi4eibq"
+      ]
+    },
+    "s3_dryrun": {
+      "status": "FAIL",
+      "output": "Completed 0 file(s) with ~0 file(s) remaining (calculating...)"
+    },
+    "disk": "Filesystem      Size  Used Avail Use% Mounted on\noverlay          40G   29G   12G  72% /"
+  },
+  "docker": {
+    "docker": {
+      "status": "NOT AVAILABLE",
+      "error": "[Errno 13] Permission denied: 'docker'"
+    },
+    "docker-compose-v1": {
+      "status": "NOT AVAILABLE",
+      "error": "[Errno 13] Permission denied: 'docker-compose'"
+    },
+    "docker-compose-v2": {
+      "status": "NOT AVAILABLE",
+      "error": "[Errno 13] Permission denied: 'docker'"
+    },
+    "docker_pull": {
+      "status": "NOT AVAILABLE",
+      "error": "[Errno 13] Permission denied: 'docker'"
+    }
+  },
+  "s3": {
+    "create_bucket": {
+      "status": "FAIL",
+      "output": "make_bucket failed: s3://luckin-ops-dashboard-data An error occurred (AccessDenied) when calling the CreateBucket operation: User: arn:aws:iam::257394478466:user/databasecheck is not authorized to perform: s3:CreateBucket on resource: \"arn:aws:s3:::luckin-ops-dashboard-data\" because no identity-base"
+    },
+    "existing_buckets": [
+      "2025-02-19 06:56:07 lk-infra-charts",
+      "2025-02-19 03:09:13 lk-infra-data",
+      "2025-05-19 03:14:13 lk-infra-dify",
+      "2025-05-21 06:48:54 lk-infra-dify-data",
+      "2025-05-27 08:13:01 lk-infra-dify-plugindaemon",
+      "2025-01-16 06:03:59 lk-infra-readonly-us",
+      "2025-02-10 06:47:22 lk-ops-emr-us",
+      "2025-02-10 02:39:34 lk-tech-yw-sysop-kafkalog-region-us",
+      "2025-02-21 15:18:15 lk-thanos-data",
+      "2025-08-03 00:21:38 luckin-test-dynamic-image-frontenddistributiontos3-apxtken6onc0"
+    ],
+    "write_lk-infra-data": {
+      "status": "FAIL",
+      "error": "upload failed: ../tmp/tmpes5ca4od.json to s3://lk-infra-data/ops-dashboard/test.json An error occurred (AccessDenied) when calling the PutObject operation: User: arn:aws:iam::257394478466:user/databas"
+    },
+    "write_luckin-ops-dashboard-data": {
+      "status": "FAIL",
+      "error": "upload failed: ../tmp/tmpf0zeps4t.json to s3://luckin-ops-dashboard-data/ops-dashboard/test.json An error occurred (NoSuchBucket) when calling the PutObject operation: The specified bucket does not ex"
+    }
+  },
+  "smtp": {
+    "port_587": "BLOCKED",
+    "port_465": "BLOCKED",
+    "recommendation": "SMTP ports 587/465 are BLOCKED. Use Gmail API over HTTPS (gmail.googleapis.com:443 is reachable) as alternative.",
+    "errors": {
+      "587": "[Errno 99] Cannot assign requested address",
+      "465": "[Errno 99] Cannot assign requested address"
+    }
+  },
+  "imap": {
+    "port_993": "BLOCKED",
+    "recommendation": "IMAP port 993 is BLOCKED. Use Gmail API over HTTPS for reading emails.",
+    "error": "[Errno 99] Cannot assign requested address"
+  },
+  "docker_compose": {
+    "status": "NOT AVAILABLE",
+    "note": "Docker is not installed on this system. To run Docker-based services, install Docker on the EC2 host."
+  }
+}
