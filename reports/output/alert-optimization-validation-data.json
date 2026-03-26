@@ -1,0 +1,272 @@
+{
+  "proposals": [
+    {"id": 1, "report_id": "RDS-13", "description": "FreeableMemory Warning < 256MB", "status": "DONE", "notes": "YAML is superior: < 15% OR < 256MB (dual condition) vs report's abs-only"},
+    {"id": 2, "report_id": "RDS-14", "description": "FreeableMemory Critical < 128MB", "status": "DONE", "notes": "YAML: < 10% OR < 128MB. Also added Info tier (< 20% OR < 512MB)"},
+    {"id": 3, "report_id": "RDS-15", "description": "SwapUsage Warning > 256MB", "status": "DONE", "notes": "YAML adds Info (>100MB) and Critical (>500MB) beyond report"},
+    {"id": 4, "report_id": "RDS-10", "description": "DiskFree → percentage", "status": "DONE", "notes": "YAML: pct OR abs dual condition at all 3 tiers. Report said 'current: < 15GB' — wrong for this YAML"},
+    {"id": 5, "report_id": "RDS-10b", "description": "DiskFree Critical < 8%", "status": "DONE", "notes": "YAML: < 8% OR < 2GB"},
+    {"id": 6, "report_id": "RDS-16/17", "description": "ReplicaLag Warn/Crit", "status": "DONE", "notes": "YAML adds Info > 10s tier"},
+    {"id": 7, "report_id": "RDS-18", "description": "ExporterDown Warning", "status": "DONE", "notes": "YAML has full 3-tier (1m/3m/10m) vs report's single Warning"},
+    {"id": 8, "report_id": "RDS-01", "description": "CpuUsage Info 50% → 65%", "status": "DONE", "notes": "YAML at 65%"},
+    {"id": 9, "report_id": "RDS-07/08/09", "description": "ActiveThreads 12/24/48 → 25/50/100", "status": "DONE", "notes": "YAML at 25/50/100"},
+    {"id": 10, "report_id": "REDIS-04", "description": "Memory Warning 80% → 75%, add PreCritical 88%", "status": "NOT_DONE", "notes": "YAML still at 80% Warning. No PreCritical tier. This is the highest-priority remaining item per the isales-market incident (2026-02-12)"},
+    {"id": 11, "report_id": "REDIS-06", "description": "Latency 5ms → 2ms", "status": "DONE", "notes": "YAML Warning at 2ms. Also added Info at 1ms, Critical at 10ms"},
+    {"id": 12, "report_id": "REDIS-11", "description": "ExporterDown", "status": "DONE", "notes": "Full 3-tier"},
+    {"id": 13, "report_id": "BIZ-04", "description": "Cancellation → ratio > 10%", "status": "DONE", "notes": "YAML has 3-tier: 5%/10%/25%, all with completed > 5 guard"},
+    {"id": 14, "report_id": "BIZ-05", "description": "Payment + order guard", "status": "DONE", "notes": "All tiers have completed > 5 (Info/Warn) or > 3 (Critical) guard"},
+    {"id": 15, "report_id": "BIZ-07", "description": "Registration + time filter", "status": "DONE", "notes": "AND (hour() < 5 OR hour() >= 11) on all tiers"},
+    {"id": 16, "report_id": "BIZ-09", "description": "Traffic split → Drop + Spike", "status": "PARTIAL", "notes": "Drop alerts implemented (3 tiers). TrafficSpikeInfo not implemented."},
+    {"id": 17, "report_id": "BIZ-10b", "description": "LatencyP99 Critical > 8s", "status": "DONE", "notes": "Full 3-tier: 1.5s/3s/8s"},
+    {"id": 18, "report_id": "APM-01", "description": "Exceptions → ratio > 2%", "status": "DONE", "notes": "YAML: 1%/2%/5% with sum by (service). Report lacked by (service)"},
+    {"id": 19, "report_id": "APM-04", "description": "Failures → ratio > 1%", "status": "DONE", "notes": "YAML: 0.5%/1%/5%. But see PromQL issue in Section 3"},
+    {"id": 20, "report_id": "APM-03b", "description": "LatencyP99 Critical > 5s", "status": "DONE", "notes": "Full 3-tier: 0.8s/1.5s/5s"},
+    {"id": 21, "report_id": "MONGO-03b/04b", "description": "Memory → percentage", "status": "DONE", "notes": "YAML uses aws_docdb_* metrics, not mongo_mem_* as report proposed. Dual condition."},
+    {"id": 22, "report_id": "PLAT-04b", "description": "GatewayErrorRate Warning > 5%", "status": "DONE", "notes": "Full 3-tier: 2%/5%/15%. Report wanted Critical at 20%, YAML kept 15%"},
+    {"id": 23, "report_id": "K8S-08", "description": "NodeDiskPressure", "status": "DONE", "notes": "Full 3-tier at 1m/3m/5m"},
+    {"id": 24, "report_id": "K8S-09", "description": "NodeMemoryPressure", "status": "NOT_DONE", "notes": "Completely absent from YAML. Coverage gap."},
+    {"id": 25, "report_id": "MSK-01/02", "description": "ConsumerLag", "status": "DONE", "notes": "Full 3-tier: 5K/10K/100K"},
+    {"id": 26, "report_id": "ES-01", "description": "ClusterHealth duration", "status": "DONE", "notes": "Info/Warning at 3m"},
+    {"id": 27, "report_id": "ES-02", "description": "ClusterRed 0m → 1m", "status": "DONE", "notes": "Critical at for: 1m"},
+    {"id": 28, "report_id": "Inhibition", "description": "4 inhibit_rules", "status": "NOT_DONE", "notes": "Labels don't exist — all 4 inhibition rules are broken"},
+    {"id": 29, "report_id": "Maintenance", "description": "04:30–06:30 UTC batch window", "status": "NOT_DONE", "notes": "Alertmanager has different window (07:00–12:00 UTC for non-BIZ). Proposed batch-specific window not configured."}
+  ],
+  "promql_issues": [
+    {
+      "rule": "APM-01 (Report)",
+      "issue": "sum(rate(service_exceptions_total[5m])) missing by (service) — aggregates globally, masking per-service issues",
+      "severity": "high",
+      "fix_status": "YAML correctly uses sum by (service)(...). Report expression would never fire unless overall exception rate exceeds threshold."
+    },
+    {
+      "rule": "APM-04 (Report)",
+      "issue": "sum(rate(endpoint_failures_total[5m])) missing by (endpoint)",
+      "severity": "high",
+      "fix_status": "Same fix needed."
+    },
+    {
+      "rule": "MONGO-03b/04b (Report)",
+      "issue": "Uses mongo_mem_available_bytes / mongo_mem_total_bytes — metric names don't match YAML convention aws_docdb_freeable_memory_average / aws_docdb_total_memory_average",
+      "severity": "high",
+      "fix_status": "Use aws_docdb_* prefix consistent with CloudWatch exporter."
+    },
+    {
+      "rule": "Inhibit rules (Report)",
+      "issue": "Uses deprecated source_match / target_match syntax",
+      "severity": "medium",
+      "fix_status": "Use source_matchers / target_matchers per Alertmanager >= 0.22. Existing config already uses correct syntax."
+    },
+    {
+      "rule": "BIZ-04/05 (Report)",
+      "issue": "Division-by-zero risk when business_completed_orders_total has zero increase",
+      "severity": "low",
+      "fix_status": "Prometheus returns NaN, which fails > 0.10 comparison, so functionally safe. AND completed > 5 guard already prevents this in practice. No fix needed."
+    },
+    {
+      "rule": "RDS-10 (Report)",
+      "issue": "aws_rds_allocated_storage_average — may not be available as a Prometheus metric if using CloudWatch exporter. CloudWatch has AllocatedStorage but it's a static property, not a metric.",
+      "severity": "medium",
+      "fix_status": "Verify metric availability. May need to use a recording rule or static label."
+    },
+    {
+      "rule": "RDS_FailoverInfo + RDS_FailoverCritical (YAML)",
+      "issue": "Identical condition: both aws_rds_failover_event == 1, for: 0m. Info and Critical fire simultaneously — Info is completely redundant since Critical inhibition (if working) would suppress it.",
+      "severity": "medium",
+      "fix_status": "Remove Info tier or differentiate conditions"
+    },
+    {
+      "rule": "APM_EndpointFailures Info/Warn/Crit (YAML)",
+      "issue": "Uses raw rate() without sum() or sum by (endpoint)(). Evaluates per time series. If endpoint_failures_total has labels like {method, path, status}, the ratio is computed per label combination, potentially giving false positives on low-traffic sub-slices.",
+      "severity": "medium",
+      "fix_status": "Add sum by (endpoint)() aggregation"
+    },
+    {
+      "rule": "K8S_PodCpuUsage (YAML)",
+      "issue": "rate(...) / container_spec_cpu_quota * container_spec_cpu_period — operator precedence is correct but expression is confusing. Better written as rate(...) * container_spec_cpu_period / container_spec_cpu_quota or use kube_pod_container_resource_limits instead.",
+      "severity": "low",
+      "fix_status": "Rewrite for clarity"
+    },
+    {
+      "rule": "PIPE_GoldenFlowCritical (YAML)",
+      "issue": "delay > 300 OR exceptions > 0 — the OR mixes two different failure modes into one alert. An exception count of 1 in 3 minutes fires as Critical, which may be too aggressive.",
+      "severity": "low",
+      "fix_status": "Consider separating exception alerting from delay alerting"
+    }
+  ],
+  "inhibition_issues": [
+    {
+      "rule_or_item": "Existing Rule 1 (Alertmanager)",
+      "label": "alertname",
+      "problem": "equal: ['alertname'] requires source and target alerts to have the same alertname. But BIZ_OrderVolumeCritical and BIZ_OrderVolumeInfo are different alertnames. This rule never fires for multi-tier suppression.",
+      "verdict": "Non-functional — rule never matches"
+    },
+    {
+      "rule_or_item": "Report proposal: equal [alertname_prefix, instance]",
+      "label": "alertname_prefix",
+      "problem": "alertname_prefix label does not exist on any rule in the YAML. No rule has this label defined.",
+      "verdict": "Non-functional — label missing"
+    },
+    {
+      "rule_or_item": "Report proposal: equal [instance] for RDS Failover → RDS_VipUnreachable",
+      "label": "instance",
+      "problem": "RDS rules expose dbinstance_identifier, not instance. Label name mismatch.",
+      "verdict": "Non-functional — label mismatch"
+    },
+    {
+      "rule_or_item": "Report proposal: equal [env] for VIP → BIZ",
+      "label": "env",
+      "problem": "env label does not exist on any rule. No rule has env in its labels block.",
+      "verdict": "Non-functional — label missing"
+    },
+    {
+      "rule_or_item": "Report proposal: equal [pod, namespace] for OomKilled → PodRestart",
+      "label": "pod, namespace",
+      "problem": "These labels come from the metric dimensions (kube-state-metrics), so they should work.",
+      "verdict": "Viable — only functional inhibition proposal"
+    }
+  ],
+  "label_gaps": [
+    {"label_name": "severity", "present": true, "impact": "Routing works"},
+    {"label_name": "category", "present": true, "impact": "Grouping works"},
+    {"label_name": "team", "present": false, "impact": "Cannot route to specific teams (e.g., BIZ→product team, RDS→DBA team)"},
+    {"label_name": "service", "present": false, "impact": "Alertmanager group_by: ['service'] only works for APM; other categories group on empty label"},
+    {"label_name": "env", "present": false, "impact": "Cannot distinguish prod vs staging alerts; inhibition on env broken"},
+    {"label_name": "alert_group", "present": false, "impact": "Cannot group multi-tier alerts for inhibition"}
+  ],
+  "coverage_gaps_high": [
+    {
+      "metric": "K8S NodeMemoryPressure",
+      "category": "K8S",
+      "suggested_expr": "kube_node_status_condition{condition=\"MemoryPressure\",status=\"true\"} == 1",
+      "reason": "Proposed in report but not implemented. Pod eviction risk."
+    },
+    {
+      "metric": "BIZ TrafficSpikeInfo",
+      "category": "BIZ",
+      "suggested_expr": "traffic_rate > 3 * traffic_daily_avg_same_hour",
+      "reason": "Marketing events cause 3x+ surges; need awareness without pages."
+    },
+    {
+      "metric": "RDS DatabaseConnections",
+      "category": "RDS",
+      "suggested_expr": "aws_rds_database_connections_average / aws_rds_max_connections > 0.70 / 0.85 / 0.95",
+      "reason": "Active threads measures concurrency; total connections measures exhaustion. Both matter."
+    },
+    {
+      "metric": "RDS DBLoad",
+      "category": "RDS",
+      "suggested_expr": "aws_rds_dbload_average > 2*vcpu_count / 4*vcpu_count",
+      "reason": "Better indicator of contention than raw CPU. Requires recording rule for vcpu_count."
+    },
+    {
+      "metric": "DocumentDB DiskUsage",
+      "category": "MONGO",
+      "suggested_expr": "aws_docdb_free_local_storage_average < 20% / 10% / 5%",
+      "reason": "Zero disk alerts for MongoDB — complete blind spot."
+    },
+    {
+      "metric": "CERT Expiry",
+      "category": "CERT",
+      "suggested_expr": "ssl_certificate_expiry_seconds < 30d / 14d / 7d",
+      "reason": "Report lists CERT as a category but no rules exist. Certificate expiry is a high-impact, easily-preventable outage cause."
+    }
+  ],
+  "coverage_gaps_medium": [
+    {"metric": "Redis keyspace_misses ratio", "category": "REDIS"},
+    {"metric": "Redis rejected_connections", "category": "REDIS"},
+    {"metric": "K8S PVC Usage", "category": "K8S"},
+    {"metric": "K8S HPA MaxReplicas", "category": "K8S"},
+    {"metric": "K8S Deployment Unavailable", "category": "K8S"},
+    {"metric": "ES Unassigned Shards", "category": "ES"},
+    {"metric": "ES Pending Tasks", "category": "ES"},
+    {"metric": "MSK UnderReplicated Partitions", "category": "MSK"},
+    {"metric": "RDS ReadIOPS Spike", "category": "RDS"}
+  ],
+  "risk_flags": [
+    {
+      "item": "RDS ActiveThreads: Flat Thresholds on Heterogeneous Fleet",
+      "risk_level": "Low (acceptable for current fleet)",
+      "detail": "Flat threshold of 100 is appropriate for Luckin's fleet which is predominantly small instances (t4g/r6g.large). For large instances, ActiveThreads > 100 is still meaningful. Long-term improvement: threads_running / max_connections > 0.30 for Warning, > 0.60 for Critical."
+    },
+    {
+      "item": "REDIS Latency 2ms Warning",
+      "risk_level": "Low",
+      "detail": "2ms with 5m duration is appropriate. Single-region (us-east-1) minimizes network variance. 10ms Critical threshold provides headroom."
+    },
+    {
+      "item": "BIZ-04 Cancellation Rate: Min 5 Orders Sample Size",
+      "risk_level": "Moderate",
+      "detail": "Min-5-orders guard is too low. During slow but not zero-traffic periods, a single cancellation out of 6-8 orders triggers Warning. Recommend raising to 15 orders minimum for Warning tier, keeping 5 for Info tier."
+    },
+    {
+      "item": "PLAT Gateway Critical: 15% vs Report's 20%",
+      "risk_level": "Low (keep 15%)",
+      "detail": "For an API gateway serving all mobile app traffic, 15% error rate is already catastrophic — 1 in 7 requests failing. The report's 20% suggestion was overly conservative."
+    },
+    {
+      "item": "Maintenance Window: 04:30-06:30 UTC",
+      "risk_level": "Moderate (gap exists)",
+      "detail": "Proposed batch window (04:30-06:30) doesn't overlap with existing off-hours mute (07:00-12:00). Between 06:30-07:00 UTC, a late-running batch job would trigger alerts. Consider extending batch window to 07:00 UTC to merge cleanly."
+    }
+  ],
+  "priority_matrix": [
+    {"priority": "P0", "task": "Fix inhibition: add alert_group, env labels to all 165 rules; rewrite inhibit_rules", "effort": "Medium (mechanical)", "impact": "Critical — current inhibition is completely non-functional; all multi-tier alerts fire simultaneously", "week": "Week 1"},
+    {"priority": "P0", "task": "Add K8S NodeMemoryPressure (3 rules)", "effort": "Low", "impact": "High — proposed in report, missing in YAML", "week": "Week 1"},
+    {"priority": "P1", "task": "REDIS-04: lower Warning to 75%, add PreCritical 88%", "effort": "Low", "impact": "High — directly addresses isales-market incident response gap", "week": "Week 2"},
+    {"priority": "P1", "task": "Add runbook_url to all Critical/Warning rules", "effort": "Medium (55+ rules)", "impact": "High — reduces MTTR significantly", "week": "Week 2"},
+    {"priority": "P1", "task": "Fix RDS Failover Info/Critical duplication", "effort": "Low", "impact": "Medium — noise reduction", "week": "Week 2"},
+    {"priority": "P1", "task": "Add BIZ TrafficSpikeInfo", "effort": "Low", "impact": "Medium — prevents confusion on marketing events", "week": "Week 2"},
+    {"priority": "P1", "task": "Add DocumentDB disk alerts (3 rules)", "effort": "Low", "impact": "Medium — complete blind spot", "week": "Week 2"},
+    {"priority": "P1", "task": "Configure batch maintenance window (04:30-07:00 UTC)", "effort": "Low", "impact": "Medium — batch job noise reduction", "week": "Week 2"},
+    {"priority": "P2", "task": "Add RDS DatabaseConnections alert (3 rules)", "effort": "Low", "impact": "Medium", "week": "Week 3-4"},
+    {"priority": "P2", "task": "Add RDS DBLoad alert (2 rules)", "effort": "Low", "impact": "Medium", "week": "Week 3-4"},
+    {"priority": "P2", "task": "Add CERT expiry alerts (3 rules)", "effort": "Medium", "impact": "Medium", "week": "Week 3-4"},
+    {"priority": "P2", "task": "Add Redis keyspace_misses + rejected_connections (4 rules)", "effort": "Low", "impact": "Medium", "week": "Week 3-4"},
+    {"priority": "P2", "task": "Add K8S PVC, HPA, Deployment alerts (9 rules)", "effort": "Medium", "impact": "Medium", "week": "Week 3-4"},
+    {"priority": "P2", "task": "Add ES unassigned_shards + pending_tasks (4-6 rules)", "effort": "Low", "impact": "Medium", "week": "Week 3-4"},
+    {"priority": "P2", "task": "Add MSK under-replicated partitions (3 rules)", "effort": "Low", "impact": "Medium", "week": "Week 3-4"},
+    {"priority": "P2", "task": "Increase BIZ-04 min orders from 5 to 15", "effort": "Low", "impact": "Low-Medium", "week": "Week 3-4"},
+    {"priority": "P2", "task": "Fix APM EndpointFailures: add sum by (endpoint)()", "effort": "Low", "impact": "Low-Medium", "week": "Week 3-4"},
+    {"priority": "P3", "task": "Add dashboard_url to all rules", "effort": "Medium", "impact": "Low-Medium", "week": "Backlog"},
+    {"priority": "P3", "task": "Parameterize ActiveThreads by instance class", "effort": "High", "impact": "Medium", "week": "Backlog"},
+    {"priority": "P3", "task": "Normalize RDS SlowQueries to ratio", "effort": "Medium", "impact": "Low", "week": "Backlog"},
+    {"priority": "P3", "task": "Add VM and PIPE categories to optimization review", "effort": "Low", "impact": "Low", "week": "Backlog"}
+  ],
+  "meta_finding": "The optimization report is stale. The three-tier YAML (2026-03-25) already implements ~85% of the report's proposals. The report's 'current' descriptions match the older alert-rules-complete.yml (2026-02-14), not the YAML it claims to reference. Of 29 proposed changes, only 3 remain unimplemented. The report should be updated to reflect the three-tier YAML as the new baseline, and focus on the remaining gaps.",
+  "contradictions": [
+    {
+      "item": "Rule count",
+      "optimization_report_says": "72 rules across 10 categories; lists CERT as a category",
+      "validation_report_says": "YAML has 165 rules across 11 categories (no CERT). The 72 count matches the older 2026-02-14 file."
+    },
+    {
+      "item": "RDS-10 DiskFree current state",
+      "optimization_report_says": "current: < 15GB (absolute)",
+      "validation_report_says": "YAML already uses pct OR abs dual condition at all 3 tiers"
+    },
+    {
+      "item": "APM-01 expression",
+      "optimization_report_says": "sum(rate(service_exceptions_total[5m])) — missing by (service)",
+      "validation_report_says": "YAML correctly uses sum by (service)(...)"
+    },
+    {
+      "item": "MONGO metric names",
+      "optimization_report_says": "Use mongo_mem_available_bytes / mongo_mem_total_bytes",
+      "validation_report_says": "YAML uses aws_docdb_* metrics from CloudWatch exporter, not mongo_mem_*"
+    },
+    {
+      "item": "PLAT Gateway Critical threshold",
+      "optimization_report_says": "Critical at 20%",
+      "validation_report_says": "YAML has 15% — keep 15% as 20% is overly conservative"
+    },
+    {
+      "item": "Inhibition syntax",
+      "optimization_report_says": "Uses deprecated source_match / target_match syntax",
+      "validation_report_says": "Existing Alertmanager config already uses correct source_matchers / target_matchers syntax"
+    },
+    {
+      "item": "Overall implementation status",
+      "optimization_report_says": "29 proposals presented as TODO items to implement",
+      "validation_report_says": "25 of 34 items already done; report was written against old baseline but YAML was built from same analysis"
+    }
+  ]
+}

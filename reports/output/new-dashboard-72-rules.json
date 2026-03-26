@@ -1,0 +1,1365 @@
+[
+  {
+    "id": "BIZ-01",
+    "name": "BizOrderVolumeInfo",
+    "severity": "info",
+    "tier": "1",
+    "category": "biz",
+    "team": "biz-ops",
+    "metric": "business_completed_orders_total",
+    "threshold": "< 5 orders / 10min",
+    "duration": "10m",
+    "expression": "sum(increase(business_completed_orders_total[10m])) < 5",
+    "services": [
+      "order-service"
+    ],
+    "notification": "wecom-only",
+    "oldIds": [
+      "ALR-001"
+    ]
+  },
+  {
+    "id": "BIZ-02",
+    "name": "BizOrderVolumeWarning",
+    "severity": "warning",
+    "tier": "2",
+    "category": "biz",
+    "team": "biz-ops",
+    "metric": "business_completed_orders_total",
+    "threshold": "< 3 orders / 10min",
+    "duration": "10m",
+    "expression": "sum(increase(business_completed_orders_total[10m])) < 3",
+    "services": [
+      "order-service",
+      "payment-service"
+    ],
+    "notification": "wecom+twilio-lead",
+    "oldIds": [
+      "ALR-001"
+    ]
+  },
+  {
+    "id": "BIZ-03",
+    "name": "BizOrderVolumeCritical",
+    "severity": "critical",
+    "tier": "3",
+    "category": "biz",
+    "team": "biz-ops",
+    "metric": "business_completed_orders_total",
+    "threshold": "< 1 order / 10min",
+    "duration": "5m",
+    "expression": "sum(increase(business_completed_orders_total[10m])) < 1",
+    "services": [
+      "order-service",
+      "payment-service",
+      "product-service",
+      "inventory-service"
+    ],
+    "notification": "wecom+twilio-all",
+    "oldIds": [
+      "ALR-001"
+    ]
+  },
+  {
+    "id": "BIZ-04",
+    "name": "BizCancellationSpikeWarning",
+    "severity": "warning",
+    "tier": "2",
+    "category": "biz",
+    "team": "biz-ops",
+    "metric": "business_cancelled_orders_total",
+    "threshold": "> 1 cancel / 5min",
+    "duration": "5m",
+    "expression": "sum(increase(business_cancelled_orders_total[5m])) > 1",
+    "services": [
+      "order-service"
+    ],
+    "notification": "wecom+twilio-lead",
+    "oldIds": []
+  },
+  {
+    "id": "BIZ-05",
+    "name": "BizPaymentAmountWarning",
+    "severity": "warning",
+    "tier": "2",
+    "category": "biz",
+    "team": "biz-ops",
+    "metric": "business_payment_amount_total",
+    "threshold": "< $500 / 10min",
+    "duration": "5m",
+    "expression": "sum(increase(business_payment_amount_total[10m])) < 500",
+    "services": [
+      "payment-service"
+    ],
+    "notification": "wecom+twilio-lead",
+    "oldIds": []
+  },
+  {
+    "id": "BIZ-06",
+    "name": "BizPaymentAmountCritical",
+    "severity": "critical",
+    "tier": "3",
+    "category": "biz",
+    "team": "biz-ops",
+    "metric": "business_payment_amount_total",
+    "threshold": "= $0 / 10min",
+    "duration": "5m",
+    "expression": "sum(increase(business_payment_amount_total[10m])) == 0",
+    "services": [
+      "payment-service"
+    ],
+    "notification": "wecom+twilio-all",
+    "oldIds": []
+  },
+  {
+    "id": "BIZ-07",
+    "name": "BizRegistrationZeroWarning",
+    "severity": "warning",
+    "tier": "2",
+    "category": "biz",
+    "team": "biz-ops",
+    "metric": "business_registration_total",
+    "threshold": "= 0 / 10min",
+    "duration": "10m",
+    "expression": "sum(increase(business_registration_total[10m])) == 0",
+    "services": [
+      "registration-service"
+    ],
+    "notification": "wecom+twilio-lead",
+    "oldIds": []
+  },
+  {
+    "id": "BIZ-08",
+    "name": "BizRegistrationZeroCritical",
+    "severity": "critical",
+    "tier": "3",
+    "category": "biz",
+    "team": "biz-ops",
+    "metric": "business_registration_total",
+    "threshold": "= 0 / 30min",
+    "duration": "30m",
+    "expression": "sum(increase(business_registration_total[30m])) == 0",
+    "services": [
+      "registration-service",
+      "sms-gateway"
+    ],
+    "notification": "wecom+twilio-all",
+    "oldIds": []
+  },
+  {
+    "id": "BIZ-09",
+    "name": "BizTrafficAnomalyWarning",
+    "severity": "warning",
+    "tier": "2",
+    "category": "biz",
+    "team": "biz-ops",
+    "metric": "business_completed_orders_total",
+    "threshold": "> 3x daily average",
+    "duration": "5m",
+    "expression": "sum(rate(business_completed_orders_total[5m])) > 3 * sum(avg_over_time(rate(business_completed_orders_total[5m])[1d:5m]))",
+    "services": [
+      "order-service",
+      "api-gateway"
+    ],
+    "notification": "wecom+twilio-lead",
+    "oldIds": []
+  },
+  {
+    "id": "BIZ-10",
+    "name": "BizLatencyP99Warning",
+    "severity": "warning",
+    "tier": "2",
+    "category": "biz",
+    "team": "biz-ops",
+    "metric": "service_resp_time_percentile",
+    "threshold": "p99 > 3000ms",
+    "duration": "5m",
+    "expression": "histogram_quantile(0.99, sum(rate(service_resp_time_percentile_bucket{service=\"order-service\"}[5m])) by (le)) > 3000",
+    "services": [
+      "order-service"
+    ],
+    "notification": "wecom+twilio-lead",
+    "oldIds": []
+  },
+  {
+    "id": "RDS-01",
+    "name": "RdsCpuUsageInfo",
+    "severity": "info",
+    "tier": "1",
+    "category": "db-rds",
+    "team": "dba",
+    "metric": "aws_rds_cpuutilization_average",
+    "threshold": "> 50%",
+    "duration": "10m",
+    "expression": "lckna:rds:cpu_avg3m > 50",
+    "services": [
+      "rds"
+    ],
+    "notification": "wecom-only",
+    "oldIds": [
+      "ALR-019"
+    ]
+  },
+  {
+    "id": "RDS-02",
+    "name": "RdsCpuUsageWarning",
+    "severity": "warning",
+    "tier": "2",
+    "category": "db-rds",
+    "team": "dba",
+    "metric": "aws_rds_cpuutilization_average",
+    "threshold": "> 70%",
+    "duration": "5m",
+    "expression": "lckna:rds:cpu_avg3m > 70",
+    "services": [
+      "rds"
+    ],
+    "notification": "wecom+twilio-lead",
+    "oldIds": [
+      "ALR-019",
+      "ALR-020"
+    ]
+  },
+  {
+    "id": "RDS-03",
+    "name": "RdsCpuUsageCritical",
+    "severity": "critical",
+    "tier": "3",
+    "category": "db-rds",
+    "team": "dba",
+    "metric": "aws_rds_cpuutilization_average",
+    "threshold": "> 90%",
+    "duration": "3m",
+    "expression": "lckna:rds:cpu_avg3m > 90",
+    "services": [
+      "rds"
+    ],
+    "notification": "wecom+twilio-all",
+    "oldIds": [
+      "ALR-022"
+    ]
+  },
+  {
+    "id": "RDS-04",
+    "name": "RdsSlowQueriesInfo",
+    "severity": "info",
+    "tier": "1",
+    "category": "db-rds",
+    "team": "dba",
+    "metric": "aws_rds_slow_queries",
+    "threshold": "> 10/min",
+    "duration": "5m",
+    "expression": "lckna:rds:slow_queries_rate3m > 10",
+    "services": [
+      "rds"
+    ],
+    "notification": "wecom-only",
+    "oldIds": [
+      "ALR-025"
+    ]
+  },
+  {
+    "id": "RDS-05",
+    "name": "RdsSlowQueriesWarning",
+    "severity": "warning",
+    "tier": "2",
+    "category": "db-rds",
+    "team": "dba",
+    "metric": "aws_rds_slow_queries",
+    "threshold": "> 50/min",
+    "duration": "5m",
+    "expression": "lckna:rds:slow_queries_rate3m > 50",
+    "services": [
+      "rds"
+    ],
+    "notification": "wecom+twilio-lead",
+    "oldIds": [
+      "ALR-025",
+      "ALR-026",
+      "ALR-133"
+    ]
+  },
+  {
+    "id": "RDS-06",
+    "name": "RdsSlowQueriesCritical",
+    "severity": "critical",
+    "tier": "3",
+    "category": "db-rds",
+    "team": "dba",
+    "metric": "aws_rds_slow_queries",
+    "threshold": "> 200/min",
+    "duration": "3m",
+    "expression": "lckna:rds:slow_queries_rate3m > 200",
+    "services": [
+      "rds"
+    ],
+    "notification": "wecom+twilio-all",
+    "oldIds": [
+      "ALR-025",
+      "ALR-026"
+    ]
+  },
+  {
+    "id": "RDS-07",
+    "name": "RdsActiveThreadsInfo",
+    "severity": "info",
+    "tier": "1",
+    "category": "db-rds",
+    "team": "dba",
+    "metric": "aws_rds_database_connections_average",
+    "threshold": "> 12",
+    "duration": "5m",
+    "expression": "lckna:rds:threads_avg2m > 12",
+    "services": [
+      "rds"
+    ],
+    "notification": "wecom-only",
+    "oldIds": [
+      "ALR-027"
+    ]
+  },
+  {
+    "id": "RDS-08",
+    "name": "RdsActiveThreadsWarning",
+    "severity": "warning",
+    "tier": "2",
+    "category": "db-rds",
+    "team": "dba",
+    "metric": "aws_rds_database_connections_average",
+    "threshold": "> 24",
+    "duration": "3m",
+    "expression": "lckna:rds:threads_avg2m > 24",
+    "services": [
+      "rds"
+    ],
+    "notification": "wecom+twilio-lead",
+    "oldIds": [
+      "ALR-027",
+      "ALR-028"
+    ]
+  },
+  {
+    "id": "RDS-09",
+    "name": "RdsActiveThreadsCritical",
+    "severity": "critical",
+    "tier": "3",
+    "category": "db-rds",
+    "team": "dba",
+    "metric": "aws_rds_database_connections_average",
+    "threshold": "> 48",
+    "duration": "2m",
+    "expression": "lckna:rds:threads_avg2m > 48",
+    "services": [
+      "rds"
+    ],
+    "notification": "wecom+twilio-all",
+    "oldIds": [
+      "ALR-027",
+      "ALR-028"
+    ]
+  },
+  {
+    "id": "RDS-10",
+    "name": "RdsDiskFreeWarning",
+    "severity": "warning",
+    "tier": "2",
+    "category": "db-rds",
+    "team": "dba",
+    "metric": "aws_rds_free_storage_space_average",
+    "threshold": "< 15GB free",
+    "duration": "5m",
+    "expression": "lckna:rds:disk_gb < 15",
+    "services": [
+      "rds"
+    ],
+    "notification": "wecom+twilio-lead",
+    "oldIds": []
+  },
+  {
+    "id": "RDS-11",
+    "name": "RdsVipUnreachableCritical",
+    "severity": "critical",
+    "tier": "3",
+    "category": "db-rds",
+    "team": "dba",
+    "metric": "probe_success",
+    "threshold": "VIP down",
+    "duration": "1m",
+    "expression": "probe_success{job=\"rds-vip-probe\"} == 0",
+    "services": [
+      "rds"
+    ],
+    "notification": "wecom+twilio-all",
+    "oldIds": []
+  },
+  {
+    "id": "RDS-12",
+    "name": "RdsFailoverCritical",
+    "severity": "critical",
+    "tier": "3",
+    "category": "db-rds",
+    "team": "dba",
+    "metric": "aws_rds_replica_lag_average",
+    "threshold": "Failover event",
+    "duration": "0m",
+    "expression": "changes(aws_rds_replica_lag_average[5m]) > 0 and aws_rds_replica_lag_average > 60",
+    "services": [
+      "rds"
+    ],
+    "notification": "wecom+twilio-all",
+    "oldIds": []
+  },
+  {
+    "id": "REDIS-01",
+    "name": "RedisCpuUsageInfo",
+    "severity": "info",
+    "tier": "1",
+    "category": "db-redis",
+    "team": "dba",
+    "metric": "redis_cpu_usage",
+    "threshold": "> 50%",
+    "duration": "5m",
+    "expression": "lckna:redis:cpu_avg3m > 50",
+    "services": [
+      "redis"
+    ],
+    "notification": "wecom-only",
+    "oldIds": [
+      "ALR-040"
+    ]
+  },
+  {
+    "id": "REDIS-02",
+    "name": "RedisCpuUsageWarning",
+    "severity": "warning",
+    "tier": "2",
+    "category": "db-redis",
+    "team": "dba",
+    "metric": "redis_cpu_usage",
+    "threshold": "> 65%",
+    "duration": "5m",
+    "expression": "lckna:redis:cpu_avg3m > 65",
+    "services": [
+      "redis"
+    ],
+    "notification": "wecom+twilio-lead",
+    "oldIds": [
+      "ALR-040",
+      "ALR-041"
+    ]
+  },
+  {
+    "id": "REDIS-03",
+    "name": "RedisCpuUsageCritical",
+    "severity": "critical",
+    "tier": "3",
+    "category": "db-redis",
+    "team": "dba",
+    "metric": "redis_cpu_usage",
+    "threshold": "> 90%",
+    "duration": "3m",
+    "expression": "lckna:redis:cpu_avg3m > 90",
+    "services": [
+      "redis"
+    ],
+    "notification": "wecom+twilio-all",
+    "oldIds": [
+      "ALR-040",
+      "ALR-041"
+    ]
+  },
+  {
+    "id": "REDIS-04",
+    "name": "RedisMemoryUsageWarning",
+    "severity": "warning",
+    "tier": "2",
+    "category": "db-redis",
+    "team": "dba",
+    "metric": "redis_memory_usage_ratio",
+    "threshold": "> 80%",
+    "duration": "5m",
+    "expression": "lckna:redis:memory_ratio_avg3m > 80",
+    "services": [
+      "redis"
+    ],
+    "notification": "wecom+twilio-lead",
+    "oldIds": [
+      "ALR-042",
+      "ALR-043"
+    ]
+  },
+  {
+    "id": "REDIS-05",
+    "name": "RedisMemoryUsageCritical",
+    "severity": "critical",
+    "tier": "3",
+    "category": "db-redis",
+    "team": "dba",
+    "metric": "redis_memory_usage_ratio",
+    "threshold": "> 95%",
+    "duration": "1m",
+    "expression": "lckna:redis:memory_ratio_avg3m > 95",
+    "services": [
+      "redis"
+    ],
+    "notification": "wecom+twilio-all",
+    "oldIds": [
+      "ALR-042",
+      "ALR-043"
+    ]
+  },
+  {
+    "id": "REDIS-06",
+    "name": "RedisLatencyP99Warning",
+    "severity": "warning",
+    "tier": "2",
+    "category": "db-redis",
+    "team": "dba",
+    "metric": "redis_commands_latency",
+    "threshold": "p99 > 5ms",
+    "duration": "5m",
+    "expression": "redis_commands_latency{quantile=\"0.99\"} > 5",
+    "services": [
+      "redis"
+    ],
+    "notification": "wecom+twilio-lead",
+    "oldIds": []
+  },
+  {
+    "id": "REDIS-07",
+    "name": "RedisEvictionsWarning",
+    "severity": "warning",
+    "tier": "2",
+    "category": "db-redis",
+    "team": "dba",
+    "metric": "redis_evicted_keys_total",
+    "threshold": "> 1K/min",
+    "duration": "5m",
+    "expression": "rate(redis_evicted_keys_total[5m]) * 60 > 1000",
+    "services": [
+      "redis"
+    ],
+    "notification": "wecom+twilio-lead",
+    "oldIds": []
+  },
+  {
+    "id": "REDIS-08",
+    "name": "RedisConnectionRatioWarning",
+    "severity": "warning",
+    "tier": "2",
+    "category": "db-redis",
+    "team": "dba",
+    "metric": "redis_connected_clients",
+    "threshold": "> 60% of max",
+    "duration": "5m",
+    "expression": "lckna:redis:connection_ratio > 60",
+    "services": [
+      "redis"
+    ],
+    "notification": "wecom+twilio-lead",
+    "oldIds": []
+  },
+  {
+    "id": "REDIS-09",
+    "name": "RedisNetworkBandwidthWarning",
+    "severity": "warning",
+    "tier": "2",
+    "category": "db-redis",
+    "team": "dba",
+    "metric": "redis_net_bytes",
+    "threshold": "> 32 Mbps",
+    "duration": "5m",
+    "expression": "(rate(redis_net_input_bytes_total[5m]) + rate(redis_net_output_bytes_total[5m])) / 1024 / 1024 * 8 > 32",
+    "services": [
+      "redis"
+    ],
+    "notification": "wecom+twilio-lead",
+    "oldIds": []
+  },
+  {
+    "id": "REDIS-10",
+    "name": "RedisInstanceDownCritical",
+    "severity": "critical",
+    "tier": "3",
+    "category": "db-redis",
+    "team": "dba",
+    "metric": "up",
+    "threshold": "Instance unreachable",
+    "duration": "1m",
+    "expression": "up{job=\"redis-exporter\"} == 0",
+    "services": [
+      "redis"
+    ],
+    "notification": "wecom+twilio-all",
+    "oldIds": []
+  },
+  {
+    "id": "ES-01",
+    "name": "EsClusterYellowWarning",
+    "severity": "warning",
+    "tier": "2",
+    "category": "db-es",
+    "team": "dba",
+    "metric": "elasticsearch_cluster_health_status",
+    "threshold": "Cluster YELLOW",
+    "duration": "5m",
+    "expression": "elasticsearch_cluster_health_status{color=\"yellow\"} == 1",
+    "services": [
+      "elasticsearch"
+    ],
+    "notification": "wecom+twilio-lead",
+    "oldIds": [
+      "ALR-033"
+    ]
+  },
+  {
+    "id": "ES-02",
+    "name": "EsClusterRedCritical",
+    "severity": "critical",
+    "tier": "3",
+    "category": "db-es",
+    "team": "dba",
+    "metric": "elasticsearch_cluster_health_status",
+    "threshold": "Cluster RED",
+    "duration": "0m",
+    "expression": "elasticsearch_cluster_health_status{color=\"red\"} == 1",
+    "services": [
+      "elasticsearch"
+    ],
+    "notification": "wecom+twilio-all",
+    "oldIds": [
+      "ALR-034"
+    ]
+  },
+  {
+    "id": "ES-03",
+    "name": "EsNodeCpuWarning",
+    "severity": "warning",
+    "tier": "2",
+    "category": "db-es",
+    "team": "dba",
+    "metric": "elasticsearch_os_cpu_percent",
+    "threshold": "> 75%",
+    "duration": "5m",
+    "expression": "elasticsearch_os_cpu_percent > 75",
+    "services": [
+      "elasticsearch"
+    ],
+    "notification": "wecom+twilio-lead",
+    "oldIds": [
+      "ALR-035"
+    ]
+  },
+  {
+    "id": "ES-04",
+    "name": "EsNodeCpuCritical",
+    "severity": "critical",
+    "tier": "3",
+    "category": "db-es",
+    "team": "dba",
+    "metric": "elasticsearch_os_cpu_percent",
+    "threshold": "> 85%",
+    "duration": "3m",
+    "expression": "elasticsearch_os_cpu_percent > 85",
+    "services": [
+      "elasticsearch"
+    ],
+    "notification": "wecom+twilio-all",
+    "oldIds": [
+      "ALR-035"
+    ]
+  },
+  {
+    "id": "ES-05",
+    "name": "EsNodeDiskWarning",
+    "severity": "warning",
+    "tier": "2",
+    "category": "db-es",
+    "team": "dba",
+    "metric": "elasticsearch_filesystem_data",
+    "threshold": "> 85% used",
+    "duration": "5m",
+    "expression": "(1 - elasticsearch_filesystem_data_available_bytes / elasticsearch_filesystem_data_size_bytes) * 100 > 85",
+    "services": [
+      "elasticsearch"
+    ],
+    "notification": "wecom+twilio-lead",
+    "oldIds": [
+      "ALR-037"
+    ]
+  },
+  {
+    "id": "ES-06",
+    "name": "EsNodeDiskCritical",
+    "severity": "critical",
+    "tier": "3",
+    "category": "db-es",
+    "team": "dba",
+    "metric": "elasticsearch_filesystem_data",
+    "threshold": "> 90% used",
+    "duration": "3m",
+    "expression": "(1 - elasticsearch_filesystem_data_available_bytes / elasticsearch_filesystem_data_size_bytes) * 100 > 90",
+    "services": [
+      "elasticsearch"
+    ],
+    "notification": "wecom+twilio-all",
+    "oldIds": [
+      "ALR-037"
+    ]
+  },
+  {
+    "id": "MONGO-01",
+    "name": "MongoCpuUsageWarning",
+    "severity": "warning",
+    "tier": "2",
+    "category": "db-mongo",
+    "team": "dba",
+    "metric": "mongodb_cpu_utilization",
+    "threshold": "> 70%",
+    "duration": "5m",
+    "expression": "avg_over_time(mongodb_cpu_utilization[3m]) > 70",
+    "services": [
+      "mongodb"
+    ],
+    "notification": "wecom+twilio-lead",
+    "oldIds": [
+      "ALR-029"
+    ]
+  },
+  {
+    "id": "MONGO-02",
+    "name": "MongoCpuUsageCritical",
+    "severity": "critical",
+    "tier": "3",
+    "category": "db-mongo",
+    "team": "dba",
+    "metric": "mongodb_cpu_utilization",
+    "threshold": "> 90%",
+    "duration": "3m",
+    "expression": "avg_over_time(mongodb_cpu_utilization[3m]) > 90",
+    "services": [
+      "mongodb"
+    ],
+    "notification": "wecom+twilio-all",
+    "oldIds": [
+      "ALR-029",
+      "ALR-031"
+    ]
+  },
+  {
+    "id": "MONGO-03",
+    "name": "MongoMemoryFreeWarning",
+    "severity": "warning",
+    "tier": "2",
+    "category": "db-mongo",
+    "team": "dba",
+    "metric": "mongodb_available_memory_bytes",
+    "threshold": "< 500MB available",
+    "duration": "5m",
+    "expression": "mongodb_available_memory_bytes / 1024 / 1024 < 500",
+    "services": [
+      "mongodb"
+    ],
+    "notification": "wecom+twilio-lead",
+    "oldIds": [
+      "ALR-030"
+    ]
+  },
+  {
+    "id": "MONGO-04",
+    "name": "MongoMemoryFreeCritical",
+    "severity": "critical",
+    "tier": "3",
+    "category": "db-mongo",
+    "team": "dba",
+    "metric": "mongodb_available_memory_bytes",
+    "threshold": "< 200MB available",
+    "duration": "3m",
+    "expression": "mongodb_available_memory_bytes / 1024 / 1024 < 200",
+    "services": [
+      "mongodb"
+    ],
+    "notification": "wecom+twilio-all",
+    "oldIds": [
+      "ALR-030"
+    ]
+  },
+  {
+    "id": "MONGO-05",
+    "name": "MongoConnectionHighWarning",
+    "severity": "warning",
+    "tier": "2",
+    "category": "db-mongo",
+    "team": "dba",
+    "metric": "mongodb_connections",
+    "threshold": "> 80% used",
+    "duration": "5m",
+    "expression": "mongodb_connections_current / mongodb_connections_available * 100 > 80",
+    "services": [
+      "mongodb"
+    ],
+    "notification": "wecom+twilio-lead",
+    "oldIds": []
+  },
+  {
+    "id": "K8S-01",
+    "name": "K8sPodCpuUsageInfo",
+    "severity": "info",
+    "tier": "1",
+    "category": "infra-k8s",
+    "team": "k8s-ops",
+    "metric": "container_cpu_usage_seconds_total",
+    "threshold": "> 50%",
+    "duration": "10m",
+    "expression": "lckna:k8s:pod_cpu_avg3m > 50",
+    "services": [
+      "kubernetes"
+    ],
+    "notification": "wecom-only",
+    "oldIds": [
+      "ALR-089"
+    ]
+  },
+  {
+    "id": "K8S-02",
+    "name": "K8sPodCpuUsageWarning",
+    "severity": "warning",
+    "tier": "2",
+    "category": "infra-k8s",
+    "team": "k8s-ops",
+    "metric": "container_cpu_usage_seconds_total",
+    "threshold": "> 70%",
+    "duration": "5m",
+    "expression": "lckna:k8s:pod_cpu_avg3m > 70",
+    "services": [
+      "kubernetes"
+    ],
+    "notification": "wecom+twilio-lead",
+    "oldIds": [
+      "ALR-089",
+      "ALR-090"
+    ]
+  },
+  {
+    "id": "K8S-03",
+    "name": "K8sPodCpuUsageCritical",
+    "severity": "critical",
+    "tier": "3",
+    "category": "infra-k8s",
+    "team": "k8s-ops",
+    "metric": "container_cpu_usage_seconds_total",
+    "threshold": "> 85%",
+    "duration": "3m",
+    "expression": "lckna:k8s:pod_cpu_avg3m > 85",
+    "services": [
+      "kubernetes"
+    ],
+    "notification": "wecom+twilio-all",
+    "oldIds": [
+      "ALR-089",
+      "ALR-090",
+      "ALR-091"
+    ]
+  },
+  {
+    "id": "K8S-04",
+    "name": "K8sPodRestartWarning",
+    "severity": "warning",
+    "tier": "2",
+    "category": "infra-k8s",
+    "team": "k8s-ops",
+    "metric": "kube_pod_container_status_restarts_total",
+    "threshold": "> 1 restart / 2min",
+    "duration": "5m",
+    "expression": "increase(kube_pod_container_status_restarts_total[2m]) > 1",
+    "services": [
+      "kubernetes"
+    ],
+    "notification": "wecom+twilio-lead",
+    "oldIds": [
+      "ALR-092"
+    ]
+  },
+  {
+    "id": "K8S-05",
+    "name": "K8sPodDiskIoWarning",
+    "severity": "warning",
+    "tier": "2",
+    "category": "infra-k8s",
+    "team": "k8s-ops",
+    "metric": "container_fs_bytes",
+    "threshold": "> 50MB/s",
+    "duration": "5m",
+    "expression": "lckna:k8s:pod_disk_io_rate / 1024 / 1024 > 50",
+    "services": [
+      "kubernetes"
+    ],
+    "notification": "wecom+twilio-lead",
+    "oldIds": [
+      "ALR-093",
+      "ALR-094"
+    ]
+  },
+  {
+    "id": "K8S-06",
+    "name": "K8sOomKilledCritical",
+    "severity": "critical",
+    "tier": "3",
+    "category": "infra-k8s",
+    "team": "k8s-ops",
+    "metric": "kube_pod_container_status_last_terminated_reason",
+    "threshold": "OOMKilled",
+    "duration": "0m",
+    "expression": "increase(kube_pod_container_status_restarts_total[5m]) > 0 and kube_pod_container_status_last_terminated_reason{reason=\"OOMKilled\"} == 1",
+    "services": [
+      "kubernetes"
+    ],
+    "notification": "wecom+twilio-all",
+    "oldIds": [
+      "ALR-095"
+    ]
+  },
+  {
+    "id": "K8S-07",
+    "name": "K8sNodeHeartbeatLostCritical",
+    "severity": "critical",
+    "tier": "3",
+    "category": "infra-k8s",
+    "team": "k8s-ops",
+    "metric": "kube_node_status_condition",
+    "threshold": "Node NotReady",
+    "duration": "5m",
+    "expression": "kube_node_status_condition{condition=\"Ready\",status=\"true\"} == 0",
+    "services": [
+      "kubernetes"
+    ],
+    "notification": "wecom+twilio-all",
+    "oldIds": [
+      "ALR-096"
+    ]
+  },
+  {
+    "id": "VM-01",
+    "name": "VmCpuUsageWarning",
+    "severity": "warning",
+    "tier": "2",
+    "category": "infra-vm",
+    "team": "sys-ops",
+    "metric": "node_cpu_seconds_total",
+    "threshold": "> 80%",
+    "duration": "5m",
+    "expression": "lckna:vm:cpu_avg5m > 80",
+    "services": [
+      "ec2"
+    ],
+    "notification": "wecom+twilio-lead",
+    "oldIds": [
+      "ALR-069",
+      "ALR-070"
+    ]
+  },
+  {
+    "id": "VM-02",
+    "name": "VmCpuUsageCritical",
+    "severity": "critical",
+    "tier": "3",
+    "category": "infra-vm",
+    "team": "sys-ops",
+    "metric": "node_cpu_seconds_total",
+    "threshold": "> 95%",
+    "duration": "3m",
+    "expression": "lckna:vm:cpu_avg5m > 95",
+    "services": [
+      "ec2"
+    ],
+    "notification": "wecom+twilio-all",
+    "oldIds": [
+      "ALR-069",
+      "ALR-070"
+    ]
+  },
+  {
+    "id": "VM-03",
+    "name": "VmMemoryUsageWarning",
+    "severity": "warning",
+    "tier": "2",
+    "category": "infra-vm",
+    "team": "sys-ops",
+    "metric": "node_memory_MemAvailable_bytes",
+    "threshold": "> 85%",
+    "duration": "5m",
+    "expression": "lckna:vm:memory_avg10m > 85",
+    "services": [
+      "ec2"
+    ],
+    "notification": "wecom+twilio-lead",
+    "oldIds": [
+      "ALR-071",
+      "ALR-072"
+    ]
+  },
+  {
+    "id": "VM-04",
+    "name": "VmMemoryUsageCritical",
+    "severity": "critical",
+    "tier": "3",
+    "category": "infra-vm",
+    "team": "sys-ops",
+    "metric": "node_memory_MemAvailable_bytes",
+    "threshold": "> 95%",
+    "duration": "3m",
+    "expression": "lckna:vm:memory_avg10m > 95",
+    "services": [
+      "ec2"
+    ],
+    "notification": "wecom+twilio-all",
+    "oldIds": [
+      "ALR-071",
+      "ALR-072"
+    ]
+  },
+  {
+    "id": "VM-05",
+    "name": "VmDiskUsageWarning",
+    "severity": "warning",
+    "tier": "2",
+    "category": "infra-vm",
+    "team": "sys-ops",
+    "metric": "node_filesystem_avail_bytes",
+    "threshold": "> 85%",
+    "duration": "5m",
+    "expression": "lckna:vm:disk_util > 85",
+    "services": [
+      "ec2"
+    ],
+    "notification": "wecom+twilio-lead",
+    "oldIds": [
+      "ALR-073",
+      "ALR-074"
+    ]
+  },
+  {
+    "id": "VM-06",
+    "name": "VmDiskUsageCritical",
+    "severity": "critical",
+    "tier": "3",
+    "category": "infra-vm",
+    "team": "sys-ops",
+    "metric": "node_filesystem_avail_bytes",
+    "threshold": "> 95%",
+    "duration": "3m",
+    "expression": "lckna:vm:disk_util > 95",
+    "services": [
+      "ec2"
+    ],
+    "notification": "wecom+twilio-all",
+    "oldIds": [
+      "ALR-073",
+      "ALR-074"
+    ]
+  },
+  {
+    "id": "VM-07",
+    "name": "VmNetworkErrorsWarning",
+    "severity": "warning",
+    "tier": "2",
+    "category": "infra-vm",
+    "team": "sys-ops",
+    "metric": "node_network_errs",
+    "threshold": "> 200/s or > 20/s drops",
+    "duration": "5m",
+    "expression": "lckna:vm:net_errors_rate5m > 200 or rate(node_network_receive_drop_total{device!~\"lo|veth.*\"}[5m]) > 20",
+    "services": [
+      "ec2"
+    ],
+    "notification": "wecom+twilio-lead",
+    "oldIds": [
+      "ALR-075",
+      "ALR-076",
+      "ALR-077",
+      "ALR-078"
+    ]
+  },
+  {
+    "id": "VM-08",
+    "name": "VmInstanceDownCritical",
+    "severity": "critical",
+    "tier": "3",
+    "category": "infra-vm",
+    "team": "sys-ops",
+    "metric": "up",
+    "threshold": "Instance unreachable",
+    "duration": "1m",
+    "expression": "up{job=~\"node-exporter|node_exporter\"} == 0",
+    "services": [
+      "ec2"
+    ],
+    "notification": "wecom+twilio-all",
+    "oldIds": [
+      "ALR-079"
+    ]
+  },
+  {
+    "id": "APM-01",
+    "name": "ApmServiceExceptionsWarning",
+    "severity": "warning",
+    "tier": "2",
+    "category": "apm",
+    "team": "app-ops",
+    "metric": "service_exception_count",
+    "threshold": "> 5/min",
+    "duration": "5m",
+    "expression": "sum by(service) (rate(service_exception_count[5m])) * 60 > 5",
+    "services": [
+      "application-services"
+    ],
+    "notification": "wecom+twilio-lead",
+    "oldIds": [
+      "ALR-060"
+    ]
+  },
+  {
+    "id": "APM-02",
+    "name": "ApmServiceExceptionsCritical",
+    "severity": "critical",
+    "tier": "3",
+    "category": "apm",
+    "team": "app-ops",
+    "metric": "service_exception_count",
+    "threshold": "> 20/min",
+    "duration": "3m",
+    "expression": "sum by(service) (rate(service_exception_count[5m])) * 60 > 20",
+    "services": [
+      "application-services"
+    ],
+    "notification": "wecom+twilio-all",
+    "oldIds": [
+      "ALR-060"
+    ]
+  },
+  {
+    "id": "APM-03",
+    "name": "ApmLatencyP99Warning",
+    "severity": "warning",
+    "tier": "2",
+    "category": "apm",
+    "team": "app-ops",
+    "metric": "service_resp_time_percentile",
+    "threshold": "p99 > 1500ms",
+    "duration": "5m",
+    "expression": "histogram_quantile(0.99, sum by(le, service) (rate(service_resp_time_percentile_bucket[5m]))) > 1500",
+    "services": [
+      "application-services"
+    ],
+    "notification": "wecom+twilio-lead",
+    "oldIds": []
+  },
+  {
+    "id": "APM-04",
+    "name": "ApmEndpointFailuresWarning",
+    "severity": "warning",
+    "tier": "2",
+    "category": "apm",
+    "team": "app-ops",
+    "metric": "endpoint_failure_count",
+    "threshold": "> 2/min",
+    "duration": "5m",
+    "expression": "sum by(service, endpoint) (rate(endpoint_failure_count[5m])) * 60 > 2",
+    "services": [
+      "application-services"
+    ],
+    "notification": "wecom+twilio-lead",
+    "oldIds": []
+  },
+  {
+    "id": "APM-05",
+    "name": "ApmJvmFullGcWarning",
+    "severity": "warning",
+    "tier": "2",
+    "category": "apm",
+    "team": "app-ops",
+    "metric": "jvm_gc_count",
+    "threshold": "> 5 Full GC / 5min",
+    "duration": "5m",
+    "expression": "increase(jvm_gc_count{gc_type=\"Full\"}[5m]) > 5",
+    "services": [
+      "java-services"
+    ],
+    "notification": "wecom+twilio-lead",
+    "oldIds": []
+  },
+  {
+    "id": "APM-06",
+    "name": "ApmInfraHealthWarning",
+    "severity": "warning",
+    "tier": "2",
+    "category": "apm",
+    "team": "app-ops",
+    "metric": "up",
+    "threshold": "APM component down",
+    "duration": "5m",
+    "expression": "up{job=~\"izeus.*|apm.*\"} == 0",
+    "services": [
+      "izeus",
+      "apm-collector"
+    ],
+    "notification": "wecom+twilio-lead",
+    "oldIds": []
+  },
+  {
+    "id": "PIPE-01",
+    "name": "PipelineGoldenFlowCritical",
+    "severity": "critical",
+    "tier": "3",
+    "category": "pipeline",
+    "team": "data-arch",
+    "metric": "datalink_task_delay_seconds",
+    "threshold": "Golden flow delayed > 5min",
+    "duration": "5m",
+    "expression": "max(datalink_task_delay_seconds{flow_tier=\"golden\"}) > 300 or increase(datalink_task_exception_total{flow_tier=\"golden\"}[5m]) > 0",
+    "services": [
+      "datalink"
+    ],
+    "notification": "wecom+twilio-all",
+    "oldIds": [
+      "ALR-097",
+      "ALR-098"
+    ]
+  },
+  {
+    "id": "PIPE-02",
+    "name": "PipelineCoreWarning",
+    "severity": "warning",
+    "tier": "2",
+    "category": "pipeline",
+    "team": "data-arch",
+    "metric": "datalink_task_delay_seconds",
+    "threshold": "Core pipeline delayed > 10min",
+    "duration": "5m",
+    "expression": "max(datalink_task_delay_seconds{flow_tier=\"core\"}) > 600 or increase(datalink_task_exception_total{flow_tier=\"core\"}[10m]) > 0",
+    "services": [
+      "datalink"
+    ],
+    "notification": "wecom+twilio-lead",
+    "oldIds": [
+      "ALR-099",
+      "ALR-100"
+    ]
+  },
+  {
+    "id": "PIPE-03",
+    "name": "PipelineImportantInfo",
+    "severity": "info",
+    "tier": "1",
+    "category": "pipeline",
+    "team": "data-arch",
+    "metric": "datalink_task_delay_seconds",
+    "threshold": "Important pipeline delayed > 20min",
+    "duration": "10m",
+    "expression": "max(datalink_task_delay_seconds{flow_tier=\"important\"}) > 1200 or increase(datalink_task_exception_total{flow_tier=\"important\"}[15m]) > 0",
+    "services": [
+      "datalink"
+    ],
+    "notification": "wecom-only",
+    "oldIds": [
+      "ALR-101",
+      "ALR-102"
+    ]
+  },
+  {
+    "id": "PIPE-04",
+    "name": "PipelineStandardInfo",
+    "severity": "info",
+    "tier": "1",
+    "category": "pipeline",
+    "team": "data-arch",
+    "metric": "datalink_task_delay_seconds",
+    "threshold": "Standard pipeline delayed > 1hr",
+    "duration": "15m",
+    "expression": "max(datalink_task_delay_seconds{flow_tier=\"standard\"}) > 3600 or increase(datalink_task_exception_total{flow_tier=\"standard\"}[30m]) > 0",
+    "services": [
+      "datalink"
+    ],
+    "notification": "wecom-only",
+    "oldIds": [
+      "ALR-103",
+      "ALR-104"
+    ]
+  },
+  {
+    "id": "PLAT-01",
+    "name": "PlatformSmsDeliveryWarning",
+    "severity": "warning",
+    "tier": "2",
+    "category": "platform",
+    "team": "platform",
+    "metric": "sms_delivery_failure_rate",
+    "threshold": "> 5% failure rate",
+    "duration": "5m",
+    "expression": "sms_delivery_failure_rate > 5",
+    "services": [
+      "sms-gateway"
+    ],
+    "notification": "wecom+twilio-lead",
+    "oldIds": [
+      "ALR-115"
+    ]
+  },
+  {
+    "id": "PLAT-02",
+    "name": "PlatformRiskControlPreWarning",
+    "severity": "warning",
+    "tier": "2",
+    "category": "platform",
+    "team": "risk",
+    "metric": "risk_control_circuit_status",
+    "threshold": "Pre-warning triggered",
+    "duration": "5m",
+    "expression": "risk_control_circuit_status == 1",
+    "services": [
+      "risk-control"
+    ],
+    "notification": "wecom+twilio-lead",
+    "oldIds": [
+      "ALR-116"
+    ]
+  },
+  {
+    "id": "PLAT-03",
+    "name": "PlatformRiskControlCircuitBreakerCritical",
+    "severity": "critical",
+    "tier": "3",
+    "category": "platform",
+    "team": "risk",
+    "metric": "risk_control_circuit_status",
+    "threshold": "Circuit breaker tripped",
+    "duration": "1m",
+    "expression": "risk_control_circuit_status == 2",
+    "services": [
+      "risk-control"
+    ],
+    "notification": "wecom+twilio-all",
+    "oldIds": [
+      "ALR-116"
+    ]
+  },
+  {
+    "id": "PLAT-04",
+    "name": "PlatformGatewayErrorRateCritical",
+    "severity": "critical",
+    "tier": "3",
+    "category": "platform",
+    "team": "platform",
+    "metric": "gateway_error_rate",
+    "threshold": "> 15% error rate",
+    "duration": "3m",
+    "expression": "gateway_error_rate > 15",
+    "services": [
+      "api-gateway"
+    ],
+    "notification": "wecom+twilio-all",
+    "oldIds": [
+      "ALR-135"
+    ]
+  }
+]

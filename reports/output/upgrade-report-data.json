@@ -1,0 +1,201 @@
+{
+  "title": "瑞幸北美 — 告警体系升级项目报告",
+  "new_system_category_distribution": [
+    {
+      "name": "业务指标",
+      "count": 10
+    },
+    {
+      "name": "数据库-RDS",
+      "count": 12
+    },
+    {
+      "name": "数据库-Redis",
+      "count": 10
+    },
+    {
+      "name": "数据库-ES",
+      "count": 6
+    },
+    {
+      "name": "数据库-Mongo",
+      "count": 5
+    },
+    {
+      "name": "基础设施-VM",
+      "count": 8
+    },
+    {
+      "name": "基础设施-K8s",
+      "count": 7
+    },
+    {
+      "name": "APM",
+      "count": 6
+    },
+    {
+      "name": "平台",
+      "count": 4
+    },
+    {
+      "name": "管道",
+      "count": 4
+    }
+  ],
+  "new_severity_distribution": {
+    "Critical": 27,
+    "Warning": 37,
+    "Info": 8,
+    "total": 72
+  },
+  "old_severity_distribution": {
+    "P0": 18,
+    "P1": 32,
+    "P2": 45,
+    "P3": 40,
+    "total": 135
+  },
+  "comparison_table": [
+    {
+      "dimension": "告警总数",
+      "old_system": "135条",
+      "new_system": "72条"
+    },
+    {
+      "dimension": "分级体系",
+      "old_system": "P0-P3 (4级)",
+      "new_system": "Critical/Warning/Info (3级)"
+    },
+    {
+      "dimension": "命名规范",
+      "old_system": "ALR-001 随机",
+      "new_system": "BIZ-01 结构化"
+    },
+    {
+      "dimension": "运维手册",
+      "old_system": "~10条有手册",
+      "new_system": "72条100%覆盖"
+    },
+    {
+      "dimension": "通知路由",
+      "old_system": "单一群发",
+      "new_system": "3级分流(企业微信+电话)"
+    },
+    {
+      "dimension": "抑制规则",
+      "old_system": "0条",
+      "new_system": "3条级联抑制"
+    },
+    {
+      "dimension": "团队归属",
+      "old_system": "无",
+      "new_system": "4团队明确分工"
+    },
+    {
+      "dimension": "分类体系",
+      "old_system": "无统一分类",
+      "new_system": "10大类别"
+    },
+    {
+      "dimension": "夜间静默",
+      "old_system": "无",
+      "new_system": "2-7 AM ET Info/Warning静默"
+    },
+    {
+      "dimension": "告警映射",
+      "old_system": "—",
+      "new_system": "oldIds字段回溯旧告警"
+    },
+    {
+      "dimension": "KILL ",
+      "old_system": "<",
+      "new_system": "process_id"
+    },
+    {
+      "dimension": "梳理135条旧告警完整清单",
+      "old_system": "标记冗余/失效/重复告警",
+      "new_system": "确定10大分类体系"
+    },
+    {
+      "dimension": "设计三级严重度体系 + 命名规范",
+      "old_system": "编写72条新告警PromQL表达式",
+      "new_system": "编写72份AAA结构化运维手册"
+    },
+    {
+      "dimension": "灰度发布: 新旧告警并行运行",
+      "old_system": "验证通知路由链路: 企业微信 + Twilio",
+      "new_system": "验证抑制规则效果: 模拟级联故障"
+    },
+    {
+      "dimension": "全量切换至新告警体系",
+      "old_system": "停用旧告警规则",
+      "new_system": "团队培训: 运维手册使用指南"
+    }
+  ],
+  "radar_scores": [
+    {
+      "dimension": "覆盖范围",
+      "old_score": 4,
+      "new_score": 9
+    },
+    {
+      "dimension": "分级体系",
+      "old_score": 3,
+      "new_score": 9
+    },
+    {
+      "dimension": "通知路由",
+      "old_score": 2,
+      "new_score": 9
+    },
+    {
+      "dimension": "运维手册",
+      "old_score": 1,
+      "new_score": 8
+    },
+    {
+      "dimension": "去重/抑制",
+      "old_score": 1,
+      "new_score": 8
+    },
+    {
+      "dimension": "团队归属",
+      "old_score": 2,
+      "new_score": 9
+    },
+    {
+      "dimension": "指标准确度",
+      "old_score": 3,
+      "new_score": 8
+    },
+    {
+      "dimension": "可维护性",
+      "old_score": 2,
+      "new_score": 9
+    }
+  ],
+  "notification_config": {
+    "critical": {
+      "count": 27,
+      "group_wait": "15s",
+      "repeat_interval": "15min",
+      "notification": "wecom + all-hands phone",
+      "silence": "never (24/7)"
+    },
+    "warning": {
+      "count": 37,
+      "group_wait": "30s",
+      "repeat_interval": "1hr",
+      "notification": "wecom + on-call phone",
+      "silence": "2-7 AM ET (non-BIZ)"
+    },
+    "info": {
+      "count": 8,
+      "group_wait": "60s",
+      "repeat_interval": "4hr",
+      "notification": "wecom only",
+      "silence": "2-7 AM ET (non-BIZ)"
+    }
+  },
+  "category_examples": []
+}

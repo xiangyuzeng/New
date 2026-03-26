@@ -1,0 +1,1924 @@
+[
+  {
+    "id": "ALR-001",
+    "name": "[LCP-Prod-P0] 生产环境紧急告警",
+    "priority": "P0",
+    "category": "Priority Levels",
+    "team": "全局",
+    "metric": "Multi-condition",
+    "threshold": "LCP Production Critical",
+    "duration": "N/A",
+    "expression": "sum(alert_count{priority=\"P0\", env=\"production\"}) > 0",
+    "services": [
+      "订单服务",
+      "支付服务",
+      "商品服务",
+      "库存服务",
+      "会员服务"
+    ]
+  },
+  {
+    "id": "ALR-002",
+    "name": "[LCP-Prod-P1] 生产环境高优先级告警",
+    "priority": "P1",
+    "category": "Priority Levels",
+    "team": "全局",
+    "metric": "Multi-condition",
+    "threshold": "LCP Production High",
+    "duration": "N/A",
+    "expression": "sum(alert_count{priority=\"P1\", env=\"production\"}) > 0",
+    "services": [
+      "订单服务",
+      "支付服务"
+    ]
+  },
+  {
+    "id": "ALR-003",
+    "name": "[LCP-Prod-P2] 生产环境中优先级告警",
+    "priority": "P2",
+    "category": "Priority Levels",
+    "team": "全局",
+    "metric": "Multi-condition",
+    "threshold": "LCP Production Medium",
+    "duration": "N/A",
+    "expression": "sum(alert_count{priority=\"P2\", env=\"production\"}) > 0",
+    "services": []
+  },
+  {
+    "id": "ALR-004",
+    "name": "[LCP-Prod-P3] 生产环境低优先级告警",
+    "priority": "P3",
+    "category": "Priority Levels",
+    "team": "全局",
+    "metric": "Multi-condition",
+    "threshold": "LCP Production Low",
+    "duration": "N/A",
+    "expression": "sum(alert_count{priority=\"P3\", env=\"production\"}) > 0",
+    "services": []
+  },
+  {
+    "id": "ALR-005",
+    "name": "【Datalink】黄金流程任务延迟告警（白天）",
+    "priority": "P0",
+    "category": "DataLink",
+    "team": "架构数据",
+    "metric": "Pipeline",
+    "threshold": "Golden Flow Task Delay (Day)",
+    "duration": "N/A",
+    "expression": "datalink_golden_flow_delay_seconds > 300",
+    "services": [
+      "DataLink",
+      "订单同步",
+      "库存同步"
+    ]
+  },
+  {
+    "id": "ALR-006",
+    "name": "【Datalink】黄金流程任务异常告警（白天）",
+    "priority": "P0",
+    "category": "DataLink",
+    "team": "架构数据",
+    "metric": "Pipeline",
+    "threshold": "Golden Flow Task Exception (Day)",
+    "duration": "N/A",
+    "expression": "datalink_golden_flow_exception_count > 0",
+    "services": [
+      "DataLink",
+      "订单同步",
+      "库存同步"
+    ]
+  },
+  {
+    "id": "ALR-007",
+    "name": "【Datalink】离线核心任务延迟告警（白天）",
+    "priority": "P1",
+    "category": "DataLink",
+    "team": "架构数据",
+    "metric": "Pipeline",
+    "threshold": "Offline Core Task Delay (Day)",
+    "duration": "N/A",
+    "expression": "datalink_offline_core_delay_seconds > 600",
+    "services": [
+      "DataLink"
+    ]
+  },
+  {
+    "id": "ALR-008",
+    "name": "【Datalink】离线核心任务异常告警（白天）",
+    "priority": "P1",
+    "category": "DataLink",
+    "team": "架构数据",
+    "metric": "Pipeline",
+    "threshold": "Offline Core Task Exception (Day)",
+    "duration": "N/A",
+    "expression": "datalink_offline_core_exception_count > 0",
+    "services": [
+      "DataLink"
+    ]
+  },
+  {
+    "id": "ALR-009",
+    "name": "【Datalink】重要任务延迟告警（白天）",
+    "priority": "P2",
+    "category": "DataLink",
+    "team": "架构数据",
+    "metric": "Pipeline",
+    "threshold": "Important Task Delay (Day)",
+    "duration": "N/A",
+    "expression": "datalink_important_delay_seconds > 900",
+    "services": [
+      "DataLink"
+    ]
+  },
+  {
+    "id": "ALR-010",
+    "name": "【Datalink】重要任务异常告警（白天）",
+    "priority": "P2",
+    "category": "DataLink",
+    "team": "架构数据",
+    "metric": "Pipeline",
+    "threshold": "Important Task Exception (Day)",
+    "duration": "N/A",
+    "expression": "datalink_important_exception_count > 0",
+    "services": [
+      "DataLink"
+    ]
+  },
+  {
+    "id": "ALR-011",
+    "name": "【Datalink】离线重要任务延迟告警（白天）",
+    "priority": "P2",
+    "category": "DataLink",
+    "team": "架构数据",
+    "metric": "Pipeline",
+    "threshold": "Offline Important Task Delay (Day)",
+    "duration": "N/A",
+    "expression": "datalink_offline_important_delay_seconds > 900",
+    "services": [
+      "DataLink"
+    ]
+  },
+  {
+    "id": "ALR-012",
+    "name": "【Datalink】离线重要任务异常告警（白天）",
+    "priority": "P2",
+    "category": "DataLink",
+    "team": "架构数据",
+    "metric": "Pipeline",
+    "threshold": "Offline Important Task Exception (Day)",
+    "duration": "N/A",
+    "expression": "datalink_offline_important_exception_count > 0",
+    "services": [
+      "DataLink"
+    ]
+  },
+  {
+    "id": "ALR-013",
+    "name": "【Datalink】任务延迟告警（夜晚）",
+    "priority": "P2",
+    "category": "DataLink",
+    "team": "架构数据",
+    "metric": "Pipeline",
+    "threshold": "Task Delay (Night)",
+    "duration": "N/A",
+    "expression": "datalink_night_delay_seconds > 1200",
+    "services": [
+      "DataLink"
+    ]
+  },
+  {
+    "id": "ALR-014",
+    "name": "【Datalink】任务异常告警（夜晚）",
+    "priority": "P2",
+    "category": "DataLink",
+    "team": "架构数据",
+    "metric": "Pipeline",
+    "threshold": "Task Exception (Night)",
+    "duration": "N/A",
+    "expression": "datalink_night_exception_count > 0",
+    "services": [
+      "DataLink"
+    ]
+  },
+  {
+    "id": "ALR-015",
+    "name": "【Datalink】普通任务延迟告警（白天）",
+    "priority": "P3",
+    "category": "DataLink",
+    "team": "架构数据",
+    "metric": "Pipeline",
+    "threshold": "Regular Task Delay (Day)",
+    "duration": "N/A",
+    "expression": "datalink_regular_delay_seconds > 1800",
+    "services": [
+      "DataLink"
+    ]
+  },
+  {
+    "id": "ALR-016",
+    "name": "【Datalink】普通任务异常告警（白天）",
+    "priority": "P3",
+    "category": "DataLink",
+    "team": "架构数据",
+    "metric": "Pipeline",
+    "threshold": "Regular Task Exception (Day)",
+    "duration": "N/A",
+    "expression": "datalink_regular_exception_count > 0",
+    "services": [
+      "DataLink"
+    ]
+  },
+  {
+    "id": "ALR-017",
+    "name": "【Datalink】离线普通任务延迟告警（白天）",
+    "priority": "P3",
+    "category": "DataLink",
+    "team": "架构数据",
+    "metric": "Pipeline",
+    "threshold": "Offline Regular Task Delay (Day)",
+    "duration": "N/A",
+    "expression": "datalink_offline_regular_delay_seconds > 1800",
+    "services": [
+      "DataLink"
+    ]
+  },
+  {
+    "id": "ALR-018",
+    "name": "【Datalink】离线普通任务异常告警（白天）",
+    "priority": "P3",
+    "category": "DataLink",
+    "team": "架构数据",
+    "metric": "Pipeline",
+    "threshold": "Offline Regular Task Exception (Day)",
+    "duration": "N/A",
+    "expression": "datalink_offline_regular_exception_count > 0",
+    "services": [
+      "DataLink"
+    ]
+  },
+  {
+    "id": "ALR-019",
+    "name": "【DB告警】AWS-RDS CPU使用率连续三分钟大于90%",
+    "priority": "P1",
+    "category": "Database-RDS",
+    "team": "DBA",
+    "metric": "CPU",
+    "threshold": ">90% for 3min",
+    "duration": "3m",
+    "expression": "aws_rds_cpuutilization_average offset 3m >= 90",
+    "services": [
+      "订单服务",
+      "支付服务",
+      "会员服务",
+      "营销服务"
+    ]
+  },
+  {
+    "id": "ALR-020",
+    "name": "【DB告警】AWS RDS CPU使用率连续三分钟大于90%",
+    "priority": "P1",
+    "category": "Database-RDS",
+    "team": "DBA",
+    "metric": "CPU",
+    "threshold": ">90% for 3min",
+    "duration": "3m",
+    "expression": "avg_over_time(aws_rds_cpuutilization_average[3m]) >= 90",
+    "services": [
+      "订单服务",
+      "支付服务"
+    ]
+  },
+  {
+    "id": "ALR-021",
+    "name": "【DB告警】AWS RDS Vip 持续一分钟不通",
+    "priority": "P0",
+    "category": "Database-RDS",
+    "team": "DBA",
+    "metric": "Connectivity",
+    "threshold": "VIP unreachable 1min",
+    "duration": "1m",
+    "expression": "min_over_time(mysql_check_vip{}[1m]) == 0",
+    "services": [
+      "订单服务",
+      "支付服务",
+      "门店服务",
+      "所有依赖MySQL的服务"
+    ]
+  },
+  {
+    "id": "ALR-022",
+    "name": "【DB告警】AWS RDS Vip 持续一分钟不通_语音",
+    "priority": "P0",
+    "category": "Database-RDS",
+    "team": "DBA",
+    "metric": "Connectivity",
+    "threshold": "VIP unreachable 1min (Voice)",
+    "duration": "1m",
+    "expression": "min_over_time(mysql_check_vip{}[1m]) == 0",
+    "services": [
+      "订单服务",
+      "支付服务",
+      "门店服务"
+    ]
+  },
+  {
+    "id": "ALR-023",
+    "name": "【DB告警】AWS RDS 发生重启或者主从切换",
+    "priority": "P0",
+    "category": "Database-RDS",
+    "team": "DBA",
+    "metric": "Failover",
+    "threshold": "Restart/Failover detected",
+    "duration": "Instant",
+    "expression": "changes(mysql_global_status_uptime[5m]) > 0",
+    "services": [
+      "订单服务",
+      "支付服务",
+      "门店服务"
+    ]
+  },
+  {
+    "id": "ALR-024",
+    "name": "【DB告警】AWS RDS 发生重启或者主从切换_语音",
+    "priority": "P0",
+    "category": "Database-RDS",
+    "team": "DBA",
+    "metric": "Failover",
+    "threshold": "Restart/Failover (Voice)",
+    "duration": "Instant",
+    "expression": "changes(mysql_global_status_uptime[5m]) > 0",
+    "services": [
+      "订单服务",
+      "支付服务"
+    ]
+  },
+  {
+    "id": "ALR-025",
+    "name": "【DB告警】AWS RDS 慢查询数量持续三分钟大于300个",
+    "priority": "P2",
+    "category": "Database-RDS",
+    "team": "DBA",
+    "metric": "Performance",
+    "threshold": ">300 slow queries for 3min",
+    "duration": "3m",
+    "expression": "avg_over_time(mysql_global_status_slow_queries[3m]) > 300",
+    "services": [
+      "营销服务",
+      "数据服务"
+    ]
+  },
+  {
+    "id": "ALR-026",
+    "name": "【DB告警】AWS-RDS 慢查询数量持续三分钟大于300个",
+    "priority": "P2",
+    "category": "Database-RDS",
+    "team": "DBA",
+    "metric": "Performance",
+    "threshold": ">300 slow queries for 3min",
+    "duration": "3m",
+    "expression": "rate(mysql_global_status_slow_queries[3m]) * 180 > 300",
+    "services": [
+      "营销服务"
+    ]
+  },
+  {
+    "id": "ALR-027",
+    "name": "【DB告警】AWS RDS 活跃线程持续两分钟大于24",
+    "priority": "P2",
+    "category": "Database-RDS",
+    "team": "DBA",
+    "metric": "Performance",
+    "threshold": ">24 active threads for 2min",
+    "duration": "2m",
+    "expression": "avg_over_time(mysql_global_status_threads_running[2m]) > 24",
+    "services": [
+      "订单服务"
+    ]
+  },
+  {
+    "id": "ALR-028",
+    "name": "【DB告警】AWS-RDS 活跃线程持续两分钟大于24",
+    "priority": "P2",
+    "category": "Database-RDS",
+    "team": "DBA",
+    "metric": "Performance",
+    "threshold": ">24 threads for 2min",
+    "duration": "2m",
+    "expression": "min_over_time(mysql_global_status_threads_running[2m]) > 24",
+    "services": [
+      "订单服务"
+    ]
+  },
+  {
+    "id": "ALR-029",
+    "name": "【DB告警】AWS RDS 磁盘空间连续3分钟不足10G",
+    "priority": "P1",
+    "category": "Database-RDS",
+    "team": "DBA",
+    "metric": "Disk",
+    "threshold": "<10GB for 3min",
+    "duration": "3m",
+    "expression": "avg_over_time(aws_rds_freestoragespace_average[3m]) / 1024 / 1024 / 1024 < 10",
+    "services": [
+      "订单服务",
+      "DataLink"
+    ]
+  },
+  {
+    "id": "ALR-030",
+    "name": "【DB告警】AWS Mongo CPU使用率连续三分钟大于90%",
+    "priority": "P1",
+    "category": "Database-Mongo",
+    "team": "DBA",
+    "metric": "CPU",
+    "threshold": ">90% for 3min",
+    "duration": "3m",
+    "expression": "avg_over_time(aws_docdb_cpuutilization_average[3m]) >= 90",
+    "services": [
+      "风控服务"
+    ]
+  },
+  {
+    "id": "ALR-031",
+    "name": "【DB告警】AWS Mongo CPU使用率连续三分钟大于90%_语音",
+    "priority": "P0",
+    "category": "Database-Mongo",
+    "team": "DBA",
+    "metric": "CPU",
+    "threshold": ">90% for 3min (Voice)",
+    "duration": "3m",
+    "expression": "avg_over_time(aws_docdb_cpuutilization_average[3m]) >= 90",
+    "services": [
+      "风控服务"
+    ]
+  },
+  {
+    "id": "ALR-032",
+    "name": "【DB告警】AWS Mongo 可用内存连续三分钟不足500M",
+    "priority": "P1",
+    "category": "Database-Mongo",
+    "team": "DBA",
+    "metric": "Memory",
+    "threshold": "<500M for 3min",
+    "duration": "3m",
+    "expression": "avg_over_time(aws_docdb_freeable_memory_average[3m]) / 1024 / 1024 < 500",
+    "services": [
+      "风控服务"
+    ]
+  },
+  {
+    "id": "ALR-033",
+    "name": "【DB告警】AWS-ES CPU 使用率大于90%",
+    "priority": "P1",
+    "category": "Database-ES",
+    "team": "DBA",
+    "metric": "CPU",
+    "threshold": ">90%",
+    "duration": "Instant",
+    "expression": "aws_es_cpuutilization_average > 90",
+    "services": [
+      "搜索服务",
+      "日志服务"
+    ]
+  },
+  {
+    "id": "ALR-034",
+    "name": "【DB告警】AWS-ES CPU 使用率大于90%_语音",
+    "priority": "P0",
+    "category": "Database-ES",
+    "team": "DBA",
+    "metric": "CPU",
+    "threshold": ">90% (Voice)",
+    "duration": "Instant",
+    "expression": "aws_es_cpuutilization_average > 90",
+    "services": [
+      "搜索服务"
+    ]
+  },
+  {
+    "id": "ALR-035",
+    "name": "【DB告警】AWS-ES 集群状态Red",
+    "priority": "P0",
+    "category": "Database-ES",
+    "team": "DBA",
+    "metric": "Cluster Health",
+    "threshold": "Status Red",
+    "duration": "Instant",
+    "expression": "aws_es_cluster_status_red == 1",
+    "services": [
+      "搜索服务",
+      "营销服务"
+    ]
+  },
+  {
+    "id": "ALR-036",
+    "name": "【DB告警】AWS-ES 集群状态Red_语音",
+    "priority": "P0",
+    "category": "Database-ES",
+    "team": "DBA",
+    "metric": "Cluster Health",
+    "threshold": "Status Red (Voice)",
+    "duration": "Instant",
+    "expression": "aws_es_cluster_status_red == 1",
+    "services": [
+      "搜索服务"
+    ]
+  },
+  {
+    "id": "ALR-037",
+    "name": "【DB告警】AWS-ES 集群状态Yellow",
+    "priority": "P2",
+    "category": "Database-ES",
+    "team": "DBA",
+    "metric": "Cluster Health",
+    "threshold": "Status Yellow",
+    "duration": "Instant",
+    "expression": "aws_es_cluster_status_yellow == 1",
+    "services": [
+      "搜索服务"
+    ]
+  },
+  {
+    "id": "ALR-038",
+    "name": "【DB告警】AWS-ES磁盘空间不足10G",
+    "priority": "P1",
+    "category": "Database-ES",
+    "team": "DBA",
+    "metric": "Disk",
+    "threshold": "<10GB",
+    "duration": "Instant",
+    "expression": "aws_es_free_storage_space_total / 1024 < 10",
+    "services": [
+      "搜索服务"
+    ]
+  },
+  {
+    "id": "ALR-039",
+    "name": "【DB告警】AWS-ES磁盘空间不足10G_语音",
+    "priority": "P0",
+    "category": "Database-ES",
+    "team": "DBA",
+    "metric": "Disk",
+    "threshold": "<10GB (Voice)",
+    "duration": "Instant",
+    "expression": "aws_es_free_storage_space_total / 1024 < 10",
+    "services": [
+      "搜索服务"
+    ]
+  },
+  {
+    "id": "ALR-040",
+    "name": "【DB告警】AWS Redis CPU使用率大于90%",
+    "priority": "P1",
+    "category": "Database-Redis",
+    "team": "存储平台",
+    "metric": "CPU",
+    "threshold": ">90%",
+    "duration": "Instant",
+    "expression": "aws_elasticache_cpuutilization_average > 90",
+    "services": [
+      "缓存云平台",
+      "订单服务"
+    ]
+  },
+  {
+    "id": "ALR-041",
+    "name": "【DB告警】Redis CPU使用率持续3分钟超过70%",
+    "priority": "P2",
+    "category": "Database-Redis",
+    "team": "存储平台",
+    "metric": "CPU",
+    "threshold": ">70% for 3min",
+    "duration": "3m",
+    "expression": "avg_over_time(redis_cpu_usage[3m]) > 70",
+    "services": [
+      "订单服务"
+    ]
+  },
+  {
+    "id": "ALR-042",
+    "name": "【DB告警】Redis 内存使用率持续3分钟超过70%",
+    "priority": "P2",
+    "category": "Database-Redis",
+    "team": "存储平台",
+    "metric": "Memory",
+    "threshold": ">70% for 3min",
+    "duration": "3m",
+    "expression": "avg_over_time(redis_memory_usage_ratio[3m]) > 70",
+    "services": [
+      "订单服务"
+    ]
+  },
+  {
+    "id": "ALR-043",
+    "name": "【DB告警】Redis 发生客户端堵塞",
+    "priority": "P1",
+    "category": "Database-Redis",
+    "team": "存储平台",
+    "metric": "Connectivity",
+    "threshold": "Client blocked",
+    "duration": "Instant",
+    "expression": "redis_blocked_clients > 0",
+    "services": [
+      "订单服务",
+      "IoT服务"
+    ]
+  },
+  {
+    "id": "ALR-044",
+    "name": "【DB告警】Redis 实例命令平均时延大于2ms",
+    "priority": "P2",
+    "category": "Database-Redis",
+    "team": "存储平台",
+    "metric": "Latency",
+    "threshold": ">2ms avg",
+    "duration": "Instant",
+    "expression": "redis_command_latency_avg > 2",
+    "services": [
+      "订单服务"
+    ]
+  },
+  {
+    "id": "ALR-045",
+    "name": "【DB告警】Redis 实例客户端nomal缓冲超过32m",
+    "priority": "P2",
+    "category": "Database-Redis",
+    "team": "存储平台",
+    "metric": "Memory",
+    "threshold": ">32MB client buffer",
+    "duration": "Instant",
+    "expression": "redis_client_output_buffer_normal > 33554432",
+    "services": [
+      "订单服务"
+    ]
+  },
+  {
+    "id": "ALR-046",
+    "name": "【DB告警】Redis 实例流量大于32Mbps",
+    "priority": "P2",
+    "category": "Database-Redis",
+    "team": "存储平台",
+    "metric": "Network",
+    "threshold": ">32Mbps",
+    "duration": "Instant",
+    "expression": "redis_network_bytes_in_rate + redis_network_bytes_out_rate > 33554432",
+    "services": [
+      "订单服务"
+    ]
+  },
+  {
+    "id": "ALR-047",
+    "name": "【DB告警】Redis 实例触发key淘汰",
+    "priority": "P2",
+    "category": "Database-Redis",
+    "team": "存储平台",
+    "metric": "Eviction",
+    "threshold": "Key eviction triggered",
+    "duration": "Instant",
+    "expression": "increase(redis_evicted_keys[5m]) > 0",
+    "services": [
+      "订单服务"
+    ]
+  },
+  {
+    "id": "ALR-048",
+    "name": "【DB告警】Redis 实例连接数使用率大于30%",
+    "priority": "P2",
+    "category": "Database-Redis",
+    "team": "存储平台",
+    "metric": "Connections",
+    "threshold": ">30% usage",
+    "duration": "Instant",
+    "expression": "redis_connected_clients / redis_maxclients > 0.3",
+    "services": [
+      "订单服务"
+    ]
+  },
+  {
+    "id": "ALR-049",
+    "name": "【DB告警】Redis 实例采集失败请检查是否存活",
+    "priority": "P0",
+    "category": "Database-Redis",
+    "team": "存储平台",
+    "metric": "Availability",
+    "threshold": "Collection failed",
+    "duration": "Instant",
+    "expression": "up{job=\"redis\"} == 0",
+    "services": [
+      "订单服务",
+      "营销服务",
+      "IoT服务"
+    ]
+  },
+  {
+    "id": "ALR-050",
+    "name": "【DB告警】exporter 进程异常",
+    "priority": "P0",
+    "category": "Database-Exporter",
+    "team": "DBA",
+    "metric": "Process",
+    "threshold": "Exporter process abnormal",
+    "duration": "Instant",
+    "expression": "up{job=~\".*exporter.*\"} == 0",
+    "services": [
+      "监控采集服务"
+    ]
+  },
+  {
+    "id": "ALR-051",
+    "name": "【UPUSH】五分钟短信供应商调用失败超过阈值50",
+    "priority": "P1",
+    "category": "SMS-UPUSH",
+    "team": "UPUSH",
+    "metric": "SMS",
+    "threshold": ">50 failures in 5min",
+    "duration": "5m",
+    "expression": "sum(rate(sms_provider_call_failure[5m])) > 50",
+    "services": [
+      "短信服务"
+    ]
+  },
+  {
+    "id": "ALR-052",
+    "name": "【UPUSH】五分钟短信供应商返回值失败超过阈值200",
+    "priority": "P1",
+    "category": "SMS-UPUSH",
+    "team": "UPUSH",
+    "metric": "SMS",
+    "threshold": ">200 return failures in 5min",
+    "duration": "5m",
+    "expression": "sum(rate(sms_provider_return_failure[5m])) > 200",
+    "services": [
+      "短信服务"
+    ]
+  },
+  {
+    "id": "ALR-053",
+    "name": "【UPUSH】营销短信回执成功率低于60%",
+    "priority": "P2",
+    "category": "SMS-UPUSH",
+    "team": "UPUSH",
+    "metric": "SMS",
+    "threshold": "<60% success rate",
+    "duration": "N/A",
+    "expression": "sms_marketing_receipt_success_rate < 0.6",
+    "services": [
+      "营销服务",
+      "短信服务"
+    ]
+  },
+  {
+    "id": "ALR-054",
+    "name": "【UPUSH】营销短信过滤数超过100",
+    "priority": "P2",
+    "category": "SMS-UPUSH",
+    "team": "UPUSH",
+    "metric": "SMS",
+    "threshold": ">100 filtered",
+    "duration": "N/A",
+    "expression": "sms_marketing_filtered_count > 100",
+    "services": [
+      "营销服务"
+    ]
+  },
+  {
+    "id": "ALR-055",
+    "name": "【UPUSH】行业短信回执成功率低于70%",
+    "priority": "P1",
+    "category": "SMS-UPUSH",
+    "team": "UPUSH",
+    "metric": "SMS",
+    "threshold": "<70% success rate",
+    "duration": "N/A",
+    "expression": "sms_transactional_receipt_success_rate < 0.7",
+    "services": [
+      "短信服务"
+    ]
+  },
+  {
+    "id": "ALR-056",
+    "name": "【UPUSH】行业短信过滤数超过50",
+    "priority": "P2",
+    "category": "SMS-UPUSH",
+    "team": "UPUSH",
+    "metric": "SMS",
+    "threshold": ">50 filtered",
+    "duration": "N/A",
+    "expression": "sms_transactional_filtered_count > 50",
+    "services": [
+      "短信服务"
+    ]
+  },
+  {
+    "id": "ALR-057",
+    "name": "【UPUSH】验证码发送量同比增加30%",
+    "priority": "P2",
+    "category": "SMS-UPUSH",
+    "team": "UPUSH",
+    "metric": "SMS",
+    "threshold": ">30% increase WoW",
+    "duration": "N/A",
+    "expression": "(sms_verification_count - sms_verification_count offset 1w) / sms_verification_count offset 1w > 0.3",
+    "services": [
+      "验证码服务"
+    ]
+  },
+  {
+    "id": "ALR-058",
+    "name": "【UPUSH】验证码回执成功率低于70%",
+    "priority": "P1",
+    "category": "SMS-UPUSH",
+    "team": "UPUSH",
+    "metric": "SMS",
+    "threshold": "<70% success rate",
+    "duration": "N/A",
+    "expression": "sms_verification_receipt_success_rate < 0.7",
+    "services": [
+      "验证码服务"
+    ]
+  },
+  {
+    "id": "ALR-059",
+    "name": "【UPUSH】验证码过滤数超过50",
+    "priority": "P2",
+    "category": "SMS-UPUSH",
+    "team": "UPUSH",
+    "metric": "SMS",
+    "threshold": ">50 filtered",
+    "duration": "N/A",
+    "expression": "sms_verification_filtered_count > 50",
+    "services": [
+      "验证码服务"
+    ]
+  },
+  {
+    "id": "ALR-060",
+    "name": "【iZeus-策略1】服务每分钟异常数大于2",
+    "priority": "P1",
+    "category": "APM-iZeus",
+    "team": "iZeus",
+    "metric": "APM",
+    "threshold": ">2 exceptions/min",
+    "duration": "1m",
+    "expression": "izeus_service_exception_count_per_minute > 2",
+    "services": [
+      "核心服务"
+    ]
+  },
+  {
+    "id": "ALR-061",
+    "name": "【iZeus-策略2】服务每分钟异常数大于2",
+    "priority": "P1",
+    "category": "APM-iZeus",
+    "team": "iZeus",
+    "metric": "APM",
+    "threshold": ">2 exceptions/min",
+    "duration": "1m",
+    "expression": "izeus_service_exception_count_per_minute > 2",
+    "services": [
+      "核心服务"
+    ]
+  },
+  {
+    "id": "ALR-062",
+    "name": "【iZeus-策略3】服务每分钟异常数大于2",
+    "priority": "P1",
+    "category": "APM-iZeus",
+    "team": "iZeus",
+    "metric": "APM",
+    "threshold": ">2 exceptions/min",
+    "duration": "1m",
+    "expression": "izeus_service_exception_count_per_minute > 2",
+    "services": [
+      "核心服务"
+    ]
+  },
+  {
+    "id": "ALR-063",
+    "name": "【iZeus-策略4】服务每分钟异常数大于2",
+    "priority": "P1",
+    "category": "APM-iZeus",
+    "team": "iZeus",
+    "metric": "APM",
+    "threshold": ">2 exceptions/min",
+    "duration": "1m",
+    "expression": "izeus_service_exception_count_per_minute > 2",
+    "services": [
+      "核心服务"
+    ]
+  },
+  {
+    "id": "ALR-064",
+    "name": "【iZeus-策略5】服务每分钟异常数大于3",
+    "priority": "P1",
+    "category": "APM-iZeus",
+    "team": "iZeus",
+    "metric": "APM",
+    "threshold": ">3 exceptions/min",
+    "duration": "1m",
+    "expression": "izeus_service_exception_count_per_minute > 3",
+    "services": [
+      "核心服务"
+    ]
+  },
+  {
+    "id": "ALR-065",
+    "name": "【iZeus-策略6】服务每分钟异常数大于2",
+    "priority": "P1",
+    "category": "APM-iZeus",
+    "team": "iZeus",
+    "metric": "APM",
+    "threshold": ">2 exceptions/min",
+    "duration": "1m",
+    "expression": "izeus_service_exception_count_per_minute > 2",
+    "services": [
+      "核心服务"
+    ]
+  },
+  {
+    "id": "ALR-066",
+    "name": "【iZeus-策略7】服务每分钟异常数大于2",
+    "priority": "P1",
+    "category": "APM-iZeus",
+    "team": "iZeus",
+    "metric": "APM",
+    "threshold": ">2 exceptions/min",
+    "duration": "1m",
+    "expression": "izeus_service_exception_count_per_minute > 2",
+    "services": [
+      "核心服务"
+    ]
+  },
+  {
+    "id": "ALR-067",
+    "name": "【iZeus-策略8】服务每分钟异常数大于2",
+    "priority": "P1",
+    "category": "APM-iZeus",
+    "team": "iZeus",
+    "metric": "APM",
+    "threshold": ">2 exceptions/min",
+    "duration": "1m",
+    "expression": "izeus_service_exception_count_per_minute > 2",
+    "services": [
+      "核心服务"
+    ]
+  },
+  {
+    "id": "ALR-068",
+    "name": "【iZeus-策略9】服务每分钟异常数大于2",
+    "priority": "P1",
+    "category": "APM-iZeus",
+    "team": "iZeus",
+    "metric": "APM",
+    "threshold": ">2 exceptions/min",
+    "duration": "1m",
+    "expression": "izeus_service_exception_count_per_minute > 2",
+    "services": [
+      "核心服务"
+    ]
+  },
+  {
+    "id": "ALR-069",
+    "name": "【iZeus-策略10】JVM CPU使用率大于20",
+    "priority": "P2",
+    "category": "APM-iZeus",
+    "team": "iZeus",
+    "metric": "JVM",
+    "threshold": ">20% CPU",
+    "duration": "N/A",
+    "expression": "jvm_cpu_usage > 20",
+    "services": [
+      "Java服务"
+    ]
+  },
+  {
+    "id": "ALR-070",
+    "name": "【iZeus-策略10】服务响应时间大于1500ms",
+    "priority": "P1",
+    "category": "APM-iZeus",
+    "team": "iZeus",
+    "metric": "Latency",
+    "threshold": ">1500ms",
+    "duration": "N/A",
+    "expression": "izeus_service_response_time_p99 > 1500",
+    "services": [
+      "核心服务"
+    ]
+  },
+  {
+    "id": "ALR-071",
+    "name": "【iZeus-策略11】端点每分钟失败数大于等于1",
+    "priority": "P1",
+    "category": "APM-iZeus",
+    "team": "iZeus",
+    "metric": "APM",
+    "threshold": ">=1 failure/min",
+    "duration": "1m",
+    "expression": "izeus_endpoint_failure_count_per_minute >= 1",
+    "services": [
+      "核心服务"
+    ]
+  },
+  {
+    "id": "ALR-072",
+    "name": "【iZeus-策略12】端点每分钟失败数大于等于1",
+    "priority": "P1",
+    "category": "APM-iZeus",
+    "team": "iZeus",
+    "metric": "APM",
+    "threshold": ">=1 failure/min",
+    "duration": "1m",
+    "expression": "izeus_endpoint_failure_count_per_minute >= 1",
+    "services": [
+      "核心服务"
+    ]
+  },
+  {
+    "id": "ALR-073",
+    "name": "【iZeus-策略15】服务每分钟异常数大于3",
+    "priority": "P1",
+    "category": "APM-iZeus",
+    "team": "iZeus",
+    "metric": "APM",
+    "threshold": ">3 exceptions/min",
+    "duration": "1m",
+    "expression": "izeus_service_exception_count_per_minute > 3",
+    "services": [
+      "核心服务"
+    ]
+  },
+  {
+    "id": "ALR-074",
+    "name": "【iZeus-策略16】端点每分钟失败数大于2",
+    "priority": "P1",
+    "category": "APM-iZeus",
+    "team": "iZeus",
+    "metric": "APM",
+    "threshold": ">2 failures/min",
+    "duration": "1m",
+    "expression": "izeus_endpoint_failure_count_per_minute > 2",
+    "services": [
+      "核心服务"
+    ]
+  },
+  {
+    "id": "ALR-075",
+    "name": "【iZeus-策略17】端点每分钟失败数大于3",
+    "priority": "P1",
+    "category": "APM-iZeus",
+    "team": "iZeus",
+    "metric": "APM",
+    "threshold": ">3 failures/min",
+    "duration": "1m",
+    "expression": "izeus_endpoint_failure_count_per_minute > 3",
+    "services": [
+      "核心服务"
+    ]
+  },
+  {
+    "id": "ALR-076",
+    "name": "【iZeus】Node-CPU-85 节点CPU使用率大于85%",
+    "priority": "P1",
+    "category": "APM-iZeus",
+    "team": "iZeus",
+    "metric": "CPU",
+    "threshold": ">85%",
+    "duration": "N/A",
+    "expression": "izeus_node_cpu_usage > 85",
+    "services": [
+      "iZeus节点"
+    ]
+  },
+  {
+    "id": "ALR-077",
+    "name": "【iZeus】Node-Disk-85 节点磁盘使用率大于85%",
+    "priority": "P2",
+    "category": "APM-iZeus",
+    "team": "iZeus",
+    "metric": "Disk",
+    "threshold": ">85%",
+    "duration": "N/A",
+    "expression": "izeus_node_disk_usage > 85",
+    "services": [
+      "iZeus节点"
+    ]
+  },
+  {
+    "id": "ALR-078",
+    "name": "【iZeus】Node-Memory-95 节点内存使用率大于95%",
+    "priority": "P1",
+    "category": "APM-iZeus",
+    "team": "iZeus",
+    "metric": "Memory",
+    "threshold": ">95%",
+    "duration": "N/A",
+    "expression": "izeus_node_memory_usage > 95",
+    "services": [
+      "iZeus节点"
+    ]
+  },
+  {
+    "id": "ALR-079",
+    "name": "【iZeus】OAP-FGC-5 Full GC次数大于5",
+    "priority": "P2",
+    "category": "APM-iZeus",
+    "team": "iZeus",
+    "metric": "JVM",
+    "threshold": ">5 FGC",
+    "duration": "N/A",
+    "expression": "izeus_oap_fgc_count > 5",
+    "services": [
+      "iZeus OAP"
+    ]
+  },
+  {
+    "id": "ALR-080",
+    "name": "【iZeus】Storage-Receiver2Thanos-Receiver-0",
+    "priority": "P1",
+    "category": "APM-iZeus",
+    "team": "iZeus",
+    "metric": "Pipeline",
+    "threshold": "Receiver failure",
+    "duration": "N/A",
+    "expression": "izeus_storage_receiver_thanos_status == 0",
+    "services": [
+      "iZeus存储"
+    ]
+  },
+  {
+    "id": "ALR-081",
+    "name": "【iZeus】Storage-Receiver2VM-0",
+    "priority": "P1",
+    "category": "APM-iZeus",
+    "team": "iZeus",
+    "metric": "Pipeline",
+    "threshold": "VM receiver failure",
+    "duration": "N/A",
+    "expression": "izeus_storage_receiver_vm_status == 0",
+    "services": [
+      "iZeus存储"
+    ]
+  },
+  {
+    "id": "ALR-082",
+    "name": "【iZeus】Transfer-Agent2OAP-0",
+    "priority": "P1",
+    "category": "APM-iZeus",
+    "team": "iZeus",
+    "metric": "Pipeline",
+    "threshold": "Agent transfer failure",
+    "duration": "N/A",
+    "expression": "izeus_transfer_agent_oap_status == 0",
+    "services": [
+      "iZeus Agent"
+    ]
+  },
+  {
+    "id": "ALR-083",
+    "name": "【iZeus】Transfer-OAP2OAP-0",
+    "priority": "P1",
+    "category": "APM-iZeus",
+    "team": "iZeus",
+    "metric": "Pipeline",
+    "threshold": "OAP transfer failure",
+    "duration": "N/A",
+    "expression": "izeus_transfer_oap_oap_status == 0",
+    "services": [
+      "iZeus OAP"
+    ]
+  },
+  {
+    "id": "ALR-084",
+    "name": "【iZeus】Transfer-OAPTrace2Receiver-0",
+    "priority": "P1",
+    "category": "APM-iZeus",
+    "team": "iZeus",
+    "metric": "Pipeline",
+    "threshold": "Trace transfer failure",
+    "duration": "N/A",
+    "expression": "izeus_transfer_oap_trace_receiver_status == 0",
+    "services": [
+      "iZeus Trace"
+    ]
+  },
+  {
+    "id": "ALR-085",
+    "name": "【默认策略】FGC次数大于0或YGC耗时大于500毫秒",
+    "priority": "P2",
+    "category": "APM-Default",
+    "team": "应用运维",
+    "metric": "JVM",
+    "threshold": "FGC>0 or YGC>500ms",
+    "duration": "N/A",
+    "expression": "jvm_gc_fgc_count > 0 or jvm_gc_ygc_time > 500",
+    "services": [
+      "Java服务"
+    ]
+  },
+  {
+    "id": "ALR-086",
+    "name": "【默认策略】异常okhttp总数大于等于50",
+    "priority": "P2",
+    "category": "APM-Default",
+    "team": "应用运维",
+    "metric": "HTTP",
+    "threshold": ">=50 errors",
+    "duration": "N/A",
+    "expression": "okhttp_exception_count >= 50",
+    "services": [
+      "HTTP服务"
+    ]
+  },
+  {
+    "id": "ALR-087",
+    "name": "【默认策略】服务器每分钟异常数大于20",
+    "priority": "P1",
+    "category": "APM-Default",
+    "team": "应用运维",
+    "metric": "APM",
+    "threshold": ">20 exceptions/min",
+    "duration": "1m",
+    "expression": "server_exception_count_per_minute > 20",
+    "services": [
+      "核心服务"
+    ]
+  },
+  {
+    "id": "ALR-088",
+    "name": "【默认策略】服务器每分钟异常数大于5",
+    "priority": "P2",
+    "category": "APM-Default",
+    "team": "应用运维",
+    "metric": "APM",
+    "threshold": ">5 exceptions/min",
+    "duration": "1m",
+    "expression": "server_exception_count_per_minute > 5",
+    "services": [
+      "核心服务"
+    ]
+  },
+  {
+    "id": "ALR-089",
+    "name": "【pod-cpu-兜底】P0 CPU使用率连续3分钟大于85%",
+    "priority": "P0",
+    "category": "Pod/Container",
+    "team": "K8S运维",
+    "metric": "CPU",
+    "threshold": ">85% for 3min",
+    "duration": "3m",
+    "expression": "avg_over_time(container_cpu_usage_percent[3m]) > 85",
+    "services": [
+      "容器服务"
+    ]
+  },
+  {
+    "id": "ALR-090",
+    "name": "【pod-cpu】P0 CPU使用率连续10分钟大于50%",
+    "priority": "P0",
+    "category": "Pod/Container",
+    "team": "K8S运维",
+    "metric": "CPU",
+    "threshold": ">50% for 10min",
+    "duration": "10m",
+    "expression": "avg_over_time(container_cpu_usage_percent[10m]) > 50",
+    "services": [
+      "容器服务"
+    ]
+  },
+  {
+    "id": "ALR-091",
+    "name": "【pod-cpu】P0 CPU使用率连续3分钟大于70%",
+    "priority": "P0",
+    "category": "Pod/Container",
+    "team": "K8S运维",
+    "metric": "CPU",
+    "threshold": ">70% for 3min",
+    "duration": "3m",
+    "expression": "avg_over_time(container_cpu_usage_percent[3m]) > 70",
+    "services": [
+      "容器服务"
+    ]
+  },
+  {
+    "id": "ALR-092",
+    "name": "【pod-全局】P0 node节点up心跳丢失需检查节点是否宕机",
+    "priority": "P0",
+    "category": "Pod/Container",
+    "team": "K8S运维",
+    "metric": "Availability",
+    "threshold": "Node heartbeat lost",
+    "duration": "Instant",
+    "expression": "up{job=\"kubernetes-nodes\"} == 0",
+    "services": [
+      "K8S节点"
+    ]
+  },
+  {
+    "id": "ALR-093",
+    "name": "【pod-全局】P0 Pod 2m内发生重启请关注",
+    "priority": "P0",
+    "category": "Pod/Container",
+    "team": "K8S运维",
+    "metric": "Availability",
+    "threshold": "Pod restart in 2min",
+    "duration": "2m",
+    "expression": "increase(kube_pod_container_status_restarts_total[2m]) > 0",
+    "services": [
+      "容器服务"
+    ]
+  },
+  {
+    "id": "ALR-094",
+    "name": "【pod-宕机】P1 WSS内存使用率连续3分钟等于100%(OOM参考)",
+    "priority": "P1",
+    "category": "Pod/Container",
+    "team": "K8S运维",
+    "metric": "Memory",
+    "threshold": "100% for 3min (OOM)",
+    "duration": "3m",
+    "expression": "avg_over_time(container_memory_working_set_percent[3m]) == 100",
+    "services": [
+      "容器服务"
+    ]
+  },
+  {
+    "id": "ALR-095",
+    "name": "【pod-线程】P0 容器线程数连续3分钟超过3600",
+    "priority": "P0",
+    "category": "Pod/Container",
+    "team": "K8S运维",
+    "metric": "Threads",
+    "threshold": ">3600 for 3min",
+    "duration": "3m",
+    "expression": "avg_over_time(container_threads[3m]) > 3600",
+    "services": [
+      "容器服务"
+    ]
+  },
+  {
+    "id": "ALR-096",
+    "name": "【pod-网卡】P0 分区写入速率连续3分钟大于50MBs",
+    "priority": "P0",
+    "category": "Pod/Container",
+    "team": "K8S运维",
+    "metric": "Disk IO",
+    "threshold": ">50MB/s for 3min",
+    "duration": "3m",
+    "expression": "avg_over_time(container_fs_writes_bytes_rate[3m]) > 52428800",
+    "services": [
+      "容器服务"
+    ]
+  },
+  {
+    "id": "ALR-097",
+    "name": "【pod-网卡】P0 分区读取速率连续3分钟大于50MBs",
+    "priority": "P0",
+    "category": "Pod/Container",
+    "team": "K8S运维",
+    "metric": "Disk IO",
+    "threshold": ">50MB/s for 3min",
+    "duration": "3m",
+    "expression": "avg_over_time(container_fs_reads_bytes_rate[3m]) > 52428800",
+    "services": [
+      "容器服务"
+    ]
+  },
+  {
+    "id": "ALR-098",
+    "name": "【pod-网卡】P0 网卡流入速率连续3分钟大于30MBs",
+    "priority": "P0",
+    "category": "Pod/Container",
+    "team": "K8S运维",
+    "metric": "Network",
+    "threshold": ">30MB/s for 3min",
+    "duration": "3m",
+    "expression": "avg_over_time(container_network_receive_bytes_rate[3m]) > 31457280",
+    "services": [
+      "容器服务"
+    ]
+  },
+  {
+    "id": "ALR-099",
+    "name": "【pod-网卡】P0 网卡流出速率连续3分钟大于30MBs",
+    "priority": "P0",
+    "category": "Pod/Container",
+    "team": "K8S运维",
+    "metric": "Network",
+    "threshold": ">30MB/s for 3min",
+    "duration": "3m",
+    "expression": "avg_over_time(container_network_transmit_bytes_rate[3m]) > 31457280",
+    "services": [
+      "容器服务"
+    ]
+  },
+  {
+    "id": "ALR-100",
+    "name": "【vm-CPU】P1 CPU平均负载大于CPU核心数量的1倍已持续5分钟",
+    "priority": "P1",
+    "category": "VM/Host",
+    "team": "系统运维",
+    "metric": "CPU",
+    "threshold": "Load > cores for 5min",
+    "duration": "5m",
+    "expression": "avg_over_time(node_load1[5m]) > count(node_cpu_seconds_total{mode=\"idle\"})",
+    "services": [
+      "EC2实例"
+    ]
+  },
+  {
+    "id": "ALR-101",
+    "name": "【vm-CPU】P1 服务整体CPU平均使用率超过80%",
+    "priority": "P1",
+    "category": "VM/Host",
+    "team": "系统运维",
+    "metric": "CPU",
+    "threshold": ">80% avg",
+    "duration": "N/A",
+    "expression": "avg(100 - (avg by (instance) (irate(node_cpu_seconds_total{mode=\"idle\"}[5m])) * 100)) > 80",
+    "services": [
+      "EC2实例"
+    ]
+  },
+  {
+    "id": "ALR-102",
+    "name": "【vm-cpu】P0 5分钟内服务CPU_iowait每秒的使用率大于80%",
+    "priority": "P0",
+    "category": "VM/Host",
+    "team": "系统运维",
+    "metric": "CPU",
+    "threshold": ">80% iowait",
+    "duration": "5m",
+    "expression": "avg_over_time((irate(node_cpu_seconds_total{mode=\"iowait\"}[5m]) * 100)[5m:]) > 80",
+    "services": [
+      "EC2实例"
+    ]
+  },
+  {
+    "id": "ALR-103",
+    "name": "【vm-cpu】P0 服务CPU使用率窃取大于10%",
+    "priority": "P0",
+    "category": "VM/Host",
+    "team": "系统运维",
+    "metric": "CPU",
+    "threshold": ">10% steal",
+    "duration": "N/A",
+    "expression": "avg(irate(node_cpu_seconds_total{mode=\"steal\"}[5m])) * 100 > 10",
+    "services": [
+      "EC2实例"
+    ]
+  },
+  {
+    "id": "ALR-104",
+    "name": "【vm-fileSystem】P0 分区inodes使用率大于95%请立即处理",
+    "priority": "P0",
+    "category": "VM/Host",
+    "team": "系统运维",
+    "metric": "Disk",
+    "threshold": ">95% inodes",
+    "duration": "Instant",
+    "expression": "(1 - node_filesystem_files_free / node_filesystem_files) * 100 > 95",
+    "services": [
+      "EC2实例"
+    ]
+  },
+  {
+    "id": "ALR-105",
+    "name": "【vm-fileSystem】P0 分区发送只读事件请检查分区读写情况",
+    "priority": "P0",
+    "category": "VM/Host",
+    "team": "系统运维",
+    "metric": "Disk",
+    "threshold": "Read-only event",
+    "duration": "Instant",
+    "expression": "node_filesystem_readonly == 1",
+    "services": [
+      "EC2实例"
+    ]
+  },
+  {
+    "id": "ALR-106",
+    "name": "【vm-io】P0 服务io耗时大于90ms且同比超过20ms",
+    "priority": "P0",
+    "category": "VM/Host",
+    "team": "系统运维",
+    "metric": "Disk IO",
+    "threshold": ">90ms and >20ms WoW",
+    "duration": "N/A",
+    "expression": "irate(node_disk_io_time_seconds_total[5m]) * 1000 > 90",
+    "services": [
+      "EC2实例"
+    ]
+  },
+  {
+    "id": "ALR-107",
+    "name": "【vm-io】P1 磁盘IO使用率大于70%且同比超过20",
+    "priority": "P1",
+    "category": "VM/Host",
+    "team": "系统运维",
+    "metric": "Disk IO",
+    "threshold": ">70% and >20 WoW",
+    "duration": "N/A",
+    "expression": "irate(node_disk_io_time_seconds_total[5m]) * 100 > 70",
+    "services": [
+      "EC2实例"
+    ]
+  },
+  {
+    "id": "ALR-108",
+    "name": "【vm-tcp】P0 TCP每秒重传报文数超过200",
+    "priority": "P0",
+    "category": "VM/Host",
+    "team": "系统运维",
+    "metric": "Network",
+    "threshold": ">200 retrans/s",
+    "duration": "Instant",
+    "expression": "rate(node_netstat_Tcp_RetransSegs[5m]) > 200",
+    "services": [
+      "EC2实例"
+    ]
+  },
+  {
+    "id": "ALR-109",
+    "name": "【vm-内存】P1 内存使用率大于90% 持续10分钟",
+    "priority": "P1",
+    "category": "VM/Host",
+    "team": "系统运维",
+    "metric": "Memory",
+    "threshold": ">90% for 10min",
+    "duration": "10m",
+    "expression": "avg_over_time((1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100[10m]) > 90",
+    "services": [
+      "EC2实例"
+    ]
+  },
+  {
+    "id": "ALR-110",
+    "name": "【vm-宕机】P0 up监控指标心跳丢失10分钟需检查设备是否宕机",
+    "priority": "P0",
+    "category": "VM/Host",
+    "team": "系统运维",
+    "metric": "Availability",
+    "threshold": "Heartbeat lost 10min",
+    "duration": "10m",
+    "expression": "up{job=\"node\"} == 0",
+    "services": [
+      "EC2实例"
+    ]
+  },
+  {
+    "id": "ALR-111",
+    "name": "【vm-磁盘】P1 分区使用率大于90%请手动处理",
+    "priority": "P1",
+    "category": "VM/Host",
+    "team": "系统运维",
+    "metric": "Disk",
+    "threshold": ">90%",
+    "duration": "Instant",
+    "expression": "(1 - node_filesystem_avail_bytes / node_filesystem_size_bytes) * 100 > 90",
+    "services": [
+      "EC2实例"
+    ]
+  },
+  {
+    "id": "ALR-112",
+    "name": "【vm-网卡】P0 入方向在5分钟内每秒丢弃的数据包大于20个",
+    "priority": "P0",
+    "category": "VM/Host",
+    "team": "系统运维",
+    "metric": "Network",
+    "threshold": ">20 drops/s in",
+    "duration": "5m",
+    "expression": "rate(node_network_receive_drop_total[5m]) > 20",
+    "services": [
+      "EC2实例"
+    ]
+  },
+  {
+    "id": "ALR-113",
+    "name": "【vm-网卡】P0 入方向在5分钟内每秒错误的数据包大于20个",
+    "priority": "P0",
+    "category": "VM/Host",
+    "team": "系统运维",
+    "metric": "Network",
+    "threshold": ">20 errors/s in",
+    "duration": "5m",
+    "expression": "rate(node_network_receive_errs_total[5m]) > 20",
+    "services": [
+      "EC2实例"
+    ]
+  },
+  {
+    "id": "ALR-114",
+    "name": "【vm-网卡】P0 出方向在5分钟内每秒丢弃的数据包大于20个",
+    "priority": "P0",
+    "category": "VM/Host",
+    "team": "系统运维",
+    "metric": "Network",
+    "threshold": ">20 drops/s out",
+    "duration": "5m",
+    "expression": "rate(node_network_transmit_drop_total[5m]) > 20",
+    "services": [
+      "EC2实例"
+    ]
+  },
+  {
+    "id": "ALR-115",
+    "name": "【vm-网卡】P0 出方向在5分钟内每秒错误的数据包大于20个",
+    "priority": "P0",
+    "category": "VM/Host",
+    "team": "系统运维",
+    "metric": "Network",
+    "threshold": ">20 errors/s out",
+    "duration": "5m",
+    "expression": "rate(node_network_transmit_errs_total[5m]) > 20",
+    "services": [
+      "EC2实例"
+    ]
+  },
+  {
+    "id": "ALR-116",
+    "name": "【vm-网卡】P0 网卡状态为down",
+    "priority": "P0",
+    "category": "VM/Host",
+    "team": "系统运维",
+    "metric": "Network",
+    "threshold": "NIC down",
+    "duration": "Instant",
+    "expression": "node_network_up == 0",
+    "services": [
+      "EC2实例"
+    ]
+  },
+  {
+    "id": "ALR-117",
+    "name": "【北美-业务告警】取消订单持续5分钟大于1单",
+    "priority": "P1",
+    "category": "Business",
+    "team": "业务运维",
+    "metric": "Business",
+    "threshold": ">1 cancel for 5min",
+    "duration": "5m",
+    "expression": "sum(rate(order_cancel_count[5m])) > 1",
+    "services": [
+      "订单服务"
+    ]
+  },
+  {
+    "id": "ALR-118",
+    "name": "【北美-业务告警】新建-付款-完成订单持续10分钟少于1单",
+    "priority": "P0",
+    "category": "Business",
+    "team": "业务运维",
+    "metric": "Business",
+    "threshold": "<1 order for 10min",
+    "duration": "10m",
+    "expression": "sum(rate(order_complete_count[10m])) < 1/600",
+    "services": [
+      "订单服务",
+      "支付服务"
+    ]
+  },
+  {
+    "id": "ALR-119",
+    "name": "【北美-业务告警】订单支持持续10分钟小于1",
+    "priority": "P0",
+    "category": "Business",
+    "team": "业务运维",
+    "metric": "Business",
+    "threshold": "<1 payment for 10min",
+    "duration": "10m",
+    "expression": "sum(rate(order_payment_count[10m])) < 1/600",
+    "services": [
+      "支付服务"
+    ]
+  },
+  {
+    "id": "ALR-120",
+    "name": "【北美-业务告警】过去10分钟注册数为0",
+    "priority": "P1",
+    "category": "Business",
+    "team": "业务运维",
+    "metric": "Business",
+    "threshold": "0 registrations in 10min",
+    "duration": "10m",
+    "expression": "sum(increase(user_registration_count[10m])) == 0",
+    "services": [
+      "会员服务"
+    ]
+  },
+  {
+    "id": "ALR-121",
+    "name": "【北美-业务告警】过去5分钟支付金额小于500分",
+    "priority": "P1",
+    "category": "Business",
+    "team": "业务运维",
+    "metric": "Business",
+    "threshold": "<500 cents in 5min",
+    "duration": "5m",
+    "expression": "sum(increase(payment_amount_cents[5m])) < 500",
+    "services": [
+      "支付服务"
+    ]
+  },
+  {
+    "id": "ALR-122",
+    "name": "【北美亚风控】全局策略熔断前预告警",
+    "priority": "P1",
+    "category": "Risk Control",
+    "team": "风控",
+    "metric": "Risk",
+    "threshold": "Global circuit breaker warning",
+    "duration": "N/A",
+    "expression": "risk_global_circuit_breaker_warning == 1",
+    "services": [
+      "风控服务"
+    ]
+  },
+  {
+    "id": "ALR-123",
+    "name": "【北美亚风控】全局策略熔断告警",
+    "priority": "P0",
+    "category": "Risk Control",
+    "team": "风控",
+    "metric": "Risk",
+    "threshold": "Global circuit breaker triggered",
+    "duration": "N/A",
+    "expression": "risk_global_circuit_breaker_active == 1",
+    "services": [
+      "风控服务"
+    ]
+  },
+  {
+    "id": "ALR-124",
+    "name": "【北美亚风控】场景熔断前预告警",
+    "priority": "P1",
+    "category": "Risk Control",
+    "team": "风控",
+    "metric": "Risk",
+    "threshold": "Scene circuit breaker warning",
+    "duration": "N/A",
+    "expression": "risk_scene_circuit_breaker_warning == 1",
+    "services": [
+      "风控服务"
+    ]
+  },
+  {
+    "id": "ALR-125",
+    "name": "【北美风控】场景熔断告警",
+    "priority": "P0",
+    "category": "Risk Control",
+    "team": "风控",
+    "metric": "Risk",
+    "threshold": "Scene circuit breaker triggered",
+    "duration": "N/A",
+    "expression": "risk_scene_circuit_breaker_active == 1",
+    "services": [
+      "风控服务"
+    ]
+  },
+  {
+    "id": "ALR-126",
+    "name": "【国际化北美风控】下单rpc接口调用量超过200次且比上周多60%",
+    "priority": "P2",
+    "category": "Risk Control",
+    "team": "风控",
+    "metric": "Risk",
+    "threshold": ">200 calls and >60% WoW",
+    "duration": "N/A",
+    "expression": "risk_order_rpc_count > 200 and (risk_order_rpc_count - risk_order_rpc_count offset 1w) / risk_order_rpc_count offset 1w > 0.6",
+    "services": [
+      "风控服务",
+      "订单服务"
+    ]
+  },
+  {
+    "id": "ALR-127",
+    "name": "【国际化北美风控】支付rpc接口调用量超过200次且比上周多60%",
+    "priority": "P2",
+    "category": "Risk Control",
+    "team": "风控",
+    "metric": "Risk",
+    "threshold": ">200 calls and >60% WoW",
+    "duration": "N/A",
+    "expression": "risk_payment_rpc_count > 200 and (risk_payment_rpc_count - risk_payment_rpc_count offset 1w) / risk_payment_rpc_count offset 1w > 0.6",
+    "services": [
+      "风控服务",
+      "支付服务"
+    ]
+  },
+  {
+    "id": "ALR-128",
+    "name": "【国际化北美风控】注册rpc接口调用量超过100次且比上周多60%",
+    "priority": "P2",
+    "category": "Risk Control",
+    "team": "风控",
+    "metric": "Risk",
+    "threshold": ">100 calls and >60% WoW",
+    "duration": "N/A",
+    "expression": "risk_register_rpc_count > 100 and (risk_register_rpc_count - risk_register_rpc_count offset 1w) / risk_register_rpc_count offset 1w > 0.6",
+    "services": [
+      "风控服务",
+      "会员服务"
+    ]
+  },
+  {
+    "id": "ALR-129",
+    "name": "【国际化北美风控】登录rpc接口调用量超过100次且比上周多60%",
+    "priority": "P2",
+    "category": "Risk Control",
+    "team": "风控",
+    "metric": "Risk",
+    "threshold": ">100 calls and >60% WoW",
+    "duration": "N/A",
+    "expression": "risk_login_rpc_count > 100 and (risk_login_rpc_count - risk_login_rpc_count offset 1w) / risk_login_rpc_count offset 1w > 0.6",
+    "services": [
+      "风控服务",
+      "会员服务"
+    ]
+  },
+  {
+    "id": "ALR-130",
+    "name": "【国际化北美风控】短信rpc接口调用量超过100次且比上周多60%",
+    "priority": "P2",
+    "category": "Risk Control",
+    "team": "风控",
+    "metric": "Risk",
+    "threshold": ">100 calls and >60% WoW",
+    "duration": "N/A",
+    "expression": "risk_sms_rpc_count > 100 and (risk_sms_rpc_count - risk_sms_rpc_count offset 1w) / risk_sms_rpc_count offset 1w > 0.6",
+    "services": [
+      "风控服务",
+      "短信服务"
+    ]
+  },
+  {
+    "id": "ALR-131",
+    "name": "【网关告警】错误率大于15%",
+    "priority": "P0",
+    "category": "Gateway/Network",
+    "team": "网关",
+    "metric": "Gateway",
+    "threshold": ">15% error rate",
+    "duration": "N/A",
+    "expression": "sum(rate(gateway_requests_errors_total[5m])) / sum(rate(gateway_requests_total[5m])) > 0.15",
+    "services": [
+      "API网关"
+    ]
+  },
+  {
+    "id": "ALR-132",
+    "name": "【网络质量US-机房互拨】探测目标连续15s失败",
+    "priority": "P1",
+    "category": "Gateway/Network",
+    "team": "网络",
+    "metric": "Network",
+    "threshold": "Probe failed 15s",
+    "duration": "15s",
+    "expression": "probe_success == 0 for 15s",
+    "services": [
+      "网络探测"
+    ]
+  },
+  {
+    "id": "ALR-133",
+    "name": "【Grafana】Slow Query Spike - High Rate Alert",
+    "priority": "P2",
+    "category": "Grafana Native",
+    "team": "DBA",
+    "metric": "Performance",
+    "threshold": "Slow query spike",
+    "duration": "N/A",
+    "expression": "increase(mysql_slow_queries[5m]) > 100",
+    "services": [
+      "MySQL"
+    ]
+  },
+  {
+    "id": "ALR-134",
+    "name": "【Grafana】Slow Query Critical - Very High Rate Alert",
+    "priority": "P1",
+    "category": "Grafana Native",
+    "team": "DBA",
+    "metric": "Performance",
+    "threshold": "Critical slow query rate",
+    "duration": "N/A",
+    "expression": "increase(mysql_slow_queries[5m]) > 500",
+    "services": [
+      "MySQL"
+    ]
+  },
+  {
+    "id": "ALR-135",
+    "name": "【Grafana】Slow Query Weekly Increase - WoW Spike Alert",
+    "priority": "P2",
+    "category": "Grafana Native",
+    "team": "DBA",
+    "metric": "Performance",
+    "threshold": "Slow query WoW increase",
+    "duration": "N/A",
+    "expression": "(sum(increase(mysql_slow_queries[1d])) - sum(increase(mysql_slow_queries[1d] offset 1w))) / sum(increase(mysql_slow_queries[1d] offset 1w)) > 0.5",
+    "services": [
+      "MySQL"
+    ]
+  }
+]

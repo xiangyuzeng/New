@@ -1,0 +1,3769 @@
+{
+  "metadata": {
+    "source_file": "/app/reports/alert-rules-three-tier-full-2026-03-25.yaml",
+    "generated": "2026-03-25",
+    "total_rules": 165,
+    "total_categories": 11,
+    "total_groups": 11
+  },
+  "statistics": {
+    "per_category_counts": {
+      "biz": {
+        "info": 6,
+        "warning": 6,
+        "critical": 6
+      },
+      "rds": {
+        "info": 10,
+        "warning": 10,
+        "critical": 10
+      },
+      "redis": {
+        "info": 8,
+        "warning": 8,
+        "critical": 8
+      },
+      "es": {
+        "info": 4,
+        "warning": 4,
+        "critical": 4
+      },
+      "mongo": {
+        "info": 3,
+        "warning": 3,
+        "critical": 3
+      },
+      "k8s": {
+        "info": 6,
+        "warning": 6,
+        "critical": 6
+      },
+      "vm": {
+        "info": 5,
+        "warning": 5,
+        "critical": 5
+      },
+      "apm": {
+        "info": 5,
+        "warning": 5,
+        "critical": 5
+      },
+      "pipe": {
+        "info": 4,
+        "warning": 4,
+        "critical": 4
+      },
+      "plat": {
+        "info": 3,
+        "warning": 3,
+        "critical": 3
+      },
+      "msk": {
+        "info": 1,
+        "warning": 1,
+        "critical": 1
+      }
+    },
+    "total_rules_per_severity": {
+      "info": 55,
+      "warning": 55,
+      "critical": 55
+    },
+    "expr_pattern_distribution": {
+      "rate_of_change": 18,
+      "ratio": 45,
+      "compound": 12,
+      "absolute": 51,
+      "histogram": 6,
+      "boolean": 33
+    },
+    "rules_with_guard_clause": 12,
+    "rules_with_recording_rule_reference": 15,
+    "rules_with_compound_condition": 40,
+    "rules_with_potential_issues": [
+      {
+        "alert_name": "REDIS_NetworkBandwidthInfo",
+        "issues": [
+          "division_without_guard_clause"
+        ]
+      },
+      {
+        "alert_name": "REDIS_NetworkBandwidthWarning",
+        "issues": [
+          "division_without_guard_clause"
+        ]
+      },
+      {
+        "alert_name": "REDIS_NetworkBandwidthCritical",
+        "issues": [
+          "division_without_guard_clause"
+        ]
+      },
+      {
+        "alert_name": "MONGO_ConnectionRatioInfo",
+        "issues": [
+          "division_without_guard_clause"
+        ]
+      },
+      {
+        "alert_name": "MONGO_ConnectionRatioWarning",
+        "issues": [
+          "division_without_guard_clause"
+        ]
+      },
+      {
+        "alert_name": "MONGO_ConnectionRatioCritical",
+        "issues": [
+          "division_without_guard_clause"
+        ]
+      },
+      {
+        "alert_name": "K8S_PodDiskIoInfo",
+        "issues": [
+          "division_without_guard_clause"
+        ]
+      },
+      {
+        "alert_name": "K8S_PodDiskIoWarning",
+        "issues": [
+          "division_without_guard_clause"
+        ]
+      },
+      {
+        "alert_name": "K8S_PodDiskIoCritical",
+        "issues": [
+          "division_without_guard_clause"
+        ]
+      }
+    ]
+  },
+  "rules": [
+    {
+      "alert_name": "BIZ_OrderVolumeInfo",
+      "category": "biz",
+      "severity": "info",
+      "expr": "sum(increase(business_completed_orders_total[10m])) < 20",
+      "for_duration": "10m",
+      "summary": "订单量偏低 (Info)",
+      "description": "最近 10 分钟完成订单 < 20 单，当前值: {{ $value | printf \"%.0f\" }}",
+      "all_labels": {
+        "severity": "info",
+        "category": "biz"
+      },
+      "all_annotations": {
+        "summary": "订单量偏低 (Info)",
+        "description": "最近 10 分钟完成订单 < 20 单，当前值: {{ $value | printf \"%.0f\" }}"
+      },
+      "expr_pattern": "rate_of_change",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "BIZ_CancellationSpikeInfo",
+      "category": "biz",
+      "severity": "info",
+      "expr": "(sum(increase(business_cancelled_orders_total[5m])) / sum(increase(business_completed_orders_total[5m]))) > 0.05 AND sum(increase(business_completed_orders_total[5m])) > 5",
+      "for_duration": "10m",
+      "summary": "取消率略高 (Info)",
+      "description": "5 分钟取消率 > 5%，当前值: {{ $value | printf \"%.1f%%\" }}",
+      "all_labels": {
+        "severity": "info",
+        "category": "biz"
+      },
+      "all_annotations": {
+        "summary": "取消率略高 (Info)",
+        "description": "5 分钟取消率 > 5%，当前值: {{ $value | printf \"%.1f%%\" }}"
+      },
+      "expr_pattern": "ratio",
+      "has_guard_clause": true,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": true,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "BIZ_PaymentAmountInfo",
+      "category": "biz",
+      "severity": "info",
+      "expr": "sum(increase(business_payment_amount_total[10m])) < 800 AND sum(increase(business_completed_orders_total[10m])) > 5",
+      "for_duration": "5m",
+      "summary": "支付金额偏低 (Info)",
+      "description": "10 分钟支付金额 < $800，当前值: ${{ $value | printf \"%.0f\" }}",
+      "all_labels": {
+        "severity": "info",
+        "category": "biz"
+      },
+      "all_annotations": {
+        "summary": "支付金额偏低 (Info)",
+        "description": "10 分钟支付金额 < $800，当前值: ${{ $value | printf \"%.0f\" }}"
+      },
+      "expr_pattern": "compound",
+      "has_guard_clause": true,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": true,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "BIZ_RegistrationDropInfo",
+      "category": "biz",
+      "severity": "info",
+      "expr": "sum(increase(business_registration_total[10m])) == 0 AND (hour() < 5 OR hour() >= 11)",
+      "for_duration": "10m",
+      "summary": "新用户注册暂停 (Info)",
+      "description": "10 分钟内无新注册",
+      "all_labels": {
+        "severity": "info",
+        "category": "biz"
+      },
+      "all_annotations": {
+        "summary": "新用户注册暂停 (Info)",
+        "description": "10 分钟内无新注册"
+      },
+      "expr_pattern": "compound",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": true,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "BIZ_TrafficDropInfo",
+      "category": "biz",
+      "severity": "info",
+      "expr": "traffic_rate < 0.50 * traffic_daily_avg_same_hour",
+      "for_duration": "10m",
+      "summary": "流量低于日均 50% (Info)",
+      "description": "当前流量 {{ $value }} 低于同时段日均 50%",
+      "all_labels": {
+        "severity": "info",
+        "category": "biz"
+      },
+      "all_annotations": {
+        "summary": "流量低于日均 50% (Info)",
+        "description": "当前流量 {{ $value }} 低于同时段日均 50%"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": true,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "BIZ_LatencyP99Info",
+      "category": "biz",
+      "severity": "info",
+      "expr": "histogram_quantile(0.99, rate(order_service_duration_bucket[5m])) > 1.5",
+      "for_duration": "5m",
+      "summary": "订单接口 P99 延迟偏高 (Info)",
+      "description": "P99 > 1.5s，当前值: {{ $value | printf \"%.2f\" }}s",
+      "all_labels": {
+        "severity": "info",
+        "category": "biz"
+      },
+      "all_annotations": {
+        "summary": "订单接口 P99 延迟偏高 (Info)",
+        "description": "P99 > 1.5s，当前值: {{ $value | printf \"%.2f\" }}s"
+      },
+      "expr_pattern": "histogram",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "BIZ_OrderVolumeWarning",
+      "category": "biz",
+      "severity": "warning",
+      "expr": "sum(increase(business_completed_orders_total[10m])) < 10",
+      "for_duration": "10m",
+      "summary": "订单量明显下降 (Warning)",
+      "description": "最近 10 分钟完成订单 < 10 单，当前值: {{ $value | printf \"%.0f\" }}",
+      "all_labels": {
+        "severity": "warning",
+        "category": "biz"
+      },
+      "all_annotations": {
+        "summary": "订单量明显下降 (Warning)",
+        "description": "最近 10 分钟完成订单 < 10 单，当前值: {{ $value | printf \"%.0f\" }}"
+      },
+      "expr_pattern": "rate_of_change",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "BIZ_CancellationSpikeWarning",
+      "category": "biz",
+      "severity": "warning",
+      "expr": "(sum(increase(business_cancelled_orders_total[5m])) / sum(increase(business_completed_orders_total[5m]))) > 0.10 AND sum(increase(business_completed_orders_total[5m])) > 5",
+      "for_duration": "10m",
+      "summary": "取消率偏高 (Warning)",
+      "description": "5 分钟取消率 > 10%，当前值: {{ $value | printf \"%.1f%%\" }}",
+      "all_labels": {
+        "severity": "warning",
+        "category": "biz"
+      },
+      "all_annotations": {
+        "summary": "取消率偏高 (Warning)",
+        "description": "5 分钟取消率 > 10%，当前值: {{ $value | printf \"%.1f%%\" }}"
+      },
+      "expr_pattern": "ratio",
+      "has_guard_clause": true,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": true,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "BIZ_PaymentAmountWarning",
+      "category": "biz",
+      "severity": "warning",
+      "expr": "sum(increase(business_payment_amount_total[10m])) < 400 AND sum(increase(business_completed_orders_total[10m])) > 5",
+      "for_duration": "5m",
+      "summary": "支付金额明显下降 (Warning)",
+      "description": "10 分钟支付金额 < $400，当前值: ${{ $value | printf \"%.0f\" }}",
+      "all_labels": {
+        "severity": "warning",
+        "category": "biz"
+      },
+      "all_annotations": {
+        "summary": "支付金额明显下降 (Warning)",
+        "description": "10 分钟支付金额 < $400，当前值: ${{ $value | printf \"%.0f\" }}"
+      },
+      "expr_pattern": "compound",
+      "has_guard_clause": true,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": true,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "BIZ_RegistrationDropWarning",
+      "category": "biz",
+      "severity": "warning",
+      "expr": "sum(increase(business_registration_total[20m])) == 0 AND (hour() < 5 OR hour() >= 11)",
+      "for_duration": "5m",
+      "summary": "新用户注册持续停止 (Warning)",
+      "description": "20 分钟内无新注册，注册链路可能故障",
+      "all_labels": {
+        "severity": "warning",
+        "category": "biz"
+      },
+      "all_annotations": {
+        "summary": "新用户注册持续停止 (Warning)",
+        "description": "20 分钟内无新注册，注册链路可能故障"
+      },
+      "expr_pattern": "compound",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": true,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "BIZ_TrafficDropWarning",
+      "category": "biz",
+      "severity": "warning",
+      "expr": "traffic_rate < 0.30 * traffic_daily_avg_same_hour",
+      "for_duration": "10m",
+      "summary": "流量大幅下降 (Warning)",
+      "description": "当前流量低于同时段日均 70%",
+      "all_labels": {
+        "severity": "warning",
+        "category": "biz"
+      },
+      "all_annotations": {
+        "summary": "流量大幅下降 (Warning)",
+        "description": "当前流量低于同时段日均 70%"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": true,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "BIZ_LatencyP99Warning",
+      "category": "biz",
+      "severity": "warning",
+      "expr": "histogram_quantile(0.99, rate(order_service_duration_bucket[5m])) > 3.0",
+      "for_duration": "5m",
+      "summary": "订单接口 P99 延迟高 (Warning)",
+      "description": "P99 > 3s，当前值: {{ $value | printf \"%.2f\" }}s",
+      "all_labels": {
+        "severity": "warning",
+        "category": "biz"
+      },
+      "all_annotations": {
+        "summary": "订单接口 P99 延迟高 (Warning)",
+        "description": "P99 > 3s，当前值: {{ $value | printf \"%.2f\" }}s"
+      },
+      "expr_pattern": "histogram",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "BIZ_OrderVolumeCritical",
+      "category": "biz",
+      "severity": "critical",
+      "expr": "sum(increase(business_completed_orders_total[10m])) < 1",
+      "for_duration": "5m",
+      "summary": "订单量接近归零 (Critical)",
+      "description": "最近 10 分钟完成订单 < 1 单，疑似系统故障",
+      "all_labels": {
+        "severity": "critical",
+        "category": "biz"
+      },
+      "all_annotations": {
+        "summary": "订单量接近归零 (Critical)",
+        "description": "最近 10 分钟完成订单 < 1 单，疑似系统故障"
+      },
+      "expr_pattern": "rate_of_change",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "BIZ_CancellationSpikeCritical",
+      "category": "biz",
+      "severity": "critical",
+      "expr": "(sum(increase(business_cancelled_orders_total[5m])) / sum(increase(business_completed_orders_total[5m]))) > 0.25 AND sum(increase(business_completed_orders_total[5m])) > 5",
+      "for_duration": "5m",
+      "summary": "取消率异常飙升 (Critical)",
+      "description": "5 分钟取消率 > 25%，可能存在支付或履约故障",
+      "all_labels": {
+        "severity": "critical",
+        "category": "biz"
+      },
+      "all_annotations": {
+        "summary": "取消率异常飙升 (Critical)",
+        "description": "5 分钟取消率 > 25%，可能存在支付或履约故障"
+      },
+      "expr_pattern": "ratio",
+      "has_guard_clause": true,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": true,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "BIZ_PaymentAmountCritical",
+      "category": "biz",
+      "severity": "critical",
+      "expr": "sum(increase(business_payment_amount_total[10m])) == 0 AND sum(increase(business_completed_orders_total[10m])) > 3",
+      "for_duration": "5m",
+      "summary": "支付金额归零 (Critical)",
+      "description": "存在订单但 10 分钟内支付金额为 $0，疑似支付通道故障",
+      "all_labels": {
+        "severity": "critical",
+        "category": "biz"
+      },
+      "all_annotations": {
+        "summary": "支付金额归零 (Critical)",
+        "description": "存在订单但 10 分钟内支付金额为 $0，疑似支付通道故障"
+      },
+      "expr_pattern": "compound",
+      "has_guard_clause": true,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": true,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "BIZ_RegistrationDropCritical",
+      "category": "biz",
+      "severity": "critical",
+      "expr": "sum(increase(business_registration_total[30m])) == 0 AND (hour() < 5 OR hour() >= 11)",
+      "for_duration": "5m",
+      "summary": "新用户注册长时间停止 (Critical)",
+      "description": "30 分钟内无新注册，注册服务故障",
+      "all_labels": {
+        "severity": "critical",
+        "category": "biz"
+      },
+      "all_annotations": {
+        "summary": "新用户注册长时间停止 (Critical)",
+        "description": "30 分钟内无新注册，注册服务故障"
+      },
+      "expr_pattern": "compound",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": true,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "BIZ_TrafficDropCritical",
+      "category": "biz",
+      "severity": "critical",
+      "expr": "traffic_rate < 0.10 * traffic_daily_avg_same_hour",
+      "for_duration": "5m",
+      "summary": "流量接近归零 (Critical)",
+      "description": "当前流量低于同时段日均 90%，疑似全链路故障",
+      "all_labels": {
+        "severity": "critical",
+        "category": "biz"
+      },
+      "all_annotations": {
+        "summary": "流量接近归零 (Critical)",
+        "description": "当前流量低于同时段日均 90%，疑似全链路故障"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": true,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "BIZ_LatencyP99Critical",
+      "category": "biz",
+      "severity": "critical",
+      "expr": "histogram_quantile(0.99, rate(order_service_duration_bucket[5m])) > 8.0",
+      "for_duration": "3m",
+      "summary": "订单接口 P99 延迟严重 (Critical)",
+      "description": "P99 > 8s，用户下单体验严重受损",
+      "all_labels": {
+        "severity": "critical",
+        "category": "biz"
+      },
+      "all_annotations": {
+        "summary": "订单接口 P99 延迟严重 (Critical)",
+        "description": "P99 > 8s，用户下单体验严重受损"
+      },
+      "expr_pattern": "histogram",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "RDS_CpuUsageInfo",
+      "category": "rds",
+      "severity": "info",
+      "expr": "aws_rds_cpuutilization_average > 65",
+      "for_duration": "10m",
+      "summary": "RDS CPU 偏高 (Info) — {{ $labels.dbinstance_identifier }}",
+      "description": "CPU > 65%，当前值: {{ $value | printf \"%.1f\" }}%",
+      "all_labels": {
+        "severity": "info",
+        "category": "rds"
+      },
+      "all_annotations": {
+        "summary": "RDS CPU 偏高 (Info) — {{ $labels.dbinstance_identifier }}",
+        "description": "CPU > 65%，当前值: {{ $value | printf \"%.1f\" }}%"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "RDS_SlowQueriesInfo",
+      "category": "rds",
+      "severity": "info",
+      "expr": "rate(mysql_global_status_slow_queries[5m]) * 60 > 10",
+      "for_duration": "5m",
+      "summary": "慢查询增多 (Info) — {{ $labels.dbinstance_identifier }}",
+      "description": "慢查询 > 10/min，当前值: {{ $value | printf \"%.0f\" }}/min",
+      "all_labels": {
+        "severity": "info",
+        "category": "rds"
+      },
+      "all_annotations": {
+        "summary": "慢查询增多 (Info) — {{ $labels.dbinstance_identifier }}",
+        "description": "慢查询 > 10/min，当前值: {{ $value | printf \"%.0f\" }}/min"
+      },
+      "expr_pattern": "rate_of_change",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "RDS_ActiveThreadsInfo",
+      "category": "rds",
+      "severity": "info",
+      "expr": "mysql_global_status_threads_running > 25",
+      "for_duration": "5m",
+      "summary": "活跃连接偏多 (Info) — {{ $labels.dbinstance_identifier }}",
+      "description": "活跃线程 > 25，当前值: {{ $value }}",
+      "all_labels": {
+        "severity": "info",
+        "category": "rds"
+      },
+      "all_annotations": {
+        "summary": "活跃连接偏多 (Info) — {{ $labels.dbinstance_identifier }}",
+        "description": "活跃线程 > 25，当前值: {{ $value }}"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "RDS_DiskFreeInfo",
+      "category": "rds",
+      "severity": "info",
+      "expr": "(aws_rds_free_storage_space_average / aws_rds_allocated_storage_average) < 0.20 OR aws_rds_free_storage_space_average < 10737418240",
+      "for_duration": "10m",
+      "summary": "RDS 磁盘空间偏紧 (Info) — {{ $labels.dbinstance_identifier }}",
+      "description": "剩余磁盘 < 20% 或 < 10GB，当前剩余: {{ $value | humanize1024 }}B",
+      "all_labels": {
+        "severity": "info",
+        "category": "rds"
+      },
+      "all_annotations": {
+        "summary": "RDS 磁盘空间偏紧 (Info) — {{ $labels.dbinstance_identifier }}",
+        "description": "剩余磁盘 < 20% 或 < 10GB，当前剩余: {{ $value | humanize1024 }}B"
+      },
+      "expr_pattern": "ratio",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": true,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "RDS_FreeableMemoryInfo",
+      "category": "rds",
+      "severity": "info",
+      "expr": "(aws_rds_freeable_memory_average / aws_rds_total_memory_average) < 0.20 OR aws_rds_freeable_memory_average < 536870912",
+      "for_duration": "10m",
+      "summary": "RDS 可用内存偏低 (Info) — {{ $labels.dbinstance_identifier }}",
+      "description": "FreeableMemory < 20% 或 < 512MB，当前值: {{ $value | humanize1024 }}B",
+      "all_labels": {
+        "severity": "info",
+        "category": "rds"
+      },
+      "all_annotations": {
+        "summary": "RDS 可用内存偏低 (Info) — {{ $labels.dbinstance_identifier }}",
+        "description": "FreeableMemory < 20% 或 < 512MB，当前值: {{ $value | humanize1024 }}B"
+      },
+      "expr_pattern": "ratio",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": true,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "RDS_SwapUsageInfo",
+      "category": "rds",
+      "severity": "info",
+      "expr": "aws_rds_swap_usage_average > 104857600",
+      "for_duration": "10m",
+      "summary": "RDS 开始使用 Swap (Info) — {{ $labels.dbinstance_identifier }}",
+      "description": "SwapUsage > 100MB，当前值: {{ $value | humanize1024 }}B",
+      "all_labels": {
+        "severity": "info",
+        "category": "rds"
+      },
+      "all_annotations": {
+        "summary": "RDS 开始使用 Swap (Info) — {{ $labels.dbinstance_identifier }}",
+        "description": "SwapUsage > 100MB，当前值: {{ $value | humanize1024 }}B"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "RDS_ReplicaLagInfo",
+      "category": "rds",
+      "severity": "info",
+      "expr": "aws_rds_replica_lag_average > 10",
+      "for_duration": "5m",
+      "summary": "RDS 副本延迟 (Info) — {{ $labels.dbinstance_identifier }}",
+      "description": "Replica lag > 10s，当前值: {{ $value | printf \"%.1f\" }}s",
+      "all_labels": {
+        "severity": "info",
+        "category": "rds"
+      },
+      "all_annotations": {
+        "summary": "RDS 副本延迟 (Info) — {{ $labels.dbinstance_identifier }}",
+        "description": "Replica lag > 10s，当前值: {{ $value | printf \"%.1f\" }}s"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "RDS_VipUnreachableInfo",
+      "category": "rds",
+      "severity": "info",
+      "expr": "mysql_up == 0",
+      "for_duration": "30s",
+      "summary": "RDS VIP 探测失败 (Info) — {{ $labels.dbinstance_identifier }}",
+      "description": "单次探测失败，可能为瞬断",
+      "all_labels": {
+        "severity": "info",
+        "category": "rds"
+      },
+      "all_annotations": {
+        "summary": "RDS VIP 探测失败 (Info) — {{ $labels.dbinstance_identifier }}",
+        "description": "单次探测失败，可能为瞬断"
+      },
+      "expr_pattern": "boolean",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "RDS_FailoverInfo",
+      "category": "rds",
+      "severity": "info",
+      "expr": "aws_rds_failover_event == 1",
+      "for_duration": "0m",
+      "summary": "RDS Failover 事件触发 (Info) — {{ $labels.dbinstance_identifier }}",
+      "description": "Failover 已触发，正在切换主节点",
+      "all_labels": {
+        "severity": "info",
+        "category": "rds"
+      },
+      "all_annotations": {
+        "summary": "RDS Failover 事件触发 (Info) — {{ $labels.dbinstance_identifier }}",
+        "description": "Failover 已触发，正在切换主节点"
+      },
+      "expr_pattern": "boolean",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "RDS_ExporterDownInfo",
+      "category": "rds",
+      "severity": "info",
+      "expr": "up{job=\"rds-exporter\"} == 0",
+      "for_duration": "1m",
+      "summary": "RDS Exporter 采集中断 (Info) — {{ $labels.instance }}",
+      "description": "",
+      "all_labels": {
+        "severity": "info",
+        "category": "rds"
+      },
+      "all_annotations": {
+        "summary": "RDS Exporter 采集中断 (Info) — {{ $labels.instance }}"
+      },
+      "expr_pattern": "boolean",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "RDS_CpuUsageWarning",
+      "category": "rds",
+      "severity": "warning",
+      "expr": "aws_rds_cpuutilization_average > 80",
+      "for_duration": "5m",
+      "summary": "RDS CPU 高 (Warning) — {{ $labels.dbinstance_identifier }}",
+      "description": "CPU > 80%，当前值: {{ $value | printf \"%.1f\" }}%",
+      "all_labels": {
+        "severity": "warning",
+        "category": "rds"
+      },
+      "all_annotations": {
+        "summary": "RDS CPU 高 (Warning) — {{ $labels.dbinstance_identifier }}",
+        "description": "CPU > 80%，当前值: {{ $value | printf \"%.1f\" }}%"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "RDS_SlowQueriesWarning",
+      "category": "rds",
+      "severity": "warning",
+      "expr": "rate(mysql_global_status_slow_queries[5m]) * 60 > 50",
+      "for_duration": "5m",
+      "summary": "慢查询偏多 (Warning) — {{ $labels.dbinstance_identifier }}",
+      "description": "慢查询 > 50/min，当前值: {{ $value | printf \"%.0f\" }}/min",
+      "all_labels": {
+        "severity": "warning",
+        "category": "rds"
+      },
+      "all_annotations": {
+        "summary": "慢查询偏多 (Warning) — {{ $labels.dbinstance_identifier }}",
+        "description": "慢查询 > 50/min，当前值: {{ $value | printf \"%.0f\" }}/min"
+      },
+      "expr_pattern": "rate_of_change",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "RDS_ActiveThreadsWarning",
+      "category": "rds",
+      "severity": "warning",
+      "expr": "mysql_global_status_threads_running > 50",
+      "for_duration": "3m",
+      "summary": "活跃连接高 (Warning) — {{ $labels.dbinstance_identifier }}",
+      "description": "活跃线程 > 50，当前值: {{ $value }}",
+      "all_labels": {
+        "severity": "warning",
+        "category": "rds"
+      },
+      "all_annotations": {
+        "summary": "活跃连接高 (Warning) — {{ $labels.dbinstance_identifier }}",
+        "description": "活跃线程 > 50，当前值: {{ $value }}"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "RDS_DiskFreeWarning",
+      "category": "rds",
+      "severity": "warning",
+      "expr": "(aws_rds_free_storage_space_average / aws_rds_allocated_storage_average) < 0.15 OR aws_rds_free_storage_space_average < 5368709120",
+      "for_duration": "5m",
+      "summary": "RDS 磁盘空间不足 (Warning) — {{ $labels.dbinstance_identifier }}",
+      "description": "剩余磁盘 < 15% 或 < 5GB，当前剩余: {{ $value | humanize1024 }}B",
+      "all_labels": {
+        "severity": "warning",
+        "category": "rds"
+      },
+      "all_annotations": {
+        "summary": "RDS 磁盘空间不足 (Warning) — {{ $labels.dbinstance_identifier }}",
+        "description": "剩余磁盘 < 15% 或 < 5GB，当前剩余: {{ $value | humanize1024 }}B"
+      },
+      "expr_pattern": "ratio",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": true,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "RDS_FreeableMemoryWarning",
+      "category": "rds",
+      "severity": "warning",
+      "expr": "(aws_rds_freeable_memory_average / aws_rds_total_memory_average) < 0.15 OR aws_rds_freeable_memory_average < 268435456",
+      "for_duration": "5m",
+      "summary": "RDS 可用内存不足 (Warning) — {{ $labels.dbinstance_identifier }}",
+      "description": "FreeableMemory < 15% 或 < 256MB，当前值: {{ $value | humanize1024 }}B",
+      "all_labels": {
+        "severity": "warning",
+        "category": "rds"
+      },
+      "all_annotations": {
+        "summary": "RDS 可用内存不足 (Warning) — {{ $labels.dbinstance_identifier }}",
+        "description": "FreeableMemory < 15% 或 < 256MB，当前值: {{ $value | humanize1024 }}B"
+      },
+      "expr_pattern": "ratio",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": true,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "RDS_SwapUsageWarning",
+      "category": "rds",
+      "severity": "warning",
+      "expr": "aws_rds_swap_usage_average > 268435456",
+      "for_duration": "5m",
+      "summary": "RDS Swap 使用偏多 (Warning) — {{ $labels.dbinstance_identifier }}",
+      "description": "SwapUsage > 256MB，内存压力加剧",
+      "all_labels": {
+        "severity": "warning",
+        "category": "rds"
+      },
+      "all_annotations": {
+        "summary": "RDS Swap 使用偏多 (Warning) — {{ $labels.dbinstance_identifier }}",
+        "description": "SwapUsage > 256MB，内存压力加剧"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "RDS_ReplicaLagWarning",
+      "category": "rds",
+      "severity": "warning",
+      "expr": "aws_rds_replica_lag_average > 30",
+      "for_duration": "5m",
+      "summary": "RDS 副本延迟偏大 (Warning) — {{ $labels.dbinstance_identifier }}",
+      "description": "Replica lag > 30s，读写分离受影响",
+      "all_labels": {
+        "severity": "warning",
+        "category": "rds"
+      },
+      "all_annotations": {
+        "summary": "RDS 副本延迟偏大 (Warning) — {{ $labels.dbinstance_identifier }}",
+        "description": "Replica lag > 30s，读写分离受影响"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "RDS_VipUnreachableWarning",
+      "category": "rds",
+      "severity": "warning",
+      "expr": "mysql_up == 0",
+      "for_duration": "45s",
+      "summary": "RDS VIP 持续不可达 (Warning) — {{ $labels.dbinstance_identifier }}",
+      "description": "VIP 不可达超过 45s，疑似正在 Failover",
+      "all_labels": {
+        "severity": "warning",
+        "category": "rds"
+      },
+      "all_annotations": {
+        "summary": "RDS VIP 持续不可达 (Warning) — {{ $labels.dbinstance_identifier }}",
+        "description": "VIP 不可达超过 45s，疑似正在 Failover"
+      },
+      "expr_pattern": "boolean",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "RDS_FailoverWarning",
+      "category": "rds",
+      "severity": "warning",
+      "expr": "aws_rds_failover_in_progress_duration_seconds > 120",
+      "for_duration": "0m",
+      "summary": "RDS Failover 时间过长 (Warning) — {{ $labels.dbinstance_identifier }}",
+      "description": "Failover 已持续超过 2 分钟，切换异常",
+      "all_labels": {
+        "severity": "warning",
+        "category": "rds"
+      },
+      "all_annotations": {
+        "summary": "RDS Failover 时间过长 (Warning) — {{ $labels.dbinstance_identifier }}",
+        "description": "Failover 已持续超过 2 分钟，切换异常"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "RDS_ExporterDownWarning",
+      "category": "rds",
+      "severity": "warning",
+      "expr": "up{job=\"rds-exporter\"} == 0",
+      "for_duration": "3m",
+      "summary": "RDS Exporter 持续中断 (Warning) — {{ $labels.instance }}",
+      "description": "监控数据缺失 > 3min，存在盲区",
+      "all_labels": {
+        "severity": "warning",
+        "category": "rds"
+      },
+      "all_annotations": {
+        "summary": "RDS Exporter 持续中断 (Warning) — {{ $labels.instance }}",
+        "description": "监控数据缺失 > 3min，存在盲区"
+      },
+      "expr_pattern": "boolean",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "RDS_CpuUsageCritical",
+      "category": "rds",
+      "severity": "critical",
+      "expr": "aws_rds_cpuutilization_average > 90",
+      "for_duration": "3m",
+      "summary": "RDS CPU 严重 (Critical) — {{ $labels.dbinstance_identifier }}",
+      "description": "CPU > 90%，当前值: {{ $value | printf \"%.1f\" }}%",
+      "all_labels": {
+        "severity": "critical",
+        "category": "rds"
+      },
+      "all_annotations": {
+        "summary": "RDS CPU 严重 (Critical) — {{ $labels.dbinstance_identifier }}",
+        "description": "CPU > 90%，当前值: {{ $value | printf \"%.1f\" }}%"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "RDS_SlowQueriesCritical",
+      "category": "rds",
+      "severity": "critical",
+      "expr": "rate(mysql_global_status_slow_queries[5m]) * 60 > 200",
+      "for_duration": "3m",
+      "summary": "慢查询爆发 (Critical) — {{ $labels.dbinstance_identifier }}",
+      "description": "慢查询 > 200/min，当前值: {{ $value | printf \"%.0f\" }}/min",
+      "all_labels": {
+        "severity": "critical",
+        "category": "rds"
+      },
+      "all_annotations": {
+        "summary": "慢查询爆发 (Critical) — {{ $labels.dbinstance_identifier }}",
+        "description": "慢查询 > 200/min，当前值: {{ $value | printf \"%.0f\" }}/min"
+      },
+      "expr_pattern": "rate_of_change",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "RDS_ActiveThreadsCritical",
+      "category": "rds",
+      "severity": "critical",
+      "expr": "mysql_global_status_threads_running > 100",
+      "for_duration": "2m",
+      "summary": "活跃连接严重 (Critical) — {{ $labels.dbinstance_identifier }}",
+      "description": "活跃线程 > 100，数据库可能过载",
+      "all_labels": {
+        "severity": "critical",
+        "category": "rds"
+      },
+      "all_annotations": {
+        "summary": "活跃连接严重 (Critical) — {{ $labels.dbinstance_identifier }}",
+        "description": "活跃线程 > 100，数据库可能过载"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "RDS_DiskFreeCritical",
+      "category": "rds",
+      "severity": "critical",
+      "expr": "(aws_rds_free_storage_space_average / aws_rds_allocated_storage_average) < 0.08 OR aws_rds_free_storage_space_average < 2147483648",
+      "for_duration": "2m",
+      "summary": "RDS 磁盘濒临耗尽 (Critical) — {{ $labels.dbinstance_identifier }}",
+      "description": "剩余磁盘 < 8% 或 < 2GB，数据库可能很快停止写入",
+      "all_labels": {
+        "severity": "critical",
+        "category": "rds"
+      },
+      "all_annotations": {
+        "summary": "RDS 磁盘濒临耗尽 (Critical) — {{ $labels.dbinstance_identifier }}",
+        "description": "剩余磁盘 < 8% 或 < 2GB，数据库可能很快停止写入"
+      },
+      "expr_pattern": "ratio",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": true,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "RDS_FreeableMemoryCritical",
+      "category": "rds",
+      "severity": "critical",
+      "expr": "(aws_rds_freeable_memory_average / aws_rds_total_memory_average) < 0.10 OR aws_rds_freeable_memory_average < 134217728",
+      "for_duration": "3m",
+      "summary": "RDS 内存危急，OOM 风险 (Critical) — {{ $labels.dbinstance_identifier }}",
+      "description": "FreeableMemory < 10% 或 < 128MB，参考 isalescdp OOM failover 案例 (2026-03-12)",
+      "all_labels": {
+        "severity": "critical",
+        "category": "rds"
+      },
+      "all_annotations": {
+        "summary": "RDS 内存危急，OOM 风险 (Critical) — {{ $labels.dbinstance_identifier }}",
+        "description": "FreeableMemory < 10% 或 < 128MB，参考 isalescdp OOM failover 案例 (2026-03-12)"
+      },
+      "expr_pattern": "ratio",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": true,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "RDS_SwapUsageCritical",
+      "category": "rds",
+      "severity": "critical",
+      "expr": "aws_rds_swap_usage_average > 524288000",
+      "for_duration": "3m",
+      "summary": "RDS Swap 严重 (Critical) — {{ $labels.dbinstance_identifier }}",
+      "description": "SwapUsage > 500MB，OOM failover 风险极高",
+      "all_labels": {
+        "severity": "critical",
+        "category": "rds"
+      },
+      "all_annotations": {
+        "summary": "RDS Swap 严重 (Critical) — {{ $labels.dbinstance_identifier }}",
+        "description": "SwapUsage > 500MB，OOM failover 风险极高"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "RDS_ReplicaLagCritical",
+      "category": "rds",
+      "severity": "critical",
+      "expr": "aws_rds_replica_lag_average > 120",
+      "for_duration": "3m",
+      "summary": "RDS 副本严重滞后 (Critical) — {{ $labels.dbinstance_identifier }}",
+      "description": "Replica lag > 120s，从库数据严重不一致",
+      "all_labels": {
+        "severity": "critical",
+        "category": "rds"
+      },
+      "all_annotations": {
+        "summary": "RDS 副本严重滞后 (Critical) — {{ $labels.dbinstance_identifier }}",
+        "description": "Replica lag > 120s，从库数据严重不一致"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "RDS_VipUnreachableCritical",
+      "category": "rds",
+      "severity": "critical",
+      "expr": "mysql_up == 0",
+      "for_duration": "1m",
+      "summary": "RDS VIP 不可达 (Critical) — {{ $labels.dbinstance_identifier }}",
+      "description": "VIP 不可达超过 1 分钟，数据库服务中断",
+      "all_labels": {
+        "severity": "critical",
+        "category": "rds"
+      },
+      "all_annotations": {
+        "summary": "RDS VIP 不可达 (Critical) — {{ $labels.dbinstance_identifier }}",
+        "description": "VIP 不可达超过 1 分钟，数据库服务中断"
+      },
+      "expr_pattern": "boolean",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "RDS_FailoverCritical",
+      "category": "rds",
+      "severity": "critical",
+      "expr": "aws_rds_failover_event == 1",
+      "for_duration": "0m",
+      "summary": "RDS Failover (Critical) — {{ $labels.dbinstance_identifier }}",
+      "description": "主从切换事件，立即关注服务可用性",
+      "all_labels": {
+        "severity": "critical",
+        "category": "rds"
+      },
+      "all_annotations": {
+        "summary": "RDS Failover (Critical) — {{ $labels.dbinstance_identifier }}",
+        "description": "主从切换事件，立即关注服务可用性"
+      },
+      "expr_pattern": "boolean",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "RDS_ExporterDownCritical",
+      "category": "rds",
+      "severity": "critical",
+      "expr": "up{job=\"rds-exporter\"} == 0",
+      "for_duration": "10m",
+      "summary": "RDS Exporter 长时间中断 (Critical) — {{ $labels.instance }}",
+      "description": "监控数据缺失 > 10min，无法感知数据库状态",
+      "all_labels": {
+        "severity": "critical",
+        "category": "rds"
+      },
+      "all_annotations": {
+        "summary": "RDS Exporter 长时间中断 (Critical) — {{ $labels.instance }}",
+        "description": "监控数据缺失 > 10min，无法感知数据库状态"
+      },
+      "expr_pattern": "boolean",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "REDIS_CpuUsageInfo",
+      "category": "redis",
+      "severity": "info",
+      "expr": "redis_used_cpu_sys_percent > 50",
+      "for_duration": "5m",
+      "summary": "Redis CPU 偏高 (Info) — {{ $labels.instance }}",
+      "description": "CPU > 50%，当前值: {{ $value | printf \"%.1f\" }}%",
+      "all_labels": {
+        "severity": "info",
+        "category": "redis"
+      },
+      "all_annotations": {
+        "summary": "Redis CPU 偏高 (Info) — {{ $labels.instance }}",
+        "description": "CPU > 50%，当前值: {{ $value | printf \"%.1f\" }}%"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "REDIS_MemoryUsageInfo",
+      "category": "redis",
+      "severity": "info",
+      "expr": "redis_memory_used_bytes / redis_memory_max_bytes > 0.70 OR (redis_memory_max_bytes - redis_memory_used_bytes) < 536870912",
+      "for_duration": "5m",
+      "summary": "Redis 内存使用偏高 (Info) — {{ $labels.instance }}",
+      "description": "内存使用 > 70% 或剩余 < 512MB，当前使用: {{ $value | printf \"%.1f%%\" }}",
+      "all_labels": {
+        "severity": "info",
+        "category": "redis"
+      },
+      "all_annotations": {
+        "summary": "Redis 内存使用偏高 (Info) — {{ $labels.instance }}",
+        "description": "内存使用 > 70% 或剩余 < 512MB，当前使用: {{ $value | printf \"%.1f%%\" }}"
+      },
+      "expr_pattern": "ratio",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": true,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "REDIS_LatencyInfo",
+      "category": "redis",
+      "severity": "info",
+      "expr": "redis_latency_p99_milliseconds > 1",
+      "for_duration": "5m",
+      "summary": "Redis 命令延迟偏高 (Info) — {{ $labels.instance }}",
+      "description": "P99 > 1ms，当前值: {{ $value | printf \"%.2f\" }}ms",
+      "all_labels": {
+        "severity": "info",
+        "category": "redis"
+      },
+      "all_annotations": {
+        "summary": "Redis 命令延迟偏高 (Info) — {{ $labels.instance }}",
+        "description": "P99 > 1ms，当前值: {{ $value | printf \"%.2f\" }}ms"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "REDIS_EvictionsInfo",
+      "category": "redis",
+      "severity": "info",
+      "expr": "rate(redis_evicted_keys_total[5m]) * 60 > 100",
+      "for_duration": "5m",
+      "summary": "Redis Key 驱逐开始 (Info) — {{ $labels.instance }}",
+      "description": "驱逐 > 100 keys/min，当前值: {{ $value | printf \"%.0f\" }}/min",
+      "all_labels": {
+        "severity": "info",
+        "category": "redis"
+      },
+      "all_annotations": {
+        "summary": "Redis Key 驱逐开始 (Info) — {{ $labels.instance }}",
+        "description": "驱逐 > 100 keys/min，当前值: {{ $value | printf \"%.0f\" }}/min"
+      },
+      "expr_pattern": "rate_of_change",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "REDIS_ConnectionRatioInfo",
+      "category": "redis",
+      "severity": "info",
+      "expr": "redis_connected_clients / redis_max_clients > 0.50",
+      "for_duration": "5m",
+      "summary": "Redis 连接数偏多 (Info) — {{ $labels.instance }}",
+      "description": "连接使用 > 50%，当前值: {{ $value | printf \"%.1f%%\" }}",
+      "all_labels": {
+        "severity": "info",
+        "category": "redis"
+      },
+      "all_annotations": {
+        "summary": "Redis 连接数偏多 (Info) — {{ $labels.instance }}",
+        "description": "连接使用 > 50%，当前值: {{ $value | printf \"%.1f%%\" }}"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "REDIS_NetworkBandwidthInfo",
+      "category": "redis",
+      "severity": "info",
+      "expr": "(rate(redis_net_input_bytes_total[5m]) + rate(redis_net_output_bytes_total[5m])) / 1048576 > 20",
+      "for_duration": "5m",
+      "summary": "Redis 网络带宽偏高 (Info) — {{ $labels.instance }}",
+      "description": "带宽 > 20 Mbps，当前值: {{ $value | printf \"%.1f\" }} Mbps",
+      "all_labels": {
+        "severity": "info",
+        "category": "redis"
+      },
+      "all_annotations": {
+        "summary": "Redis 网络带宽偏高 (Info) — {{ $labels.instance }}",
+        "description": "带宽 > 20 Mbps，当前值: {{ $value | printf \"%.1f\" }} Mbps"
+      },
+      "expr_pattern": "ratio",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": [
+        "division_without_guard_clause"
+      ]
+    },
+    {
+      "alert_name": "REDIS_InstanceDownInfo",
+      "category": "redis",
+      "severity": "info",
+      "expr": "redis_up == 0",
+      "for_duration": "30s",
+      "summary": "Redis 实例探测失败 (Info) — {{ $labels.instance }}",
+      "description": "",
+      "all_labels": {
+        "severity": "info",
+        "category": "redis"
+      },
+      "all_annotations": {
+        "summary": "Redis 实例探测失败 (Info) — {{ $labels.instance }}"
+      },
+      "expr_pattern": "boolean",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "REDIS_ExporterDownInfo",
+      "category": "redis",
+      "severity": "info",
+      "expr": "up{job=\"redis-exporter\"} == 0",
+      "for_duration": "1m",
+      "summary": "Redis Exporter 中断 (Info) — {{ $labels.instance }}",
+      "description": "",
+      "all_labels": {
+        "severity": "info",
+        "category": "redis"
+      },
+      "all_annotations": {
+        "summary": "Redis Exporter 中断 (Info) — {{ $labels.instance }}"
+      },
+      "expr_pattern": "boolean",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "REDIS_CpuUsageWarning",
+      "category": "redis",
+      "severity": "warning",
+      "expr": "redis_used_cpu_sys_percent > 70",
+      "for_duration": "5m",
+      "summary": "Redis CPU 高 (Warning) — {{ $labels.instance }}",
+      "description": "CPU > 70%，当前值: {{ $value | printf \"%.1f\" }}%",
+      "all_labels": {
+        "severity": "warning",
+        "category": "redis"
+      },
+      "all_annotations": {
+        "summary": "Redis CPU 高 (Warning) — {{ $labels.instance }}",
+        "description": "CPU > 70%，当前值: {{ $value | printf \"%.1f\" }}%"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "REDIS_MemoryUsageWarning",
+      "category": "redis",
+      "severity": "warning",
+      "expr": "redis_memory_used_bytes / redis_memory_max_bytes > 0.80 OR (redis_memory_max_bytes - redis_memory_used_bytes) < 268435456",
+      "for_duration": "5m",
+      "summary": "Redis 内存使用高 (Warning) — {{ $labels.instance }}",
+      "description": "内存使用 > 80% 或剩余 < 256MB",
+      "all_labels": {
+        "severity": "warning",
+        "category": "redis"
+      },
+      "all_annotations": {
+        "summary": "Redis 内存使用高 (Warning) — {{ $labels.instance }}",
+        "description": "内存使用 > 80% 或剩余 < 256MB"
+      },
+      "expr_pattern": "ratio",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": true,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "REDIS_LatencyWarning",
+      "category": "redis",
+      "severity": "warning",
+      "expr": "redis_latency_p99_milliseconds > 2",
+      "for_duration": "5m",
+      "summary": "Redis 命令延迟高 (Warning) — {{ $labels.instance }}",
+      "description": "P99 > 2ms，当前值: {{ $value | printf \"%.2f\" }}ms",
+      "all_labels": {
+        "severity": "warning",
+        "category": "redis"
+      },
+      "all_annotations": {
+        "summary": "Redis 命令延迟高 (Warning) — {{ $labels.instance }}",
+        "description": "P99 > 2ms，当前值: {{ $value | printf \"%.2f\" }}ms"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "REDIS_EvictionsWarning",
+      "category": "redis",
+      "severity": "warning",
+      "expr": "rate(redis_evicted_keys_total[5m]) * 60 > 1000",
+      "for_duration": "5m",
+      "summary": "Redis Key 驱逐偏多 (Warning) — {{ $labels.instance }}",
+      "description": "驱逐 > 1000 keys/min，当前值: {{ $value | printf \"%.0f\" }}/min",
+      "all_labels": {
+        "severity": "warning",
+        "category": "redis"
+      },
+      "all_annotations": {
+        "summary": "Redis Key 驱逐偏多 (Warning) — {{ $labels.instance }}",
+        "description": "驱逐 > 1000 keys/min，当前值: {{ $value | printf \"%.0f\" }}/min"
+      },
+      "expr_pattern": "rate_of_change",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "REDIS_ConnectionRatioWarning",
+      "category": "redis",
+      "severity": "warning",
+      "expr": "redis_connected_clients / redis_max_clients > 0.70",
+      "for_duration": "5m",
+      "summary": "Redis 连接数高 (Warning) — {{ $labels.instance }}",
+      "description": "连接使用 > 70%，当前值: {{ $value | printf \"%.1f%%\" }}",
+      "all_labels": {
+        "severity": "warning",
+        "category": "redis"
+      },
+      "all_annotations": {
+        "summary": "Redis 连接数高 (Warning) — {{ $labels.instance }}",
+        "description": "连接使用 > 70%，当前值: {{ $value | printf \"%.1f%%\" }}"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "REDIS_NetworkBandwidthWarning",
+      "category": "redis",
+      "severity": "warning",
+      "expr": "(rate(redis_net_input_bytes_total[5m]) + rate(redis_net_output_bytes_total[5m])) / 1048576 > 32",
+      "for_duration": "5m",
+      "summary": "Redis 网络带宽高 (Warning) — {{ $labels.instance }}",
+      "description": "带宽 > 32 Mbps，当前值: {{ $value | printf \"%.1f\" }} Mbps",
+      "all_labels": {
+        "severity": "warning",
+        "category": "redis"
+      },
+      "all_annotations": {
+        "summary": "Redis 网络带宽高 (Warning) — {{ $labels.instance }}",
+        "description": "带宽 > 32 Mbps，当前值: {{ $value | printf \"%.1f\" }} Mbps"
+      },
+      "expr_pattern": "ratio",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": [
+        "division_without_guard_clause"
+      ]
+    },
+    {
+      "alert_name": "REDIS_InstanceDownWarning",
+      "category": "redis",
+      "severity": "warning",
+      "expr": "redis_up == 0",
+      "for_duration": "45s",
+      "summary": "Redis 实例持续不可达 (Warning) — {{ $labels.instance }}",
+      "description": "",
+      "all_labels": {
+        "severity": "warning",
+        "category": "redis"
+      },
+      "all_annotations": {
+        "summary": "Redis 实例持续不可达 (Warning) — {{ $labels.instance }}"
+      },
+      "expr_pattern": "boolean",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "REDIS_ExporterDownWarning",
+      "category": "redis",
+      "severity": "warning",
+      "expr": "up{job=\"redis-exporter\"} == 0",
+      "for_duration": "3m",
+      "summary": "Redis Exporter 持续中断 (Warning) — {{ $labels.instance }}",
+      "description": "",
+      "all_labels": {
+        "severity": "warning",
+        "category": "redis"
+      },
+      "all_annotations": {
+        "summary": "Redis Exporter 持续中断 (Warning) — {{ $labels.instance }}"
+      },
+      "expr_pattern": "boolean",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "REDIS_CpuUsageCritical",
+      "category": "redis",
+      "severity": "critical",
+      "expr": "redis_used_cpu_sys_percent > 90",
+      "for_duration": "3m",
+      "summary": "Redis CPU 严重 (Critical) — {{ $labels.instance }}",
+      "description": "CPU > 90%，Redis 单线程即将饱和",
+      "all_labels": {
+        "severity": "critical",
+        "category": "redis"
+      },
+      "all_annotations": {
+        "summary": "Redis CPU 严重 (Critical) — {{ $labels.instance }}",
+        "description": "CPU > 90%，Redis 单线程即将饱和"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "REDIS_MemoryUsageCritical",
+      "category": "redis",
+      "severity": "critical",
+      "expr": "redis_memory_used_bytes / redis_memory_max_bytes > 0.95 OR (redis_memory_max_bytes - redis_memory_used_bytes) < 67108864",
+      "for_duration": "1m",
+      "summary": "Redis 内存濒临耗尽 (Critical) — {{ $labels.instance }}",
+      "description": "内存使用 > 95% 或剩余 < 64MB，Key 驱逐风险极高",
+      "all_labels": {
+        "severity": "critical",
+        "category": "redis"
+      },
+      "all_annotations": {
+        "summary": "Redis 内存濒临耗尽 (Critical) — {{ $labels.instance }}",
+        "description": "内存使用 > 95% 或剩余 < 64MB，Key 驱逐风险极高"
+      },
+      "expr_pattern": "ratio",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": true,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "REDIS_LatencyCritical",
+      "category": "redis",
+      "severity": "critical",
+      "expr": "redis_latency_p99_milliseconds > 10",
+      "for_duration": "3m",
+      "summary": "Redis 命令延迟严重 (Critical) — {{ $labels.instance }}",
+      "description": "P99 > 10ms，服务响应严重退化",
+      "all_labels": {
+        "severity": "critical",
+        "category": "redis"
+      },
+      "all_annotations": {
+        "summary": "Redis 命令延迟严重 (Critical) — {{ $labels.instance }}",
+        "description": "P99 > 10ms，服务响应严重退化"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "REDIS_EvictionsCritical",
+      "category": "redis",
+      "severity": "critical",
+      "expr": "rate(redis_evicted_keys_total[5m]) * 60 > 10000",
+      "for_duration": "3m",
+      "summary": "Redis Key 大规模驱逐 (Critical) — {{ $labels.instance }}",
+      "description": "驱逐 > 10000 keys/min，缓存数据大量丢失",
+      "all_labels": {
+        "severity": "critical",
+        "category": "redis"
+      },
+      "all_annotations": {
+        "summary": "Redis Key 大规模驱逐 (Critical) — {{ $labels.instance }}",
+        "description": "驱逐 > 10000 keys/min，缓存数据大量丢失"
+      },
+      "expr_pattern": "rate_of_change",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "REDIS_ConnectionRatioCritical",
+      "category": "redis",
+      "severity": "critical",
+      "expr": "redis_connected_clients / redis_max_clients > 0.90",
+      "for_duration": "3m",
+      "summary": "Redis 连接数濒临耗尽 (Critical) — {{ $labels.instance }}",
+      "description": "连接使用 > 90%，新连接将被拒绝",
+      "all_labels": {
+        "severity": "critical",
+        "category": "redis"
+      },
+      "all_annotations": {
+        "summary": "Redis 连接数濒临耗尽 (Critical) — {{ $labels.instance }}",
+        "description": "连接使用 > 90%，新连接将被拒绝"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "REDIS_NetworkBandwidthCritical",
+      "category": "redis",
+      "severity": "critical",
+      "expr": "(rate(redis_net_input_bytes_total[5m]) + rate(redis_net_output_bytes_total[5m])) / 1048576 > 50",
+      "for_duration": "3m",
+      "summary": "Redis 网络带宽严重 (Critical) — {{ $labels.instance }}",
+      "description": "带宽 > 50 Mbps，网络可能成为瓶颈",
+      "all_labels": {
+        "severity": "critical",
+        "category": "redis"
+      },
+      "all_annotations": {
+        "summary": "Redis 网络带宽严重 (Critical) — {{ $labels.instance }}",
+        "description": "带宽 > 50 Mbps，网络可能成为瓶颈"
+      },
+      "expr_pattern": "ratio",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": [
+        "division_without_guard_clause"
+      ]
+    },
+    {
+      "alert_name": "REDIS_InstanceDownCritical",
+      "category": "redis",
+      "severity": "critical",
+      "expr": "redis_up == 0",
+      "for_duration": "1m",
+      "summary": "Redis 实例宕机 (Critical) — {{ $labels.instance }}",
+      "description": "实例不可达超过 1 分钟",
+      "all_labels": {
+        "severity": "critical",
+        "category": "redis"
+      },
+      "all_annotations": {
+        "summary": "Redis 实例宕机 (Critical) — {{ $labels.instance }}",
+        "description": "实例不可达超过 1 分钟"
+      },
+      "expr_pattern": "boolean",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "REDIS_ExporterDownCritical",
+      "category": "redis",
+      "severity": "critical",
+      "expr": "up{job=\"redis-exporter\"} == 0",
+      "for_duration": "10m",
+      "summary": "Redis Exporter 长时间中断 (Critical) — {{ $labels.instance }}",
+      "description": "",
+      "all_labels": {
+        "severity": "critical",
+        "category": "redis"
+      },
+      "all_annotations": {
+        "summary": "Redis Exporter 长时间中断 (Critical) — {{ $labels.instance }}"
+      },
+      "expr_pattern": "boolean",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "ES_ClusterHealthInfo",
+      "category": "es",
+      "severity": "info",
+      "expr": "elasticsearch_cluster_health_status{color=\"green\"} == 0",
+      "for_duration": "3m",
+      "summary": "ES 集群非 Green 状态 (Info) — {{ $labels.cluster }}",
+      "description": "",
+      "all_labels": {
+        "severity": "info",
+        "category": "es"
+      },
+      "all_annotations": {
+        "summary": "ES 集群非 Green 状态 (Info) — {{ $labels.cluster }}"
+      },
+      "expr_pattern": "boolean",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "ES_NodeCpuInfo",
+      "category": "es",
+      "severity": "info",
+      "expr": "elasticsearch_process_cpu_percent > 60",
+      "for_duration": "5m",
+      "summary": "ES 节点 CPU 偏高 (Info) — {{ $labels.node }}",
+      "description": "CPU > 60%，当前值: {{ $value | printf \"%.1f\" }}%",
+      "all_labels": {
+        "severity": "info",
+        "category": "es"
+      },
+      "all_annotations": {
+        "summary": "ES 节点 CPU 偏高 (Info) — {{ $labels.node }}",
+        "description": "CPU > 60%，当前值: {{ $value | printf \"%.1f\" }}%"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "ES_NodeDiskInfo",
+      "category": "es",
+      "severity": "info",
+      "expr": "elasticsearch_filesystem_data_available_bytes / elasticsearch_filesystem_data_size_bytes < 0.25 OR elasticsearch_filesystem_data_available_bytes < 21474836480",
+      "for_duration": "5m",
+      "summary": "ES 节点磁盘偏紧 (Info) — {{ $labels.node }}",
+      "description": "磁盘剩余 < 25% 或 < 20GB，当前剩余: {{ $value | humanize1024 }}B",
+      "all_labels": {
+        "severity": "info",
+        "category": "es"
+      },
+      "all_annotations": {
+        "summary": "ES 节点磁盘偏紧 (Info) — {{ $labels.node }}",
+        "description": "磁盘剩余 < 25% 或 < 20GB，当前剩余: {{ $value | humanize1024 }}B"
+      },
+      "expr_pattern": "ratio",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": true,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "ES_JvmHeapInfo",
+      "category": "es",
+      "severity": "info",
+      "expr": "elasticsearch_jvm_memory_used_bytes{area=\"heap\"} / elasticsearch_jvm_memory_max_bytes{area=\"heap\"} > 0.70",
+      "for_duration": "5m",
+      "summary": "ES JVM Heap 偏高 (Info) — {{ $labels.node }}",
+      "description": "Heap 使用 > 70%，当前值: {{ $value | printf \"%.1f%%\" }}",
+      "all_labels": {
+        "severity": "info",
+        "category": "es"
+      },
+      "all_annotations": {
+        "summary": "ES JVM Heap 偏高 (Info) — {{ $labels.node }}",
+        "description": "Heap 使用 > 70%，当前值: {{ $value | printf \"%.1f%%\" }}"
+      },
+      "expr_pattern": "ratio",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "ES_ClusterHealthWarning",
+      "category": "es",
+      "severity": "warning",
+      "expr": "elasticsearch_cluster_health_status{color=\"yellow\"} == 1",
+      "for_duration": "3m",
+      "summary": "ES 集群 Yellow (Warning) — {{ $labels.cluster }}",
+      "description": "副本分片未分配，集群降级运行",
+      "all_labels": {
+        "severity": "warning",
+        "category": "es"
+      },
+      "all_annotations": {
+        "summary": "ES 集群 Yellow (Warning) — {{ $labels.cluster }}",
+        "description": "副本分片未分配，集群降级运行"
+      },
+      "expr_pattern": "boolean",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "ES_NodeCpuWarning",
+      "category": "es",
+      "severity": "warning",
+      "expr": "elasticsearch_process_cpu_percent > 75",
+      "for_duration": "5m",
+      "summary": "ES 节点 CPU 高 (Warning) — {{ $labels.node }}",
+      "description": "CPU > 75%，当前值: {{ $value | printf \"%.1f\" }}%",
+      "all_labels": {
+        "severity": "warning",
+        "category": "es"
+      },
+      "all_annotations": {
+        "summary": "ES 节点 CPU 高 (Warning) — {{ $labels.node }}",
+        "description": "CPU > 75%，当前值: {{ $value | printf \"%.1f\" }}%"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "ES_NodeDiskWarning",
+      "category": "es",
+      "severity": "warning",
+      "expr": "elasticsearch_filesystem_data_available_bytes / elasticsearch_filesystem_data_size_bytes < 0.15 OR elasticsearch_filesystem_data_available_bytes < 10737418240",
+      "for_duration": "5m",
+      "summary": "ES 节点磁盘不足 (Warning) — {{ $labels.node }}",
+      "description": "磁盘剩余 < 15% 或 < 10GB，接近 ES watermark.low(85%) 触发线",
+      "all_labels": {
+        "severity": "warning",
+        "category": "es"
+      },
+      "all_annotations": {
+        "summary": "ES 节点磁盘不足 (Warning) — {{ $labels.node }}",
+        "description": "磁盘剩余 < 15% 或 < 10GB，接近 ES watermark.low(85%) 触发线"
+      },
+      "expr_pattern": "ratio",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": true,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "ES_JvmHeapWarning",
+      "category": "es",
+      "severity": "warning",
+      "expr": "elasticsearch_jvm_memory_used_bytes{area=\"heap\"} / elasticsearch_jvm_memory_max_bytes{area=\"heap\"} > 0.80",
+      "for_duration": "5m",
+      "summary": "ES JVM Heap 高 (Warning) — {{ $labels.node }}",
+      "description": "Heap 使用 > 80%，GC 压力增大",
+      "all_labels": {
+        "severity": "warning",
+        "category": "es"
+      },
+      "all_annotations": {
+        "summary": "ES JVM Heap 高 (Warning) — {{ $labels.node }}",
+        "description": "Heap 使用 > 80%，GC 压力增大"
+      },
+      "expr_pattern": "ratio",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "ES_ClusterHealthCritical",
+      "category": "es",
+      "severity": "critical",
+      "expr": "elasticsearch_cluster_health_status{color=\"red\"} == 1",
+      "for_duration": "1m",
+      "summary": "ES 集群 Red (Critical) — {{ $labels.cluster }}",
+      "description": "主分片不可用，数据丢失风险",
+      "all_labels": {
+        "severity": "critical",
+        "category": "es"
+      },
+      "all_annotations": {
+        "summary": "ES 集群 Red (Critical) — {{ $labels.cluster }}",
+        "description": "主分片不可用，数据丢失风险"
+      },
+      "expr_pattern": "boolean",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "ES_NodeCpuCritical",
+      "category": "es",
+      "severity": "critical",
+      "expr": "elasticsearch_process_cpu_percent > 85",
+      "for_duration": "3m",
+      "summary": "ES 节点 CPU 严重 (Critical) — {{ $labels.node }}",
+      "description": "CPU > 85%，当前值: {{ $value | printf \"%.1f\" }}%",
+      "all_labels": {
+        "severity": "critical",
+        "category": "es"
+      },
+      "all_annotations": {
+        "summary": "ES 节点 CPU 严重 (Critical) — {{ $labels.node }}",
+        "description": "CPU > 85%，当前值: {{ $value | printf \"%.1f\" }}%"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "ES_NodeDiskCritical",
+      "category": "es",
+      "severity": "critical",
+      "expr": "elasticsearch_filesystem_data_available_bytes / elasticsearch_filesystem_data_size_bytes < 0.10 OR elasticsearch_filesystem_data_available_bytes < 5368709120",
+      "for_duration": "3m",
+      "summary": "ES 节点磁盘危急 (Critical) — {{ $labels.node }}",
+      "description": "磁盘剩余 < 10% 或 < 5GB，ES 即将进入只读模式 (watermark.high=90%)",
+      "all_labels": {
+        "severity": "critical",
+        "category": "es"
+      },
+      "all_annotations": {
+        "summary": "ES 节点磁盘危急 (Critical) — {{ $labels.node }}",
+        "description": "磁盘剩余 < 10% 或 < 5GB，ES 即将进入只读模式 (watermark.high=90%)"
+      },
+      "expr_pattern": "ratio",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": true,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "ES_JvmHeapCritical",
+      "category": "es",
+      "severity": "critical",
+      "expr": "elasticsearch_jvm_memory_used_bytes{area=\"heap\"} / elasticsearch_jvm_memory_max_bytes{area=\"heap\"} > 0.90",
+      "for_duration": "3m",
+      "summary": "ES JVM Heap 危急 (Critical) — {{ $labels.node }}",
+      "description": "Heap 使用 > 90%，OOM 风险，节点可能宕机",
+      "all_labels": {
+        "severity": "critical",
+        "category": "es"
+      },
+      "all_annotations": {
+        "summary": "ES JVM Heap 危急 (Critical) — {{ $labels.node }}",
+        "description": "Heap 使用 > 90%，OOM 风险，节点可能宕机"
+      },
+      "expr_pattern": "ratio",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "MONGO_CpuUsageInfo",
+      "category": "mongo",
+      "severity": "info",
+      "expr": "aws_docdb_cpuutilization_average > 50",
+      "for_duration": "10m",
+      "summary": "DocumentDB CPU 偏高 (Info) — {{ $labels.dbcluster_identifier }}",
+      "description": "CPU > 50%，当前值: {{ $value | printf \"%.1f\" }}%",
+      "all_labels": {
+        "severity": "info",
+        "category": "mongo"
+      },
+      "all_annotations": {
+        "summary": "DocumentDB CPU 偏高 (Info) — {{ $labels.dbcluster_identifier }}",
+        "description": "CPU > 50%，当前值: {{ $value | printf \"%.1f\" }}%"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "MONGO_MemoryFreeInfo",
+      "category": "mongo",
+      "severity": "info",
+      "expr": "aws_docdb_freeable_memory_average / aws_docdb_total_memory_average < 0.30 OR aws_docdb_freeable_memory_average < 1073741824",
+      "for_duration": "10m",
+      "summary": "DocumentDB 内存偏紧 (Info) — {{ $labels.dbcluster_identifier }}",
+      "description": "可用内存 < 30% 或 < 1GB，当前剩余: {{ $value | humanize1024 }}B",
+      "all_labels": {
+        "severity": "info",
+        "category": "mongo"
+      },
+      "all_annotations": {
+        "summary": "DocumentDB 内存偏紧 (Info) — {{ $labels.dbcluster_identifier }}",
+        "description": "可用内存 < 30% 或 < 1GB，当前剩余: {{ $value | humanize1024 }}B"
+      },
+      "expr_pattern": "ratio",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": true,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "MONGO_ConnectionRatioInfo",
+      "category": "mongo",
+      "severity": "info",
+      "expr": "aws_docdb_database_connections_average / aws_docdb_max_connections_average > 0.60",
+      "for_duration": "10m",
+      "summary": "DocumentDB 连接数偏多 (Info) — {{ $labels.dbcluster_identifier }}",
+      "description": "连接使用 > 60%",
+      "all_labels": {
+        "severity": "info",
+        "category": "mongo"
+      },
+      "all_annotations": {
+        "summary": "DocumentDB 连接数偏多 (Info) — {{ $labels.dbcluster_identifier }}",
+        "description": "连接使用 > 60%"
+      },
+      "expr_pattern": "ratio",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": [
+        "division_without_guard_clause"
+      ]
+    },
+    {
+      "alert_name": "MONGO_CpuUsageWarning",
+      "category": "mongo",
+      "severity": "warning",
+      "expr": "aws_docdb_cpuutilization_average > 70",
+      "for_duration": "5m",
+      "summary": "DocumentDB CPU 高 (Warning) — {{ $labels.dbcluster_identifier }}",
+      "description": "CPU > 70%，当前值: {{ $value | printf \"%.1f\" }}%",
+      "all_labels": {
+        "severity": "warning",
+        "category": "mongo"
+      },
+      "all_annotations": {
+        "summary": "DocumentDB CPU 高 (Warning) — {{ $labels.dbcluster_identifier }}",
+        "description": "CPU > 70%，当前值: {{ $value | printf \"%.1f\" }}%"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "MONGO_MemoryFreeWarning",
+      "category": "mongo",
+      "severity": "warning",
+      "expr": "aws_docdb_freeable_memory_average / aws_docdb_total_memory_average < 0.20 OR aws_docdb_freeable_memory_average < 536870912",
+      "for_duration": "5m",
+      "summary": "DocumentDB 内存不足 (Warning) — {{ $labels.dbcluster_identifier }}",
+      "description": "可用内存 < 20% 或 < 512MB",
+      "all_labels": {
+        "severity": "warning",
+        "category": "mongo"
+      },
+      "all_annotations": {
+        "summary": "DocumentDB 内存不足 (Warning) — {{ $labels.dbcluster_identifier }}",
+        "description": "可用内存 < 20% 或 < 512MB"
+      },
+      "expr_pattern": "ratio",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": true,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "MONGO_ConnectionRatioWarning",
+      "category": "mongo",
+      "severity": "warning",
+      "expr": "aws_docdb_database_connections_average / aws_docdb_max_connections_average > 0.80",
+      "for_duration": "5m",
+      "summary": "DocumentDB 连接数高 (Warning) — {{ $labels.dbcluster_identifier }}",
+      "description": "连接使用 > 80%",
+      "all_labels": {
+        "severity": "warning",
+        "category": "mongo"
+      },
+      "all_annotations": {
+        "summary": "DocumentDB 连接数高 (Warning) — {{ $labels.dbcluster_identifier }}",
+        "description": "连接使用 > 80%"
+      },
+      "expr_pattern": "ratio",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": [
+        "division_without_guard_clause"
+      ]
+    },
+    {
+      "alert_name": "MONGO_CpuUsageCritical",
+      "category": "mongo",
+      "severity": "critical",
+      "expr": "aws_docdb_cpuutilization_average > 90",
+      "for_duration": "3m",
+      "summary": "DocumentDB CPU 严重 (Critical) — {{ $labels.dbcluster_identifier }}",
+      "description": "CPU > 90%，当前值: {{ $value | printf \"%.1f\" }}%",
+      "all_labels": {
+        "severity": "critical",
+        "category": "mongo"
+      },
+      "all_annotations": {
+        "summary": "DocumentDB CPU 严重 (Critical) — {{ $labels.dbcluster_identifier }}",
+        "description": "CPU > 90%，当前值: {{ $value | printf \"%.1f\" }}%"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "MONGO_MemoryFreeCritical",
+      "category": "mongo",
+      "severity": "critical",
+      "expr": "aws_docdb_freeable_memory_average / aws_docdb_total_memory_average < 0.10 OR aws_docdb_freeable_memory_average < 268435456",
+      "for_duration": "3m",
+      "summary": "DocumentDB 内存危急 (Critical) — {{ $labels.dbcluster_identifier }}",
+      "description": "可用内存 < 10% 或 < 256MB",
+      "all_labels": {
+        "severity": "critical",
+        "category": "mongo"
+      },
+      "all_annotations": {
+        "summary": "DocumentDB 内存危急 (Critical) — {{ $labels.dbcluster_identifier }}",
+        "description": "可用内存 < 10% 或 < 256MB"
+      },
+      "expr_pattern": "ratio",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": true,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "MONGO_ConnectionRatioCritical",
+      "category": "mongo",
+      "severity": "critical",
+      "expr": "aws_docdb_database_connections_average / aws_docdb_max_connections_average > 0.95",
+      "for_duration": "3m",
+      "summary": "DocumentDB 连接数濒临耗尽 (Critical) — {{ $labels.dbcluster_identifier }}",
+      "description": "连接使用 > 95%，新连接将被拒绝",
+      "all_labels": {
+        "severity": "critical",
+        "category": "mongo"
+      },
+      "all_annotations": {
+        "summary": "DocumentDB 连接数濒临耗尽 (Critical) — {{ $labels.dbcluster_identifier }}",
+        "description": "连接使用 > 95%，新连接将被拒绝"
+      },
+      "expr_pattern": "ratio",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": [
+        "division_without_guard_clause"
+      ]
+    },
+    {
+      "alert_name": "K8S_PodCpuUsageInfo",
+      "category": "k8s",
+      "severity": "info",
+      "expr": "rate(container_cpu_usage_seconds_total{container!=\"\"}[5m]) / container_spec_cpu_quota * container_spec_cpu_period > 0.50",
+      "for_duration": "10m",
+      "summary": "Pod CPU 偏高 (Info) — {{ $labels.pod }}",
+      "description": "CPU > 50% request limit，当前值: {{ $value | printf \"%.1f%%\" }}",
+      "all_labels": {
+        "severity": "info",
+        "category": "k8s"
+      },
+      "all_annotations": {
+        "summary": "Pod CPU 偏高 (Info) — {{ $labels.pod }}",
+        "description": "CPU > 50% request limit，当前值: {{ $value | printf \"%.1f%%\" }}"
+      },
+      "expr_pattern": "ratio",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "K8S_PodRestartInfo",
+      "category": "k8s",
+      "severity": "info",
+      "expr": "increase(kube_pod_container_status_restarts_total[10m]) > 1",
+      "for_duration": "0m",
+      "summary": "Pod 发生重启 (Info) — {{ $labels.pod }}",
+      "description": "10 分钟内重启 {{ $value }} 次",
+      "all_labels": {
+        "severity": "info",
+        "category": "k8s"
+      },
+      "all_annotations": {
+        "summary": "Pod 发生重启 (Info) — {{ $labels.pod }}",
+        "description": "10 分钟内重启 {{ $value }} 次"
+      },
+      "expr_pattern": "rate_of_change",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "K8S_PodDiskIoInfo",
+      "category": "k8s",
+      "severity": "info",
+      "expr": "(rate(container_fs_reads_bytes_total[5m]) + rate(container_fs_writes_bytes_total[5m])) / 1048576 > 30",
+      "for_duration": "5m",
+      "summary": "Pod 磁盘 I/O 偏高 (Info) — {{ $labels.pod }}",
+      "description": "I/O > 30 MB/s，当前值: {{ $value | printf \"%.1f\" }} MB/s",
+      "all_labels": {
+        "severity": "info",
+        "category": "k8s"
+      },
+      "all_annotations": {
+        "summary": "Pod 磁盘 I/O 偏高 (Info) — {{ $labels.pod }}",
+        "description": "I/O > 30 MB/s，当前值: {{ $value | printf \"%.1f\" }} MB/s"
+      },
+      "expr_pattern": "ratio",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": [
+        "division_without_guard_clause"
+      ]
+    },
+    {
+      "alert_name": "K8S_OomKilledInfo",
+      "category": "k8s",
+      "severity": "info",
+      "expr": "kube_pod_container_status_last_terminated_reason{reason=\"OOMKilled\"} == 1",
+      "for_duration": "0m",
+      "summary": "Pod OOMKilled (Info) — {{ $labels.pod }}",
+      "description": "容器因内存不足被杀死",
+      "all_labels": {
+        "severity": "info",
+        "category": "k8s"
+      },
+      "all_annotations": {
+        "summary": "Pod OOMKilled (Info) — {{ $labels.pod }}",
+        "description": "容器因内存不足被杀死"
+      },
+      "expr_pattern": "boolean",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "K8S_NodeHeartbeatInfo",
+      "category": "k8s",
+      "severity": "info",
+      "expr": "kube_node_status_condition{condition=\"Ready\",status=\"true\"} == 0",
+      "for_duration": "2m",
+      "summary": "K8S 节点心跳异常 (Info) — {{ $labels.node }}",
+      "description": "",
+      "all_labels": {
+        "severity": "info",
+        "category": "k8s"
+      },
+      "all_annotations": {
+        "summary": "K8S 节点心跳异常 (Info) — {{ $labels.node }}"
+      },
+      "expr_pattern": "boolean",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "K8S_NodeDiskPressureInfo",
+      "category": "k8s",
+      "severity": "info",
+      "expr": "kube_node_status_condition{condition=\"DiskPressure\",status=\"true\"} == 1",
+      "for_duration": "1m",
+      "summary": "K8S 节点磁盘压力 (Info) — {{ $labels.node }}",
+      "description": "",
+      "all_labels": {
+        "severity": "info",
+        "category": "k8s"
+      },
+      "all_annotations": {
+        "summary": "K8S 节点磁盘压力 (Info) — {{ $labels.node }}"
+      },
+      "expr_pattern": "boolean",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "K8S_PodCpuUsageWarning",
+      "category": "k8s",
+      "severity": "warning",
+      "expr": "rate(container_cpu_usage_seconds_total{container!=\"\"}[5m]) / container_spec_cpu_quota * container_spec_cpu_period > 0.70",
+      "for_duration": "5m",
+      "summary": "Pod CPU 高 (Warning) — {{ $labels.pod }}",
+      "description": "CPU > 70% request limit",
+      "all_labels": {
+        "severity": "warning",
+        "category": "k8s"
+      },
+      "all_annotations": {
+        "summary": "Pod CPU 高 (Warning) — {{ $labels.pod }}",
+        "description": "CPU > 70% request limit"
+      },
+      "expr_pattern": "ratio",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "K8S_PodRestartWarning",
+      "category": "k8s",
+      "severity": "warning",
+      "expr": "increase(kube_pod_container_status_restarts_total[10m]) > 3",
+      "for_duration": "0m",
+      "summary": "Pod 频繁重启 (Warning) — {{ $labels.pod }}",
+      "description": "10 分钟内重启 > 3 次，当前值: {{ $value }} 次",
+      "all_labels": {
+        "severity": "warning",
+        "category": "k8s"
+      },
+      "all_annotations": {
+        "summary": "Pod 频繁重启 (Warning) — {{ $labels.pod }}",
+        "description": "10 分钟内重启 > 3 次，当前值: {{ $value }} 次"
+      },
+      "expr_pattern": "rate_of_change",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "K8S_PodDiskIoWarning",
+      "category": "k8s",
+      "severity": "warning",
+      "expr": "(rate(container_fs_reads_bytes_total[5m]) + rate(container_fs_writes_bytes_total[5m])) / 1048576 > 50",
+      "for_duration": "5m",
+      "summary": "Pod 磁盘 I/O 高 (Warning) — {{ $labels.pod }}",
+      "description": "I/O > 50 MB/s",
+      "all_labels": {
+        "severity": "warning",
+        "category": "k8s"
+      },
+      "all_annotations": {
+        "summary": "Pod 磁盘 I/O 高 (Warning) — {{ $labels.pod }}",
+        "description": "I/O > 50 MB/s"
+      },
+      "expr_pattern": "ratio",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": [
+        "division_without_guard_clause"
+      ]
+    },
+    {
+      "alert_name": "K8S_OomKilledWarning",
+      "category": "k8s",
+      "severity": "warning",
+      "expr": "increase(kube_pod_container_status_restarts_total[30m]) > 2 and kube_pod_container_status_last_terminated_reason{reason=\"OOMKilled\"} == 1",
+      "for_duration": "0m",
+      "summary": "Pod 反复 OOMKilled (Warning) — {{ $labels.pod }}",
+      "description": "30 分钟内多次 OOM，内存 limit 可能需要调整",
+      "all_labels": {
+        "severity": "warning",
+        "category": "k8s"
+      },
+      "all_annotations": {
+        "summary": "Pod 反复 OOMKilled (Warning) — {{ $labels.pod }}",
+        "description": "30 分钟内多次 OOM，内存 limit 可能需要调整"
+      },
+      "expr_pattern": "compound",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "K8S_NodeHeartbeatWarning",
+      "category": "k8s",
+      "severity": "warning",
+      "expr": "kube_node_status_condition{condition=\"Ready\",status=\"true\"} == 0",
+      "for_duration": "3m",
+      "summary": "K8S 节点 NotReady (Warning) — {{ $labels.node }}",
+      "description": "节点 NotReady 超过 3 分钟，Pod 已开始迁移",
+      "all_labels": {
+        "severity": "warning",
+        "category": "k8s"
+      },
+      "all_annotations": {
+        "summary": "K8S 节点 NotReady (Warning) — {{ $labels.node }}",
+        "description": "节点 NotReady 超过 3 分钟，Pod 已开始迁移"
+      },
+      "expr_pattern": "boolean",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "K8S_NodeDiskPressureWarning",
+      "category": "k8s",
+      "severity": "warning",
+      "expr": "kube_node_status_condition{condition=\"DiskPressure\",status=\"true\"} == 1",
+      "for_duration": "3m",
+      "summary": "K8S 节点磁盘压力持续 (Warning) — {{ $labels.node }}",
+      "description": "",
+      "all_labels": {
+        "severity": "warning",
+        "category": "k8s"
+      },
+      "all_annotations": {
+        "summary": "K8S 节点磁盘压力持续 (Warning) — {{ $labels.node }}"
+      },
+      "expr_pattern": "boolean",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "K8S_PodCpuUsageCritical",
+      "category": "k8s",
+      "severity": "critical",
+      "expr": "rate(container_cpu_usage_seconds_total{container!=\"\"}[5m]) / container_spec_cpu_quota * container_spec_cpu_period > 0.90",
+      "for_duration": "3m",
+      "summary": "Pod CPU 严重 (Critical) — {{ $labels.pod }}",
+      "description": "CPU > 90% request limit，Pod 可能被 throttle",
+      "all_labels": {
+        "severity": "critical",
+        "category": "k8s"
+      },
+      "all_annotations": {
+        "summary": "Pod CPU 严重 (Critical) — {{ $labels.pod }}",
+        "description": "CPU > 90% request limit，Pod 可能被 throttle"
+      },
+      "expr_pattern": "ratio",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "K8S_PodRestartCritical",
+      "category": "k8s",
+      "severity": "critical",
+      "expr": "increase(kube_pod_container_status_restarts_total[10m]) > 5",
+      "for_duration": "0m",
+      "summary": "Pod 重启风暴 (Critical) — {{ $labels.pod }}",
+      "description": "10 分钟内重启 > 5 次，CrashLoopBackOff 风险",
+      "all_labels": {
+        "severity": "critical",
+        "category": "k8s"
+      },
+      "all_annotations": {
+        "summary": "Pod 重启风暴 (Critical) — {{ $labels.pod }}",
+        "description": "10 分钟内重启 > 5 次，CrashLoopBackOff 风险"
+      },
+      "expr_pattern": "rate_of_change",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "K8S_PodDiskIoCritical",
+      "category": "k8s",
+      "severity": "critical",
+      "expr": "(rate(container_fs_reads_bytes_total[5m]) + rate(container_fs_writes_bytes_total[5m])) / 1048576 > 100",
+      "for_duration": "3m",
+      "summary": "Pod 磁盘 I/O 严重 (Critical) — {{ $labels.pod }}",
+      "description": "I/O > 100 MB/s，磁盘可能成为瓶颈",
+      "all_labels": {
+        "severity": "critical",
+        "category": "k8s"
+      },
+      "all_annotations": {
+        "summary": "Pod 磁盘 I/O 严重 (Critical) — {{ $labels.pod }}",
+        "description": "I/O > 100 MB/s，磁盘可能成为瓶颈"
+      },
+      "expr_pattern": "ratio",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": [
+        "division_without_guard_clause"
+      ]
+    },
+    {
+      "alert_name": "K8S_OomKilledCritical",
+      "category": "k8s",
+      "severity": "critical",
+      "expr": "increase(kube_pod_container_status_restarts_total[30m]) > 5 and kube_pod_container_status_last_terminated_reason{reason=\"OOMKilled\"} == 1",
+      "for_duration": "0m",
+      "summary": "Pod OOM 风暴 (Critical) — {{ $labels.pod }}",
+      "description": "30 分钟内 OOMKilled > 5 次，服务不可用",
+      "all_labels": {
+        "severity": "critical",
+        "category": "k8s"
+      },
+      "all_annotations": {
+        "summary": "Pod OOM 风暴 (Critical) — {{ $labels.pod }}",
+        "description": "30 分钟内 OOMKilled > 5 次，服务不可用"
+      },
+      "expr_pattern": "compound",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "K8S_NodeHeartbeatCritical",
+      "category": "k8s",
+      "severity": "critical",
+      "expr": "kube_node_status_condition{condition=\"Ready\",status=\"true\"} == 0",
+      "for_duration": "5m",
+      "summary": "K8S 节点宕机 (Critical) — {{ $labels.node }}",
+      "description": "节点 NotReady 超过 5 分钟，集群容量下降",
+      "all_labels": {
+        "severity": "critical",
+        "category": "k8s"
+      },
+      "all_annotations": {
+        "summary": "K8S 节点宕机 (Critical) — {{ $labels.node }}",
+        "description": "节点 NotReady 超过 5 分钟，集群容量下降"
+      },
+      "expr_pattern": "boolean",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "K8S_NodeDiskPressureCritical",
+      "category": "k8s",
+      "severity": "critical",
+      "expr": "kube_node_status_condition{condition=\"DiskPressure\",status=\"true\"} == 1",
+      "for_duration": "5m",
+      "summary": "K8S 节点磁盘压力严重 (Critical) — {{ $labels.node }}",
+      "description": "节点磁盘压力持续 5 分钟，Pod 驱逐可能开始",
+      "all_labels": {
+        "severity": "critical",
+        "category": "k8s"
+      },
+      "all_annotations": {
+        "summary": "K8S 节点磁盘压力严重 (Critical) — {{ $labels.node }}",
+        "description": "节点磁盘压力持续 5 分钟，Pod 驱逐可能开始"
+      },
+      "expr_pattern": "boolean",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "VM_CpuUsageInfo",
+      "category": "vm",
+      "severity": "info",
+      "expr": "aws_ec2_cpuutilization_average > 65",
+      "for_duration": "10m",
+      "summary": "EC2 CPU 偏高 (Info) — {{ $labels.instance_id }}",
+      "description": "CPU > 65%，当前值: {{ $value | printf \"%.1f\" }}%",
+      "all_labels": {
+        "severity": "info",
+        "category": "vm"
+      },
+      "all_annotations": {
+        "summary": "EC2 CPU 偏高 (Info) — {{ $labels.instance_id }}",
+        "description": "CPU > 65%，当前值: {{ $value | printf \"%.1f\" }}%"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "VM_MemoryUsageInfo",
+      "category": "vm",
+      "severity": "info",
+      "expr": "(1 - node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes) > 0.75 OR node_memory_MemAvailable_bytes < 536870912",
+      "for_duration": "10m",
+      "summary": "EC2 内存偏高 (Info) — {{ $labels.instance }}",
+      "description": "内存使用 > 75% 或可用 < 512MB，当前可用: {{ $value | humanize1024 }}B",
+      "all_labels": {
+        "severity": "info",
+        "category": "vm"
+      },
+      "all_annotations": {
+        "summary": "EC2 内存偏高 (Info) — {{ $labels.instance }}",
+        "description": "内存使用 > 75% 或可用 < 512MB，当前可用: {{ $value | humanize1024 }}B"
+      },
+      "expr_pattern": "ratio",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": true,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "VM_DiskUsageInfo",
+      "category": "vm",
+      "severity": "info",
+      "expr": "(1 - node_filesystem_avail_bytes / node_filesystem_size_bytes) > 0.75 OR node_filesystem_avail_bytes < 10737418240",
+      "for_duration": "10m",
+      "summary": "EC2 磁盘偏满 (Info) — {{ $labels.instance }}",
+      "description": "磁盘使用 > 75% 或剩余 < 10GB，挂载点: {{ $labels.mountpoint }}",
+      "all_labels": {
+        "severity": "info",
+        "category": "vm"
+      },
+      "all_annotations": {
+        "summary": "EC2 磁盘偏满 (Info) — {{ $labels.instance }}",
+        "description": "磁盘使用 > 75% 或剩余 < 10GB，挂载点: {{ $labels.mountpoint }}"
+      },
+      "expr_pattern": "ratio",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": true,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "VM_NetworkErrorsInfo",
+      "category": "vm",
+      "severity": "info",
+      "expr": "rate(node_network_transmit_errs_total[5m]) + rate(node_network_receive_errs_total[5m]) > 50",
+      "for_duration": "5m",
+      "summary": "EC2 网络错误偏多 (Info) — {{ $labels.instance }}",
+      "description": "网络错误 > 50/s",
+      "all_labels": {
+        "severity": "info",
+        "category": "vm"
+      },
+      "all_annotations": {
+        "summary": "EC2 网络错误偏多 (Info) — {{ $labels.instance }}",
+        "description": "网络错误 > 50/s"
+      },
+      "expr_pattern": "rate_of_change",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "VM_InstanceDownInfo",
+      "category": "vm",
+      "severity": "info",
+      "expr": "up{job=\"node-exporter\"} == 0",
+      "for_duration": "30s",
+      "summary": "EC2 实例采集中断 (Info) — {{ $labels.instance }}",
+      "description": "",
+      "all_labels": {
+        "severity": "info",
+        "category": "vm"
+      },
+      "all_annotations": {
+        "summary": "EC2 实例采集中断 (Info) — {{ $labels.instance }}"
+      },
+      "expr_pattern": "boolean",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "VM_CpuUsageWarning",
+      "category": "vm",
+      "severity": "warning",
+      "expr": "aws_ec2_cpuutilization_average > 80",
+      "for_duration": "5m",
+      "summary": "EC2 CPU 高 (Warning) — {{ $labels.instance_id }}",
+      "description": "CPU > 80%",
+      "all_labels": {
+        "severity": "warning",
+        "category": "vm"
+      },
+      "all_annotations": {
+        "summary": "EC2 CPU 高 (Warning) — {{ $labels.instance_id }}",
+        "description": "CPU > 80%"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "VM_MemoryUsageWarning",
+      "category": "vm",
+      "severity": "warning",
+      "expr": "(1 - node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes) > 0.85 OR node_memory_MemAvailable_bytes < 268435456",
+      "for_duration": "5m",
+      "summary": "EC2 内存高 (Warning) — {{ $labels.instance }}",
+      "description": "内存使用 > 85% 或可用 < 256MB",
+      "all_labels": {
+        "severity": "warning",
+        "category": "vm"
+      },
+      "all_annotations": {
+        "summary": "EC2 内存高 (Warning) — {{ $labels.instance }}",
+        "description": "内存使用 > 85% 或可用 < 256MB"
+      },
+      "expr_pattern": "ratio",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": true,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "VM_DiskUsageWarning",
+      "category": "vm",
+      "severity": "warning",
+      "expr": "(1 - node_filesystem_avail_bytes / node_filesystem_size_bytes) > 0.85 OR node_filesystem_avail_bytes < 5368709120",
+      "for_duration": "5m",
+      "summary": "EC2 磁盘不足 (Warning) — {{ $labels.instance }}",
+      "description": "磁盘使用 > 85% 或剩余 < 5GB",
+      "all_labels": {
+        "severity": "warning",
+        "category": "vm"
+      },
+      "all_annotations": {
+        "summary": "EC2 磁盘不足 (Warning) — {{ $labels.instance }}",
+        "description": "磁盘使用 > 85% 或剩余 < 5GB"
+      },
+      "expr_pattern": "ratio",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": true,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "VM_NetworkErrorsWarning",
+      "category": "vm",
+      "severity": "warning",
+      "expr": "rate(node_network_transmit_errs_total[5m]) + rate(node_network_receive_errs_total[5m]) > 200",
+      "for_duration": "5m",
+      "summary": "EC2 网络错误高 (Warning) — {{ $labels.instance }}",
+      "description": "网络错误 > 200/s",
+      "all_labels": {
+        "severity": "warning",
+        "category": "vm"
+      },
+      "all_annotations": {
+        "summary": "EC2 网络错误高 (Warning) — {{ $labels.instance }}",
+        "description": "网络错误 > 200/s"
+      },
+      "expr_pattern": "rate_of_change",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "VM_InstanceDownWarning",
+      "category": "vm",
+      "severity": "warning",
+      "expr": "up{job=\"node-exporter\"} == 0",
+      "for_duration": "45s",
+      "summary": "EC2 实例可能宕机 (Warning) — {{ $labels.instance }}",
+      "description": "",
+      "all_labels": {
+        "severity": "warning",
+        "category": "vm"
+      },
+      "all_annotations": {
+        "summary": "EC2 实例可能宕机 (Warning) — {{ $labels.instance }}"
+      },
+      "expr_pattern": "boolean",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "VM_CpuUsageCritical",
+      "category": "vm",
+      "severity": "critical",
+      "expr": "aws_ec2_cpuutilization_average > 95",
+      "for_duration": "3m",
+      "summary": "EC2 CPU 严重 (Critical) — {{ $labels.instance_id }}",
+      "description": "CPU > 95%，系统近乎饱和",
+      "all_labels": {
+        "severity": "critical",
+        "category": "vm"
+      },
+      "all_annotations": {
+        "summary": "EC2 CPU 严重 (Critical) — {{ $labels.instance_id }}",
+        "description": "CPU > 95%，系统近乎饱和"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "VM_MemoryUsageCritical",
+      "category": "vm",
+      "severity": "critical",
+      "expr": "(1 - node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes) > 0.95 OR node_memory_MemAvailable_bytes < 104857600",
+      "for_duration": "3m",
+      "summary": "EC2 内存危急 (Critical) — {{ $labels.instance }}",
+      "description": "内存使用 > 95% 或可用 < 100MB，OOM Kill 风险",
+      "all_labels": {
+        "severity": "critical",
+        "category": "vm"
+      },
+      "all_annotations": {
+        "summary": "EC2 内存危急 (Critical) — {{ $labels.instance }}",
+        "description": "内存使用 > 95% 或可用 < 100MB，OOM Kill 风险"
+      },
+      "expr_pattern": "ratio",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": true,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "VM_DiskUsageCritical",
+      "category": "vm",
+      "severity": "critical",
+      "expr": "(1 - node_filesystem_avail_bytes / node_filesystem_size_bytes) > 0.95 OR node_filesystem_avail_bytes < 2147483648",
+      "for_duration": "3m",
+      "summary": "EC2 磁盘濒满 (Critical) — {{ $labels.instance }}",
+      "description": "磁盘使用 > 95% 或剩余 < 2GB，写入即将失败",
+      "all_labels": {
+        "severity": "critical",
+        "category": "vm"
+      },
+      "all_annotations": {
+        "summary": "EC2 磁盘濒满 (Critical) — {{ $labels.instance }}",
+        "description": "磁盘使用 > 95% 或剩余 < 2GB，写入即将失败"
+      },
+      "expr_pattern": "ratio",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": true,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "VM_NetworkErrorsCritical",
+      "category": "vm",
+      "severity": "critical",
+      "expr": "rate(node_network_transmit_errs_total[5m]) + rate(node_network_receive_errs_total[5m]) > 500",
+      "for_duration": "3m",
+      "summary": "EC2 网络严重错误 (Critical) — {{ $labels.instance }}",
+      "description": "网络错误 > 500/s，网卡或链路故障",
+      "all_labels": {
+        "severity": "critical",
+        "category": "vm"
+      },
+      "all_annotations": {
+        "summary": "EC2 网络严重错误 (Critical) — {{ $labels.instance }}",
+        "description": "网络错误 > 500/s，网卡或链路故障"
+      },
+      "expr_pattern": "rate_of_change",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "VM_InstanceDownCritical",
+      "category": "vm",
+      "severity": "critical",
+      "expr": "up{job=\"node-exporter\"} == 0",
+      "for_duration": "1m",
+      "summary": "EC2 实例宕机 (Critical) — {{ $labels.instance }}",
+      "description": "",
+      "all_labels": {
+        "severity": "critical",
+        "category": "vm"
+      },
+      "all_annotations": {
+        "summary": "EC2 实例宕机 (Critical) — {{ $labels.instance }}"
+      },
+      "expr_pattern": "boolean",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "APM_ServiceExceptionsInfo",
+      "category": "apm",
+      "severity": "info",
+      "expr": "(sum by (service)(rate(service_exceptions_total[5m])) / sum by (service)(rate(service_requests_total[5m]))) > 0.01 AND sum by (service)(rate(service_requests_total[5m])) * 60 > 10",
+      "for_duration": "5m",
+      "summary": "服务异常率偏高 (Info) — {{ $labels.service }}",
+      "description": "异常率 > 1%，当前值: {{ $value | printf \"%.2f%%\" }}",
+      "all_labels": {
+        "severity": "info",
+        "category": "apm"
+      },
+      "all_annotations": {
+        "summary": "服务异常率偏高 (Info) — {{ $labels.service }}",
+        "description": "异常率 > 1%，当前值: {{ $value | printf \"%.2f%%\" }}"
+      },
+      "expr_pattern": "ratio",
+      "has_guard_clause": true,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": true,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "APM_LatencyP99Info",
+      "category": "apm",
+      "severity": "info",
+      "expr": "histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[5m])) > 0.8",
+      "for_duration": "5m",
+      "summary": "接口 P99 延迟偏高 (Info) — {{ $labels.service }}",
+      "description": "P99 > 800ms，当前值: {{ $value | printf \"%.2f\" }}s",
+      "all_labels": {
+        "severity": "info",
+        "category": "apm"
+      },
+      "all_annotations": {
+        "summary": "接口 P99 延迟偏高 (Info) — {{ $labels.service }}",
+        "description": "P99 > 800ms，当前值: {{ $value | printf \"%.2f\" }}s"
+      },
+      "expr_pattern": "histogram",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "APM_EndpointFailuresInfo",
+      "category": "apm",
+      "severity": "info",
+      "expr": "rate(endpoint_failures_total[5m]) / rate(endpoint_requests_total[5m]) > 0.005 AND rate(endpoint_requests_total[5m]) * 60 > 10",
+      "for_duration": "5m",
+      "summary": "接口失败率偏高 (Info) — {{ $labels.endpoint }}",
+      "description": "失败率 > 0.5%",
+      "all_labels": {
+        "severity": "info",
+        "category": "apm"
+      },
+      "all_annotations": {
+        "summary": "接口失败率偏高 (Info) — {{ $labels.endpoint }}",
+        "description": "失败率 > 0.5%"
+      },
+      "expr_pattern": "ratio",
+      "has_guard_clause": true,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": true,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "APM_JvmFullGcInfo",
+      "category": "apm",
+      "severity": "info",
+      "expr": "increase(jvm_gc_collection_seconds_count{gc=\"PS MarkSweep\"}[5m]) > 2",
+      "for_duration": "5m",
+      "summary": "JVM Full GC 开始 (Info) — {{ $labels.service }}",
+      "description": "5 分钟内 Full GC > 2 次",
+      "all_labels": {
+        "severity": "info",
+        "category": "apm"
+      },
+      "all_annotations": {
+        "summary": "JVM Full GC 开始 (Info) — {{ $labels.service }}",
+        "description": "5 分钟内 Full GC > 2 次"
+      },
+      "expr_pattern": "rate_of_change",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "APM_InfraHealthInfo",
+      "category": "apm",
+      "severity": "info",
+      "expr": "apm_infra_component_up == 0",
+      "for_duration": "2m",
+      "summary": "APM 组件异常 (Info) — {{ $labels.component }}",
+      "description": "",
+      "all_labels": {
+        "severity": "info",
+        "category": "apm"
+      },
+      "all_annotations": {
+        "summary": "APM 组件异常 (Info) — {{ $labels.component }}"
+      },
+      "expr_pattern": "boolean",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": true,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "APM_ServiceExceptionsWarning",
+      "category": "apm",
+      "severity": "warning",
+      "expr": "(sum by (service)(rate(service_exceptions_total[5m])) / sum by (service)(rate(service_requests_total[5m]))) > 0.02 AND sum by (service)(rate(service_requests_total[5m])) * 60 > 10",
+      "for_duration": "5m",
+      "summary": "服务异常率高 (Warning) — {{ $labels.service }}",
+      "description": "异常率 > 2%",
+      "all_labels": {
+        "severity": "warning",
+        "category": "apm"
+      },
+      "all_annotations": {
+        "summary": "服务异常率高 (Warning) — {{ $labels.service }}",
+        "description": "异常率 > 2%"
+      },
+      "expr_pattern": "ratio",
+      "has_guard_clause": true,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": true,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "APM_LatencyP99Warning",
+      "category": "apm",
+      "severity": "warning",
+      "expr": "histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[5m])) > 1.5",
+      "for_duration": "5m",
+      "summary": "接口 P99 延迟高 (Warning) — {{ $labels.service }}",
+      "description": "P99 > 1.5s",
+      "all_labels": {
+        "severity": "warning",
+        "category": "apm"
+      },
+      "all_annotations": {
+        "summary": "接口 P99 延迟高 (Warning) — {{ $labels.service }}",
+        "description": "P99 > 1.5s"
+      },
+      "expr_pattern": "histogram",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "APM_EndpointFailuresWarning",
+      "category": "apm",
+      "severity": "warning",
+      "expr": "rate(endpoint_failures_total[5m]) / rate(endpoint_requests_total[5m]) > 0.01 AND rate(endpoint_requests_total[5m]) * 60 > 10",
+      "for_duration": "5m",
+      "summary": "接口失败率高 (Warning) — {{ $labels.endpoint }}",
+      "description": "失败率 > 1%",
+      "all_labels": {
+        "severity": "warning",
+        "category": "apm"
+      },
+      "all_annotations": {
+        "summary": "接口失败率高 (Warning) — {{ $labels.endpoint }}",
+        "description": "失败率 > 1%"
+      },
+      "expr_pattern": "ratio",
+      "has_guard_clause": true,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": true,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "APM_JvmFullGcWarning",
+      "category": "apm",
+      "severity": "warning",
+      "expr": "increase(jvm_gc_collection_seconds_count{gc=\"PS MarkSweep\"}[5m]) > 5",
+      "for_duration": "5m",
+      "summary": "JVM Full GC 频繁 (Warning) — {{ $labels.service }}",
+      "description": "5 分钟内 Full GC > 5 次，当前值: {{ $value }}",
+      "all_labels": {
+        "severity": "warning",
+        "category": "apm"
+      },
+      "all_annotations": {
+        "summary": "JVM Full GC 频繁 (Warning) — {{ $labels.service }}",
+        "description": "5 分钟内 Full GC > 5 次，当前值: {{ $value }}"
+      },
+      "expr_pattern": "rate_of_change",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "APM_InfraHealthWarning",
+      "category": "apm",
+      "severity": "warning",
+      "expr": "apm_infra_component_up == 0",
+      "for_duration": "5m",
+      "summary": "APM 组件持续异常 (Warning) — {{ $labels.component }}",
+      "description": "APM 基础设施组件 {{ $labels.component }} 宕机 > 5min",
+      "all_labels": {
+        "severity": "warning",
+        "category": "apm"
+      },
+      "all_annotations": {
+        "summary": "APM 组件持续异常 (Warning) — {{ $labels.component }}",
+        "description": "APM 基础设施组件 {{ $labels.component }} 宕机 > 5min"
+      },
+      "expr_pattern": "boolean",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": true,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "APM_ServiceExceptionsCritical",
+      "category": "apm",
+      "severity": "critical",
+      "expr": "(sum by (service)(rate(service_exceptions_total[5m])) / sum by (service)(rate(service_requests_total[5m]))) > 0.05 AND sum by (service)(rate(service_requests_total[5m])) * 60 > 10",
+      "for_duration": "3m",
+      "summary": "服务异常率严重 (Critical) — {{ $labels.service }}",
+      "description": "异常率 > 5%，服务质量严重下降",
+      "all_labels": {
+        "severity": "critical",
+        "category": "apm"
+      },
+      "all_annotations": {
+        "summary": "服务异常率严重 (Critical) — {{ $labels.service }}",
+        "description": "异常率 > 5%，服务质量严重下降"
+      },
+      "expr_pattern": "ratio",
+      "has_guard_clause": true,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": true,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "APM_LatencyP99Critical",
+      "category": "apm",
+      "severity": "critical",
+      "expr": "histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[5m])) > 5.0",
+      "for_duration": "3m",
+      "summary": "接口 P99 延迟严重 (Critical) — {{ $labels.service }}",
+      "description": "P99 > 5s，用户体验严重受损",
+      "all_labels": {
+        "severity": "critical",
+        "category": "apm"
+      },
+      "all_annotations": {
+        "summary": "接口 P99 延迟严重 (Critical) — {{ $labels.service }}",
+        "description": "P99 > 5s，用户体验严重受损"
+      },
+      "expr_pattern": "histogram",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "APM_EndpointFailuresCritical",
+      "category": "apm",
+      "severity": "critical",
+      "expr": "rate(endpoint_failures_total[5m]) / rate(endpoint_requests_total[5m]) > 0.05 AND rate(endpoint_requests_total[5m]) * 60 > 10",
+      "for_duration": "3m",
+      "summary": "接口失败率严重 (Critical) — {{ $labels.endpoint }}",
+      "description": "失败率 > 5%",
+      "all_labels": {
+        "severity": "critical",
+        "category": "apm"
+      },
+      "all_annotations": {
+        "summary": "接口失败率严重 (Critical) — {{ $labels.endpoint }}",
+        "description": "失败率 > 5%"
+      },
+      "expr_pattern": "ratio",
+      "has_guard_clause": true,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": true,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "APM_JvmFullGcCritical",
+      "category": "apm",
+      "severity": "critical",
+      "expr": "increase(jvm_gc_collection_seconds_count{gc=\"PS MarkSweep\"}[5m]) > 10",
+      "for_duration": "3m",
+      "summary": "JVM Full GC 风暴 (Critical) — {{ $labels.service }}",
+      "description": "5 分钟内 Full GC > 10 次，服务几乎停止工作",
+      "all_labels": {
+        "severity": "critical",
+        "category": "apm"
+      },
+      "all_annotations": {
+        "summary": "JVM Full GC 风暴 (Critical) — {{ $labels.service }}",
+        "description": "5 分钟内 Full GC > 10 次，服务几乎停止工作"
+      },
+      "expr_pattern": "rate_of_change",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "APM_InfraHealthCritical",
+      "category": "apm",
+      "severity": "critical",
+      "expr": "apm_infra_component_up == 0",
+      "for_duration": "10m",
+      "summary": "APM 组件长时间宕机 (Critical) — {{ $labels.component }}",
+      "description": "APM 监控盲区超过 10 分钟",
+      "all_labels": {
+        "severity": "critical",
+        "category": "apm"
+      },
+      "all_annotations": {
+        "summary": "APM 组件长时间宕机 (Critical) — {{ $labels.component }}",
+        "description": "APM 监控盲区超过 10 分钟"
+      },
+      "expr_pattern": "boolean",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": true,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "PIPE_GoldenFlowInfo",
+      "category": "pipe",
+      "severity": "info",
+      "expr": "datalink_pipeline_delay_seconds{tier=\"golden\"} > 120",
+      "for_duration": "3m",
+      "summary": "黄金链路延迟 > 2min (Info)",
+      "description": "延迟: {{ $value | printf \"%.0f\" }}s",
+      "all_labels": {
+        "severity": "info",
+        "category": "pipe"
+      },
+      "all_annotations": {
+        "summary": "黄金链路延迟 > 2min (Info)",
+        "description": "延迟: {{ $value | printf \"%.0f\" }}s"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "PIPE_CoreInfo",
+      "category": "pipe",
+      "severity": "info",
+      "expr": "datalink_pipeline_delay_seconds{tier=\"core\"} > 300",
+      "for_duration": "5m",
+      "summary": "核心链路延迟 > 5min (Info)",
+      "description": "",
+      "all_labels": {
+        "severity": "info",
+        "category": "pipe"
+      },
+      "all_annotations": {
+        "summary": "核心链路延迟 > 5min (Info)"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "PIPE_ImportantInfo",
+      "category": "pipe",
+      "severity": "info",
+      "expr": "datalink_pipeline_delay_seconds{tier=\"important\"} > 900",
+      "for_duration": "10m",
+      "summary": "重要链路延迟 > 15min (Info)",
+      "description": "",
+      "all_labels": {
+        "severity": "info",
+        "category": "pipe"
+      },
+      "all_annotations": {
+        "summary": "重要链路延迟 > 15min (Info)"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "PIPE_StandardInfo",
+      "category": "pipe",
+      "severity": "info",
+      "expr": "datalink_pipeline_delay_seconds{tier=\"standard\"} > 1800",
+      "for_duration": "15m",
+      "summary": "标准链路延迟 > 30min (Info)",
+      "description": "",
+      "all_labels": {
+        "severity": "info",
+        "category": "pipe"
+      },
+      "all_annotations": {
+        "summary": "标准链路延迟 > 30min (Info)"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "PIPE_GoldenFlowWarning",
+      "category": "pipe",
+      "severity": "warning",
+      "expr": "datalink_pipeline_delay_seconds{tier=\"golden\"} > 180",
+      "for_duration": "3m",
+      "summary": "黄金链路延迟 > 3min (Warning)",
+      "description": "延迟: {{ $value | printf \"%.0f\" }}s，实时数据滞后",
+      "all_labels": {
+        "severity": "warning",
+        "category": "pipe"
+      },
+      "all_annotations": {
+        "summary": "黄金链路延迟 > 3min (Warning)",
+        "description": "延迟: {{ $value | printf \"%.0f\" }}s，实时数据滞后"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "PIPE_CoreWarning",
+      "category": "pipe",
+      "severity": "warning",
+      "expr": "datalink_pipeline_delay_seconds{tier=\"core\"} > 600 OR datalink_pipeline_exceptions_total{tier=\"core\"} > 0",
+      "for_duration": "5m",
+      "summary": "核心链路延迟 > 10min (Warning)",
+      "description": "",
+      "all_labels": {
+        "severity": "warning",
+        "category": "pipe"
+      },
+      "all_annotations": {
+        "summary": "核心链路延迟 > 10min (Warning)"
+      },
+      "expr_pattern": "compound",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": true,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "PIPE_ImportantWarning",
+      "category": "pipe",
+      "severity": "warning",
+      "expr": "datalink_pipeline_delay_seconds{tier=\"important\"} > 1200 OR datalink_pipeline_exceptions_total{tier=\"important\"} > 0",
+      "for_duration": "10m",
+      "summary": "重要链路延迟 > 20min (Warning)",
+      "description": "",
+      "all_labels": {
+        "severity": "warning",
+        "category": "pipe"
+      },
+      "all_annotations": {
+        "summary": "重要链路延迟 > 20min (Warning)"
+      },
+      "expr_pattern": "compound",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": true,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "PIPE_StandardWarning",
+      "category": "pipe",
+      "severity": "warning",
+      "expr": "datalink_pipeline_delay_seconds{tier=\"standard\"} > 3600 OR datalink_pipeline_exceptions_total{tier=\"standard\"} > 0",
+      "for_duration": "15m",
+      "summary": "标准链路延迟 > 1hr (Warning)",
+      "description": "",
+      "all_labels": {
+        "severity": "warning",
+        "category": "pipe"
+      },
+      "all_annotations": {
+        "summary": "标准链路延迟 > 1hr (Warning)"
+      },
+      "expr_pattern": "compound",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": true,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "PIPE_GoldenFlowCritical",
+      "category": "pipe",
+      "severity": "critical",
+      "expr": "datalink_pipeline_delay_seconds{tier=\"golden\"} > 300 OR datalink_pipeline_exceptions_total{tier=\"golden\"} > 0",
+      "for_duration": "3m",
+      "summary": "黄金链路延迟 > 5min 或异常 (Critical)",
+      "description": "实时核心数据链路故障",
+      "all_labels": {
+        "severity": "critical",
+        "category": "pipe"
+      },
+      "all_annotations": {
+        "summary": "黄金链路延迟 > 5min 或异常 (Critical)",
+        "description": "实时核心数据链路故障"
+      },
+      "expr_pattern": "compound",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": true,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "PIPE_CoreCritical",
+      "category": "pipe",
+      "severity": "critical",
+      "expr": "datalink_pipeline_delay_seconds{tier=\"core\"} > 1800",
+      "for_duration": "5m",
+      "summary": "核心链路延迟 > 30min (Critical)",
+      "description": "核心业务数据严重滞后",
+      "all_labels": {
+        "severity": "critical",
+        "category": "pipe"
+      },
+      "all_annotations": {
+        "summary": "核心链路延迟 > 30min (Critical)",
+        "description": "核心业务数据严重滞后"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "PIPE_ImportantCritical",
+      "category": "pipe",
+      "severity": "critical",
+      "expr": "datalink_pipeline_delay_seconds{tier=\"important\"} > 3600",
+      "for_duration": "10m",
+      "summary": "重要链路延迟 > 1hr (Critical)",
+      "description": "",
+      "all_labels": {
+        "severity": "critical",
+        "category": "pipe"
+      },
+      "all_annotations": {
+        "summary": "重要链路延迟 > 1hr (Critical)"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "PIPE_StandardCritical",
+      "category": "pipe",
+      "severity": "critical",
+      "expr": "datalink_pipeline_delay_seconds{tier=\"standard\"} > 14400",
+      "for_duration": "15m",
+      "summary": "标准链路延迟 > 4hr (Critical)",
+      "description": "标准数据链路严重积压",
+      "all_labels": {
+        "severity": "critical",
+        "category": "pipe"
+      },
+      "all_annotations": {
+        "summary": "标准链路延迟 > 4hr (Critical)",
+        "description": "标准数据链路严重积压"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "PLAT_SmsDeliveryInfo",
+      "category": "plat",
+      "severity": "info",
+      "expr": "sms_failure_rate > 0.02",
+      "for_duration": "5m",
+      "summary": "短信发送失败率偏高 (Info)",
+      "description": "失败率 > 2%，当前值: {{ $value | printf \"%.1f%%\" }}",
+      "all_labels": {
+        "severity": "info",
+        "category": "plat"
+      },
+      "all_annotations": {
+        "summary": "短信发送失败率偏高 (Info)",
+        "description": "失败率 > 2%，当前值: {{ $value | printf \"%.1f%%\" }}"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": true,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "PLAT_RiskControlInfo",
+      "category": "plat",
+      "severity": "info",
+      "expr": "risk_control_prewarning_triggered == 1",
+      "for_duration": "5m",
+      "summary": "风控预警触发 (Info)",
+      "description": "风控系统检测到异常流量模式",
+      "all_labels": {
+        "severity": "info",
+        "category": "plat"
+      },
+      "all_annotations": {
+        "summary": "风控预警触发 (Info)",
+        "description": "风控系统检测到异常流量模式"
+      },
+      "expr_pattern": "boolean",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": true,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "PLAT_GatewayErrorRateInfo",
+      "category": "plat",
+      "severity": "info",
+      "expr": "gateway_error_rate > 0.02",
+      "for_duration": "5m",
+      "summary": "网关错误率偏高 (Info)",
+      "description": "错误率 > 2%，当前值: {{ $value | printf \"%.1f%%\" }}",
+      "all_labels": {
+        "severity": "info",
+        "category": "plat"
+      },
+      "all_annotations": {
+        "summary": "网关错误率偏高 (Info)",
+        "description": "错误率 > 2%，当前值: {{ $value | printf \"%.1f%%\" }}"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": true,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "PLAT_SmsDeliveryWarning",
+      "category": "plat",
+      "severity": "warning",
+      "expr": "sms_failure_rate > 0.05",
+      "for_duration": "5m",
+      "summary": "短信发送失败率高 (Warning)",
+      "description": "失败率 > 5%，验证码/通知送达受影响",
+      "all_labels": {
+        "severity": "warning",
+        "category": "plat"
+      },
+      "all_annotations": {
+        "summary": "短信发送失败率高 (Warning)",
+        "description": "失败率 > 5%，验证码/通知送达受影响"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": true,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "PLAT_RiskControlWarning",
+      "category": "plat",
+      "severity": "warning",
+      "expr": "risk_control_threshold_exceeded == 1",
+      "for_duration": "5m",
+      "summary": "风控阈值超越 (Warning)",
+      "description": "风险控制指标超过配置阈值",
+      "all_labels": {
+        "severity": "warning",
+        "category": "plat"
+      },
+      "all_annotations": {
+        "summary": "风控阈值超越 (Warning)",
+        "description": "风险控制指标超过配置阈值"
+      },
+      "expr_pattern": "boolean",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": true,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "PLAT_GatewayErrorRateWarning",
+      "category": "plat",
+      "severity": "warning",
+      "expr": "gateway_error_rate > 0.05",
+      "for_duration": "5m",
+      "summary": "网关错误率高 (Warning)",
+      "description": "错误率 > 5%，用户请求成功率下降",
+      "all_labels": {
+        "severity": "warning",
+        "category": "plat"
+      },
+      "all_annotations": {
+        "summary": "网关错误率高 (Warning)",
+        "description": "错误率 > 5%，用户请求成功率下降"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": true,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "PLAT_SmsDeliveryCritical",
+      "category": "plat",
+      "severity": "critical",
+      "expr": "sms_failure_rate > 0.20",
+      "for_duration": "3m",
+      "summary": "短信服务严重故障 (Critical)",
+      "description": "失败率 > 20%，用户无法收到验证码",
+      "all_labels": {
+        "severity": "critical",
+        "category": "plat"
+      },
+      "all_annotations": {
+        "summary": "短信服务严重故障 (Critical)",
+        "description": "失败率 > 20%，用户无法收到验证码"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": true,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "PLAT_RiskControlCritical",
+      "category": "plat",
+      "severity": "critical",
+      "expr": "risk_control_circuit_breaker_open == 1",
+      "for_duration": "1m",
+      "summary": "风控熔断器开启 (Critical)",
+      "description": "风控熔断，部分交易可能被拦截",
+      "all_labels": {
+        "severity": "critical",
+        "category": "plat"
+      },
+      "all_annotations": {
+        "summary": "风控熔断器开启 (Critical)",
+        "description": "风控熔断，部分交易可能被拦截"
+      },
+      "expr_pattern": "boolean",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": true,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "PLAT_GatewayErrorRateCritical",
+      "category": "plat",
+      "severity": "critical",
+      "expr": "gateway_error_rate > 0.15",
+      "for_duration": "3m",
+      "summary": "网关错误率严重 (Critical)",
+      "description": "错误率 > 15%，大量请求失败",
+      "all_labels": {
+        "severity": "critical",
+        "category": "plat"
+      },
+      "all_annotations": {
+        "summary": "网关错误率严重 (Critical)",
+        "description": "错误率 > 15%，大量请求失败"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": true,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "MSK_ConsumerLagInfo",
+      "category": "msk",
+      "severity": "info",
+      "expr": "kafka_consumer_group_lag > 5000",
+      "for_duration": "5m",
+      "summary": "Kafka 消费者积压 (Info) — {{ $labels.group }}/{{ $labels.topic }}",
+      "description": "Lag > 5000，当前值: {{ $value }}",
+      "all_labels": {
+        "severity": "info",
+        "category": "msk"
+      },
+      "all_annotations": {
+        "summary": "Kafka 消费者积压 (Info) — {{ $labels.group }}/{{ $labels.topic }}",
+        "description": "Lag > 5000，当前值: {{ $value }}"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "MSK_ConsumerLagWarning",
+      "category": "msk",
+      "severity": "warning",
+      "expr": "kafka_consumer_group_lag > 10000",
+      "for_duration": "5m",
+      "summary": "Kafka 消费者积压偏多 (Warning) — {{ $labels.group }}/{{ $labels.topic }}",
+      "description": "Lag > 10000，消费速度跟不上生产速度",
+      "all_labels": {
+        "severity": "warning",
+        "category": "msk"
+      },
+      "all_annotations": {
+        "summary": "Kafka 消费者积压偏多 (Warning) — {{ $labels.group }}/{{ $labels.topic }}",
+        "description": "Lag > 10000，消费速度跟不上生产速度"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    },
+    {
+      "alert_name": "MSK_ConsumerLagCritical",
+      "category": "msk",
+      "severity": "critical",
+      "expr": "kafka_consumer_group_lag > 100000",
+      "for_duration": "3m",
+      "summary": "Kafka 消费者严重积压 (Critical) — {{ $labels.group }}/{{ $labels.topic }}",
+      "description": "Lag > 100000，数据管道严重滞后",
+      "all_labels": {
+        "severity": "critical",
+        "category": "msk"
+      },
+      "all_annotations": {
+        "summary": "Kafka 消费者严重积压 (Critical) — {{ $labels.group }}/{{ $labels.topic }}",
+        "description": "Lag > 100000，数据管道严重滞后"
+      },
+      "expr_pattern": "absolute",
+      "has_guard_clause": false,
+      "has_recording_rule_reference": false,
+      "has_compound_condition": false,
+      "potential_issues": []
+    }
+  ]
+}
