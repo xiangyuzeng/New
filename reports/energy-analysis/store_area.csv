@@ -1,0 +1,13 @@
+store_id,shop_no,store_label,address,area_sqm,area_sqft,build_sqm,build_sqft,seat_count,data_source,confidence_note
+20009,US00007,S01,"2799 Broadway, New York, NY 10025",,,,,,,"NOT AVAILABLE — store is preparing/under construction, area not yet entered in system"
+20027,US00020,S02,"261 3rd Avenue, New York, NY 10010",162.58,1750.0,162.58,1750.0,18,opshop.t_shop_resource (square_size / build_square_size),HIGH — from store resource master data (usage area in m²)
+20029,US00022,S03,"244 8th Ave, New York, NY 10011",,,,,,,"NOT AVAILABLE — store is preparing/under construction, area not yet entered in system"
+20035,US00027,S04,"488 Madison Ave, New York, NY 10022",90.0,968.8,90.0,968.8,0,opshop.t_shop_resource (square_size / build_square_size),HIGH — from store resource master data (usage area in m²)
+20032,US00025,S05,"221 Grand St, New York, NY 10013",92.9,1000.0,92.9,1000.0,2,opshop.t_shop_resource (square_size / build_square_size),HIGH — from store resource master data (usage area in m²)
+20028,US00021,S06,"128 W 32nd St, New York, NY 10001",,,,,,,"NOT AVAILABLE — store is preparing/under construction, area not yet entered in system"
+20016,US00010,S07,"154 Bleecker St, New York, NY 10012",,,,,,,"NOT AVAILABLE — store is preparing/under construction, area not yet entered in system"
+20026,US00019,S08,"401 3rd Ave, New York, NY 10016",161.0,1733.0,161.0,1733.0,10,opshop.t_shop_resource (square_size / build_square_size),HIGH — from store resource master data (usage area in m²)
+20030,US00023,S09,"352 E 23rd St, New York, NY 10010",137.0,1474.7,137.0,1474.7,12,opshop.t_shop_resource (square_size / build_square_size),HIGH — from store resource master data (usage area in m²)
+20031,US00024,S10,"147 3rd Ave, New York, NY 10003",85.9,924.6,85.9,924.6,3,opshop.t_shop_resource (square_size / build_square_size),HIGH — from store resource master data (usage area in m²)
+20010,US00006,S11,"102 Fulton St, New York, NY 10038",65.0,699.7,66.0,710.4,6,opshop.t_shop_resource (square_size / build_square_size),HIGH — from store resource master data (usage area in m²); build area differs: 66.0 m² (710.4 sqft)
+20019,US00012,S12,"555 6th Ave, New York, NY 10011",88.0,947.2,88.0,947.2,0,opshop.t_shop_resource (square_size / build_square_size),HIGH — from store resource master data (usage area in m²)

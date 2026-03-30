@@ -21,6 +21,7 @@ STORES = [
         "neighborhood": "Upper West Side / Morningside Heights",
         "match_confidence": "EXACT",
         "scene_type": None,
+        "area_sqm": None, "build_sqm": None, "seat_count": None,
     },
     {
         "label": "S02", "coned_account": "71595109811", "coned_address": "200 E 21st St",
@@ -31,6 +32,7 @@ STORES = [
         "neighborhood": "Gramercy",
         "match_confidence": "CONFIRMED — ConEd meter at 200 E 21st St, store at 261 3rd Ave (same building, different entrance)",
         "scene_type": "5",
+        "area_sqm": 162.58, "build_sqm": 162.58, "seat_count": 18,
     },
     {
         "label": "S03", "coned_account": "62790930457", "coned_address": "244 8th Ave",
@@ -41,6 +43,7 @@ STORES = [
         "neighborhood": "Chelsea",
         "match_confidence": "EXACT",
         "scene_type": None,
+        "area_sqm": None, "build_sqm": None, "seat_count": None,
     },
     {
         "label": "S04", "coned_account": "76978209914", "coned_address": "488 Madison Ave",
@@ -51,6 +54,7 @@ STORES = [
         "neighborhood": "Midtown / Plaza District",
         "match_confidence": "EXACT",
         "scene_type": "5",
+        "area_sqm": 90.0, "build_sqm": 90.0, "seat_count": 0,
     },
     {
         "label": "S05", "coned_account": "23520686272", "coned_address": "219 Grand St",
@@ -61,6 +65,7 @@ STORES = [
         "neighborhood": "Chinatown / Little Italy",
         "match_confidence": "NEAR — ConEd 219 vs DB 221 (same building, different entrance numbering)",
         "scene_type": "5",
+        "area_sqm": 92.9, "build_sqm": 92.9, "seat_count": 2,
     },
     {
         "label": "S06", "coned_account": "06543049552", "coned_address": "125 W 31st St",
@@ -71,6 +76,7 @@ STORES = [
         "neighborhood": "Koreatown / Herald Square",
         "match_confidence": "CONFIRMED — ConEd meter at 125 W 31st St, store at 128 W 32nd St (adjacent building)",
         "scene_type": None,
+        "area_sqm": None, "build_sqm": None, "seat_count": None,
     },
     {
         "label": "S07", "coned_account": "11688453528", "coned_address": "184 Thompson St",
@@ -81,6 +87,7 @@ STORES = [
         "neighborhood": "Greenwich Village",
         "match_confidence": "CONFIRMED — ConEd meter at 184 Thompson St, store at 154 Bleecker St (under construction, ~2 blocks)",
         "scene_type": None,
+        "area_sqm": None, "build_sqm": None, "seat_count": None,
     },
     {
         "label": "S08", "coned_account": "75509283620", "coned_address": "401 3rd Ave",
@@ -91,6 +98,7 @@ STORES = [
         "neighborhood": "Kips Bay",
         "match_confidence": "EXACT",
         "scene_type": "5",
+        "area_sqm": 161.0, "build_sqm": 161.0, "seat_count": 10,
     },
     {
         "label": "S09", "coned_account": "21698356041", "coned_address": "352 E 23rd St",
@@ -101,6 +109,7 @@ STORES = [
         "neighborhood": "Gramercy / Stuyvesant Town",
         "match_confidence": "EXACT",
         "scene_type": "5",
+        "area_sqm": 137.0, "build_sqm": 137.0, "seat_count": 12,
     },
     {
         "label": "S10", "coned_account": "25556485990", "coned_address": "147 3rd Ave",
@@ -111,6 +120,7 @@ STORES = [
         "neighborhood": "Gramercy / East Village",
         "match_confidence": "EXACT",
         "scene_type": "5",
+        "area_sqm": 85.9, "build_sqm": 85.9, "seat_count": 3,
     },
     {
         "label": "S11", "coned_account": "84868252416", "coned_address": "102 Fulton St",
@@ -121,6 +131,7 @@ STORES = [
         "neighborhood": "Financial District",
         "match_confidence": "EXACT",
         "scene_type": "5",
+        "area_sqm": 65.0, "build_sqm": 66.0, "seat_count": 6,
     },
     {
         "label": "S12", "coned_account": "38162017628", "coned_address": "555 6th Ave",
@@ -131,6 +142,7 @@ STORES = [
         "neighborhood": "Chelsea / Union Square",
         "match_confidence": "EXACT",
         "scene_type": "5",
+        "area_sqm": 88.0, "build_sqm": 88.0, "seat_count": 0,
     },
 ]
 
@@ -289,8 +301,8 @@ def write_store_info():
                 "neighborhood": s["neighborhood"],
                 "latitude": s["lat"] or "",
                 "longitude": s["lon"] or "",
-                "area_sqft": "NOT AVAILABLE — collect manually",
-                "area_sqm": "NOT AVAILABLE — collect manually",
+                "area_sqft": round(s["area_sqm"] * 10.764, 1) if s["area_sqm"] else "NOT AVAILABLE — not yet in system",
+                "area_sqm": s["area_sqm"] if s["area_sqm"] else "NOT AVAILABLE — not yet in system",
                 "store_type": f"scene_type={s['scene_type']}" if s["scene_type"] else "NOT AVAILABLE — collect manually",
                 "open_date": s["open_date"] or "NOT YET OPEN",
                 "store_status": s["status"],
@@ -401,7 +413,51 @@ def write_store_operations():
 
 
 # ============================================================
-# FILE 4: energy_analysis_store_metadata.csv (wide format)
+# FILE 4: store_area.csv
+# ============================================================
+def write_store_area():
+    path = os.path.join(OUTPUT_DIR, "store_area.csv")
+    fields = [
+        "store_id", "shop_no", "store_label", "address",
+        "area_sqm", "area_sqft", "build_sqm", "build_sqft",
+        "seat_count", "data_source", "confidence_note",
+    ]
+    with open(path, "w", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=fields)
+        w.writeheader()
+        for s in STORES:
+            area_sqm = s.get("area_sqm")
+            build_sqm = s.get("build_sqm")
+            if area_sqm:
+                area_sqft = round(area_sqm * 10.764, 1)
+                build_sqft = round(build_sqm * 10.764, 1) if build_sqm else ""
+                source = "opshop.t_shop_resource (square_size / build_square_size)"
+                note = "HIGH — from store resource master data (usage area in m²)"
+                if build_sqm and build_sqm != area_sqm:
+                    note += f"; build area differs: {build_sqm} m² ({build_sqft} sqft)"
+            else:
+                area_sqft = ""
+                build_sqft = ""
+                source = ""
+                note = "NOT AVAILABLE — store is preparing/under construction, area not yet entered in system"
+            w.writerow({
+                "store_id": s["dept_id"],
+                "shop_no": s["shop_no"],
+                "store_label": s["label"],
+                "address": s["db_address"],
+                "area_sqm": area_sqm if area_sqm else "",
+                "area_sqft": area_sqft,
+                "build_sqm": build_sqm if build_sqm else "",
+                "build_sqft": build_sqft,
+                "seat_count": s.get("seat_count") if s.get("seat_count") is not None else "",
+                "data_source": source,
+                "confidence_note": note,
+            })
+    print(f"  Wrote {path} — 12 rows")
+
+
+# ============================================================
+# FILE 5: energy_analysis_store_metadata.csv (wide format)
 # ============================================================
 def write_wide_metadata():
     path = os.path.join(OUTPUT_DIR, "energy_analysis_store_metadata.csv")
@@ -441,7 +497,7 @@ def write_wide_metadata():
             "neighborhood": s["neighborhood"],
             "open_date": s["open_date"] or "NOT YET OPEN",
             "store_status": s["status"],
-            "area_sqft": "NOT AVAILABLE",
+            "area_sqft": round(s["area_sqm"] * 10.764, 1) if s["area_sqm"] else "NOT AVAILABLE",
             "match_confidence": s["match_confidence"],
         }
 
@@ -500,5 +556,6 @@ if __name__ == "__main__":
     write_store_info()
     write_monthly_cups()
     write_store_operations()
+    write_store_area()
     write_wide_metadata()
     print("\nDone. All files in:", OUTPUT_DIR)
