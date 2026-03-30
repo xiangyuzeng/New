@@ -13,3 +13,8 @@ kubectl
 *.pyc
 __pycache__/
 .env
+
+# Build artifacts
+.next/
+node_modules/
+*.pack

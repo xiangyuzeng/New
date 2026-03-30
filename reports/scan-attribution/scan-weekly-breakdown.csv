@@ -1,0 +1,9 @@
+week_label,dates,origin4_total,referral_confirmed,non_referral_h5,gglmap_est_low,gglmap_est_high,qr_plus_directh5_low,qr_plus_directh5_high,notes
+W1 Feb,Feb 1-7,1204,355,849,43,90,759,806,referral=direct count; GGLMAP=5-10% of origin4
+W2 Feb,Feb 8-14,1315,348,967,47,99,868,920,referral=direct count; GGLMAP=5-10% of origin4
+W3 Feb,Feb 15-21,1387,333,1054,50,104,950,1004,referral=direct count; GGLMAP=5-10% of origin4
+W4 Feb,Feb 22-28,1109,320,789,40,83,706,749,referral=direct count; GGLMAP=5-10% of origin4
+W1 Mar,Mar 1-7,1529,426,1103,55,115,988,1048,referral=direct count; GGLMAP=5-10% of origin4
+W2 Mar,Mar 8-14,1846,468,1378,66,138,1240,1312,referral=direct count; GGLMAP=5-10% of origin4
+W3 Mar,Mar 15-19,891,221,670,32,67,603,638,referral=direct count; GGLMAP=5-10% of origin4
+TOTAL,Feb 1 - Mar 19,9281,2471,6810,333,696,6114,6477,

@@ -1,0 +1,46 @@
+2026-03-20 12:21:20 [INFO] weekly-report: ============================================================
+2026-03-20 12:21:20 [INFO] weekly-report: Weekly Operations Report — Starting
+2026-03-20 12:21:20 [INFO] weekly-report: ============================================================
+2026-03-20 12:21:20 [INFO] weekly-report: Report #001 | Date range: 03-09至03-15
+2026-03-20 12:21:20 [INFO] weekly-report: Step 1/3: Capturing dashboard screenshots...
+2026-03-20 12:21:20 [INFO] screenshot: Ensuring Playwright Chromium is installed...
+2026-03-20 12:21:20 [ERROR] screenshot: Playwright session failed: BrowserType.launch: 
+╔══════════════════════════════════════════════════════╗
+║ Host system is missing dependencies to run browsers. ║
+║ Please install them with the following command:      ║
+║                                                      ║
+║     sudo playwright install-deps                     ║
+║                                                      ║
+║ Alternatively, use apt:                              ║
+║     sudo apt-get install libnss3\                    ║
+║         libnspr4\                                    ║
+║         libdbus-1-3\                                 ║
+║         libatk1.0-0\                                 ║
+║         libatk-bridge2.0-0\                          ║
+║         libatspi2.0-0\                               ║
+║         libxcomposite1\                              ║
+║         libxdamage1\                                 ║
+║         libxfixes3\                                  ║
+║         libxrandr2\                                  ║
+║         libgbm1\                                     ║
+║         libdrm2\                                     ║
+║         libxkbcommon0\                               ║
+║         libasound2                                   ║
+║                                                      ║
+║ <3 Playwright Team                                   ║
+╚══════════════════════════════════════════════════════╝
+2026-03-20 12:21:20 [INFO] screenshot: Falling back to placeholder screenshots...
+2026-03-20 12:21:20 [INFO] screenshot: Placeholder screenshot saved: /app/luckin-ops-dashboard/../reports/screenshots/20260320_122120_overview.png
+2026-03-20 12:21:20 [INFO] screenshot: Placeholder screenshot saved: /app/luckin-ops-dashboard/../reports/screenshots/20260320_122120_stores.png
+2026-03-20 12:21:20 [INFO] screenshot: Placeholder screenshot saved: /app/luckin-ops-dashboard/../reports/screenshots/20260320_122120_platforms.png
+2026-03-20 12:21:20 [INFO] screenshot: Placeholder screenshot saved: /app/luckin-ops-dashboard/../reports/screenshots/20260320_122120_trends.png
+2026-03-20 12:21:21 [INFO] screenshot: Placeholder screenshot saved: /app/luckin-ops-dashboard/../reports/screenshots/20260320_122120_overview_hero_2x.png
+2026-03-20 12:21:21 [INFO] weekly-report: Screenshots captured: overview, stores, platforms, trends, overview_hero
+2026-03-20 12:21:21 [INFO] weekly-report: Step 2/3: Generating PDF report...
+2026-03-20 12:21:21 [INFO] generate_report: PDF report generated: /app/luckin-ops-dashboard/../reports/output/运营周报_001_03-09至03-15_20260320.pdf
+2026-03-20 12:21:21 [INFO] weekly-report: PDF generated: /app/luckin-ops-dashboard/../reports/output/运营周报_001_03-09至03-15_20260320.pdf
+2026-03-20 12:21:21 [INFO] weekly-report: Step 3/3: Skipping email send in dry-run mode
+2026-03-20 12:21:21 [INFO] weekly-report: ------------------------------------------------------------
+2026-03-20 12:21:21 [INFO] weekly-report: Report #001 generated (dry-run, email skipped)
+2026-03-20 12:21:21 [INFO] weekly-report: Total execution time: 1.1s
+2026-03-20 12:21:21 [INFO] weekly-report: Log file: /app/luckin-ops-dashboard/../reports/logs/report_20260320_122120.log

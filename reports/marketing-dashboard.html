@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luckin Coffee USA — Marketing Traffic & Registration Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0f1117;
+      color: #e2e8f0;
+      padding: 20px;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 28px;
+      padding: 20px;
+      background: linear-gradient(135deg, #1a1f2e, #243040);
+      border-radius: 12px;
+      border: 1px solid #2d3748;
+    }
+    .header h1 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.3px;
+    }
+    .header .subtitle {
+      color: #94a3b8;
+      font-size: 13px;
+      margin-top: 6px;
+    }
+    .badge {
+      display: inline-block;
+      background: #16a34a;
+      color: #dcfce7;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 10px;
+      border-radius: 20px;
+      margin-top: 8px;
+    }
+
+    /* KPI Cards */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .kpi-card {
+      background: #1a1f2e;
+      border: 1px solid #2d3748;
+      border-radius: 10px;
+      padding: 16px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .kpi-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+    .kpi-card.blue::before { background: #3b82f6; }
+    .kpi-card.green::before { background: #22c55e; }
+    .kpi-card.purple::before { background: #a855f7; }
+    .kpi-card.orange::before { background: #f97316; }
+    .kpi-card.red::before { background: #ef4444; }
+    .kpi-card.cyan::before { background: #06b6d4; }
+    .kpi-value {
+      font-size: 28px;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.1;
+      margin: 6px 0 4px;
+    }
+    .kpi-label {
+      font-size: 11px;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .kpi-sub {
+      font-size: 11px;
+      color: #64748b;
+      margin-top: 4px;
+    }
+    .kpi-trend {
+      font-size: 12px;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+    .kpi-trend.up { color: #22c55e; }
+    .kpi-trend.neutral { color: #94a3b8; }
+
+    /* Chart Grid */
+    .chart-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .chart-grid-3 {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .chart-card {
+      background: #1a1f2e;
+      border: 1px solid #2d3748;
+      border-radius: 10px;
+      padding: 18px;
+    }
+    .chart-card.full-width {
+      grid-column: 1 / -1;
+    }
+    .chart-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #cbd5e1;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .chart-title .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .chart-container {
+      position: relative;
+    }
+
+    /* Insight box */
+    .insight-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+    .insight-box {
+      background: #1a1f2e;
+      border: 1px solid #2d3748;
+      border-left: 3px solid #3b82f6;
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+    .insight-box.warn { border-left-color: #f97316; }
+    .insight-box.success { border-left-color: #22c55e; }
+    .insight-box.info { border-left-color: #a855f7; }
+    .insight-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #cbd5e1;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+    .insight-text {
+      font-size: 12px;
+      color: #94a3b8;
+      line-height: 1.5;
+    }
+    .insight-text strong { color: #e2e8f0; }
+
+    /* Push Funnel */
+    .funnel-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid #2d3748;
+    }
+    .funnel-row:last-child { border-bottom: none; }
+    .funnel-bar-bg {
+      flex: 1;
+      height: 28px;
+      background: #2d3748;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .funnel-bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      padding-left: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #fff;
+      transition: width 0.6s ease;
+    }
+    .funnel-label {
+      font-size: 11px;
+      color: #94a3b8;
+      width: 120px;
+      flex-shrink: 0;
+    }
+    .funnel-count {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      width: 40px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    /* Data note */
+    .data-note {
+      background: #1a1f2e;
+      border: 1px solid #2d3748;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 11px;
+      color: #64748b;
+      margin-top: 16px;
+      text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      .chart-grid, .chart-grid-3 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <h1>Luckin Coffee USA — Marketing Traffic & Registration</h1>
+  <div class="subtitle">CDP Event Tracking + User Registration Analysis | Feb 1 – Mar 19, 2026</div>
+  <div class="badge">CDP Go-Live: 2026-03-19 · Data Source: isalescdp + salescrm</div>
+</div>
+
+<!-- KPI CARDS -->
+<div class="kpi-grid">
+  <div class="kpi-card blue">
+    <div class="kpi-label">Total Registrations</div>
+    <div class="kpi-value">33,767</div>
+    <div class="kpi-sub">Feb 1 – Mar 18, 2026</div>
+  </div>
+  <div class="kpi-card green">
+    <div class="kpi-label">Mar Daily Avg</div>
+    <div class="kpi-value">869</div>
+    <div class="kpi-trend up">▲ +34% vs Feb avg (647)</div>
+  </div>
+  <div class="kpi-card orange">
+    <div class="kpi-label">Peak Day</div>
+    <div class="kpi-value">1,245</div>
+    <div class="kpi-sub">Mar 8, 2026</div>
+  </div>
+  <div class="kpi-card purple">
+    <div class="kpi-label">Top Channel</div>
+    <div class="kpi-value">App Store</div>
+    <div class="kpi-sub">83.1% of all events</div>
+  </div>
+  <div class="kpi-card cyan">
+    <div class="kpi-label">CDP Active Users</div>
+    <div class="kpi-value">159</div>
+    <div class="kpi-sub">Day 1 go-live (Mar 19)</div>
+  </div>
+  <div class="kpi-card red">
+    <div class="kpi-label">CDP Events (Day 1)</div>
+    <div class="kpi-value">3,371</div>
+    <div class="kpi-sub">Mar 19 production launch</div>
+  </div>
+</div>
+
+<!-- ROW 1: Registration Line Chart (full width) -->
+<div class="chart-grid">
+  <div class="chart-card full-width">
+    <div class="chart-title">
+      <span class="dot" style="background:#3b82f6"></span>
+      Daily User Registrations — Feb 1 to Mar 18, 2026
+    </div>
+    <div class="chart-container" style="height:220px">
+      <canvas id="registrationChart"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- ROW 2: Channel Bar + Platform Pie -->
+<div class="chart-grid">
+  <div class="chart-card">
+    <div class="chart-title">
+      <span class="dot" style="background:#8b5cf6"></span>
+      Channel Ranking by Distinct Users
+    </div>
+    <div class="chart-container" style="height:220px">
+      <canvas id="channelChart"></canvas>
+    </div>
+  </div>
+  <div class="chart-card">
+    <div class="chart-title">
+      <span class="dot" style="background:#22c55e"></span>
+      Platform Mix (by Event Count)
+    </div>
+    <div class="chart-container" style="height:220px">
+      <canvas id="platformChart"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- ROW 3: Event Type Bar + Push Funnel -->
+<div class="chart-grid">
+  <div class="chart-card">
+    <div class="chart-title">
+      <span class="dot" style="background:#f97316"></span>
+      Event Type Volume — Top 10 (All-Time)
+    </div>
+    <div class="chart-container" style="height:260px">
+      <canvas id="eventTypeChart"></canvas>
+    </div>
+  </div>
+  <div class="chart-card">
+    <div class="chart-title">
+      <span class="dot" style="background:#ef4444"></span>
+      Push Campaign Funnel (Mar 19 — CDP Day 1)
+    </div>
+
+    <div style="margin-bottom:12px; font-size:11px; color:#64748b;">
+      Push tracking live as of 2026-03-19. Sample size = 1 per stage (pipeline verified, CTR not yet meaningful).
+    </div>
+
+    <div class="funnel-row">
+      <div class="funnel-label">Notification Shown</div>
+      <div class="funnel-bar-bg">
+        <div class="funnel-bar-fill" style="width:100%; background:#ef4444;">push_show_bw</div>
+      </div>
+      <div class="funnel-count">1</div>
+    </div>
+    <div class="funnel-row">
+      <div class="funnel-label">Notification Clicked</div>
+      <div class="funnel-bar-bg">
+        <div class="funnel-bar-fill" style="width:100%; background:#f97316;">push_click_ck</div>
+      </div>
+      <div class="funnel-count">1</div>
+    </div>
+    <div class="funnel-row">
+      <div class="funnel-label">App Opened</div>
+      <div class="funnel-bar-bg">
+        <div class="funnel-bar-fill" style="width:100%; background:#22c55e;">push_start_app</div>
+      </div>
+      <div class="funnel-count">1</div>
+    </div>
+
+    <div style="margin-top:16px; padding-top:14px; border-top:1px solid #2d3748;">
+      <div style="font-size:11px; color:#94a3b8; margin-bottom:10px; font-weight:600; text-transform:uppercase; letter-spacing:0.4px;">Login Events (Mar 19)</div>
+      <div style="display:flex; gap:12px;">
+        <div style="flex:1; background:#2d3748; border-radius:8px; padding:12px; text-align:center;">
+          <div style="font-size:22px; font-weight:800; color:#fff;">20</div>
+          <div style="font-size:11px; color:#94a3b8; margin-top:4px;">App Logins</div>
+        </div>
+        <div style="flex:1; background:#2d3748; border-radius:8px; padding:12px; text-align:center;">
+          <div style="font-size:22px; font-weight:800; color:#fff;">2</div>
+          <div style="font-size:11px; color:#94a3b8; margin-top:4px;">H5 Logins</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ROW 4: Channel Events Stacked -->
+<div class="chart-grid">
+  <div class="chart-card full-width">
+    <div class="chart-title">
+      <span class="dot" style="background:#06b6d4"></span>
+      Events by Channel × Event Category (All-Time)
+    </div>
+    <div class="chart-container" style="height:200px">
+      <canvas id="channelStackedChart"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- INSIGHTS -->
+<div class="insight-grid">
+  <div class="insight-box success">
+    <div class="insight-title">Registration Growth</div>
+    <div class="insight-text">March daily average <strong>+34% vs February</strong> (869 vs 647). Peak week Mar 7–14 averaged <strong>1,005/day</strong> — sustained marketing campaign effect. Feb 14 Valentine's Day spike: <strong>923 registrations (+43% above Feb avg)</strong>.</div>
+  </div>
+  <div class="insight-box">
+    <div class="insight-title">iOS Dominance</div>
+    <div class="insight-text">App Store drives <strong>83.1% of CDP events</strong> with highest engagement depth (24.4 events/user vs 14.2 for Android). iOS represents 87.1% of all platform events. Android (~30% of US smartphone market) is underpenetrated at 12.7% — growth opportunity.</div>
+  </div>
+  <div class="insight-box warn">
+    <div class="insight-title">Feb 22–23 Anomaly</div>
+    <div class="insight-text">Registration count dropped from <strong>365 → 66</strong> on Feb 23 (89% single-day collapse). Surrounding days averaged 600+. Likely a <strong>data pipeline issue</strong>, not genuine traffic drop. Recommend verifying with registration system logs.</div>
+  </div>
+  <div class="insight-box info">
+    <div class="insight-title">CDP Just Went Live</div>
+    <div class="insight-text">3,371 events on <strong>Mar 19 go-live day</strong> vs. 300 total events across Oct 2025–Mar 18. All behavioral trend analysis should start fresh from Mar 19. Re-run this dashboard in <strong>7–14 days</strong> for meaningful trend data.</div>
+  </div>
+</div>
+
+<!-- DATA NOTE -->
+<div class="data-note">
+  Data generated 2026-03-19 · Sources: luckyus_isales_cdp.t_user_event_track (3,671 events) + luckyus_sales_crm.t_user (47 days) ·
+  CDP system launched 2026-03-19 · Pre-launch data (Oct 2025 – Mar 18) = QA traffic only ·
+  Platform 1=iOS App, 2=Android App, 3=H5 · All data read-only from production
+</div>
+
+<script>
+// ============================================================
+// CHART.JS DEFAULT THEME
+// ============================================================
+Chart.defaults.color = '#94a3b8';
+Chart.defaults.borderColor = '#2d3748';
+Chart.defaults.font.family = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+Chart.defaults.font.size = 11;
+
+// ============================================================
+// CHART 1: DAILY REGISTRATIONS LINE CHART
+// ============================================================
+const regLabels = [
+  'Feb 1','Feb 2','Feb 3','Feb 4','Feb 5','Feb 6','Feb 7',
+  'Feb 8','Feb 9','Feb 10','Feb 11','Feb 12','Feb 13','Feb 14',
+  'Feb 15','Feb 16','Feb 17','Feb 18','Feb 19','Feb 20','Feb 21',
+  'Feb 22','Feb 23','Feb 24','Feb 25','Feb 26','Feb 27','Feb 28',
+  'Mar 1','Mar 2','Mar 3','Mar 4','Mar 5','Mar 6','Mar 7',
+  'Mar 8','Mar 9','Mar 10','Mar 11','Mar 12','Mar 13','Mar 14',
+  'Mar 15','Mar 16','Mar 17','Mar 18'
+];
+const regData = [
+  557,460,570,598,591,749,635,
+  455,548,650,693,698,705,923,
+  885,684,760,591,682,564,937,
+  365,66,444,478,967,835,1035,
+  878,598,651,825,678,826,1165,
+  1245,936,1021,1022,731,840,1076,
+  926,644,790,790
+];
+
+// Annotate special points
+const pointColors = regData.map((v, i) => {
+  if (v === 1245) return '#f97316'; // Peak
+  if (v === 66) return '#ef4444';   // Anomaly
+  if (v === 923 || v === 937) return '#a855f7'; // Valentine / Feb 21
+  return 'transparent';
+});
+const pointRadii = regData.map((v, i) => {
+  if (v === 1245 || v === 66 || v === 923 || v === 937) return 5;
+  return 2;
+});
+
+new Chart(document.getElementById('registrationChart'), {
+  type: 'line',
+  data: {
+    labels: regLabels,
+    datasets: [{
+      label: 'Daily Registrations',
+      data: regData,
+      borderColor: '#3b82f6',
+      backgroundColor: 'rgba(59,130,246,0.08)',
+      fill: true,
+      tension: 0.3,
+      pointBackgroundColor: pointColors,
+      pointRadius: pointRadii,
+      pointHoverRadius: 6,
+      borderWidth: 2
+    }, {
+      label: 'Feb Avg (647)',
+      data: Array(28).fill(647).concat(Array(18).fill(null)),
+      borderColor: '#64748b',
+      borderDash: [4, 4],
+      borderWidth: 1,
+      pointRadius: 0,
+      fill: false
+    }, {
+      label: 'Mar Avg (869)',
+      data: Array(28).fill(null).concat(Array(18).fill(869)),
+      borderColor: '#22c55e',
+      borderDash: [4, 4],
+      borderWidth: 1,
+      pointRadius: 0,
+      fill: false
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'top',
+        labels: { boxWidth: 12, padding: 16, font: { size: 11 } }
+      },
+      tooltip: {
+        callbacks: {
+          label: (ctx) => ` ${ctx.dataset.label}: ${ctx.parsed.y?.toLocaleString() ?? ''}`
+        }
+      }
+    },
+    scales: {
+      x: {
+        ticks: {
+          maxTicksLimit: 14,
+          maxRotation: 0
+        },
+        grid: { color: '#1e293b' }
+      },
+      y: {
+        min: 0,
+        max: 1400,
+        grid: { color: '#1e293b' },
+        ticks: {
+          callback: v => v.toLocaleString()
+        }
+      }
+    }
+  }
+});
+
+// ============================================================
+// CHART 2: CHANNEL RANKING (Horizontal Bar — Distinct Users)
+// ============================================================
+new Chart(document.getElementById('channelChart'), {
+  type: 'bar',
+  data: {
+    labels: ['App Store', 'No Channel (H5)', 'Google Play', 'Referral'],
+    datasets: [{
+      label: 'Distinct Users',
+      data: [125, 94, 31, 1],
+      backgroundColor: ['#3b82f6', '#a855f7', '#22c55e', '#f97316'],
+      borderRadius: 5,
+      borderSkipped: false
+    }, {
+      label: 'Total Events',
+      data: [3052, 176, 440, 3],
+      backgroundColor: ['rgba(59,130,246,0.3)', 'rgba(168,85,247,0.3)', 'rgba(34,197,94,0.3)', 'rgba(249,115,22,0.3)'],
+      borderRadius: 5,
+      borderSkipped: false
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'top',
+        labels: { boxWidth: 12, padding: 12, font: { size: 11 } }
+      },
+      tooltip: {
+        callbacks: {
+          label: (ctx) => ` ${ctx.dataset.label}: ${ctx.parsed.x.toLocaleString()}`
+        }
+      }
+    },
+    scales: {
+      x: { grid: { color: '#1e293b' } },
+      y: { grid: { color: '#1e293b' } }
+    }
+  }
+});
+
+// ============================================================
+// CHART 3: PLATFORM MIX (Pie)
+// ============================================================
+new Chart(document.getElementById('platformChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['iOS App (87.1%)', 'Android App (12.7%)', 'H5/Web (0.2%)'],
+    datasets: [{
+      data: [3196, 468, 7],
+      backgroundColor: ['#3b82f6', '#22c55e', '#f97316'],
+      borderColor: '#0f1117',
+      borderWidth: 3,
+      hoverOffset: 8
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    cutout: '62%',
+    plugins: {
+      legend: {
+        position: 'bottom',
+        labels: {
+          boxWidth: 12,
+          padding: 12,
+          font: { size: 11 }
+        }
+      },
+      tooltip: {
+        callbacks: {
+          label: (ctx) => ` ${ctx.label}: ${ctx.parsed.toLocaleString()} events`
+        }
+      }
+    }
+  }
+});
+
+// ============================================================
+// CHART 4: EVENT TYPE VOLUME (Horizontal Bar)
+// ============================================================
+new Chart(document.getElementById('eventTypeChart'), {
+  type: 'bar',
+  data: {
+    labels: [
+      'page_end', '$AppViewScreen', 'page_start',
+      '$AppEnd', '$AppStart', '$pageview',
+      '$WebStay', 'login (app)', '$AppStartPassively', 'login (h5)'
+    ],
+    datasets: [{
+      label: 'Total Events',
+      data: [983, 981, 977, 285, 240, 154, 23, 20, 3, 2],
+      backgroundColor: [
+        '#3b82f6','#3b82f6','#3b82f6',   // App Screen
+        '#8b5cf6','#8b5cf6','#8b5cf6',   // App Lifecycle / Web
+        '#f97316',                        // WebStay
+        '#22c55e','#22c55e',             // Login / Passive
+        '#22c55e'
+      ],
+      borderRadius: 4,
+      borderSkipped: false
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: (ctx) => ` Events: ${ctx.parsed.x.toLocaleString()}`
+        }
+      }
+    },
+    scales: {
+      x: {
+        grid: { color: '#1e293b' },
+        ticks: { callback: v => v >= 1000 ? (v/1000).toFixed(1)+'k' : v }
+      },
+      y: { grid: { color: '#1e293b' } }
+    }
+  }
+});
+
+// ============================================================
+// CHART 5: STACKED BAR — Events by Channel × Category
+// ============================================================
+new Chart(document.getElementById('channelStackedChart'), {
+  type: 'bar',
+  data: {
+    labels: ['App Store', 'Google Play', 'No Channel', 'Referral'],
+    datasets: [
+      {
+        label: 'App Screen (page/AppViewScreen)',
+        data: [2660, 238, 0, 0],
+        backgroundColor: '#3b82f6',
+        borderRadius: 4,
+        stack: 'events'
+      },
+      {
+        label: 'App Lifecycle (Start/End)',
+        data: [362, 55, 0, 0],
+        backgroundColor: '#8b5cf6',
+        borderRadius: 0,
+        stack: 'events'
+      },
+      {
+        label: 'Web / H5 (pageview/WebStay)',
+        data: [0, 0, 174, 3],
+        backgroundColor: '#f97316',
+        borderRadius: 0,
+        stack: 'events'
+      },
+      {
+        label: 'Login',
+        data: [19, 1, 1, 1],
+        backgroundColor: '#22c55e',
+        borderRadius: 0,
+        stack: 'events'
+      },
+      {
+        label: 'Push',
+        data: [3, 0, 0, 0],
+        backgroundColor: '#ef4444',
+        borderRadius: 4,
+        stack: 'events'
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'top',
+        labels: { boxWidth: 12, padding: 14, font: { size: 11 } }
+      },
+      tooltip: {
+        callbacks: {
+          label: (ctx) => ` ${ctx.dataset.label}: ${ctx.parsed.y.toLocaleString()}`
+        }
+      }
+    },
+    scales: {
+      x: { grid: { color: '#1e293b' }, stacked: true },
+      y: { grid: { color: '#1e293b' }, stacked: true,
+           ticks: { callback: v => v >= 1000 ? (v/1000).toFixed(1)+'k' : v } }
+    }
+  }
+});
+</script>
+</body>
+</html>
