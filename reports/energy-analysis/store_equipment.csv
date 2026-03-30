@@ -1,0 +1,179 @@
+store_id,shop_no,store_label,address,equipment_type,model_description,quantity,estimated_watts,unit_price_usd,first_received,data_source
+20009,US00007,S01,2799 Broadway,Drip Coffee Brewer,瑞泽醇Venus-I,1,1500,5580.25,2025-11-18,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20009,US00007,S01,2799 Broadway,Espresso Machine,咖啡机-Cameo无牛奶系统(美版),2,3400,14927.87,2025-05-28,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20009,US00007,S01,2799 Broadway,Grinder,磨豆机-HC880-LAB(美版）,1,350,785.47,2025-05-22,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20009,US00007,S01,2799 Broadway,Refrigerator (Ruihuazi),瑞华滋冰箱-SFR1200/600L2（AZ）美标,1,300,957.57,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20009,US00007,S01,2799 Broadway,Ice Maker Head,US-组合制冰机机头-IYT0900A-261,1,900,4644.47,2025-11-24,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20009,US00007,S01,2799 Broadway,"Display Screen 50"" (TCL)",US-50寸显示屏（TCL 50P40M）,3,120,763.89,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20009,US00007,S01,2799 Broadway,Ice Maker Body/Bin,US-组合制冰机机身-D570,1,50,1100.0,2025-08-19,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20009,US00007,S01,2799 Broadway,Under-counter Refrigerator,US-双门平台冷藏冰箱SFR1200/600L2(A)-IOT（美标）,2,250,870.78,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20009,US00007,S01,2799 Broadway,4-Door Freezer/Fridge Combo,US-四门双温立式解冻冰箱G-SFD1220L4(A)-JD（美标）,3,500,2536.8,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20009,US00007,S01,2799 Broadway,Water Purification System,US-海诺帝净水系统-PFH3-AFC,1,50,357.69,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20009,US00007,S01,2799 Broadway,Display Cooler,US-冷藏展示柜-FGDGA-900LS-N（RX）,1,350,2216.57,2025-11-17,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20009,US00007,S01,2799 Broadway,Milk Dispenser (12-pump),US-乳品分配器-12泵,1,200,3514.47,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20009,US00007,S01,2799 Broadway,POS Terminal (Sunmi T3),US-单屏机-商米-T3,2,50,414.58,2025-06-26,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20009,US00007,S01,2799 Broadway,Hot Water Dispenser (Macro UC8),US-开水机-Macro UC8（3B Font）,1,3000,3701.6,2025-05-28,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20009,US00007,S01,2799 Broadway,Rapid Oven (Merrychef),US-快速烤箱（merychef-低功率）,1,3000,5972.0,2025-08-20,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20009,US00007,S01,2799 Broadway,Blender (Vitamix TQO),US-料理机-VitamixTQO,2,1500,1443.12,2025-08-19,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20009,US00007,S01,2799 Broadway,IoT Gateway (Smart),US-物联网关（智能网关-DSGW-210-D-11（选配））,1,10,129.35,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20009,US00007,S01,2799 Broadway,IoT Gateway (Ruixun),US-瑞迅物联网关（MPC-1911-R22）,1,10,296.97,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20009,US00007,S01,2799 Broadway,NVR Security Recorder,US-硬盘录像机（TP-Link NVR2008H-8MP-2TB）,1,30,180.0,2025-09-04,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20009,US00007,S01,2799 Broadway,Syrup Dispenser,US-瑞如饴-瑞幸智能糖浆机-16泵美版,1,100,1010.14,2025-06-26,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20009,US00007,S01,2799 Broadway,Countertop Cold Dispenser,台上冷藏分配器（单台4路）,1,200,1831.37,2025-12-11,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20009,US00007,S01,2799 Broadway,Dishwasher (Hobart LXnR),洗碗机（Hobart LXnR）,1,5000,6405.0,2025-09-29,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20010,US00006,S11,102 Fulton St,Drip Coffee Brewer,瑞泽醇Venus-I,2,1500,5580.25,2025-11-18,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20010,US00006,S11,102 Fulton St,Espresso Machine,咖啡机-Cameo无牛奶系统(美版),3,3400,14927.87,2025-05-28,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20010,US00006,S11,102 Fulton St,Grinder,磨豆机-HC880-LAB(美版）,1,350,785.46,2025-05-22,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20010,US00006,S11,102 Fulton St,Refrigerator (Ruihuazi),瑞华滋冰箱-SFR1200/600L2（AZ）美标,1,300,957.57,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20010,US00006,S11,102 Fulton St,Ice Maker Head,US-组合制冰机机头-IYT1200A-261,1,900,5314.78,2025-05-28,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20010,US00006,S11,102 Fulton St,"Display Screen 43"" (TCL)",US-43寸显示屏（TCL TM43N）,3,80,440.0,2025-06-26,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20010,US00006,S11,102 Fulton St,Ice Maker Body/Bin,US-组合制冰机机身-D570,1,50,1145.93,2025-05-28,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20010,US00006,S11,102 Fulton St,Under-counter Refrigerator,US-双门平台冷藏冰箱SFR1200/600L2(A)-IOT（美标）,2,250,870.78,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20010,US00006,S11,102 Fulton St,4-Door Freezer/Fridge Combo,US-四门双温立式解冻冰箱G-SFD1220L4(A)-JD（美标）,3,500,2536.8,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20010,US00006,S11,102 Fulton St,Water Purification System,US-海诺帝净水系统-PFH3-AFC,1,50,357.69,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20010,US00006,S11,102 Fulton St,Display Cooler,US-冷藏展示柜-FGDGA-900LS-N（RX）,1,350,1194.44,2025-06-26,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20010,US00006,S11,102 Fulton St,Milk Dispenser (12-pump),US-乳品分配器-12泵,1,200,3514.47,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20010,US00006,S11,102 Fulton St,POS Terminal (Sunmi T3),US-单屏机-商米-T3,2,50,414.58,2025-06-26,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20010,US00006,S11,102 Fulton St,Hot Water Dispenser (Macro UC8),US-开水机-Macro UC8（3B Font）,1,3000,3701.6,2025-05-28,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20010,US00006,S11,102 Fulton St,Rapid Oven (Merrychef),US-快速烤箱（merychef-低功率）,1,3000,5972.0,2025-08-18,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20010,US00006,S11,102 Fulton St,Blender (Vitamix TQO),US-料理机-VitamixTQO,2,1500,1444.39,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20010,US00006,S11,102 Fulton St,IoT Gateway (Smart),US-物联网关（智能网关-DSGW-210-D-11（选配））,1,10,129.35,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20010,US00006,S11,102 Fulton St,IoT Gateway (Ruixun),US-瑞迅物联网关（MPC-1911-R22）,1,10,296.97,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20010,US00006,S11,102 Fulton St,NVR Security Recorder,US-硬盘录像机（TP-Link NVR2008H-8MP-2TB）,1,30,180.0,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20010,US00006,S11,102 Fulton St,Syrup Dispenser,US-瑞如饴-瑞幸智能糖浆机-16泵美版,1,100,1010.14,2025-06-26,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20010,US00006,S11,102 Fulton St,Countertop Cold Dispenser,台上冷藏分配器（单台4路）,1,200,1180.56,2025-07-28,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20010,US00006,S11,102 Fulton St,Dishwasher (Hobart LXnR),洗碗机（Hobart LXnR）,1,5000,6829.33,2025-05-23,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20016,US00010,S07,154 Bleecker St,NO ASSETS REGISTERED,Store is pre-opening — equipment not yet delivered,,,,,scm-asset: no records in t_asset_info for this store
+20019,US00012,S12,555 6th Ave,Drip Coffee Brewer,瑞泽醇Venus-I,1,1500,5580.25,2025-11-18,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20019,US00012,S12,555 6th Ave,Espresso Machine,咖啡机-Cameo无牛奶系统(美版),2,3400,14927.87,2025-05-28,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20019,US00012,S12,555 6th Ave,Grinder,磨豆机-HC880-LAB(美版）,1,350,906.31,2025-06-24,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20019,US00012,S12,555 6th Ave,Refrigerator (Ruihuazi),瑞华滋冰箱-SFR1200/600L2（AZ）美标,1,300,957.57,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20019,US00012,S12,555 6th Ave,Ice Maker Head,US-组合制冰机机头-IYT0900A-261,1,900,4644.47,2025-11-24,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20019,US00012,S12,555 6th Ave,Ice Maker Body/Bin,US-组合制冰机机身-D570,1,50,1100.0,2025-08-19,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20019,US00012,S12,555 6th Ave,Under-counter Refrigerator,US-双门平台冷藏冰箱SFR1200/600L2(A)-IOT（美标）,2,250,870.78,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20019,US00012,S12,555 6th Ave,4-Door Freezer/Fridge Combo,US-四门双温立式解冻冰箱G-SFD1220L4(A)-JD（美标）,2,500,2536.8,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20019,US00012,S12,555 6th Ave,Water Purification System,US-海诺帝净水系统-PFH3-AFC,1,50,357.69,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20019,US00012,S12,555 6th Ave,Display Cooler,US-冷藏展示柜-FGDGA-900LS-N（RX）,1,350,2216.57,2025-11-17,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20019,US00012,S12,555 6th Ave,Milk Dispenser (12-pump),US-乳品分配器-12泵,1,200,3514.47,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20019,US00012,S12,555 6th Ave,POS Terminal (Sunmi T3),US-单屏机-商米-T3,2,50,432.4,2025-12-28,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20019,US00012,S12,555 6th Ave,Hot Water Dispenser (Macro UC8),US-开水机-Macro UC8（3B Font）,1,3000,3670.9,2025-08-06,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20019,US00012,S12,555 6th Ave,Rapid Oven (Merrychef),US-快速烤箱（merychef-低功率）,1,3000,6367.65,2025-05-28,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20019,US00012,S12,555 6th Ave,Blender (Vitamix TQO),US-料理机-VitamixTQO,2,1500,1443.12,2025-08-19,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20019,US00012,S12,555 6th Ave,IoT Gateway (Smart),US-物联网关（智能网关-DSGW-210-D-11（选配））,1,10,129.35,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20019,US00012,S12,555 6th Ave,IoT Gateway (Ruixun),US-瑞迅物联网关（MPC-1911-R22）,1,10,296.97,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20019,US00012,S12,555 6th Ave,NVR Security Recorder,US-硬盘录像机（TP-Link NVR2008H-8MP-2TB）,1,30,180.0,2025-09-04,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20019,US00012,S12,555 6th Ave,Syrup Dispenser,US-瑞如饴-瑞幸智能糖浆机-16泵美版,1,100,1010.14,2025-06-26,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20019,US00012,S12,555 6th Ave,Countertop Cold Dispenser,台上冷藏分配器（单台4路）,1,200,1831.37,2025-12-11,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20019,US00012,S12,555 6th Ave,Dishwasher (Hobart LXnR),洗碗机（Hobart LXnR）,1,5000,6405.0,2025-09-29,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20026,US00019,S08,401 3rd Ave,Drip Coffee Brewer,瑞泽醇Venus-I,1,1500,5580.25,2025-11-18,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20026,US00019,S08,401 3rd Ave,Espresso Machine,咖啡机-Cameo无牛奶系统(美版),2,3400,14927.87,2025-05-28,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20026,US00019,S08,401 3rd Ave,Grinder,磨豆机-HC880-LAB(美版）,1,350,906.31,2025-06-24,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20026,US00019,S08,401 3rd Ave,Refrigerator (Ruihuazi),瑞华滋冰箱-SFR1200/600L2（AZ）美标,1,300,957.57,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20026,US00019,S08,401 3rd Ave,Ice Maker Head,US-组合制冰机机头-IYT0900A-261,1,900,4644.47,2025-11-24,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20026,US00019,S08,401 3rd Ave,"Display Screen 43"" (TCL)",US-43寸显示屏（TCL TM43N）,3,80,691.96,2025-11-17,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20026,US00019,S08,401 3rd Ave,Ice Maker Body/Bin,US-组合制冰机机身-D570,1,50,1100.0,2025-08-19,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20026,US00019,S08,401 3rd Ave,Under-counter Refrigerator,US-双门平台冷藏冰箱SFR1200/600L2(A)-IOT（美标）,2,250,870.78,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20026,US00019,S08,401 3rd Ave,4-Door Freezer/Fridge Combo,US-四门双温立式解冻冰箱G-SFD1220L4(A)-JD（美标）,3,500,2663.74,2025-11-17,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20026,US00019,S08,401 3rd Ave,Water Purification System,US-海诺帝净水系统-PFH3-AFC,1,50,357.69,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20026,US00019,S08,401 3rd Ave,Display Cooler,US-冷藏展示柜-FGDGA-900LS-N（RX）,1,350,1878.75,2026-03-18,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20026,US00019,S08,401 3rd Ave,Milk Dispenser (12-pump),US-乳品分配器-12泵,1,200,5504.39,2025-11-17,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20026,US00019,S08,401 3rd Ave,POS Terminal (Sunmi T3),US-单屏机-商米-T3,2,50,432.4,2025-12-28,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20026,US00019,S08,401 3rd Ave,Hot Water Dispenser (Macro UC8),US-开水机-Macro UC8（3B Font）,1,3000,3670.9,2025-08-06,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20026,US00019,S08,401 3rd Ave,Rapid Oven (Merrychef),US-快速烤箱（merychef-低功率）,1,3000,6367.65,2025-05-28,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20026,US00019,S08,401 3rd Ave,Blender (Vitamix TQO),US-料理机-VitamixTQO,2,1500,1443.12,2025-08-19,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20026,US00019,S08,401 3rd Ave,IoT Gateway (Smart),US-物联网关（智能网关-DSGW-210-D-11（选配））,1,10,129.35,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20026,US00019,S08,401 3rd Ave,IoT Gateway (Ruixun),US-瑞迅物联网关（MPC-1911-R22）,1,10,296.97,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20026,US00019,S08,401 3rd Ave,NVR Security Recorder,US-硬盘录像机（TP-Link NVR2008H-8MP-2TB）,1,30,180.0,2025-09-04,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20026,US00019,S08,401 3rd Ave,Syrup Dispenser,US-瑞如饴-瑞幸智能糖浆机-16泵美版,1,100,1010.14,2025-06-26,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20026,US00019,S08,401 3rd Ave,Countertop Cold Dispenser,台上冷藏分配器（单台4路）,1,200,1831.37,2025-12-11,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20026,US00019,S08,401 3rd Ave,Dishwasher (Hobart LXnR),洗碗机（Hobart LXnR）,1,5000,6405.0,2025-09-29,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20027,US00020,S02,261 3rd Ave,Drip Coffee Brewer,瑞泽醇Venus-I,1,1500,5580.25,2025-11-18,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20027,US00020,S02,261 3rd Ave,Espresso Machine,咖啡机-Cameo无牛奶系统(美版),2,3400,14927.87,2025-05-28,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20027,US00020,S02,261 3rd Ave,Grinder,磨豆机-HC880-LAB(美版）,1,350,906.31,2025-06-24,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20027,US00020,S02,261 3rd Ave,Refrigerator (Ruihuazi),瑞华滋冰箱-SFR1200/600L2（AZ）美标,1,300,957.57,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20027,US00020,S02,261 3rd Ave,Ice Maker Head,US-组合制冰机机头-IYT0900A-261,1,900,4626.85,2025-08-19,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20027,US00020,S02,261 3rd Ave,"Display Screen 50"" (TCL)",US-50寸显示屏（TCL 50P40M）,3,120,763.89,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20027,US00020,S02,261 3rd Ave,Ice Maker Body/Bin,US-组合制冰机机身-D570,1,50,1100.0,2025-08-19,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20027,US00020,S02,261 3rd Ave,Under-counter Refrigerator,US-双门平台冷藏冰箱SFR1200/600L2(A)-IOT（美标）,2,250,870.78,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20027,US00020,S02,261 3rd Ave,4-Door Freezer/Fridge Combo,US-四门双温立式解冻冰箱G-SFD1220L4(A)-JD（美标）,3,500,2536.8,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20027,US00020,S02,261 3rd Ave,Water Purification System,US-海诺帝净水系统-PFH3-AFC,1,50,357.69,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20027,US00020,S02,261 3rd Ave,Display Cooler,US-冷藏展示柜-FGDGA-900LS-N（RX）,1,350,2216.57,2025-11-17,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20027,US00020,S02,261 3rd Ave,Milk Dispenser (12-pump),US-乳品分配器-12泵,2,200,3514.47,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20027,US00020,S02,261 3rd Ave,POS Terminal (Sunmi T3),US-单屏机-商米-T3,2,50,414.58,2025-06-26,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20027,US00020,S02,261 3rd Ave,Hot Water Dispenser (Macro UC8),US-开水机-Macro UC8（3B Font）,1,3000,3701.6,2025-05-28,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20027,US00020,S02,261 3rd Ave,Rapid Oven (Merrychef),US-快速烤箱（merychef-低功率）,1,3000,5972.0,2025-08-20,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20027,US00020,S02,261 3rd Ave,Blender (Vitamix TQO),US-料理机-VitamixTQO,2,1500,1443.12,2025-08-19,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20027,US00020,S02,261 3rd Ave,IoT Gateway (Smart),US-物联网关（智能网关-DSGW-210-D-11（选配））,1,10,129.35,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20027,US00020,S02,261 3rd Ave,IoT Gateway (Ruixun),US-瑞迅物联网关（MPC-1911-R22）,1,10,296.97,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20027,US00020,S02,261 3rd Ave,NVR Security Recorder,US-硬盘录像机（TP-Link NVR2008H-8MP-2TB）,1,30,180.0,2025-09-04,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20027,US00020,S02,261 3rd Ave,Syrup Dispenser,US-瑞如饴-瑞幸智能糖浆机-16泵美版,1,100,1010.14,2025-06-26,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20027,US00020,S02,261 3rd Ave,Countertop Cold Dispenser,台上冷藏分配器（单台4路）,1,200,1180.56,2025-07-28,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20027,US00020,S02,261 3rd Ave,Dishwasher (Hobart LXnR),洗碗机（Hobart LXnR）,1,5000,6405.0,2025-09-29,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20028,US00021,S06,128 W 32nd St,NO ASSETS REGISTERED,Store is pre-opening — equipment not yet delivered,,,,,scm-asset: no records in t_asset_info for this store
+20029,US00022,S03,244 8th Ave,NO ASSETS REGISTERED,Store is pre-opening — equipment not yet delivered,,,,,scm-asset: no records in t_asset_info for this store
+20030,US00023,S09,352 E 23rd St,NO ASSETS REGISTERED,Store is pre-opening — equipment not yet delivered,,,,,scm-asset: no records in t_asset_info for this store
+20031,US00024,S10,147 3rd Ave,Drip Coffee Brewer,瑞泽醇Venus-I,2,1500,5580.25,2025-11-18,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20031,US00024,S10,147 3rd Ave,Espresso Machine,咖啡机-Cameo无牛奶系统(美版),2,3400,14927.87,2025-05-28,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20031,US00024,S10,147 3rd Ave,Grinder,磨豆机-HC880-LAB(美版）,1,350,906.31,2025-06-24,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20031,US00024,S10,147 3rd Ave,Refrigerator (Ruihuazi),瑞华滋冰箱-SFR1200/600L2（AZ）美标,1,300,957.57,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20031,US00024,S10,147 3rd Ave,Ice Maker Head,US-组合制冰机机头-IYT0900A-261,1,900,4626.85,2025-08-19,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20031,US00024,S10,147 3rd Ave,Ice Maker Body/Bin,US-组合制冰机机身-D570,1,50,1145.93,2025-05-28,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20031,US00024,S10,147 3rd Ave,Under-counter Refrigerator,US-双门平台冷藏冰箱SFR1200/600L2(A)-IOT（美标）,2,250,870.78,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20031,US00024,S10,147 3rd Ave,4-Door Freezer/Fridge Combo,US-四门双温立式解冻冰箱G-SFD1220L4(A)-JD（美标）,2,500,2536.8,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20031,US00024,S10,147 3rd Ave,Water Purification System,US-海诺帝净水系统-PFH3-AFC,1,50,357.69,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20031,US00024,S10,147 3rd Ave,Display Cooler,US-冷藏展示柜-FGDGA-900LS-N（RX）,1,350,2216.57,2025-11-17,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20031,US00024,S10,147 3rd Ave,Milk Dispenser (12-pump),US-乳品分配器-12泵,1,200,3514.47,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20031,US00024,S10,147 3rd Ave,POS Terminal (Sunmi T3),US-单屏机-商米-T3,2,50,414.58,2025-06-26,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20031,US00024,S10,147 3rd Ave,Hot Water Dispenser (Macro UC8),US-开水机-Macro UC8（3B Font）,1,3000,3670.9,2025-08-06,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20031,US00024,S10,147 3rd Ave,Rapid Oven (Merrychef),US-快速烤箱（merychef-低功率）,1,3000,5972.0,2025-08-20,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20031,US00024,S10,147 3rd Ave,Blender (Vitamix TQO),US-料理机-VitamixTQO,2,1500,1443.12,2025-08-19,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20031,US00024,S10,147 3rd Ave,IoT Gateway (Smart),US-物联网关（智能网关-DSGW-210-D-11（选配））,1,10,129.35,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20031,US00024,S10,147 3rd Ave,IoT Gateway (Ruixun),US-瑞迅物联网关（MPC-1911-R22）,1,10,296.97,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20031,US00024,S10,147 3rd Ave,NVR Security Recorder,US-硬盘录像机（TP-Link NVR2008H-8MP-2TB）,1,30,180.0,2025-09-04,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20031,US00024,S10,147 3rd Ave,Syrup Dispenser,US-瑞如饴-瑞幸智能糖浆机-16泵美版,1,100,1010.14,2025-06-26,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20031,US00024,S10,147 3rd Ave,Countertop Cold Dispenser,台上冷藏分配器（单台4路）,1,200,1180.56,2025-07-28,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20031,US00024,S10,147 3rd Ave,Dishwasher (Hobart LXnR),洗碗机（Hobart LXnR）,1,5000,6405.0,2025-09-29,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20032,US00025,S05,221 Grand St,Drip Coffee Brewer,瑞泽醇Venus-I,2,1500,5580.25,2025-11-18,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20032,US00025,S05,221 Grand St,Espresso Machine,咖啡机-Cameo无牛奶系统(美版),2,3400,14927.87,2025-05-28,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20032,US00025,S05,221 Grand St,Grinder,磨豆机-HC880-LAB(美版）,1,350,785.47,2025-05-22,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20032,US00025,S05,221 Grand St,Refrigerator (Ruihuazi),瑞华滋冰箱-SFR1200/600L2（AZ）美标,1,300,957.57,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20032,US00025,S05,221 Grand St,Ice Maker Head,US-组合制冰机机头-IYT0900A-261,1,900,4626.85,2025-08-19,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20032,US00025,S05,221 Grand St,"Display Screen 43"" (TCL)",US-43寸显示屏（TCL TM43N）,3,80,440.0,2025-06-26,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20032,US00025,S05,221 Grand St,Ice Maker Body/Bin,US-组合制冰机机身-D570,1,50,1100.0,2025-08-19,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20032,US00025,S05,221 Grand St,Under-counter Refrigerator,US-双门平台冷藏冰箱SFR1200/600L2(A)-IOT（美标）,2,250,870.78,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20032,US00025,S05,221 Grand St,4-Door Freezer/Fridge Combo,US-四门双温立式解冻冰箱G-SFD1220L4(A)-JD（美标）,3,500,2536.8,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20032,US00025,S05,221 Grand St,Water Purification System,US-海诺帝净水系统-PFH3-AFC,1,50,357.69,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20032,US00025,S05,221 Grand St,Display Cooler,US-冷藏展示柜-FGDGA-900LS-N（RX）,1,350,2216.57,2025-11-17,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20032,US00025,S05,221 Grand St,Milk Dispenser (12-pump),US-乳品分配器-12泵,1,200,3514.47,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20032,US00025,S05,221 Grand St,POS Terminal (Sunmi T3),US-单屏机-商米-T3,2,50,414.58,2025-06-26,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20032,US00025,S05,221 Grand St,Hot Water Dispenser (Macro UC8),US-开水机-Macro UC8（3B Font）,1,3000,3670.9,2025-08-06,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20032,US00025,S05,221 Grand St,Rapid Oven (Merrychef),US-快速烤箱（merychef-低功率）,1,3000,6367.65,2025-05-28,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20032,US00025,S05,221 Grand St,Blender (Vitamix TQO),US-料理机-VitamixTQO,2,1500,1443.12,2025-08-19,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20032,US00025,S05,221 Grand St,IoT Gateway (Smart),US-物联网关（智能网关-DSGW-210-D-11（选配））,1,10,129.35,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20032,US00025,S05,221 Grand St,IoT Gateway (Ruixun),US-瑞迅物联网关（MPC-1911-R22）,1,10,296.97,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20032,US00025,S05,221 Grand St,NVR Security Recorder,US-硬盘录像机（TP-Link NVR2008H-8MP-2TB）,1,30,180.0,2025-09-04,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20032,US00025,S05,221 Grand St,Syrup Dispenser,US-瑞如饴-瑞幸智能糖浆机-16泵美版,1,100,1010.14,2025-06-26,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20032,US00025,S05,221 Grand St,Countertop Cold Dispenser,台上冷藏分配器（单台4路）,1,200,1180.56,2025-07-28,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20032,US00025,S05,221 Grand St,Dishwasher (Hobart LXnR),洗碗机（Hobart LXnR）,1,5000,6405.0,2025-09-29,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20035,US00027,S04,488 Madison Ave,Drip Coffee Brewer,瑞泽醇Venus-I,1,1500,5580.25,2025-11-18,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20035,US00027,S04,488 Madison Ave,Espresso Machine,咖啡机-Cameo无牛奶系统(美版),2,3400,14927.87,2025-05-28,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20035,US00027,S04,488 Madison Ave,Grinder,磨豆机-HC880-LAB(美版）,1,350,906.31,2025-06-24,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20035,US00027,S04,488 Madison Ave,Refrigerator (Ruihuazi),瑞华滋冰箱-SFR1200/600L2（AZ）美标,1,300,957.57,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20035,US00027,S04,488 Madison Ave,Ice Maker Head,US-组合制冰机机头-IYT0900A-261,1,900,4644.47,2025-11-24,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20035,US00027,S04,488 Madison Ave,"Display Screen 50"" (TCL)",US-50寸显示屏（TCL 50P40M）,3,120,763.89,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20035,US00027,S04,488 Madison Ave,Ice Maker Body/Bin,US-组合制冰机机身-D570,1,50,1100.0,2025-11-24,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20035,US00027,S04,488 Madison Ave,Under-counter Refrigerator,US-双门平台冷藏冰箱SFR1200/600L2(A)-IOT（美标）,2,250,870.78,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20035,US00027,S04,488 Madison Ave,4-Door Freezer/Fridge Combo,US-四门双温立式解冻冰箱G-SFD1220L4(A)-JD（美标）,3,500,2536.8,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20035,US00027,S04,488 Madison Ave,Water Purification System,US-海诺帝净水系统-PFH3-AFC,1,50,357.69,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20035,US00027,S04,488 Madison Ave,Display Cooler,US-冷藏展示柜-FGDGA-900LS-N（RX）,1,350,2216.57,2025-11-17,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20035,US00027,S04,488 Madison Ave,Milk Dispenser (12-pump),US-乳品分配器-12泵,1,200,3514.47,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20035,US00027,S04,488 Madison Ave,POS Terminal (Sunmi T3),US-单屏机-商米-T3,2,50,414.58,2025-06-26,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20035,US00027,S04,488 Madison Ave,Hot Water Dispenser (Macro UC8),US-开水机-Macro UC8（3B Font）,1,3000,3701.6,2025-05-28,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20035,US00027,S04,488 Madison Ave,Rapid Oven (Merrychef),US-快速烤箱（merychef-低功率）,1,3000,5972.0,2025-08-20,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20035,US00027,S04,488 Madison Ave,Blender (Vitamix TQO),US-料理机-VitamixTQO,2,1500,1443.12,2025-08-19,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20035,US00027,S04,488 Madison Ave,IoT Gateway (Smart),US-物联网关（智能网关-DSGW-210-D-11（选配））,1,10,129.35,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20035,US00027,S04,488 Madison Ave,IoT Gateway (Ruixun),US-瑞迅物联网关（MPC-1911-R22）,1,10,296.97,2025-06-25,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20035,US00027,S04,488 Madison Ave,NVR Security Recorder,US-硬盘录像机（TP-Link NVR2008H-8MP-2TB）,1,30,180.0,2025-09-04,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20035,US00027,S04,488 Madison Ave,Syrup Dispenser,US-瑞如饴-瑞幸智能糖浆机-16泵美版,1,100,1010.14,2025-06-26,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20035,US00027,S04,488 Madison Ave,Countertop Cold Dispenser,台上冷藏分配器（单台4路）,1,200,1180.56,2025-07-28,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
+20035,US00027,S04,488 Madison Ave,Dishwasher (Hobart LXnR),洗碗机（Hobart LXnR）,1,5000,6405.0,2025-09-29,scm-asset: t_asset_info + t_high_value_goods_info + t_mdm_goods_spec
