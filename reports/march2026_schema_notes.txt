@@ -1,0 +1,214 @@
+================================================================================
+EMPAPP STORE AUDIT SYSTEM — DATABASE SCHEMA DOCUMENTATION
+Source: luckyus_opqualitycontrol @ aws-luckyus-opqualitycontrol-rw
+         luckyus_opshop @ aws-luckyus-opshop-rw
+Extracted: 2026-04-03
+================================================================================
+
+## 1. t_shopcheck_data (Master Inspection Records)
+   Database: luckyus_opqualitycontrol
+   Rows: 155 total (13 LKUS March 2026, status=1)
+   Purpose: One row per inspection event
+
+   Column                      | Type            | Comment (Chinese → English)
+   ----------------------------|-----------------|------------------------------------------
+   id                          | bigint unsigned | Primary key (主键id)
+   tenant                      | varchar(4)      | Tenant code: LKUS=production, IQA2=test (租户)
+   dept_id                     | bigint          | Store dept ID, links to t_shop_info (门店id)
+   large_category_id           | bigint          | Inspection type ID (检查大类id)
+   large_category_name         | varchar(2000)   | Inspection type name (检查大类名称)
+   check_date                  | date            | Inspection date (检查日期)
+   can_view_post_code          | varchar(500)    | Viewable position codes (可查看岗位)
+   check_time_start            | datetime        | Inspection start time (检查时间开始)
+   check_time_end              | datetime        | Inspection end time (检查时间结束)
+   check_duration              | bigint          | Duration in seconds (检查时长)
+   status                      | tinyint(1)      | Submitted: 1=yes, 0=no (是否已提交)
+   config_snapshot_id          | bigint          | Config snapshot ID (门店检查配置结构快照id)
+   checker_id                  | bigint          | Inspector user ID (检查人ID)
+   checker_name                | varchar(64)     | Inspector name (检查人名称)
+   deleted                     | tinyint         | Soft delete: 0=active, 1=deleted (是否删除)
+   process_status              | tinyint         | Workflow: 10=完成, 20=已生成, 30=申诉中, 40=整改中
+   operation_area              | varchar(40)     | Operations area dept code (运营管理区域部门编码)
+
+   KEY FILTERS:
+   - tenant = 'LKUS' (exclude IQA2 test data)
+   - deleted = 0 AND status = 1 (submitted, not deleted)
+
+
+## 2. t_shopcheck_report (Report Scores)
+   Database: luckyus_opqualitycontrol
+   Rows: 140 total (13 LKUS March 2026)
+   Purpose: Report-level data with scores; one row per inspection+category
+
+   Column                      | Type            | Comment
+   ----------------------------|-----------------|------------------------------------------
+   id                          | bigint unsigned | Primary key (主键id)
+   tenant                      | varchar(4)      | Tenant (租户)
+   dept_id                     | bigint          | Store dept ID (门店id)
+   shopcheck_data_id           | bigint          | FK → t_shopcheck_data.id (检查数据id)
+   large_category_id           | bigint          | Inspection type ID (检查大类id)
+   large_category_name         | varchar(2000)   | Inspection type name (检查大类名称)
+   second_category_id          | bigint          | Sub-category ID (检查二级分类id)
+   second_category_name        | varchar(2000)   | Sub-category name (检查二级分类名称)
+   checker_name                | varchar(64)     | Inspector name (检查人名称)
+   checker_post_code           | varchar(100)    | Inspector position code (检查人岗位编码)
+   check_date                  | date            | Inspection date (检查日期)
+   score                       | smallint        | Total score (得分)
+   opportunity_desc            | varchar(2000)   | JSON array of deduction summaries (机会点描述)
+   status                      | tinyint         | Report status (报告状态)
+
+   OPPORTUNITY_DESC FORMAT:
+   [{"deductionType":1,"count":1,"deductionScore":-5},
+    {"deductionType":2,"count":5,"deductionScore":-10}]
+
+   CHECKER_POST_CODE → ROLE MAPPING:
+   - LKUS00000082 = Store Manager / Assistant Store Manager
+   - LKUS00000083 = Area Operations Manager
+   - LKUS00000223 = Senior QA Manager
+
+
+## 3. t_shopcheck_opportunity (Deduction Items / Findings)
+   Database: luckyus_opqualitycontrol
+   Rows: 886 total (67 LKUS March 2026, valid)
+   Purpose: Individual findings/deductions per inspection
+
+   Column                      | Type            | Comment
+   ----------------------------|-----------------|------------------------------------------
+   id                          | bigint unsigned | Primary key (主键id)
+   tenant                      | varchar(4)      | Tenant (租户)
+   shopcheck_data_id           | bigint          | FK → t_shopcheck_data.id (检查数据id)
+   check_item_id               | bigint          | FK → t_shopcheck_item_config.id (检查项id)
+   remark                      | varchar(500)    | Inspector's observation / issue description (机会点备注)
+   photo                       | text            | Evidence photo URLs, comma-separated (机会点图片)
+   deleted                     | tinyint         | Soft delete: 0=active, 1=deleted
+   status                      | tinyint         | Validity: 1=valid, 0=invalid (机会点状态)
+   first_appeal_detail         | text            | First appeal details, JSON (第一次申诉详情)
+   second_appeal_detail        | text            | Second appeal details, JSON (第二次申诉详情)
+
+   KEY FILTERS:
+   - deleted = 0 AND status = 1 (valid, not deleted)
+
+
+## 4. t_shopcheck_item_config (Checklist Item Definitions)
+   Database: luckyus_opqualitycontrol
+   Rows: 1,397
+   Purpose: What should be checked — the checklist items
+
+   Column                      | Type            | Comment
+   ----------------------------|-----------------|------------------------------------------
+   id                          | bigint unsigned | Primary key (主键id)
+   tenant                      | varchar(4)      | Tenant (租户)
+   category_config_id          | bigint          | FK → t_shopcheck_category_config.id (门店检查类配置id)
+   content                     | text            | Checklist requirement text (检查项内容)
+   deduction_type              | tinyint         | Deduction type (扣分类型)
+   score_config                | smallint        | Points deducted (分数配置)
+   tag_id                      | bigint          | Tag reference (标签id)
+   check_guidance              | text            | Inspection guidance notes (检查指导)
+
+   DEDUCTION_TYPE → SEVERITY MAPPING:
+   - 1 = S (Key/Critical),    score_config = -5
+   - 3 = M (Important),       score_config = -5
+   - 2 = G (General),         score_config = -2
+   - 4 = L (Slight/Light),    score_config = -1
+
+
+## 5. t_shopcheck_category_config (Category Hierarchy)
+   Database: luckyus_opqualitycontrol
+   Rows: 681
+   Purpose: Hierarchical tree of inspection categories and modules
+
+   Column                      | Type            | Comment
+   ----------------------------|-----------------|------------------------------------------
+   id                          | bigint unsigned | Primary key (主键id)
+   tenant                      | varchar(4)      | Tenant (租户)
+   name                        | varchar(2000)   | Category name (检查分类名称)
+   parent_id                   | bigint          | Parent category ID, 0=root (父类id)
+   path                        | varchar(100)    | Full path from root (根节点到当前节点的路径)
+   sort                        | smallint        | Display order (排序)
+   status                      | tinyint(1)      | Active: 1=yes, 0=no (状态)
+
+   HIERARCHY STRUCTURE (3 inspection types, each with same 12 modules):
+
+   Level 0 (Root):
+     1084 = "Store food safety self-check" (门店自检)
+     1134 = "Store food safety audit" (QA审计)
+     1184 = "Area food safety Check" (区经检查)
+
+   Level 1 (Sub-root): e.g., 1579 under 1084
+
+   Level 2 (Modules — 12 per inspection type):
+     For self-check (under 1084→1579):
+       1580 = Document Record (证照文件记录)
+       1584 = Employees' Health and Personal Hygiene (员工健康与个人卫生)
+       1589 = Approved Supplier (供应商管理)
+       1591 = Process Control (交叉污染防控)
+       1598 = Cleaning and Sanitation (清洁卫生)
+       1607 = Temperature Control / Expiration Date Management (产品与有效期管理)
+       1612 = Maintenance of Equipment (设备设施维护)
+       1615 = Facility (饮用水与管道系统)
+       1620 = Pests Control (虫害防控)
+       1624 = Site Security (场所安全)
+       1626 = Workplace Safety (工作场所安全)
+       1628 = Requirements on Store Audit Management Procedures (门店稽核管理)
+
+   Level 3 (Leaf categories): e.g., "Licenses and certificates", "Personal Hygiene", etc.
+
+
+## 6. t_shop_info (Store Master)
+   Database: luckyus_opshop
+   Rows: 517 (33 with US shop_no)
+   Purpose: Store master data
+
+   Column                      | Type            | Comment
+   ----------------------------|-----------------|------------------------------------------
+   dept_id                     | bigint unsigned | Primary key, links to all QC tables (部门ID)
+   shop_no                     | varchar(8)      | Store serial number, e.g., US00001 (门店序号)
+   shop_name                   | varchar(128)    | Store name (门店名称)
+   status                      | int             | 1=Active/Open, 2=Not Yet Opened (门店状态)
+   set_up_time                 | datetime        | Opening date (开业日期)
+   shop_level                  | varchar(32)     | Store level: SL02=Pickup, SL03=Relax, SL05=Test (门店级别)
+   manager_name                | varchar(128)    | Manager name (负责人姓名)
+
+   CROSS-DATABASE NOTE:
+   Cannot JOIN across luckyus_opqualitycontrol and luckyus_opshop.
+   Must query separately and merge via dept_id.
+
+
+## 7. INSPECTION TYPE MAPPING
+
+   large_category_name              | Chinese (中文)    | ID
+   ---------------------------------|-------------------|------
+   Store food safety self-check     | 门店自检          | 1084
+   Store food safety audit          | QA审计            | 1134
+   Area food safety Check           | 区经检查          | 1184
+
+
+## 8. MARCH 2026 DATA SUMMARY
+
+   Type                          | Inspections | Stores | Items
+   -------------------------------|------------|--------|------
+   Store food safety self-check   | 12         | 7      | 60
+   Store food safety audit        | 1          | 1      | 7
+   Area food safety Check         | 0          | 0      | 0
+   TOTAL                          | 13         | 7*     | 67
+
+   * 7 unique stores (some inspected multiple times)
+
+   Active stores inspected in March:
+     US00001 = 8th & Broadway (1 inspection)
+     US00006 = 102 Fulton (3 inspections)
+     US00008 = 33rd & 10th (3 inspections)
+     US00020 = 21st & 3rd (1 inspection)
+     US00024 = 15th & 3rd (2 inspections)
+     US00025 = 221 Grand (1 inspection)
+     US00027 = 52nd & Madison (2 inspections)
+
+   Score range: 47 (lowest) to 100 (highest)
+   Average score: 80.2
+
+   Severity distribution:
+     S (Critical):  5 items (-25 points)
+     M (Important): 12 items (-60 points)
+     G (General):   43 items (-86 points)
+     L (Slight):    7 items (-7 points)
+     Total:         67 items (-178 points)

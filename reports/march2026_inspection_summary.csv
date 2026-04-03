@@ -1,0 +1,14 @@
+﻿inspection_id,store_code,store_name,inspection_date,inspection_type_en,inspection_type_cn,inspector_name,inspector_role,total_score,total_deduction,total_items,s_count,m_count,g_count,l_count
+1956,US00025,221 Grand,2026-03-04,Store food safety self-check,门店自检,Juliana Li,Store Manager / Asst. Store Manager,89,-11,6,0,0,5,1
+1959,US00024,15th & 3rd,2026-03-06,Store food safety self-check,门店自检,Clara Mae Venturina,Store Manager / Asst. Store Manager,70,-10,2,1,1,0,0
+1961,US00006,102 Fulton,2026-03-08,Store food safety self-check,门店自检,Shangxian Piao,Store Manager / Asst. Store Manager,100,0,0,0,0,0,0
+1963,US00024,15th & 3rd,2026-03-09,Store food safety self-check,门店自检,Clara Mae Venturina,Store Manager / Asst. Store Manager,47,-33,9,2,3,4,0
+1962,US00027,52nd & Madison,2026-03-09,Store food safety self-check,门店自检,Wenny Lin,Store Manager / Asst. Store Manager,81,-19,8,0,1,7,0
+1966,US00001,8th & Broadway,2026-03-09,Store food safety self-check,门店自检,Jian Ming Juo,Store Manager / Asst. Store Manager,95,-5,3,0,0,2,1
+1965,US00008,33rd & 10th,2026-03-09,Store food safety self-check,门店自检,Derson Liang,Area Operations Manager,100,0,0,0,0,0,0
+1969,US00020,21st & 3rd,2026-03-10,Store food safety self-check,门店自检,Darwin Coronel,Store Manager / Asst. Store Manager,73,-7,2,1,0,1,0
+1971,US00008,33rd & 10th,2026-03-10,Store food safety self-check,门店自检,Yaqing Zuo,Store Manager / Asst. Store Manager,55,-45,16,0,5,9,2
+1972,US00006,102 Fulton,2026-03-11,Store food safety self-check,门店自检,Shangxian Piao,Store Manager / Asst. Store Manager,92,-8,4,0,0,4,0
+1973,US00008,33rd & 10th,2026-03-15,Store food safety self-check,门店自检,Derson Liang,Area Operations Manager,84,-16,7,0,1,5,1
+1977,US00006,102 Fulton,2026-03-27,Store food safety self-check,门店自检,Shangxian Piao,Store Manager / Asst. Store Manager,96,-4,3,0,0,1,2
+1979,US00027,52nd & Madison,2026-03-31,Store food safety audit,QA审计,Eamonn Caballar,Senior QA Manager,60,-20,7,1,1,5,0

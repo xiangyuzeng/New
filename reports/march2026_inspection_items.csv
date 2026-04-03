@@ -1,0 +1,88 @@
+﻿opportunity_id,inspection_id,store_code,store_name,inspection_date,inspection_type_en,inspection_type_cn,module_name,sub_category,issue_description,severity,deduction_points
+8674,1956,US00025,221 Grand,2026-03-04,Store food safety self-check,门店自检,Process Control,Material Storage Location Specification,Water inside “direct food contacts” container,G,-2
+8676,1956,US00025,221 Grand,2026-03-04,Store food safety self-check,门店自检,Cleaning and Sanitation,Equipment and Food Processing Utensils,Standing water and espresso spillage,G,-2
+8677,1956,US00025,221 Grand,2026-03-04,Store food safety self-check,门店自检,Cleaning and Sanitation,Trash Cans,No separation of trash types,G,-2
+8678,1956,US00025,221 Grand,2026-03-04,Store food safety self-check,门店自检,Cleaning and Sanitation,Trash Cans,Trash bin overflowing,L,-1
+8679,1956,US00025,221 Grand,2026-03-04,Store food safety self-check,门店自检,Process Control,Storage/Maintenance of Utensils,Milk excess spillage,G,-2
+8680,1956,US00025,221 Grand,2026-03-04,Store food safety self-check,门店自检,Temperature Control / Expiration Date Management.,Operating Specifications,Opened and partial spillage of materials,G,-2
+8685,1959,US00024,15th & 3rd,2026-03-06,Store food safety self-check,门店自检,Document Record,Licenses and certificates,,S,-5
+8686,1959,US00024,15th & 3rd,2026-03-06,Store food safety self-check,门店自检,Document Record,Licenses and certificates,,M,-5
+8694,1962,US00027,52nd & Madison,2026-03-09,Store food safety self-check,门店自检,Process Control,Material Storage Location Specification,Storage platform is not 6inches above the ground,G,-2
+8695,1962,US00027,52nd & Madison,2026-03-09,Store food safety self-check,门店自检,Process Control,Material Storage Location Specification,Safe box was not locked,G,-2
+8696,1962,US00027,52nd & Madison,2026-03-09,Store food safety self-check,门店自检,Process Control,Storage/Maintenance of Utensils,stains found throughout store.,G,-2
+8706,1962,US00027,52nd & Madison,2026-03-09,Store food safety self-check,门店自检,Cleaning and Sanitation,Equipment and Food Processing Utensils,Coffee stains found on interior of fridge under hot food section.,G,-2
+8707,1962,US00027,52nd & Madison,2026-03-09,Store food safety self-check,门店自检,Facility,Water Sinks & Pipes,possible leak / scale build up located under rinse sink.,G,-2
+8708,1962,US00027,52nd & Madison,2026-03-09,Store food safety self-check,门店自检,Cleaning and Sanitation,Equipment and Food Processing Utensils,,G,-2
+8709,1962,US00027,52nd & Madison,2026-03-09,Store food safety self-check,门店自检,Temperature Control / Expiration Date Management.,Expiration Date,No open label found on coconut milk below the fridge of juice machine,M,-5
+8710,1962,US00027,52nd & Madison,2026-03-09,Store food safety self-check,门店自检,Workplace Safety,Workplace Safety,No inspection signed,G,-2
+8697,1963,US00024,15th & 3rd,2026-03-09,Store food safety self-check,门店自检,Document Record,Licenses and certificates,,S,-5
+8698,1963,US00024,15th & 3rd,2026-03-09,Store food safety self-check,门店自检,Process Control,Cross-Contamination,,G,-2
+8699,1963,US00024,15th & 3rd,2026-03-09,Store food safety self-check,门店自检,Process Control,Storage/Maintenance of Utensils,,G,-2
+8700,1963,US00024,15th & 3rd,2026-03-09,Store food safety self-check,门店自检,Process Control,Storage/Maintenance of Utensils,,G,-2
+8701,1963,US00024,15th & 3rd,2026-03-09,Store food safety self-check,门店自检,Cleaning and Sanitation,Procedures for Cleaning and Disinfection,,M,-5
+8702,1963,US00024,15th & 3rd,2026-03-09,Store food safety self-check,门店自检,Cleaning and Sanitation,Procedures for Cleaning and Disinfection,,M,-5
+8703,1963,US00024,15th & 3rd,2026-03-09,Store food safety self-check,门店自检,Document Record,Licenses and certificates,,M,-5
+8704,1963,US00024,15th & 3rd,2026-03-09,Store food safety self-check,门店自检,Process Control,Cross-Contamination,,G,-2
+8705,1963,US00024,15th & 3rd,2026-03-09,Store food safety self-check,门店自检,Chemicals,Chemical Mark/Storage,,S,-5
+8711,1966,US00001,8th & Broadway,2026-03-09,Store food safety self-check,门店自检,Maintenance of Equipment,Equipment Inspection and Maintenance,Significant gap found in the display fridge and the counter top.,G,-2
+8712,1966,US00001,8th & Broadway,2026-03-09,Store food safety self-check,门店自检,Process Control,Storage/Maintenance of Utensils,Coffee ground found beneath the machine,G,-2
+8713,1966,US00001,8th & Broadway,2026-03-09,Store food safety self-check,门店自检,Cleaning and Sanitation,"Operation Stand, Shelf, Cabinet and Water Sink",Stain and water marks on counter top,L,-1
+8716,1969,US00020,21st & 3rd,2026-03-10,Store food safety self-check,门店自检,Process Control,Storage/Maintenance of Utensils,"Various sani stains by the oven machine on the countertop.
+
+
+standing water sughted",G,-2
+8717,1969,US00020,21st & 3rd,2026-03-10,Store food safety self-check,门店自检,Process Control,Cross-Contamination,Matcha powder found on can opener,S,-5
+8719,1971,US00008,33rd & 10th,2026-03-10,Store food safety self-check,门店自检,Temperature Control / Expiration Date Management.,Expiration Date,Standing water and dirt food contact containers,G,-2
+8720,1971,US00008,33rd & 10th,2026-03-10,Store food safety self-check,门店自检,Temperature Control / Expiration Date Management.,Expiration Date,Missing label with vanilla syrup,M,-5
+8721,1971,US00008,33rd & 10th,2026-03-10,Store food safety self-check,门店自检,Approved Supplier,Approved Goods,Tear free cover on the table without packing,M,-5
+8722,1971,US00008,33rd & 10th,2026-03-10,Store food safety self-check,门店自检,Employees' Health and Personal Hygiene,Personal Hygiene,Necklace outside the shirt,M,-5
+8723,1971,US00008,33rd & 10th,2026-03-10,Store food safety self-check,门店自检,Chemicals,Chemical Mark/Storage,Broken package of the Sami strip and the strip is dirty,G,-2
+8724,1971,US00008,33rd & 10th,2026-03-10,Store food safety self-check,门店自检,Maintenance of Equipment,Equipment Inspection and Maintenance,"Dust on the lids of drip machines
+Dust on the side of juicer",G,-2
+8725,1971,US00008,33rd & 10th,2026-03-10,Store food safety self-check,门店自检,Process Control,Storage/Maintenance of Utensils,"Dirty water under the lid of Ice bin
+Dust on the table and side of juicer
+Blender
+Oven area
+Drip machine
+Under espresso machines
+Under syrup machine
+Under single screen
+Lid of the trash bins
+Drinking water sink
+Cabinets
+Fridges
+A4 poster
+Employees area table and trash bins",G,-2
+8726,1971,US00008,33rd & 10th,2026-03-10,Store food safety self-check,门店自检,Employees' Health and Personal Hygiene,Personal Hygiene,No sign,G,-2
+8727,1971,US00008,33rd & 10th,2026-03-10,Store food safety self-check,门店自检,Cleaning and Sanitation,Procedures for Cleaning and Disinfection,"Dust on the side of juicer
+Fridge
+Matcha on the pitchers",M,-5
+8728,1971,US00008,33rd & 10th,2026-03-10,Store food safety self-check,门店自检,Process Control,Material Storage Location Specification,Standing water in the containers,G,-2
+8729,1971,US00008,33rd & 10th,2026-03-10,Store food safety self-check,门店自检,Cleaning and Sanitation,Procedures for Cleaning and Disinfection,"Test strips is not full packed and dirty
+One of sani water not enough to 100ppm",M,-5
+8730,1971,US00008,33rd & 10th,2026-03-10,Store food safety self-check,门店自检,Cleaning and Sanitation,Food Processing Area,Leaking sink,L,-1
+8731,1971,US00008,33rd & 10th,2026-03-10,Store food safety self-check,门店自检,Cleaning and Sanitation,Customer Area,Standing water,L,-1
+8732,1971,US00008,33rd & 10th,2026-03-10,Store food safety self-check,门店自检,Facility,Water Filtration Device,,G,-2
+8733,1971,US00008,33rd & 10th,2026-03-10,Store food safety self-check,门店自检,Facility,Grease traps&Residue traps&Sewer lines,,G,-2
+8734,1971,US00008,33rd & 10th,2026-03-10,Store food safety self-check,门店自检,Facility,Water Sinks & Pipes,No air gap,G,-2
+8735,1972,US00006,102 Fulton,2026-03-11,Store food safety self-check,门店自检,Process Control,Cross-Contamination,Don't close container properly,G,-2
+8736,1972,US00006,102 Fulton,2026-03-11,Store food safety self-check,门店自检,Maintenance of Equipment,Equipment Inspection and Maintenance,Juice machine leaking wait me the parts。 Broken drip machine needs to pick up。 Steam wand is not working properly。 Water mark on the ice machine,G,-2
+8737,1972,US00006,102 Fulton,2026-03-11,Store food safety self-check,门店自检,Workplace Safety,Workplace Safety,Door handle off,G,-2
+8738,1972,US00006,102 Fulton,2026-03-11,Store food safety self-check,门店自检,Pests Control,Insect Pest Control Facilities & Suppliers,There is no info of Pest control service,G,-2
+8748,1973,US00008,33rd & 10th,2026-03-15,Store food safety self-check,门店自检,Cleaning and Sanitation,Equipment and Food Processing Utensils,,G,-2
+8749,1973,US00008,33rd & 10th,2026-03-15,Store food safety self-check,门店自检,Process Control,Storage/Maintenance of Utensils,,G,-2
+8750,1973,US00008,33rd & 10th,2026-03-15,Store food safety self-check,门店自检,Cleaning and Sanitation,Procedures for Cleaning and Disinfection,,M,-5
+8751,1973,US00008,33rd & 10th,2026-03-15,Store food safety self-check,门店自检,Process Control,Material Storage Location Specification,,G,-2
+8752,1973,US00008,33rd & 10th,2026-03-15,Store food safety self-check,门店自检,Facility,Water Filtration Device,,G,-2
+8753,1973,US00008,33rd & 10th,2026-03-15,Store food safety self-check,门店自检,Facility,Grease traps&Residue traps&Sewer lines,,G,-2
+8754,1973,US00008,33rd & 10th,2026-03-15,Store food safety self-check,门店自检,Cleaning and Sanitation,"Operation Stand, Shelf, Cabinet and Water Sink",,L,-1
+8758,1977,US00006,102 Fulton,2026-03-27,Store food safety self-check,门店自检,Cleaning and Sanitation,Equipment and Food Processing Utensils,,G,-2
+8759,1977,US00006,102 Fulton,2026-03-27,Store food safety self-check,门店自检,Cleaning and Sanitation,Food Processing Area,,L,-1
+8760,1977,US00006,102 Fulton,2026-03-27,Store food safety self-check,门店自检,Cleaning and Sanitation,"Operation Stand, Shelf, Cabinet and Water Sink",,L,-1
+8761,1979,US00027,52nd & Madison,2026-03-31,Store food safety audit,QA审计,Workplace Safety,Workplace Safety,No check signage on fire extinguishers.,G,-2
+8762,1979,US00027,52nd & Madison,2026-03-31,Store food safety audit,QA审计,Process Control,Material Storage Location Specification,Product stored below 6 inch requirement.,G,-2
+8763,1979,US00027,52nd & Madison,2026-03-31,Store food safety audit,QA审计,Cleaning and Sanitation,Clean & Sanitize,Sanitizer ppm below acceptable levels.,M,-5
+8764,1979,US00027,52nd & Madison,2026-03-31,Store food safety audit,QA审计,Facility,Good condition,Leak found under ice holder/ rinsing sink on food processing floor.,G,-2
+8765,1979,US00027,52nd & Madison,2026-03-31,Store food safety audit,QA审计,Cleaning and Sanitation,Equipment and utensils,Milk found on door of refrigerator.,G,-2
+8766,1979,US00027,52nd & Madison,2026-03-31,Store food safety audit,QA审计,Facility,Sinks and Pipes,Leak found under coffee machine. (Right.),S,-5
+8767,1979,US00027,52nd & Madison,2026-03-31,Store food safety audit,QA审计,Cleaning and Sanitation,Waste Management,Overflow of trash found.,G,-2
