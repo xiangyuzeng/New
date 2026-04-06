@@ -118,9 +118,14 @@ Phase 1 (小版本)                Phase 2 (大版本)
 | 1 | `SHOW SLAVE STATUS` 在 8.4 中已移除 | **CRITICAL** | 全部 61 实例，~120 万次执行/实例 | Phase 2 | **是** |
 | 2 | `information_schema.PROCESSLIST` 在 8.4 中已移除 | **HIGH** | 全部 61 实例，~37 万次执行/实例 | Phase 2 | **是** |
 | 3 | `mysql_native_password` 在 8.4 中已废弃 | **CRITICAL** | 全部 61 实例，所有 90+ 用户 | Phase 2 | 部分（见说明） |
-| 4 | `utf8mb3` 字符集表 | **MEDIUM** | 3 个实例，~150 列 | Phase 2 | 建议 |
-| 5 | 8.4 参数组不存在 | **CRITICAL** | Phase 2 前提 | Phase 2 | **是** |
-| 6 | db.t4g.micro 内存压力 | **MEDIUM** | 40 个实例，~100-150MB 可用内存 | Phase 1 & 2 | 注意窗口 |
+| 4 | `utf8mb3` 字符集表 | **MEDIUM** | 4 个实例，~850+ 列 | Phase 2 | 建议 |
+| 5 | `SHOW MASTER STATUS` 在 8.4 中已移除 | **MEDIUM** | 全部实例（cactistats） | Phase 2 | **是** |
+| 6 | 8.4 参数组不存在 | **CRITICAL** | Phase 2 前提 | Phase 2 | **是** |
+| 7 | db.t4g.micro 内存压力 | **MEDIUM** | 40 个实例，~100-150MB 可用内存 | Phase 1 & 2 | 注意窗口 |
+
+> **已排除项**：初始审计中标记的 `GROUP BY ... ASC/DESC` 问题（2.5M+ 调用）经复查为**误报**。
+> 实际查询均为标准 `GROUP BY col ORDER BY col DESC` 写法，DESC 修饰的是 ORDER BY 而非 GROUP BY。
+> 审计中使用的正则 `REGEXP 'GROUP BY.*DESC'` 过于宽泛，错误匹配了 ORDER BY 子句中的 DESC。
 
 ### 4.2 CRITICAL — `SHOW SLAVE STATUS` 已移除（Issue #1）
 
@@ -199,15 +204,16 @@ ALTER USER 'username'@'host' IDENTIFIED WITH caching_sha2_password BY '<password
 
 MySQL 8.4 中 `utf8mb3` 已废弃（仍可用，但会产生 warning）。
 
-**受影响实例**：
+**受影响实例**（初始审计 3 个 + 扩展审计新增 1 个）：
 
 | 实例 | Schema | 表/列数 | 来源 |
 |------|--------|---------|------|
 | framework01-rw | luckyus_gaea, luckyus_nacos, luckyus_sddl_platform, luckyus_zkdoctor | 69 表 | 中国 HQ 部署的中间件 |
 | devops-rw | luckyus_uam | 6 表 | 用户访问管理 |
 | icyberdata-rw | luckyus_icyberdata_nacos, luckyus_icyberdata | 79 列 | 数据分析 + Nacos |
+| **mfranchise-rw** | luckyus_mfranchise | **769 列** | 加盟管理（扩展审计新发现） |
 
-**其他已检查无 utf8mb3 的实例**: salesorder, salesmarketing, salespayment, isalescdp, ldas, scmcommodity, opshop, ijumpserver, iadmin, ibizconfigcenter, iotplatform, iworkflowmidlayer
+**其他已检查无 utf8mb3 的实例**: salesorder, salesmarketing, salespayment, isalescdp, ldas, scmcommodity, opshop, ijumpserver, iadmin, ibizconfigcenter, iotplatform, iworkflowmidlayer 等 55 个实例
 
 **修复方案**（Phase 2 前或后均可，建议 Phase 2 前完成）：
 ```sql
@@ -217,7 +223,17 @@ ALTER TABLE {schema}.{table}
 
 **风险**：索引大小增加 ~33%（3 字节→4 字节/字符），需检查是否有列达到最大索引长度限制。
 
-### 4.6 审计结果：无问题项（Clean）
+### 4.6 MEDIUM — `SHOW MASTER STATUS` 已移除（Issue #5）
+
+**MySQL 8.4 已移除此命令**，需使用 `SHOW BINARY LOG STATUS` 替代。
+
+| 工具 | 来源 | 频率 | 每实例调用量 |
+|------|------|------|------------|
+| **cactistats** | 10.238.x.x | 定期 | 3~9,635 次/实例 |
+
+修复方式与 Issue #1 类似，`SHOW BINARY LOG STATUS` 在 8.0.22+ 即可用。
+
+### 4.8 审计结果：无问题项（Clean）
 
 | 检查项 | 结果 | 说明 |
 |--------|------|------|
@@ -225,14 +241,14 @@ ALTER TABLE {schema}.{table}
 | `FLUSH HOSTS` | 0 出现 | 安全 |
 | `CHANGE MASTER TO` / `RESET SLAVE` | 0 出现 | 安全 |
 | `START SLAVE` / `STOP SLAVE` | 0 出现 | 安全 |
-| `GROUP BY ... ASC/DESC` | 0 出现 | 安全 |
+| `GROUP BY col ASC/DESC`（真正的 GROUP BY 修饰符） | 0 出现（初始审计误报已排除） | 安全 |
 | 存储过程/函数/触发器/事件中的废弃语法 | 0 出现 | 安全 |
 | 空间索引（8.0.41 不兼容变更） | 0 个 | 不受影响 |
 | sql_mode 废弃值 | 无 | 当前值全部兼容 8.4 |
 | GTID 模式 | 全部 ON | 理想状态 |
 | 字符集 (server level) | 全部 utf8mb4 | 理想状态 |
 
-### 4.7 实例风险评级
+### 4.9 实例风险评级
 
 #### HIGH 风险（7 个实例）
 
@@ -513,15 +529,25 @@ aws rds describe-events \
 | 修复 2 | `information_schema.PROCESSLIST` → `performance_schema.processlist` |
 | 影响量 | ~525,000 次/天（全部 61 实例） |
 
-**修复这 2 个工具即可消除 100% 的废弃 SQL 调用量。**
+#### 6.1.3 更新 cactistats — `SHOW MASTER STATUS` → `SHOW BINARY LOG STATUS`
 
-#### 6.1.3 修复验证
+| 项目 | 详情 |
+|------|------|
+| 工具 | Cacti 监控 (`cactistats`) |
+| 当前 SQL | `SHOW MASTER STATUS` |
+| 替换为 | `SHOW BINARY LOG STATUS` |
+| 影响量 | ~15,000 次/天（全部 61 实例） |
+
+**修复这 3 个工具即可消除 100% 的废弃 SQL 调用量。**
+
+#### 6.1.4 修复验证
 
 ```sql
 -- 在任意实例上确认无残留废弃 SQL（升级前跑一次）：
 SELECT DIGEST_TEXT, COUNT_STAR, LAST_SEEN
 FROM performance_schema.events_statements_summary_by_digest
 WHERE DIGEST_TEXT LIKE '%SLAVE%'
+   OR DIGEST_TEXT LIKE '%MASTER STATUS%'
    OR DIGEST_TEXT LIKE '%information_schema%PROCESSLIST%'
 ORDER BY LAST_SEEN DESC;
 -- 期望：COUNT_STAR 不再增长，或查询结果为空
@@ -607,6 +633,7 @@ aws rds modify-db-parameter-group \
 | framework01-rw | gaea, nacos, sddl_platform, zkdoctor | 69 表 |
 | devops-rw | luckyus_uam | 6 表 |
 | icyberdata-rw | icyberdata_nacos, icyberdata | 79 列 |
+| mfranchise-rw | luckyus_mfranchise | 769 列 |
 
 ```sql
 -- 逐表执行（维护窗口内）：
