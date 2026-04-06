@@ -1,0 +1,1 @@
+{"error": "AccessDeniedException: databasecheck IAM user lacks memorydb:DescribeClusters and memorydb:DescribeACLs permissions", "note": "No MemoryDB data accessible with current IAM credentials"}

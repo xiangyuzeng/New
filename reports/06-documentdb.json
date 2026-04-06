@@ -1,0 +1,5189 @@
+{
+  "docdb_clusters": {
+    "DBClusters": [
+      {
+        "AvailabilityZones": [
+          "us-east-1a",
+          "us-east-1b",
+          "us-east-1c"
+        ],
+        "BackupRetentionPeriod": 7,
+        "DBClusterIdentifier": "docdb-devops",
+        "DBClusterParameterGroup": "luckyus-prod",
+        "DBSubnetGroup": "docdb-group",
+        "Status": "available",
+        "EarliestRestorableTime": "2026-03-30T00:12:21.991000+00:00",
+        "Endpoint": "docdb-devops.cluster-cxwu08m2qypw.us-east-1.docdb.amazonaws.com",
+        "ReaderEndpoint": "docdb-devops.cluster-ro-cxwu08m2qypw.us-east-1.docdb.amazonaws.com",
+        "MultiAZ": true,
+        "Engine": "docdb",
+        "EngineVersion": "5.0.0",
+        "LatestRestorableTime": "2026-04-06T19:28:36.879000+00:00",
+        "Port": 27017,
+        "MasterUsername": "root",
+        "PreferredBackupWindow": "00:00-00:30",
+        "PreferredMaintenanceWindow": "fri:03:05-fri:03:35",
+        "ReadReplicaIdentifiers": [],
+        "DBClusterMembers": [
+          {
+            "DBInstanceIdentifier": "docdb-devops",
+            "IsClusterWriter": true,
+            "DBClusterParameterGroupStatus": "in-sync",
+            "PromotionTier": 1
+          },
+          {
+            "DBInstanceIdentifier": "docdb-devops3",
+            "IsClusterWriter": false,
+            "DBClusterParameterGroupStatus": "in-sync",
+            "PromotionTier": 1
+          },
+          {
+            "DBInstanceIdentifier": "docdb-devops2",
+            "IsClusterWriter": false,
+            "DBClusterParameterGroupStatus": "in-sync",
+            "PromotionTier": 1
+          }
+        ],
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "HostedZoneId": "ZNKXH85TT8WVW",
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbClusterResourceId": "cluster-6DG3GGQ6G5RRO5DGDX22XOMH6E",
+        "DBClusterArn": "arn:aws:rds:us-east-1:257394478466:cluster:docdb-devops",
+        "AssociatedRoles": [],
+        "ClusterCreateTime": "2025-02-12T03:40:42.484000+00:00",
+        "DeletionProtection": true,
+        "NetworkType": "IPV4"
+      },
+      {
+        "AvailabilityZones": [
+          "us-east-1a",
+          "us-east-1b",
+          "us-east-1c"
+        ],
+        "BackupRetentionPeriod": 7,
+        "DBClusterIdentifier": "docdb-gia",
+        "DBClusterParameterGroup": "luckyus-prod",
+        "DBSubnetGroup": "docdb-group",
+        "Status": "available",
+        "EarliestRestorableTime": "2026-03-30T00:10:49.597000+00:00",
+        "Endpoint": "docdb-gia.cluster-cxwu08m2qypw.us-east-1.docdb.amazonaws.com",
+        "ReaderEndpoint": "docdb-gia.cluster-ro-cxwu08m2qypw.us-east-1.docdb.amazonaws.com",
+        "MultiAZ": true,
+        "Engine": "docdb",
+        "EngineVersion": "5.0.0",
+        "LatestRestorableTime": "2026-04-06T19:29:50.322000+00:00",
+        "Port": 27017,
+        "MasterUsername": "root",
+        "PreferredBackupWindow": "00:00-00:30",
+        "PreferredMaintenanceWindow": "sun:08:06-sun:08:36",
+        "ReadReplicaIdentifiers": [],
+        "DBClusterMembers": [
+          {
+            "DBInstanceIdentifier": "docdb-gia2",
+            "IsClusterWriter": true,
+            "DBClusterParameterGroupStatus": "in-sync",
+            "PromotionTier": 1
+          },
+          {
+            "DBInstanceIdentifier": "docdb-gia3",
+            "IsClusterWriter": false,
+            "DBClusterParameterGroupStatus": "in-sync",
+            "PromotionTier": 1
+          },
+          {
+            "DBInstanceIdentifier": "docdb-gia",
+            "IsClusterWriter": false,
+            "DBClusterParameterGroupStatus": "in-sync",
+            "PromotionTier": 1
+          }
+        ],
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "HostedZoneId": "ZNKXH85TT8WVW",
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbClusterResourceId": "cluster-VGCQLIJLZYFVCJOM74U6FTJ6X4",
+        "DBClusterArn": "arn:aws:rds:us-east-1:257394478466:cluster:docdb-gia",
+        "AssociatedRoles": [],
+        "ClusterCreateTime": "2025-03-07T02:52:53.646000+00:00",
+        "DeletionProtection": true,
+        "NetworkType": "IPV4"
+      },
+      {
+        "AvailabilityZones": [
+          "us-east-1a",
+          "us-east-1b",
+          "us-east-1c"
+        ],
+        "BackupRetentionPeriod": 7,
+        "DBClusterIdentifier": "docdb-iot",
+        "DBClusterParameterGroup": "luckyus-prod",
+        "DBSubnetGroup": "docdb-group",
+        "Status": "available",
+        "EarliestRestorableTime": "2026-03-30T00:10:47.849000+00:00",
+        "Endpoint": "docdb-iot.cluster-cxwu08m2qypw.us-east-1.docdb.amazonaws.com",
+        "ReaderEndpoint": "docdb-iot.cluster-ro-cxwu08m2qypw.us-east-1.docdb.amazonaws.com",
+        "MultiAZ": true,
+        "Engine": "docdb",
+        "EngineVersion": "5.0.0",
+        "LatestRestorableTime": "2026-04-06T19:28:01.532000+00:00",
+        "Port": 27017,
+        "MasterUsername": "root",
+        "PreferredBackupWindow": "00:00-00:30",
+        "PreferredMaintenanceWindow": "tue:05:43-tue:06:13",
+        "ReadReplicaIdentifiers": [],
+        "DBClusterMembers": [
+          {
+            "DBInstanceIdentifier": "docdb-iot2",
+            "IsClusterWriter": true,
+            "DBClusterParameterGroupStatus": "in-sync",
+            "PromotionTier": 1
+          },
+          {
+            "DBInstanceIdentifier": "docdb-iot3",
+            "IsClusterWriter": false,
+            "DBClusterParameterGroupStatus": "in-sync",
+            "PromotionTier": 1
+          },
+          {
+            "DBInstanceIdentifier": "docdb-iot",
+            "IsClusterWriter": false,
+            "DBClusterParameterGroupStatus": "in-sync",
+            "PromotionTier": 1
+          }
+        ],
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "HostedZoneId": "ZNKXH85TT8WVW",
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbClusterResourceId": "cluster-645F7MWG2JHXUWMCVU7Q3IRC6U",
+        "DBClusterArn": "arn:aws:rds:us-east-1:257394478466:cluster:docdb-iot",
+        "AssociatedRoles": [],
+        "ClusterCreateTime": "2025-03-10T07:03:16.577000+00:00",
+        "DeletionProtection": true,
+        "NetworkType": "IPV4"
+      },
+      {
+        "AvailabilityZones": [
+          "us-east-1a",
+          "us-east-1b",
+          "us-east-1c"
+        ],
+        "BackupRetentionPeriod": 7,
+        "DBClusterIdentifier": "docdb-luckyus-iluckychaindep",
+        "DBClusterParameterGroup": "luckyus-prod",
+        "DBSubnetGroup": "docdb-group",
+        "Status": "available",
+        "EarliestRestorableTime": "2026-03-30T00:16:13.064000+00:00",
+        "Endpoint": "docdb-luckyus-iluckychaindep.cluster-cxwu08m2qypw.us-east-1.docdb.amazonaws.com",
+        "ReaderEndpoint": "docdb-luckyus-iluckychaindep.cluster-ro-cxwu08m2qypw.us-east-1.docdb.amazonaws.com",
+        "MultiAZ": true,
+        "Engine": "docdb",
+        "EngineVersion": "5.0.0",
+        "LatestRestorableTime": "2026-04-06T19:28:58.741000+00:00",
+        "Port": 27017,
+        "MasterUsername": "root",
+        "PreferredBackupWindow": "00:00-00:30",
+        "PreferredMaintenanceWindow": "sun:03:52-sun:04:22",
+        "ReadReplicaIdentifiers": [],
+        "DBClusterMembers": [
+          {
+            "DBInstanceIdentifier": "docdb-luckyus-iluckychaindep3",
+            "IsClusterWriter": true,
+            "DBClusterParameterGroupStatus": "in-sync",
+            "PromotionTier": 1
+          },
+          {
+            "DBInstanceIdentifier": "docdb-luckyus-iluckychaindep",
+            "IsClusterWriter": false,
+            "DBClusterParameterGroupStatus": "in-sync",
+            "PromotionTier": 1
+          },
+          {
+            "DBInstanceIdentifier": "docdb-luckyus-iluckychaindep2",
+            "IsClusterWriter": false,
+            "DBClusterParameterGroupStatus": "in-sync",
+            "PromotionTier": 1
+          }
+        ],
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "HostedZoneId": "ZNKXH85TT8WVW",
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbClusterResourceId": "cluster-QVH2IUA3CRRSQZPWQ2UB4EHG2I",
+        "DBClusterArn": "arn:aws:rds:us-east-1:257394478466:cluster:docdb-luckyus-iluckychaindep",
+        "AssociatedRoles": [],
+        "ClusterCreateTime": "2026-03-02T17:26:54.644000+00:00",
+        "DeletionProtection": true,
+        "NetworkType": "IPV4"
+      }
+    ]
+  },
+  "docdb_instances": {
+    "DBInstances": [
+      {
+        "DBInstanceIdentifier": "aws-luckyus-cdpactivity-rw",
+        "DBInstanceClass": "db.t4g.medium",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-cdpactivity-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-10T09:30:08.606000+00:00",
+        "PreferredBackupWindow": "05:49-06:19",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1b",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "mon:03:01-mon:03:31",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:28:52+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-WLAM6KSYLQVXRVUMU26XSLP3NM",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-cdpactivity-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-16T03:01:03+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-dbatest-rw",
+        "DBInstanceClass": "db.t4g.micro",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-dbatest-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-09-12T15:45:51.642000+00:00",
+        "PreferredBackupWindow": "04:47-05:17",
+        "BackupRetentionPeriod": 0,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1a",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "thu:06:38-thu:07:08",
+        "PendingModifiedValues": {},
+        "EngineVersion": "8.0.42",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-6D6ZYVDO4FUXUUSVLPT7HTB46A",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-dbatest-rw",
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-19T06:38:01+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-devops-rw",
+        "DBInstanceClass": "db.t4g.medium",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-devops-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-02-12T03:50:59.567000+00:00",
+        "PreferredBackupWindow": "05:54-06:24",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1b",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "wed:08:06-wed:08:36",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:26:17+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-TDY77ZOTKE7WPP37J4A743BN5M",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-devops-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-11T08:06:02+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-difynew-rw",
+        "DBInstanceClass": "db.r5.xlarge",
+        "Engine": "postgres",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-difynew-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 5432,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-09-22T12:24:59.066000+00:00",
+        "PreferredBackupWindow": "06:31-07:01",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1a",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "fri:07:44-fri:08:14",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:29:34+00:00",
+        "EngineVersion": "16.10",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-IKL6FZBQYTOQ54I6QN7UOS4PEA",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-difynew-rw",
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-27T07:44:01+00:00"
+        },
+        "PerformanceInsightsEnabled": true,
+        "PerformanceInsightsKMSKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b"
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-dify-rw",
+        "DBInstanceClass": "db.r5.xlarge",
+        "Engine": "postgres",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-dify-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 5432,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-05-19T09:13:46.104000+00:00",
+        "PreferredBackupWindow": "05:05-05:35",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1a",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "thu:08:11-thu:08:41",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:29:34+00:00",
+        "EngineVersion": "16.8",
+        "AutoMinorVersionUpgrade": true,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-2UJM2VPMG723XACZRAK7W573HM",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-dify-rw",
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2026-11-20T08:11:15+00:00"
+        },
+        "PerformanceInsightsEnabled": true,
+        "PerformanceInsightsKMSKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b"
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-fichargecontrol-rw",
+        "DBInstanceClass": "db.t4g.micro",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-fichargecontrol-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-07T10:52:27.424000+00:00",
+        "PreferredBackupWindow": "05:23-05:53",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1a",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "fri:03:19-fri:03:49",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:29:29+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-WRTEJE2YSWIQTJK2434OGJ5NQQ",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-fichargecontrol-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-13T03:19:03+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-fitax-rw",
+        "DBInstanceClass": "db.t4g.micro",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-fitax-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-07T10:50:41.929000+00:00",
+        "PreferredBackupWindow": "05:03-05:33",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1a",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "tue:06:10-tue:06:40",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:30:16+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-3GUPFXPCDU66ZTEQDIJ5DUEAXU",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-fitax-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-10T06:10:03+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-framework01-rw",
+        "DBInstanceClass": "db.t4g.medium",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-framework01-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-06T13:47:33.284000+00:00",
+        "PreferredBackupWindow": "10:12-10:42",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1a",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "tue:06:53-tue:07:23",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:26:52+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-FZNTOEYL4REH4WQNUOTNULGORI",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-framework01-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-10T06:53:01+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-framework02-rw",
+        "DBInstanceClass": "db.t4g.medium",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-framework02-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-06T13:49:02.084000+00:00",
+        "PreferredBackupWindow": "05:47-06:17",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1a",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "sun:08:41-sun:09:11",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:30:32+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-5KFG6O3RNUIPRABPKVA6MWN6LI",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-framework02-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-08T08:41:01+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-iadmin-rw",
+        "DBInstanceClass": "db.t4g.micro",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-iadmin-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-07T10:48:23.706000+00:00",
+        "PreferredBackupWindow": "08:07-08:37",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1b",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "sun:07:27-sun:07:57",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:28:43+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-JWRXDIV2SPSEYGG2EO6YBCESGQ",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-iadmin-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-15T07:27:02+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-ibillingcentersrv-rw",
+        "DBInstanceClass": "db.t4g.micro",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-ibillingcentersrv-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-07T10:46:50.605000+00:00",
+        "PreferredBackupWindow": "09:17-09:47",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1b",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "wed:10:27-wed:10:57",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:26:51+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-GVLKFOLTWZIXTBTD74LIVSR7KI",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-ibillingcentersrv-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-11T10:27:02+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-ibizconfigcenter-rw",
+        "DBInstanceClass": "db.t4g.micro",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-ibizconfigcenter-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-07T10:44:48.833000+00:00",
+        "PreferredBackupWindow": "09:13-09:43",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1a",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "fri:06:36-fri:07:06",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:30:36+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-LOC27ACQKBXXZB5YTRIMPTUNCQ",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-ibizconfigcenter-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-13T06:36:02+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-icyberdata-rw",
+        "DBInstanceClass": "db.t4g.medium",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-icyberdata-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-10T08:57:22.523000+00:00",
+        "PreferredBackupWindow": "04:34-05:04",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1b",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "tue:08:44-tue:09:14",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:28:42+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-ZVOCUO7K7TKKNLZOJYRIZPYXRY",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-icyberdata-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-17T08:44:01+00:00"
+        },
+        "PerformanceInsightsEnabled": true,
+        "PerformanceInsightsKMSKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b"
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-iehr-rw",
+        "DBInstanceClass": "db.t4g.micro",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-iehr-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-07T10:39:59.315000+00:00",
+        "PreferredBackupWindow": "05:13-05:43",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1b",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "tue:09:56-tue:10:26",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:26:31+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-SDDARHZKZXP7DTNIRV2ABL2C5I",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-iehr-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-10T09:56:01+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-ifiaccounting-rw",
+        "DBInstanceClass": "db.t4g.micro",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-ifiaccounting-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-07T11:30:18.865000+00:00",
+        "PreferredBackupWindow": "08:30-09:00",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1b",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "wed:03:05-wed:03:35",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:30:14+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-JWKJARDOGJZGDXMAAEJH3IHWX4",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-ifiaccounting-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-11T03:05:01+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-igers-rw",
+        "DBInstanceClass": "db.t4g.micro",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-igers-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-07T10:43:35.785000+00:00",
+        "PreferredBackupWindow": "06:20-06:50",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1a",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "sun:05:44-sun:06:14",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:28:37+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-J2NWVL6BCP6GEPX6IG2RYITHQM",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-igers-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-15T05:44:02+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-ijumpserver-jumpserver-rw",
+        "DBInstanceClass": "db.t4g.micro",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-ijumpserver-jumpserver-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-04-24T12:02:17.527000+00:00",
+        "PreferredBackupWindow": "05:06-05:36",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1b",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "mon:03:18-mon:03:48",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:28:13+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-UFSZEBH7DTOVBD7LE2347ZW5PY",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-ijumpserver-jumpserver-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2026-10-27T03:18:16+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-ilsopdevopsdata-rw",
+        "DBInstanceClass": "db.t4g.micro",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-ilsopdevopsdata-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2026-01-06T17:06:24.757000+00:00",
+        "PreferredBackupWindow": "05:09-05:39",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1a",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "sun:08:53-sun:09:23",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:27:54+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-QPR6VEXFDNTK32PX6AWIB2PNZQ",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-ilsopdevopsdata-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-01-06T17:04:10+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-iluckyams-rw",
+        "DBInstanceClass": "db.t4g.micro",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-iluckyams-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-04-14T11:42:20.500000+00:00",
+        "PreferredBackupWindow": "07:36-08:06",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1b",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "tue:05:29-tue:05:59",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:29:02+00:00",
+        "EngineVersion": "8.0.44",
+        "AutoMinorVersionUpgrade": true,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-AANTEZ4YYTJUH42WR7RJYSRLJU",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-iluckyams-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2026-10-21T05:29:17+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-iluckyauthapi-rw",
+        "DBInstanceClass": "db.t4g.micro",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-iluckyauthapi-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-10T02:23:22.251000+00:00",
+        "PreferredBackupWindow": "05:54-06:24",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1a",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "sat:09:39-sat:10:09",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:27:54+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-DWDAKG3K5MJWCGZBFUQMHNAOFM",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-iluckyauthapi-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-14T09:39:02+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-iluckydorisops-rw",
+        "DBInstanceClass": "db.t4g.micro",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-iluckydorisops-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-04-22T07:41:22.176000+00:00",
+        "PreferredBackupWindow": "03:40-04:10",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1a",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "sun:06:52-sun:07:22",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:27:02+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-VPLM5OJ45D7256O32I6FI3VB54",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-iluckydorisops-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2026-10-26T06:52:21+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-iluckyhealth-rw",
+        "DBInstanceClass": "db.t3.small",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-iluckyhealth-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-07-01T01:50:05.648000+00:00",
+        "PreferredBackupWindow": "09:26-09:56",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1b",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "mon:10:00-mon:10:30",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:30:18+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-HOZHQKIYMHDO5T4LLHFTZ5QPQQ",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-iluckyhealth-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-01-05T10:00:02+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-iluckymedia-rw",
+        "DBInstanceClass": "db.t4g.micro",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-iluckymedia-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-10T09:38:16.666000+00:00",
+        "PreferredBackupWindow": "05:19-05:49",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1b",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "sat:08:53-sat:09:23",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:27:13+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-UGBVKJQYTOU4A7LBZ6VGYFZO2E",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-iluckymedia-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-14T08:53:03+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-iopenadmin-rw",
+        "DBInstanceClass": "db.t4g.micro",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-iopenadmin-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-07T06:16:07.440000+00:00",
+        "PreferredBackupWindow": "07:53-08:23",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1a",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "fri:04:00-fri:04:30",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:29:52+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-EIBE42LL4TH73RYPJMDMPLOMNY",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-iopenadmin-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-13T04:00:03+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-iopenlinker-rw",
+        "DBInstanceClass": "db.t4g.micro",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-iopenlinker-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-07-18T02:39:28.191000+00:00",
+        "PreferredBackupWindow": "03:21-03:51",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1b",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "wed:07:40-wed:08:10",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:29:34+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-AWXGWVCBJEAWHRAWY6X3LDTRMI",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-iopenlinker-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-01-21T07:40:03+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-iopenservice-rw",
+        "DBInstanceClass": "db.t4g.micro",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-iopenservice-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-12T02:27:30.578000+00:00",
+        "PreferredBackupWindow": "08:08-08:38",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1b",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "thu:04:06-thu:04:36",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:28:47+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-WX2C7HPK3J2PXRRYAIIQY4DROY",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-iopenservice-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-19T04:06:02+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-iopocp-rw",
+        "DBInstanceClass": "db.t4g.micro",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-iopocp-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-07T06:22:42.825000+00:00",
+        "PreferredBackupWindow": "04:34-05:04",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1a",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "thu:07:04-thu:07:34",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:29:51+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-O3DKH5CESVU2BZBV4WCENOSATI",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-iopocp-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-12T07:04:03+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-iopshopexpand-rw",
+        "DBInstanceClass": "db.t4g.micro",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-iopshopexpand-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-07T07:14:12.033000+00:00",
+        "PreferredBackupWindow": "04:20-04:50",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1a",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "sun:08:38-sun:09:08",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:29:24+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-YISQ7W27D5UK3IEGFFIUPW5AEQ",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-iopshopexpand-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-15T08:38:03+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-iotplatform-rw",
+        "DBInstanceClass": "db.t4g.medium",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-iotplatform-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-07T11:32:36.556000+00:00",
+        "PreferredBackupWindow": "03:35-04:05",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1a",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "wed:09:33-wed:10:03",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:28:07+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-WII3IZCMQ5Z73G3DECYA3KDQVQ",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-iotplatform-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-11T09:33:03+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-ipermission-rw",
+        "DBInstanceClass": "db.t4g.micro",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-ipermission-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-07T07:24:31.535000+00:00",
+        "PreferredBackupWindow": "04:41-05:11",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1a",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "tue:07:27-tue:07:57",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:27:05+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-DFLTBF6ONDF2B62TF6TSELRNQY",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-ipermission-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-10T07:27:03+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-ireplenishment-rw",
+        "DBInstanceClass": "db.t4g.micro",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-ireplenishment-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-04-08T08:01:46.008000+00:00",
+        "PreferredBackupWindow": "06:40-07:10",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1a",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "mon:09:41-mon:10:11",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:26:07+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-FL7HX7O4VDRLI7G5Z4C6EPJTLU",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-ireplenishment-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2026-10-13T09:41:17+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-iriskcontrolservice-rw",
+        "DBInstanceClass": "db.t4g.micro",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-iriskcontrolservice-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-05-28T06:09:15.802000+00:00",
+        "PreferredBackupWindow": "03:10-03:40",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1a",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "thu:05:42-thu:06:12",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:27:19+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-URFLXVNJX2AEMFFNV7PSEVMG7U",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-iriskcontrolservice-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2026-12-04T05:42:09+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-isalescdp-rw",
+        "DBInstanceClass": "db.t4g.medium",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-isalescdp-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-10T09:32:21.078000+00:00",
+        "PreferredBackupWindow": "03:39-04:09",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1b",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "sat:04:52-sat:05:22",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:29:21+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-ZVISSKLKEDTEANG6WK7WKBPMEA",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-isalescdp-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-14T04:52:02+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-isalesdatamarketing-rw",
+        "DBInstanceClass": "db.t4g.medium",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-isalesdatamarketing-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-04-21T05:17:09.076000+00:00",
+        "PreferredBackupWindow": "05:44-06:14",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1a",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "sat:04:58-sat:05:28",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:27:08+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-DAGR4O3UXDOAQD62J5IGI65HGA",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-isalesdatamarketing-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2026-10-25T04:58:12+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-isalesmembermarketing-rw",
+        "DBInstanceClass": "db.t4g.micro",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-isalesmembermarketing-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-04-21T05:16:53.726000+00:00",
+        "PreferredBackupWindow": "06:08-06:38",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1a",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "sat:07:10-sat:07:40",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:30:27+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-LOQBGGMUKLQOYRUDYQH2IN7HNQ",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-isalesmembermarketing-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2026-10-25T07:10:07+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-isalesprivatedomain-rw",
+        "DBInstanceClass": "db.t4g.medium",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-isalesprivatedomain-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-10T09:35:16.670000+00:00",
+        "PreferredBackupWindow": "07:20-07:50",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1a",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "thu:03:59-thu:04:29",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:28:56+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-KRRS35RRDB2R6DCT5NUYL4QUUY",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-isalesprivatedomain-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-12T03:59:02+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-iunifiedreconcile-rw",
+        "DBInstanceClass": "db.t4g.micro",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-iunifiedreconcile-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-10T12:07:41.363000+00:00",
+        "PreferredBackupWindow": "08:54-09:24",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1a",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "tue:08:13-tue:08:43",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:28:30+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-RBB6ISOT2NMCV46VVDRQJINSHI",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-iunifiedreconcile-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-17T08:13:02+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-iworkflowmidlayer-rw",
+        "DBInstanceClass": "db.t4g.medium",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-iworkflowmidlayer-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-07T08:22:38.445000+00:00",
+        "PreferredBackupWindow": "09:18-09:48",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1b",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "thu:10:02-thu:10:32",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:27:02+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-JN3IBW2ODDGZYXXRVEJNV2FCJE",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-iworkflowmidlayer-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-12T10:02:01+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-ldas01-rw",
+        "DBInstanceClass": "db.t4g.large",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-ldas01-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-06-30T11:55:14.460000+00:00",
+        "PreferredBackupWindow": "04:48-05:18",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1a",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "sun:09:55-sun:10:25",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:29:10+00:00",
+        "EngineVersion": "8.0.41",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-263PJCM67VRDLAWMZDGUVH7SKU",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-ldas01-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-01-04T09:55:03+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-ldas-rw",
+        "DBInstanceClass": "db.t4g.large",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-ldas-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-02-19T10:16:06.288000+00:00",
+        "PreferredBackupWindow": "07:12-07:42",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1a",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "thu:05:57-thu:06:27",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:27:11+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-JO46B264NSSVT44BU7EZDA5EVA",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-ldas-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-05T05:57:02+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-mfranchise-rw",
+        "DBInstanceClass": "db.t4g.micro",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-mfranchise-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-07T07:36:35.821000+00:00",
+        "PreferredBackupWindow": "08:20-08:50",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1b",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "wed:06:52-wed:07:22",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:26:57+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-DOXREQ6VZSURLW4QLZN7VQUAAY",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-mfranchise-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-11T06:52:02+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-opempefficiency-rw",
+        "DBInstanceClass": "db.t4g.micro",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-opempefficiency-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-07T07:39:21.420000+00:00",
+        "PreferredBackupWindow": "07:55-08:25",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1b",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "tue:05:52-tue:06:22",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:27:00+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-6C4DZNGFUJRW6NSU4PPBEJXHGI",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-opempefficiency-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-10T05:52:03+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-oplog-rw",
+        "DBInstanceClass": "db.t4g.micro",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-oplog-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-07T07:41:48.401000+00:00",
+        "PreferredBackupWindow": "10:21-10:51",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1a",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "thu:03:04-thu:03:34",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:29:34+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-5QZKPMJMTTDDSTDIDWMAD4PWIQ",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-oplog-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-12T03:04:01+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-opproduction-rw",
+        "DBInstanceClass": "db.t4g.micro",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-opproduction-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-07T08:51:49.234000+00:00",
+        "PreferredBackupWindow": "03:51-04:21",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1a",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "mon:09:09-mon:09:39",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:28:56+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-ZYCK7Z35WGIS4URH3HSG3BV3VU",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-opproduction-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-09T09:09:01+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-opqualitycontrol-rw",
+        "DBInstanceClass": "db.t4g.micro",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-opqualitycontrol-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-07T09:33:24.892000+00:00",
+        "PreferredBackupWindow": "04:26-04:56",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1b",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "thu:08:46-thu:09:16",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:27:00+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-5DYZWNEFRE3GLJN5EPTFKWCJRY",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-opqualitycontrol-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-12T08:46:03+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-opshop-rw",
+        "DBInstanceClass": "db.t4g.medium",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-opshop-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-07T09:36:30.299000+00:00",
+        "PreferredBackupWindow": "07:08-07:38",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1b",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "fri:04:03-fri:04:33",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:27:45+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-SBBCIG26NLHCFJJHG6UCX2DUXA",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-opshop-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-13T04:03:03+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-opshopsale-rw",
+        "DBInstanceClass": "db.t4g.micro",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-opshopsale-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-07T10:20:26.272000+00:00",
+        "PreferredBackupWindow": "07:18-07:48",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1a",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "sat:05:32-sat:06:02",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:26:25+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-RKSLAWFSXGR52E4XMGUYSOTINQ",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-opshopsale-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-14T05:32:01+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-pgilkmap-rw",
+        "DBInstanceClass": "db.m5.large",
+        "Engine": "postgres",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-pgilkmap-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 5432,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-05T08:44:58.204000+00:00",
+        "PreferredBackupWindow": "08:40-09:10",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1a",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "sat:10:00-sat:10:30",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:29:39+00:00",
+        "EngineVersion": "17.4",
+        "AutoMinorVersionUpgrade": true,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-2H4TSW7VSQETC3VSZYZJZPZ7AM",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-pgilkmap-rw",
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-07T10:00:03+00:00"
+        },
+        "PerformanceInsightsEnabled": true,
+        "PerformanceInsightsKMSKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b"
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-pubdm-rw",
+        "DBInstanceClass": "db.t4g.micro",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-pubdm-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-07T10:23:09.516000+00:00",
+        "PreferredBackupWindow": "08:01-08:31",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1b",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "fri:06:34-fri:07:04",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:29:07+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-S5K6P7PG3ZA2ZQAY6KF4ZPYVKY",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-pubdm-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-13T06:34:03+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-salescrm-rw",
+        "DBInstanceClass": "db.t4g.medium",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-salescrm-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-10T08:45:31.794000+00:00",
+        "PreferredBackupWindow": "07:06-07:36",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1b",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "tue:04:40-tue:05:10",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:28:52+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-M6J6XWASDBWB7RJGZ443AJJQZA",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-salescrm-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-17T04:40:01+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-salesmarketing-rw",
+        "DBInstanceClass": "db.t4g.xlarge",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-salesmarketing-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-10T08:50:23.707000+00:00",
+        "PreferredBackupWindow": "09:17-09:47",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1b",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "sun:05:30-sun:06:00",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:29:33+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-NXAHK7S4DC3EINTDK4S3HH6M7I",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-salesmarketing-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-15T05:30:04+00:00"
+        },
+        "PerformanceInsightsEnabled": true,
+        "PerformanceInsightsKMSKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b"
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-salesorder-rw",
+        "DBInstanceClass": "db.t4g.medium",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-salesorder-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-10T09:27:13.243000+00:00",
+        "PreferredBackupWindow": "05:23-05:53",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1b",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "mon:03:40-mon:04:10",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:29:53+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-TMFJXIRTD3PH7GZVLTCWKW23IE",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-salesorder-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-16T03:40:04+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-salespayment-rw",
+        "DBInstanceClass": "db.t4g.medium",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-salespayment-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-10T08:43:20.223000+00:00",
+        "PreferredBackupWindow": "07:45-08:15",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1a",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "fri:03:02-fri:03:32",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:27:08+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-AF7ISDJARYZ7C3NYXACOD6ELTU",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-salespayment-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-13T03:02:02+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-scm-asset-rw",
+        "DBInstanceClass": "db.t4g.micro",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-scm-asset-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-07T06:25:05.501000+00:00",
+        "PreferredBackupWindow": "08:57-09:27",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1a",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "sat:03:20-sat:03:50",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:25:58+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-PWN3TEV7267CV46URHZSH6LVCM",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-scm-asset-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-14T03:20:03+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-scmcommodity-rw",
+        "DBInstanceClass": "db.t4g.medium",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-scmcommodity-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-07T06:45:17.480000+00:00",
+        "PreferredBackupWindow": "05:20-05:50",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1a",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "tue:07:22-tue:07:52",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:26:23+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-XTJALSZJJEWN5LCCJVOZ4X3QUU",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-scmcommodity-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-10T07:22:03+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-scm-openapi-rw",
+        "DBInstanceClass": "db.t4g.micro",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-scm-openapi-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-07T06:27:47.692000+00:00",
+        "PreferredBackupWindow": "09:30-10:00",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1a",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "sun:07:50-sun:08:20",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:28:54+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-ABUGJYJR3SIRF6POI2I6VNLOD4",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-scm-openapi-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-15T07:50:02+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-scm-ordering-rw",
+        "DBInstanceClass": "db.t4g.micro",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-scm-ordering-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-07T06:31:04.140000+00:00",
+        "PreferredBackupWindow": "03:26-03:56",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1a",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "thu:06:36-thu:07:06",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:30:35+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-ZFFWNCL4GG5AFRQN3PKGLFG2NM",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-scm-ordering-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-12T06:36:03+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-scm-plan-rw",
+        "DBInstanceClass": "db.t4g.micro",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-scm-plan-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-07T06:32:54.192000+00:00",
+        "PreferredBackupWindow": "10:00-10:30",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1a",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "sun:08:42-sun:09:12",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:28:37+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-FIIBRXGAK76WWYXAGJARHQVKO4",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-scm-plan-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-15T08:42:01+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-scm-purchase-rw",
+        "DBInstanceClass": "db.t4g.micro",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-scm-purchase-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-07T06:35:24.979000+00:00",
+        "PreferredBackupWindow": "03:59-04:29",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1a",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "sat:07:07-sat:07:37",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:26:35+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-RZZNRMI3DXIBORX5LWQLMUQYU4",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-scm-purchase-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-14T07:07:03+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-scm-shopstock-rw",
+        "DBInstanceClass": "db.t4g.medium",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-scm-shopstock-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-07T06:37:26.903000+00:00",
+        "PreferredBackupWindow": "09:09-09:39",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1a",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "sun:07:57-sun:08:27",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:27:42+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-4ERAEHZMLE7SLTMPV5PRJTLB2M",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-scm-shopstock-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-15T07:57:03+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-scmsrm-rw",
+        "DBInstanceClass": "db.t4g.micro",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-scmsrm-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-07T06:47:00.446000+00:00",
+        "PreferredBackupWindow": "05:32-06:02",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1a",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "tue:09:38-tue:10:08",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:28:16+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-5VFN4NUFF5YP7S352NPIL37VEA",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-scmsrm-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-10T09:38:03+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-scm-wds-rw",
+        "DBInstanceClass": "db.t4g.micro",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-scm-wds-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-07T06:40:10.742000+00:00",
+        "PreferredBackupWindow": "03:22-03:52",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1a",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "wed:08:11-wed:08:41",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:26:35+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-DHSQ7DRWCFY5QAMBZ45Q4G3PDY",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-scm-wds-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-11T08:11:02+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-scm-wmssimulate-rw",
+        "DBInstanceClass": "db.t4g.micro",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-scm-wmssimulate-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-07T06:42:50.441000+00:00",
+        "PreferredBackupWindow": "04:14-04:44",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1a",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "thu:07:13-thu:07:43",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:28:28+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-XDN2725WQ7IWYOHPKLYLH5VBK4",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-scm-wmssimulate-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-12T07:13:01+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "aws-luckyus-upush-rw",
+        "DBInstanceClass": "db.t4g.medium",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "aws-luckyus-upush-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com",
+          "Port": 3306,
+          "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "InstanceCreateTime": "2025-03-07T11:09:53.607000+00:00",
+        "PreferredBackupWindow": "08:25-08:55",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1b",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "rds-group",
+          "DBSubnetGroupDescription": "db",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "sat:04:39-sat:05:09",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2026-04-06T19:30:02+00:00",
+        "EngineVersion": "8.0.40",
+        "AutoMinorVersionUpgrade": false,
+        "PubliclyAccessible": false,
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-T4DNSXTI2SV7RXMW2IYLNK5NB4",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": true,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:aws-luckyus-upush-rw",
+        "EnabledCloudwatchLogsExports": [
+          "slowquery"
+        ],
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-14T04:39:02+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "docdb-devops",
+        "DBInstanceClass": "db.t3.medium",
+        "Engine": "docdb",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "docdb-devops.cxwu08m2qypw.us-east-1.docdb.amazonaws.com",
+          "Port": 27017,
+          "HostedZoneId": "ZNKXH85TT8WVW"
+        },
+        "InstanceCreateTime": "2025-02-12T03:45:51.455000+00:00",
+        "PreferredBackupWindow": "00:00-00:30",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1a",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "docdb-group",
+          "DBSubnetGroupDescription": "docdb",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-02c3f2f4c723d2a75",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1c"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "sat:03:53-sat:04:23",
+        "PendingModifiedValues": {},
+        "EngineVersion": "5.0.0",
+        "AutoMinorVersionUpgrade": true,
+        "PubliclyAccessible": false,
+        "DBClusterIdentifier": "docdb-devops",
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-D2DMBBPGPBIDFSJZO4TAM6OFLE",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": false,
+        "PromotionTier": 1,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:docdb-devops",
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-02-21T03:53:03+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "docdb-devops2",
+        "DBInstanceClass": "db.t3.medium",
+        "Engine": "docdb",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "docdb-devops2.cxwu08m2qypw.us-east-1.docdb.amazonaws.com",
+          "Port": 27017,
+          "HostedZoneId": "ZNKXH85TT8WVW"
+        },
+        "InstanceCreateTime": "2025-02-12T03:51:21.533000+00:00",
+        "PreferredBackupWindow": "00:00-00:30",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1b",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "docdb-group",
+          "DBSubnetGroupDescription": "docdb",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-02c3f2f4c723d2a75",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1c"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "fri:05:51-fri:06:21",
+        "PendingModifiedValues": {},
+        "EngineVersion": "5.0.0",
+        "AutoMinorVersionUpgrade": true,
+        "PubliclyAccessible": false,
+        "DBClusterIdentifier": "docdb-devops",
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-ZMJV3BMDYN5RYU4DNSAYP65BFI",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": false,
+        "PromotionTier": 1,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:docdb-devops2",
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-02-20T05:51:03+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "docdb-devops3",
+        "DBInstanceClass": "db.t3.medium",
+        "Engine": "docdb",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "docdb-devops3.cxwu08m2qypw.us-east-1.docdb.amazonaws.com",
+          "Port": 27017,
+          "HostedZoneId": "ZNKXH85TT8WVW"
+        },
+        "InstanceCreateTime": "2025-02-12T03:51:27.453000+00:00",
+        "PreferredBackupWindow": "00:00-00:30",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1c",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "docdb-group",
+          "DBSubnetGroupDescription": "docdb",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-02c3f2f4c723d2a75",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1c"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "fri:08:58-fri:09:28",
+        "PendingModifiedValues": {},
+        "EngineVersion": "5.0.0",
+        "AutoMinorVersionUpgrade": true,
+        "PubliclyAccessible": false,
+        "DBClusterIdentifier": "docdb-devops",
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-IPEYMJLUFVN7BRQMIHWZUGRZ6M",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": false,
+        "PromotionTier": 1,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:docdb-devops3",
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-02-20T08:58:03+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "docdb-gia",
+        "DBInstanceClass": "db.r6g.large",
+        "Engine": "docdb",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "docdb-gia.cxwu08m2qypw.us-east-1.docdb.amazonaws.com",
+          "Port": 27017,
+          "HostedZoneId": "ZNKXH85TT8WVW"
+        },
+        "InstanceCreateTime": "2025-03-07T03:04:34.546000+00:00",
+        "PreferredBackupWindow": "00:00-00:30",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1b",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "docdb-group",
+          "DBSubnetGroupDescription": "docdb",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-02c3f2f4c723d2a75",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1c"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "mon:03:23-mon:03:53",
+        "PendingModifiedValues": {},
+        "EngineVersion": "5.0.0",
+        "AutoMinorVersionUpgrade": true,
+        "PubliclyAccessible": false,
+        "DBClusterIdentifier": "docdb-gia",
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-VPDVEN2KKQVKXHC5FW72ZCTH54",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": false,
+        "PromotionTier": 1,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:docdb-gia",
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-09T03:23:54+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "docdb-gia2",
+        "DBInstanceClass": "db.t4g.medium",
+        "Engine": "docdb",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "docdb-gia2.cxwu08m2qypw.us-east-1.docdb.amazonaws.com",
+          "Port": 27017,
+          "HostedZoneId": "ZNKXH85TT8WVW"
+        },
+        "InstanceCreateTime": "2025-03-07T02:59:23.988000+00:00",
+        "PreferredBackupWindow": "00:00-00:30",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1c",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "docdb-group",
+          "DBSubnetGroupDescription": "docdb",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-02c3f2f4c723d2a75",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1c"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "fri:06:51-fri:07:21",
+        "PendingModifiedValues": {},
+        "EngineVersion": "5.0.0",
+        "AutoMinorVersionUpgrade": true,
+        "PubliclyAccessible": false,
+        "DBClusterIdentifier": "docdb-gia",
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-26E3I5J4CKRDSLEZQGLW4MOJW4",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": false,
+        "PromotionTier": 1,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:docdb-gia2",
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-13T06:51:03+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "docdb-gia3",
+        "DBInstanceClass": "db.r6g.large",
+        "Engine": "docdb",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "docdb-gia3.cxwu08m2qypw.us-east-1.docdb.amazonaws.com",
+          "Port": 27017,
+          "HostedZoneId": "ZNKXH85TT8WVW"
+        },
+        "InstanceCreateTime": "2025-03-07T03:06:24.174000+00:00",
+        "PreferredBackupWindow": "00:00-00:30",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1a",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "docdb-group",
+          "DBSubnetGroupDescription": "docdb",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-02c3f2f4c723d2a75",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1c"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "thu:04:01-thu:04:31",
+        "PendingModifiedValues": {},
+        "EngineVersion": "5.0.0",
+        "AutoMinorVersionUpgrade": true,
+        "PubliclyAccessible": false,
+        "DBClusterIdentifier": "docdb-gia",
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-NKTNTZDS7QOJAW4DPFM5MGA5AI",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": false,
+        "PromotionTier": 1,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:docdb-gia3",
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-12T04:01:01+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "docdb-iot",
+        "DBInstanceClass": "db.t3.medium",
+        "Engine": "docdb",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "docdb-iot.cxwu08m2qypw.us-east-1.docdb.amazonaws.com",
+          "Port": 27017,
+          "HostedZoneId": "ZNKXH85TT8WVW"
+        },
+        "InstanceCreateTime": "2025-03-10T07:18:08.461000+00:00",
+        "PreferredBackupWindow": "00:00-00:30",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1b",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "docdb-group",
+          "DBSubnetGroupDescription": "docdb",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-02c3f2f4c723d2a75",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1c"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "thu:09:42-thu:10:12",
+        "PendingModifiedValues": {},
+        "EngineVersion": "5.0.0",
+        "AutoMinorVersionUpgrade": true,
+        "PubliclyAccessible": false,
+        "DBClusterIdentifier": "docdb-iot",
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-MB6HCOCY4TMSAG2RT6DQ25NJN4",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": false,
+        "PromotionTier": 1,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:docdb-iot",
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-12T09:42:01+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "docdb-iot2",
+        "DBInstanceClass": "db.t3.medium",
+        "Engine": "docdb",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "docdb-iot2.cxwu08m2qypw.us-east-1.docdb.amazonaws.com",
+          "Port": 27017,
+          "HostedZoneId": "ZNKXH85TT8WVW"
+        },
+        "InstanceCreateTime": "2025-03-10T07:12:02.349000+00:00",
+        "PreferredBackupWindow": "00:00-00:30",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1c",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "docdb-group",
+          "DBSubnetGroupDescription": "docdb",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-02c3f2f4c723d2a75",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1c"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "sun:05:59-sun:06:29",
+        "PendingModifiedValues": {},
+        "EngineVersion": "5.0.0",
+        "AutoMinorVersionUpgrade": true,
+        "PubliclyAccessible": false,
+        "DBClusterIdentifier": "docdb-iot",
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-NUAUUQX7KCLUWSMUUGUZHLJXPM",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": false,
+        "PromotionTier": 1,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:docdb-iot2",
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-15T05:59:01+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "docdb-iot3",
+        "DBInstanceClass": "db.t3.medium",
+        "Engine": "docdb",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "docdb-iot3.cxwu08m2qypw.us-east-1.docdb.amazonaws.com",
+          "Port": 27017,
+          "HostedZoneId": "ZNKXH85TT8WVW"
+        },
+        "InstanceCreateTime": "2025-03-10T07:19:05.227000+00:00",
+        "PreferredBackupWindow": "00:00-00:30",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1a",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "docdb-group",
+          "DBSubnetGroupDescription": "docdb",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-02c3f2f4c723d2a75",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1c"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "mon:06:08-mon:06:38",
+        "PendingModifiedValues": {},
+        "EngineVersion": "5.0.0",
+        "AutoMinorVersionUpgrade": true,
+        "PubliclyAccessible": false,
+        "DBClusterIdentifier": "docdb-iot",
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-RXYP6IKE5ZZPSH6XLBTDTBNLLQ",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": false,
+        "PromotionTier": 1,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:docdb-iot3",
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-16T06:08:02+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "docdb-luckyus-iluckychaindep",
+        "DBInstanceClass": "db.t3.medium",
+        "Engine": "docdb",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "docdb-luckyus-iluckychaindep.cxwu08m2qypw.us-east-1.docdb.amazonaws.com",
+          "Port": 27017,
+          "HostedZoneId": "ZNKXH85TT8WVW"
+        },
+        "InstanceCreateTime": "2026-03-02T17:35:46.837000+00:00",
+        "PreferredBackupWindow": "00:00-00:30",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1b",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "docdb-group",
+          "DBSubnetGroupDescription": "docdb",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-02c3f2f4c723d2a75",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1c"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "sun:04:52-sun:05:22",
+        "PendingModifiedValues": {},
+        "EngineVersion": "5.0.0",
+        "AutoMinorVersionUpgrade": true,
+        "PubliclyAccessible": false,
+        "DBClusterIdentifier": "docdb-luckyus-iluckychaindep",
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-BHKUTDH65SBYXK6G2APZMU7PXI",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": false,
+        "PromotionTier": 1,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:docdb-luckyus-iluckychaindep",
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-02T17:34:20+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "docdb-luckyus-iluckychaindep2",
+        "DBInstanceClass": "db.t3.medium",
+        "Engine": "docdb",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "docdb-luckyus-iluckychaindep2.cxwu08m2qypw.us-east-1.docdb.amazonaws.com",
+          "Port": 27017,
+          "HostedZoneId": "ZNKXH85TT8WVW"
+        },
+        "InstanceCreateTime": "2026-03-02T17:36:08.402000+00:00",
+        "PreferredBackupWindow": "00:00-00:30",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1b",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "docdb-group",
+          "DBSubnetGroupDescription": "docdb",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-02c3f2f4c723d2a75",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1c"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "sun:03:09-sun:03:39",
+        "PendingModifiedValues": {},
+        "EngineVersion": "5.0.0",
+        "AutoMinorVersionUpgrade": true,
+        "PubliclyAccessible": false,
+        "DBClusterIdentifier": "docdb-luckyus-iluckychaindep",
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-CXCCPA5H62DERCB6G6HJTIMVC4",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": false,
+        "PromotionTier": 1,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:docdb-luckyus-iluckychaindep2",
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-02T17:34:35+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      },
+      {
+        "DBInstanceIdentifier": "docdb-luckyus-iluckychaindep3",
+        "DBInstanceClass": "db.t3.medium",
+        "Engine": "docdb",
+        "DBInstanceStatus": "available",
+        "Endpoint": {
+          "Address": "docdb-luckyus-iluckychaindep3.cxwu08m2qypw.us-east-1.docdb.amazonaws.com",
+          "Port": 27017,
+          "HostedZoneId": "ZNKXH85TT8WVW"
+        },
+        "InstanceCreateTime": "2026-03-02T17:31:27.109000+00:00",
+        "PreferredBackupWindow": "00:00-00:30",
+        "BackupRetentionPeriod": 7,
+        "VpcSecurityGroups": [
+          {
+            "VpcSecurityGroupId": "sg-0deaa7cf7437e39c7",
+            "Status": "active"
+          }
+        ],
+        "AvailabilityZone": "us-east-1c",
+        "DBSubnetGroup": {
+          "DBSubnetGroupName": "docdb-group",
+          "DBSubnetGroupDescription": "docdb",
+          "VpcId": "vpc-0dce7ca7770422d33",
+          "SubnetGroupStatus": "Complete",
+          "Subnets": [
+            {
+              "SubnetIdentifier": "subnet-01608eef3ea13c7d3",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1a"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-0acd412a7bc5ebc55",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1b"
+              },
+              "SubnetStatus": "Active"
+            },
+            {
+              "SubnetIdentifier": "subnet-02c3f2f4c723d2a75",
+              "SubnetAvailabilityZone": {
+                "Name": "us-east-1c"
+              },
+              "SubnetStatus": "Active"
+            }
+          ]
+        },
+        "PreferredMaintenanceWindow": "thu:07:44-thu:08:14",
+        "PendingModifiedValues": {},
+        "EngineVersion": "5.0.0",
+        "AutoMinorVersionUpgrade": true,
+        "PubliclyAccessible": false,
+        "DBClusterIdentifier": "docdb-luckyus-iluckychaindep",
+        "StorageEncrypted": true,
+        "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/5c5c743d-b79f-4d3a-867f-5e849ee4b52b",
+        "DbiResourceId": "db-QCKXWRAPFUO4EGHWQMFWHP4LOA",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "CopyTagsToSnapshot": false,
+        "PromotionTier": 1,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:257394478466:db:docdb-luckyus-iluckychaindep3",
+        "CertificateDetails": {
+          "CAIdentifier": "rds-ca-rsa2048-g1",
+          "ValidTill": "2027-03-02T17:29:20+00:00"
+        },
+        "PerformanceInsightsEnabled": false
+      }
+    ]
+  },
+  "docdb_engine_versions": {
+    "DBEngineVersions": [
+      {
+        "Engine": "docdb",
+        "EngineVersion": "3.6.0",
+        "DBParameterGroupFamily": "docdb3.6",
+        "DBEngineDescription": "Amazon DocumentDB (with MongoDB compatibility)",
+        "DBEngineVersionDescription": "Amazon DocumentDB (with MongoDB compatibility)",
+        "ValidUpgradeTarget": [
+          {
+            "Engine": "docdb",
+            "EngineVersion": "5.0.0",
+            "Description": "Amazon DocumentDB (with MongoDB compatibility)",
+            "AutoUpgrade": false,
+            "IsMajorVersionUpgrade": true
+          }
+        ],
+        "ExportableLogTypes": [
+          "audit",
+          "profiler"
+        ],
+        "SupportsLogExportsToCloudwatchLogs": true,
+        "SupportedCACertificateIdentifiers": [
+          "rds-ca-rsa4096-g1",
+          "rds-ca-rsa2048-g1"
+        ],
+        "SupportsCertificateRotationWithoutRestart": true
+      },
+      {
+        "Engine": "docdb",
+        "EngineVersion": "4.0.0",
+        "DBParameterGroupFamily": "docdb4.0",
+        "DBEngineDescription": "Amazon DocumentDB (with MongoDB compatibility)",
+        "DBEngineVersionDescription": "Amazon DocumentDB (with MongoDB compatibility)",
+        "ValidUpgradeTarget": [
+          {
+            "Engine": "docdb",
+            "EngineVersion": "5.0.0",
+            "Description": "Amazon DocumentDB (with MongoDB compatibility)",
+            "AutoUpgrade": false,
+            "IsMajorVersionUpgrade": true
+          }
+        ],
+        "ExportableLogTypes": [
+          "audit",
+          "profiler"
+        ],
+        "SupportsLogExportsToCloudwatchLogs": true,
+        "SupportedCACertificateIdentifiers": [
+          "rds-ca-ecc384-g1",
+          "rds-ca-rsa4096-g1",
+          "rds-ca-rsa2048-g1"
+        ],
+        "SupportsCertificateRotationWithoutRestart": true
+      },
+      {
+        "Engine": "docdb",
+        "EngineVersion": "5.0.0",
+        "DBParameterGroupFamily": "docdb5.0",
+        "DBEngineDescription": "Amazon DocumentDB (with MongoDB compatibility)",
+        "DBEngineVersionDescription": "Amazon DocumentDB (with MongoDB compatibility)",
+        "ValidUpgradeTarget": [],
+        "ExportableLogTypes": [
+          "audit",
+          "profiler"
+        ],
+        "SupportsLogExportsToCloudwatchLogs": true,
+        "SupportedCACertificateIdentifiers": [
+          "rds-ca-ecc384-g1",
+          "rds-ca-rsa4096-g1",
+          "rds-ca-rsa2048-g1"
+        ],
+        "SupportsCertificateRotationWithoutRestart": true,
+        "ServerlessV2FeaturesSupport": {
+          "MinCapacity": 0.5,
+          "MaxCapacity": 256
+        }
+      },
+      {
+        "Engine": "docdb",
+        "EngineVersion": "8.0.0",
+        "DBParameterGroupFamily": "docdb8.0",
+        "DBEngineDescription": "Amazon DocumentDB (with MongoDB compatibility)",
+        "DBEngineVersionDescription": "Amazon DocumentDB (with MongoDB compatibility)",
+        "ValidUpgradeTarget": [],
+        "ExportableLogTypes": [
+          "audit",
+          "profiler"
+        ],
+        "SupportsLogExportsToCloudwatchLogs": true,
+        "SupportedCACertificateIdentifiers": [
+          "rds-ca-ecc384-g1",
+          "rds-ca-rsa4096-g1",
+          "rds-ca-rsa2048-g1"
+        ],
+        "SupportsCertificateRotationWithoutRestart": true,
+        "ServerlessV2FeaturesSupport": {
+          "MinCapacity": 0.5,
+          "MaxCapacity": 256
+        }
+      }
+    ]
+  }
+}

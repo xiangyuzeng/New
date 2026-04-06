@@ -1,0 +1,1877 @@
+{
+  "domain_names": {
+    "DomainNames": [
+      {
+        "DomainName": "luckylfe-log",
+        "EngineType": "Elasticsearch"
+      },
+      {
+        "DomainName": "luckycommon",
+        "EngineType": "Elasticsearch"
+      },
+      {
+        "DomainName": "luckyur-log",
+        "EngineType": "Elasticsearch"
+      },
+      {
+        "DomainName": "luckyus-opensearch-dify",
+        "EngineType": "OpenSearch"
+      }
+    ]
+  },
+  "available_versions": {
+    "Versions": [
+      "OpenSearch_3.5",
+      "OpenSearch_3.3",
+      "OpenSearch_3.1",
+      "OpenSearch_2.19",
+      "OpenSearch_2.17",
+      "OpenSearch_2.15",
+      "OpenSearch_2.13",
+      "OpenSearch_2.11",
+      "OpenSearch_2.9",
+      "OpenSearch_2.7",
+      "OpenSearch_2.5",
+      "OpenSearch_2.3",
+      "OpenSearch_1.3",
+      "OpenSearch_1.2",
+      "OpenSearch_1.1",
+      "OpenSearch_1.0",
+      "Elasticsearch_7.10",
+      "Elasticsearch_7.9",
+      "Elasticsearch_7.8",
+      "Elasticsearch_7.7",
+      "Elasticsearch_7.4",
+      "Elasticsearch_7.1",
+      "Elasticsearch_6.8",
+      "Elasticsearch_6.7",
+      "Elasticsearch_6.5",
+      "Elasticsearch_6.4",
+      "Elasticsearch_6.3",
+      "Elasticsearch_6.2",
+      "Elasticsearch_6.0",
+      "Elasticsearch_5.6",
+      "Elasticsearch_5.5",
+      "Elasticsearch_5.3",
+      "Elasticsearch_5.1",
+      "Elasticsearch_2.3",
+      "Elasticsearch_1.5"
+    ]
+  },
+  "domain_details": {
+    "luckycommon": {
+      "describe": {
+        "DomainStatus": {
+          "DomainId": "257394478466/luckycommon",
+          "DomainName": "luckycommon",
+          "ARN": "arn:aws:es:us-east-1:257394478466:domain/luckycommon",
+          "Created": true,
+          "Deleted": false,
+          "Endpoints": {
+            "vpc": "vpc-luckycommon-6td25pij3j45l572katgsdp2ty.us-east-1.es.amazonaws.com"
+          },
+          "Processing": false,
+          "UpgradeProcessing": false,
+          "EngineVersion": "Elasticsearch_6.8",
+          "ClusterConfig": {
+            "InstanceType": "m5.large.search",
+            "InstanceCount": 4,
+            "DedicatedMasterEnabled": true,
+            "ZoneAwarenessEnabled": true,
+            "ZoneAwarenessConfig": {
+              "AvailabilityZoneCount": 2
+            },
+            "DedicatedMasterType": "t3.small.search",
+            "DedicatedMasterCount": 3,
+            "WarmEnabled": false,
+            "ColdStorageOptions": {
+              "Enabled": false
+            },
+            "MultiAZWithStandbyEnabled": false,
+            "NodeOptions": [
+              {
+                "NodeType": "coordinator",
+                "NodeConfig": {
+                  "Enabled": false
+                }
+              }
+            ]
+          },
+          "EBSOptions": {
+            "EBSEnabled": true,
+            "VolumeType": "gp3",
+            "VolumeSize": 100,
+            "Iops": 3000,
+            "Throughput": 125
+          },
+          "AccessPolicies": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Principal\":{\"AWS\":\"*\"},\"Action\":\"es:*\",\"Resource\":\"arn:aws:es:us-east-1:257394478466:domain/luckycommon/*\"}]}",
+          "IPAddressType": "ipv4",
+          "SnapshotOptions": {},
+          "VPCOptions": {
+            "VPCId": "vpc-0dce7ca7770422d33",
+            "SubnetIds": [
+              "subnet-01608eef3ea13c7d3",
+              "subnet-0acd412a7bc5ebc55"
+            ],
+            "AvailabilityZones": [
+              "us-east-1a",
+              "us-east-1b"
+            ],
+            "SecurityGroupIds": [
+              "sg-0deaa7cf7437e39c7"
+            ]
+          },
+          "CognitoOptions": {
+            "Enabled": false
+          },
+          "EncryptionAtRestOptions": {
+            "Enabled": true,
+            "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/0d74cdfc-57ba-4d94-8947-2249228352f1"
+          },
+          "NodeToNodeEncryptionOptions": {
+            "Enabled": true
+          },
+          "AdvancedOptions": {
+            "indices.fielddata.cache.size": "20",
+            "override_main_response_version": "false",
+            "indices.query.bool.max_clause_count": "1024",
+            "rest.action.multi.allow_explicit_index": "true"
+          },
+          "ServiceSoftwareOptions": {
+            "CurrentVersion": "Elasticsearch_6_8_R20250625",
+            "NewVersion": "Elasticsearch_6_8_R20260217",
+            "UpdateAvailable": true,
+            "Cancellable": false,
+            "UpdateStatus": "ELIGIBLE",
+            "Description": "A newer release Elasticsearch_6_8_R20260217 is available.",
+            "AutomatedUpdateDate": "1970-01-01T00:00:00+00:00",
+            "OptionalDeployment": true
+          },
+          "DomainEndpointOptions": {
+            "EnforceHTTPS": true,
+            "TLSSecurityPolicy": "Policy-Min-TLS-1-2-2019-07",
+            "CustomEndpointEnabled": false
+          },
+          "AdvancedSecurityOptions": {
+            "Enabled": true,
+            "InternalUserDatabaseEnabled": true,
+            "AnonymousAuthEnabled": false
+          },
+          "IdentityCenterOptions": {},
+          "AutoTuneOptions": {
+            "State": "DISABLED",
+            "UseOffPeakWindow": false
+          },
+          "ChangeProgressDetails": {
+            "ChangeId": "a935a17a-92a0-4d9f-9c5a-d5fb7220c195",
+            "ConfigChangeStatus": "Completed",
+            "InitiatedBy": "CUSTOMER",
+            "StartTime": "2026-01-28T19:01:09.412000+00:00",
+            "LastUpdatedTime": "2026-01-28T19:04:27.443000+00:00"
+          },
+          "OffPeakWindowOptions": {
+            "Enabled": true,
+            "OffPeakWindow": {
+              "WindowStartTime": {
+                "Hours": 0,
+                "Minutes": 0
+              }
+            }
+          },
+          "SoftwareUpdateOptions": {
+            "AutoSoftwareUpdateEnabled": false
+          },
+          "DomainProcessingStatus": "Active",
+          "ModifyingProperties": [],
+          "AIMLOptions": {
+            "NaturalLanguageQueryGenerationOptions": {
+              "DesiredState": "DISABLED",
+              "CurrentState": "NOT_ENABLED"
+            },
+            "S3VectorsEngine": {
+              "Enabled": false
+            },
+            "ServerlessVectorAcceleration": {
+              "Enabled": false
+            }
+          },
+          "DeploymentStrategyOptions": {
+            "DeploymentStrategy": "Default"
+          }
+        }
+      },
+      "compatible_versions": {
+        "CompatibleVersions": [
+          {
+            "SourceVersion": "Elasticsearch_6.8",
+            "TargetVersions": [
+              "Elasticsearch_7.1",
+              "Elasticsearch_7.4",
+              "Elasticsearch_7.7",
+              "Elasticsearch_7.8",
+              "Elasticsearch_7.9",
+              "Elasticsearch_7.10",
+              "OpenSearch_1.0",
+              "OpenSearch_1.1",
+              "OpenSearch_1.2",
+              "OpenSearch_1.3"
+            ]
+          }
+        ]
+      },
+      "config": {
+        "DomainConfig": {
+          "EngineVersion": {
+            "Options": "Elasticsearch_6.8",
+            "Status": {
+              "CreationDate": "2025-03-05T06:52:38.062000+00:00",
+              "UpdateDate": "2025-03-05T07:11:55.035000+00:00",
+              "UpdateVersion": 10,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "ClusterConfig": {
+            "Options": {
+              "InstanceType": "m5.large.search",
+              "InstanceCount": 4,
+              "DedicatedMasterEnabled": true,
+              "ZoneAwarenessEnabled": true,
+              "ZoneAwarenessConfig": {
+                "AvailabilityZoneCount": 2
+              },
+              "DedicatedMasterType": "t3.small.search",
+              "DedicatedMasterCount": 3,
+              "WarmEnabled": false,
+              "ColdStorageOptions": {
+                "Enabled": false
+              },
+              "MultiAZWithStandbyEnabled": false,
+              "NodeOptions": [
+                {
+                  "NodeType": "coordinator",
+                  "NodeConfig": {
+                    "Enabled": false
+                  }
+                }
+              ]
+            },
+            "Status": {
+              "CreationDate": "2025-03-05T06:52:38.083000+00:00",
+              "UpdateDate": "2025-07-15T03:22:25.754000+00:00",
+              "UpdateVersion": 34,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "EBSOptions": {
+            "Options": {
+              "EBSEnabled": true,
+              "VolumeType": "gp3",
+              "VolumeSize": 100,
+              "Iops": 3000,
+              "Throughput": 125
+            },
+            "Status": {
+              "CreationDate": "2025-03-05T06:52:38.067000+00:00",
+              "UpdateDate": "2026-01-28T19:04:25.431000+00:00",
+              "UpdateVersion": 43,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "AccessPolicies": {
+            "Options": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Principal\":{\"AWS\":\"*\"},\"Action\":\"es:*\",\"Resource\":\"arn:aws:es:us-east-1:257394478466:domain/luckycommon/*\"}]}",
+            "Status": {
+              "CreationDate": "2025-03-05T06:52:38.085000+00:00",
+              "UpdateDate": "2025-03-05T07:11:55.045000+00:00",
+              "UpdateVersion": 10,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "IPAddressType": {
+            "Options": "ipv4",
+            "Status": {
+              "CreationDate": "2025-03-05T06:52:38.055000+00:00",
+              "UpdateDate": "2025-03-05T07:11:55.031000+00:00",
+              "UpdateVersion": 10,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "SnapshotOptions": {
+            "Options": {
+              "AutomatedSnapshotStartHour": 0
+            },
+            "Status": {
+              "CreationDate": "2025-03-05T06:52:38.069000+00:00",
+              "UpdateDate": "2025-03-05T07:11:55.038000+00:00",
+              "UpdateVersion": 10,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "VPCOptions": {
+            "Options": {
+              "VPCId": "vpc-0dce7ca7770422d33",
+              "SubnetIds": [
+                "subnet-01608eef3ea13c7d3",
+                "subnet-0acd412a7bc5ebc55"
+              ],
+              "AvailabilityZones": [
+                "us-east-1a",
+                "us-east-1b"
+              ],
+              "SecurityGroupIds": [
+                "sg-0deaa7cf7437e39c7"
+              ]
+            },
+            "Status": {
+              "CreationDate": "2025-03-05T06:52:38.065000+00:00",
+              "UpdateDate": "2025-03-05T07:11:55.037000+00:00",
+              "UpdateVersion": 10,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "CognitoOptions": {
+            "Options": {
+              "Enabled": false
+            },
+            "Status": {
+              "CreationDate": "2026-04-06T19:32:27.812000+00:00",
+              "UpdateDate": "2026-04-06T19:32:27.812000+00:00",
+              "UpdateVersion": 43,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "EncryptionAtRestOptions": {
+            "Options": {
+              "Enabled": true,
+              "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/0d74cdfc-57ba-4d94-8947-2249228352f1"
+            },
+            "Status": {
+              "CreationDate": "2025-03-05T06:52:38.063000+00:00",
+              "UpdateDate": "2025-03-05T07:11:55.036000+00:00",
+              "UpdateVersion": 10,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "NodeToNodeEncryptionOptions": {
+            "Options": {
+              "Enabled": true
+            },
+            "Status": {
+              "CreationDate": "2025-03-05T06:52:38.081000+00:00",
+              "UpdateDate": "2025-03-05T07:11:55.043000+00:00",
+              "UpdateVersion": 10,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "AdvancedOptions": {
+            "Options": {
+              "indices.fielddata.cache.size": "20",
+              "override_main_response_version": "false",
+              "indices.query.bool.max_clause_count": "1024",
+              "rest.action.multi.allow_explicit_index": "true"
+            },
+            "Status": {
+              "CreationDate": "2025-03-05T06:52:38.053000+00:00",
+              "UpdateDate": "2025-03-05T07:11:55.030000+00:00",
+              "UpdateVersion": 10,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "LogPublishingOptions": {
+            "Options": {},
+            "Status": {
+              "CreationDate": "2026-04-06T19:32:27.813000+00:00",
+              "UpdateDate": "2026-04-06T19:32:27.813000+00:00",
+              "UpdateVersion": 43,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "DomainEndpointOptions": {
+            "Options": {
+              "EnforceHTTPS": true,
+              "TLSSecurityPolicy": "Policy-Min-TLS-1-2-2019-07",
+              "CustomEndpointEnabled": false
+            },
+            "Status": {
+              "CreationDate": "2025-03-05T06:52:38.067000+00:00",
+              "UpdateDate": "2025-03-05T07:11:55.037000+00:00",
+              "UpdateVersion": 10,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "AdvancedSecurityOptions": {
+            "Options": {
+              "Enabled": true,
+              "InternalUserDatabaseEnabled": true,
+              "AnonymousAuthEnabled": false
+            },
+            "Status": {
+              "CreationDate": "2025-03-05T06:52:38.061000+00:00",
+              "UpdateDate": "2025-03-05T07:11:55.035000+00:00",
+              "UpdateVersion": 10,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "IdentityCenterOptions": {
+            "Options": {},
+            "Status": {
+              "CreationDate": "2026-04-06T19:32:27.813000+00:00",
+              "UpdateDate": "2026-04-06T19:32:27.813000+00:00",
+              "UpdateVersion": 43,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "AutoTuneOptions": {
+            "Options": {
+              "DesiredState": "DISABLED",
+              "RollbackOnDisable": "NO_ROLLBACK",
+              "MaintenanceSchedules": [],
+              "UseOffPeakWindow": false
+            },
+            "Status": {
+              "CreationDate": "2026-04-06T19:32:27.814000+00:00",
+              "UpdateDate": "2026-04-06T19:32:27.814000+00:00",
+              "UpdateVersion": 43,
+              "State": "DISABLED",
+              "PendingDeletion": false
+            }
+          },
+          "ChangeProgressDetails": {
+            "ChangeId": "a935a17a-92a0-4d9f-9c5a-d5fb7220c195",
+            "ConfigChangeStatus": "Completed",
+            "InitiatedBy": "CUSTOMER",
+            "StartTime": "2026-01-28T19:01:09.412000+00:00",
+            "LastUpdatedTime": "2026-01-28T19:04:27.443000+00:00"
+          },
+          "OffPeakWindowOptions": {
+            "Options": {
+              "Enabled": true,
+              "OffPeakWindow": {
+                "WindowStartTime": {
+                  "Hours": 0,
+                  "Minutes": 0
+                }
+              }
+            },
+            "Status": {
+              "CreationDate": "2025-03-05T06:52:38.073000+00:00",
+              "UpdateDate": "2025-03-05T07:11:55.040000+00:00",
+              "UpdateVersion": 10,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "SoftwareUpdateOptions": {
+            "Options": {
+              "AutoSoftwareUpdateEnabled": false
+            },
+            "Status": {
+              "CreationDate": "2025-03-05T06:52:38.051000+00:00",
+              "UpdateDate": "2025-03-05T07:11:55.029000+00:00",
+              "UpdateVersion": 10,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "ModifyingProperties": [],
+          "AIMLOptions": {
+            "Options": {
+              "NaturalLanguageQueryGenerationOptions": {
+                "DesiredState": "DISABLED",
+                "CurrentState": "NOT_ENABLED"
+              },
+              "S3VectorsEngine": {
+                "Enabled": false
+              },
+              "ServerlessVectorAcceleration": {
+                "Enabled": false
+              }
+            },
+            "Status": {
+              "CreationDate": "2025-03-05T06:52:38.059000+00:00",
+              "UpdateDate": "2026-01-28T19:01:09.314000+00:00",
+              "UpdateVersion": 40,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "DeploymentStrategyOptions": {
+            "Options": {
+              "DeploymentStrategy": "Default"
+            },
+            "Status": {
+              "CreationDate": "2026-04-06T19:32:27.812000+00:00",
+              "UpdateDate": "2026-04-06T19:32:27.812000+00:00",
+              "UpdateVersion": 43,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          }
+        }
+      }
+    },
+    "luckylfe-log": {
+      "describe": {
+        "DomainStatus": {
+          "DomainId": "257394478466/luckylfe-log",
+          "DomainName": "luckylfe-log",
+          "ARN": "arn:aws:es:us-east-1:257394478466:domain/luckylfe-log",
+          "Created": true,
+          "Deleted": false,
+          "Endpoints": {
+            "vpc": "vpc-luckylfe-log-eh3n6nwo4c43eofoz36j35kni4.us-east-1.es.amazonaws.com"
+          },
+          "Processing": false,
+          "UpgradeProcessing": false,
+          "EngineVersion": "Elasticsearch_7.10",
+          "ClusterConfig": {
+            "InstanceType": "m5.large.search",
+            "InstanceCount": 4,
+            "DedicatedMasterEnabled": true,
+            "ZoneAwarenessEnabled": true,
+            "ZoneAwarenessConfig": {
+              "AvailabilityZoneCount": 2
+            },
+            "DedicatedMasterType": "t3.medium.search",
+            "DedicatedMasterCount": 3,
+            "WarmEnabled": false,
+            "ColdStorageOptions": {
+              "Enabled": false
+            },
+            "MultiAZWithStandbyEnabled": false,
+            "NodeOptions": [
+              {
+                "NodeType": "coordinator",
+                "NodeConfig": {
+                  "Enabled": false
+                }
+              }
+            ]
+          },
+          "EBSOptions": {
+            "EBSEnabled": true,
+            "VolumeType": "gp2",
+            "VolumeSize": 80
+          },
+          "AccessPolicies": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Principal\":{\"AWS\":\"*\"},\"Action\":\"es:*\",\"Resource\":\"arn:aws:es:us-east-1:257394478466:domain/luckylfe-log/*\"}]}",
+          "IPAddressType": "ipv4",
+          "SnapshotOptions": {},
+          "VPCOptions": {
+            "VPCId": "vpc-0dce7ca7770422d33",
+            "SubnetIds": [
+              "subnet-01608eef3ea13c7d3",
+              "subnet-0acd412a7bc5ebc55"
+            ],
+            "AvailabilityZones": [
+              "us-east-1a",
+              "us-east-1b"
+            ],
+            "SecurityGroupIds": [
+              "sg-0deaa7cf7437e39c7"
+            ]
+          },
+          "CognitoOptions": {
+            "Enabled": false
+          },
+          "EncryptionAtRestOptions": {
+            "Enabled": true,
+            "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/0d74cdfc-57ba-4d94-8947-2249228352f1"
+          },
+          "NodeToNodeEncryptionOptions": {
+            "Enabled": true
+          },
+          "AdvancedOptions": {
+            "indices.fielddata.cache.size": "20",
+            "override_main_response_version": "false",
+            "indices.query.bool.max_clause_count": "1024",
+            "rest.action.multi.allow_explicit_index": "true"
+          },
+          "ServiceSoftwareOptions": {
+            "CurrentVersion": "Elasticsearch_7_10_R20250625",
+            "NewVersion": "Elasticsearch_7_10_R20260217",
+            "UpdateAvailable": true,
+            "Cancellable": false,
+            "UpdateStatus": "ELIGIBLE",
+            "Description": "A newer release Elasticsearch_7_10_R20260217 is available.",
+            "AutomatedUpdateDate": "1970-01-01T00:00:00+00:00",
+            "OptionalDeployment": true
+          },
+          "DomainEndpointOptions": {
+            "EnforceHTTPS": true,
+            "TLSSecurityPolicy": "Policy-Min-TLS-1-2-2019-07",
+            "CustomEndpointEnabled": false
+          },
+          "AdvancedSecurityOptions": {
+            "Enabled": true,
+            "InternalUserDatabaseEnabled": true,
+            "AnonymousAuthEnabled": false
+          },
+          "IdentityCenterOptions": {},
+          "AutoTuneOptions": {
+            "State": "DISABLED",
+            "UseOffPeakWindow": false
+          },
+          "ChangeProgressDetails": {
+            "ChangeId": "eff0be5f-fe13-42d3-ba23-7b3415ae0da7",
+            "ConfigChangeStatus": "Completed",
+            "InitiatedBy": "CUSTOMER",
+            "StartTime": "2025-11-08T03:01:06.333000+00:00",
+            "LastUpdatedTime": "2025-11-08T03:21:13.178000+00:00"
+          },
+          "OffPeakWindowOptions": {
+            "Enabled": true,
+            "OffPeakWindow": {
+              "WindowStartTime": {
+                "Hours": 0,
+                "Minutes": 0
+              }
+            }
+          },
+          "SoftwareUpdateOptions": {
+            "AutoSoftwareUpdateEnabled": false
+          },
+          "DomainProcessingStatus": "Active",
+          "ModifyingProperties": [],
+          "AIMLOptions": {
+            "NaturalLanguageQueryGenerationOptions": {
+              "DesiredState": "DISABLED",
+              "CurrentState": "NOT_ENABLED"
+            },
+            "S3VectorsEngine": {
+              "Enabled": false
+            }
+          },
+          "DeploymentStrategyOptions": {
+            "DeploymentStrategy": "Default"
+          }
+        }
+      },
+      "compatible_versions": {
+        "CompatibleVersions": [
+          {
+            "SourceVersion": "Elasticsearch_7.10",
+            "TargetVersions": [
+              "OpenSearch_1.0",
+              "OpenSearch_1.1",
+              "OpenSearch_1.2",
+              "OpenSearch_1.3"
+            ]
+          }
+        ]
+      },
+      "config": {
+        "DomainConfig": {
+          "EngineVersion": {
+            "Options": "Elasticsearch_7.10",
+            "Status": {
+              "CreationDate": "2025-02-26T09:08:58.536000+00:00",
+              "UpdateDate": "2025-02-26T09:31:53.476000+00:00",
+              "UpdateVersion": 10,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "ClusterConfig": {
+            "Options": {
+              "InstanceType": "m5.large.search",
+              "InstanceCount": 4,
+              "DedicatedMasterEnabled": true,
+              "ZoneAwarenessEnabled": true,
+              "ZoneAwarenessConfig": {
+                "AvailabilityZoneCount": 2
+              },
+              "DedicatedMasterType": "t3.medium.search",
+              "DedicatedMasterCount": 3,
+              "WarmEnabled": false,
+              "ColdStorageOptions": {
+                "Enabled": false
+              },
+              "MultiAZWithStandbyEnabled": false,
+              "NodeOptions": [
+                {
+                  "NodeType": "coordinator",
+                  "NodeConfig": {
+                    "Enabled": false
+                  }
+                }
+              ]
+            },
+            "Status": {
+              "CreationDate": "2025-02-26T09:08:58.549000+00:00",
+              "UpdateDate": "2025-11-08T03:21:11.726000+00:00",
+              "UpdateVersion": 62,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "EBSOptions": {
+            "Options": {
+              "EBSEnabled": true,
+              "VolumeType": "gp2",
+              "VolumeSize": 80
+            },
+            "Status": {
+              "CreationDate": "2025-02-26T09:08:58.539000+00:00",
+              "UpdateDate": "2025-07-02T05:45:31.841000+00:00",
+              "UpdateVersion": 52,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "AccessPolicies": {
+            "Options": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Principal\":{\"AWS\":\"*\"},\"Action\":\"es:*\",\"Resource\":\"arn:aws:es:us-east-1:257394478466:domain/luckylfe-log/*\"}]}",
+            "Status": {
+              "CreationDate": "2025-02-26T09:08:58.551000+00:00",
+              "UpdateDate": "2025-03-24T12:58:50.587000+00:00",
+              "UpdateVersion": 32,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "IPAddressType": {
+            "Options": "ipv4",
+            "Status": {
+              "CreationDate": "2025-02-26T09:08:58.532000+00:00",
+              "UpdateDate": "2025-02-26T09:31:53.472000+00:00",
+              "UpdateVersion": 10,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "SnapshotOptions": {
+            "Options": {
+              "AutomatedSnapshotStartHour": 0
+            },
+            "Status": {
+              "CreationDate": "2025-02-26T09:08:58.540000+00:00",
+              "UpdateDate": "2025-02-26T09:31:53.479000+00:00",
+              "UpdateVersion": 10,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "VPCOptions": {
+            "Options": {
+              "VPCId": "vpc-0dce7ca7770422d33",
+              "SubnetIds": [
+                "subnet-01608eef3ea13c7d3",
+                "subnet-0acd412a7bc5ebc55"
+              ],
+              "AvailabilityZones": [
+                "us-east-1a",
+                "us-east-1b"
+              ],
+              "SecurityGroupIds": [
+                "sg-0deaa7cf7437e39c7"
+              ]
+            },
+            "Status": {
+              "CreationDate": "2025-02-26T09:08:58.538000+00:00",
+              "UpdateDate": "2025-02-26T09:31:53.477000+00:00",
+              "UpdateVersion": 10,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "CognitoOptions": {
+            "Options": {
+              "Enabled": false
+            },
+            "Status": {
+              "CreationDate": "2026-04-06T19:32:25.231000+00:00",
+              "UpdateDate": "2026-04-06T19:32:25.231000+00:00",
+              "UpdateVersion": 63,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "EncryptionAtRestOptions": {
+            "Options": {
+              "Enabled": true,
+              "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/0d74cdfc-57ba-4d94-8947-2249228352f1"
+            },
+            "Status": {
+              "CreationDate": "2025-02-26T09:08:58.537000+00:00",
+              "UpdateDate": "2025-02-26T09:31:53.476000+00:00",
+              "UpdateVersion": 10,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "NodeToNodeEncryptionOptions": {
+            "Options": {
+              "Enabled": true
+            },
+            "Status": {
+              "CreationDate": "2025-02-26T09:08:58.548000+00:00",
+              "UpdateDate": "2025-02-26T09:31:53.483000+00:00",
+              "UpdateVersion": 10,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "AdvancedOptions": {
+            "Options": {
+              "indices.fielddata.cache.size": "20",
+              "override_main_response_version": "false",
+              "indices.query.bool.max_clause_count": "1024",
+              "rest.action.multi.allow_explicit_index": "true"
+            },
+            "Status": {
+              "CreationDate": "2025-02-26T09:08:58.530000+00:00",
+              "UpdateDate": "2025-02-26T09:31:53.471000+00:00",
+              "UpdateVersion": 10,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "LogPublishingOptions": {
+            "Options": {},
+            "Status": {
+              "CreationDate": "2026-04-06T19:32:25.233000+00:00",
+              "UpdateDate": "2026-04-06T19:32:25.233000+00:00",
+              "UpdateVersion": 63,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "DomainEndpointOptions": {
+            "Options": {
+              "EnforceHTTPS": true,
+              "TLSSecurityPolicy": "Policy-Min-TLS-1-2-2019-07",
+              "CustomEndpointEnabled": false
+            },
+            "Status": {
+              "CreationDate": "2025-02-26T09:08:58.539000+00:00",
+              "UpdateDate": "2025-02-26T09:31:53.478000+00:00",
+              "UpdateVersion": 10,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "AdvancedSecurityOptions": {
+            "Options": {
+              "Enabled": true,
+              "InternalUserDatabaseEnabled": true,
+              "AnonymousAuthEnabled": false
+            },
+            "Status": {
+              "CreationDate": "2025-02-26T09:08:58.535000+00:00",
+              "UpdateDate": "2025-02-26T09:31:53.475000+00:00",
+              "UpdateVersion": 10,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "IdentityCenterOptions": {
+            "Options": {},
+            "Status": {
+              "CreationDate": "2026-04-06T19:32:25.232000+00:00",
+              "UpdateDate": "2026-04-06T19:32:25.232000+00:00",
+              "UpdateVersion": 63,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "AutoTuneOptions": {
+            "Options": {
+              "DesiredState": "DISABLED",
+              "RollbackOnDisable": "NO_ROLLBACK",
+              "MaintenanceSchedules": [],
+              "UseOffPeakWindow": false
+            },
+            "Status": {
+              "CreationDate": "2026-04-06T19:32:25.233000+00:00",
+              "UpdateDate": "2026-04-06T19:32:25.233000+00:00",
+              "UpdateVersion": 63,
+              "State": "DISABLED",
+              "PendingDeletion": false
+            }
+          },
+          "ChangeProgressDetails": {
+            "ChangeId": "eff0be5f-fe13-42d3-ba23-7b3415ae0da7",
+            "ConfigChangeStatus": "Completed",
+            "InitiatedBy": "CUSTOMER",
+            "StartTime": "2025-11-08T03:01:06.333000+00:00",
+            "LastUpdatedTime": "2025-11-08T03:21:13.178000+00:00"
+          },
+          "OffPeakWindowOptions": {
+            "Options": {
+              "Enabled": true,
+              "OffPeakWindow": {
+                "WindowStartTime": {
+                  "Hours": 0,
+                  "Minutes": 0
+                }
+              }
+            },
+            "Status": {
+              "CreationDate": "2025-02-26T09:08:58.543000+00:00",
+              "UpdateDate": "2025-02-26T09:31:53.480000+00:00",
+              "UpdateVersion": 10,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "SoftwareUpdateOptions": {
+            "Options": {
+              "AutoSoftwareUpdateEnabled": false
+            },
+            "Status": {
+              "CreationDate": "2025-02-26T09:08:58.529000+00:00",
+              "UpdateDate": "2025-02-26T09:31:53.470000+00:00",
+              "UpdateVersion": 10,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "ModifyingProperties": [],
+          "AIMLOptions": {
+            "Options": {
+              "NaturalLanguageQueryGenerationOptions": {
+                "DesiredState": "DISABLED",
+                "CurrentState": "NOT_ENABLED"
+              },
+              "S3VectorsEngine": {
+                "Enabled": false
+              }
+            },
+            "Status": {
+              "CreationDate": "2025-02-26T09:08:58.534000+00:00",
+              "UpdateDate": "2025-11-08T03:01:06.224000+00:00",
+              "UpdateVersion": 59,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "DeploymentStrategyOptions": {
+            "Options": {
+              "DeploymentStrategy": "Default"
+            },
+            "Status": {
+              "CreationDate": "2026-04-06T19:32:25.232000+00:00",
+              "UpdateDate": "2026-04-06T19:32:25.232000+00:00",
+              "UpdateVersion": 63,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          }
+        }
+      }
+    },
+    "luckyur-log": {
+      "describe": {
+        "DomainStatus": {
+          "DomainId": "257394478466/luckyur-log",
+          "DomainName": "luckyur-log",
+          "ARN": "arn:aws:es:us-east-1:257394478466:domain/luckyur-log",
+          "Created": true,
+          "Deleted": false,
+          "Endpoints": {
+            "vpc": "vpc-luckyur-log-h2ri4xhsubrzscobj64zswc2e4.us-east-1.es.amazonaws.com"
+          },
+          "Processing": false,
+          "UpgradeProcessing": false,
+          "EngineVersion": "Elasticsearch_7.10",
+          "ClusterConfig": {
+            "InstanceType": "m5.xlarge.search",
+            "InstanceCount": 4,
+            "DedicatedMasterEnabled": true,
+            "ZoneAwarenessEnabled": true,
+            "ZoneAwarenessConfig": {
+              "AvailabilityZoneCount": 2
+            },
+            "DedicatedMasterType": "t3.medium.search",
+            "DedicatedMasterCount": 3,
+            "WarmEnabled": false,
+            "ColdStorageOptions": {
+              "Enabled": false
+            },
+            "MultiAZWithStandbyEnabled": false,
+            "NodeOptions": [
+              {
+                "NodeType": "coordinator",
+                "NodeConfig": {
+                  "Enabled": false
+                }
+              }
+            ]
+          },
+          "EBSOptions": {
+            "EBSEnabled": true,
+            "VolumeType": "gp2",
+            "VolumeSize": 500
+          },
+          "AccessPolicies": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Principal\":{\"AWS\":\"*\"},\"Action\":\"es:*\",\"Resource\":\"arn:aws:es:us-east-1:257394478466:domain/luckyur-log/*\"}]}",
+          "IPAddressType": "ipv4",
+          "SnapshotOptions": {},
+          "VPCOptions": {
+            "VPCId": "vpc-0dce7ca7770422d33",
+            "SubnetIds": [
+              "subnet-01608eef3ea13c7d3",
+              "subnet-0acd412a7bc5ebc55"
+            ],
+            "AvailabilityZones": [
+              "us-east-1a",
+              "us-east-1b"
+            ],
+            "SecurityGroupIds": [
+              "sg-0deaa7cf7437e39c7"
+            ]
+          },
+          "CognitoOptions": {
+            "Enabled": false
+          },
+          "EncryptionAtRestOptions": {
+            "Enabled": true,
+            "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/0d74cdfc-57ba-4d94-8947-2249228352f1"
+          },
+          "NodeToNodeEncryptionOptions": {
+            "Enabled": true
+          },
+          "AdvancedOptions": {
+            "indices.fielddata.cache.size": "20",
+            "override_main_response_version": "false",
+            "indices.query.bool.max_clause_count": "1024",
+            "rest.action.multi.allow_explicit_index": "true"
+          },
+          "ServiceSoftwareOptions": {
+            "CurrentVersion": "Elasticsearch_7_10_R20250625",
+            "NewVersion": "Elasticsearch_7_10_R20260217",
+            "UpdateAvailable": true,
+            "Cancellable": false,
+            "UpdateStatus": "ELIGIBLE",
+            "Description": "A newer release Elasticsearch_7_10_R20260217 is available.",
+            "AutomatedUpdateDate": "1970-01-01T00:00:00+00:00",
+            "OptionalDeployment": true
+          },
+          "DomainEndpointOptions": {
+            "EnforceHTTPS": true,
+            "TLSSecurityPolicy": "Policy-Min-TLS-1-2-2019-07",
+            "CustomEndpointEnabled": false
+          },
+          "AdvancedSecurityOptions": {
+            "Enabled": true,
+            "InternalUserDatabaseEnabled": true,
+            "AnonymousAuthEnabled": false
+          },
+          "IdentityCenterOptions": {},
+          "AutoTuneOptions": {
+            "State": "DISABLED",
+            "UseOffPeakWindow": false
+          },
+          "ChangeProgressDetails": {
+            "ChangeId": "36b05262-ba7f-47c6-af9b-33c0a7dd5087",
+            "ConfigChangeStatus": "Completed",
+            "InitiatedBy": "CUSTOMER",
+            "StartTime": "2026-03-12T01:45:27.183000+00:00",
+            "LastUpdatedTime": "2026-03-12T01:48:46.012000+00:00"
+          },
+          "OffPeakWindowOptions": {
+            "Enabled": true,
+            "OffPeakWindow": {
+              "WindowStartTime": {
+                "Hours": 0,
+                "Minutes": 0
+              }
+            }
+          },
+          "SoftwareUpdateOptions": {
+            "AutoSoftwareUpdateEnabled": false
+          },
+          "DomainProcessingStatus": "Active",
+          "ModifyingProperties": [],
+          "AIMLOptions": {
+            "NaturalLanguageQueryGenerationOptions": {
+              "DesiredState": "DISABLED",
+              "CurrentState": "NOT_ENABLED"
+            },
+            "S3VectorsEngine": {
+              "Enabled": false
+            },
+            "ServerlessVectorAcceleration": {
+              "Enabled": false
+            }
+          },
+          "DeploymentStrategyOptions": {
+            "DeploymentStrategy": "Default"
+          }
+        }
+      },
+      "compatible_versions": {
+        "CompatibleVersions": [
+          {
+            "SourceVersion": "Elasticsearch_7.10",
+            "TargetVersions": [
+              "OpenSearch_1.0",
+              "OpenSearch_1.1",
+              "OpenSearch_1.2",
+              "OpenSearch_1.3"
+            ]
+          }
+        ]
+      },
+      "config": {
+        "DomainConfig": {
+          "EngineVersion": {
+            "Options": "Elasticsearch_7.10",
+            "Status": {
+              "CreationDate": "2025-02-27T07:20:31.119000+00:00",
+              "UpdateDate": "2025-02-27T07:42:47.388000+00:00",
+              "UpdateVersion": 10,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "ClusterConfig": {
+            "Options": {
+              "InstanceType": "m5.xlarge.search",
+              "InstanceCount": 4,
+              "DedicatedMasterEnabled": true,
+              "ZoneAwarenessEnabled": true,
+              "ZoneAwarenessConfig": {
+                "AvailabilityZoneCount": 2
+              },
+              "DedicatedMasterType": "t3.medium.search",
+              "DedicatedMasterCount": 3,
+              "WarmEnabled": false,
+              "ColdStorageOptions": {
+                "Enabled": false
+              },
+              "MultiAZWithStandbyEnabled": false,
+              "NodeOptions": [
+                {
+                  "NodeType": "coordinator",
+                  "NodeConfig": {
+                    "Enabled": false
+                  }
+                }
+              ]
+            },
+            "Status": {
+              "CreationDate": "2025-02-27T07:20:31.132000+00:00",
+              "UpdateDate": "2025-11-08T03:47:07.266000+00:00",
+              "UpdateVersion": 56,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "EBSOptions": {
+            "Options": {
+              "EBSEnabled": true,
+              "VolumeType": "gp2",
+              "VolumeSize": 500
+            },
+            "Status": {
+              "CreationDate": "2025-02-27T07:20:31.122000+00:00",
+              "UpdateDate": "2026-03-12T01:48:44.390000+00:00",
+              "UpdateVersion": 61,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "AccessPolicies": {
+            "Options": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Principal\":{\"AWS\":\"*\"},\"Action\":\"es:*\",\"Resource\":\"arn:aws:es:us-east-1:257394478466:domain/luckyur-log/*\"}]}",
+            "Status": {
+              "CreationDate": "2025-02-27T07:20:31.134000+00:00",
+              "UpdateDate": "2025-02-27T07:58:33.065000+00:00",
+              "UpdateVersion": 13,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "IPAddressType": {
+            "Options": "ipv4",
+            "Status": {
+              "CreationDate": "2025-02-27T07:20:31.114000+00:00",
+              "UpdateDate": "2025-02-27T07:42:47.384000+00:00",
+              "UpdateVersion": 10,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "SnapshotOptions": {
+            "Options": {
+              "AutomatedSnapshotStartHour": 0
+            },
+            "Status": {
+              "CreationDate": "2025-02-27T07:20:31.123000+00:00",
+              "UpdateDate": "2025-02-27T07:42:47.391000+00:00",
+              "UpdateVersion": 10,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "VPCOptions": {
+            "Options": {
+              "VPCId": "vpc-0dce7ca7770422d33",
+              "SubnetIds": [
+                "subnet-01608eef3ea13c7d3",
+                "subnet-0acd412a7bc5ebc55"
+              ],
+              "AvailabilityZones": [
+                "us-east-1a",
+                "us-east-1b"
+              ],
+              "SecurityGroupIds": [
+                "sg-0deaa7cf7437e39c7"
+              ]
+            },
+            "Status": {
+              "CreationDate": "2025-02-27T07:20:31.121000+00:00",
+              "UpdateDate": "2025-02-27T07:42:47.389000+00:00",
+              "UpdateVersion": 10,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "CognitoOptions": {
+            "Options": {
+              "Enabled": false
+            },
+            "Status": {
+              "CreationDate": "2026-04-06T19:32:30.350000+00:00",
+              "UpdateDate": "2026-04-06T19:32:30.350000+00:00",
+              "UpdateVersion": 61,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "EncryptionAtRestOptions": {
+            "Options": {
+              "Enabled": true,
+              "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/0d74cdfc-57ba-4d94-8947-2249228352f1"
+            },
+            "Status": {
+              "CreationDate": "2025-02-27T07:20:31.119000+00:00",
+              "UpdateDate": "2025-02-27T07:42:47.388000+00:00",
+              "UpdateVersion": 10,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "NodeToNodeEncryptionOptions": {
+            "Options": {
+              "Enabled": true
+            },
+            "Status": {
+              "CreationDate": "2025-02-27T07:20:31.131000+00:00",
+              "UpdateDate": "2025-02-27T07:42:47.395000+00:00",
+              "UpdateVersion": 10,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "AdvancedOptions": {
+            "Options": {
+              "indices.fielddata.cache.size": "20",
+              "override_main_response_version": "false",
+              "indices.query.bool.max_clause_count": "1024",
+              "rest.action.multi.allow_explicit_index": "true"
+            },
+            "Status": {
+              "CreationDate": "2025-02-27T07:20:31.113000+00:00",
+              "UpdateDate": "2025-02-27T07:42:47.383000+00:00",
+              "UpdateVersion": 10,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "LogPublishingOptions": {
+            "Options": {},
+            "Status": {
+              "CreationDate": "2026-04-06T19:32:30.352000+00:00",
+              "UpdateDate": "2026-04-06T19:32:30.352000+00:00",
+              "UpdateVersion": 61,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "DomainEndpointOptions": {
+            "Options": {
+              "EnforceHTTPS": true,
+              "TLSSecurityPolicy": "Policy-Min-TLS-1-2-2019-07",
+              "CustomEndpointEnabled": false
+            },
+            "Status": {
+              "CreationDate": "2025-02-27T07:20:31.122000+00:00",
+              "UpdateDate": "2025-02-27T07:42:47.390000+00:00",
+              "UpdateVersion": 10,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "AdvancedSecurityOptions": {
+            "Options": {
+              "Enabled": true,
+              "InternalUserDatabaseEnabled": true,
+              "AnonymousAuthEnabled": false
+            },
+            "Status": {
+              "CreationDate": "2025-02-27T07:20:31.118000+00:00",
+              "UpdateDate": "2025-02-27T07:42:47.387000+00:00",
+              "UpdateVersion": 10,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "IdentityCenterOptions": {
+            "Options": {},
+            "Status": {
+              "CreationDate": "2026-04-06T19:32:30.351000+00:00",
+              "UpdateDate": "2026-04-06T19:32:30.351000+00:00",
+              "UpdateVersion": 61,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "AutoTuneOptions": {
+            "Options": {
+              "DesiredState": "DISABLED",
+              "RollbackOnDisable": "NO_ROLLBACK",
+              "MaintenanceSchedules": [],
+              "UseOffPeakWindow": false
+            },
+            "Status": {
+              "CreationDate": "2026-04-06T19:32:30.353000+00:00",
+              "UpdateDate": "2026-04-06T19:32:30.353000+00:00",
+              "UpdateVersion": 61,
+              "State": "DISABLED",
+              "PendingDeletion": false
+            }
+          },
+          "ChangeProgressDetails": {
+            "ChangeId": "36b05262-ba7f-47c6-af9b-33c0a7dd5087",
+            "ConfigChangeStatus": "Completed",
+            "InitiatedBy": "CUSTOMER",
+            "StartTime": "2026-03-12T01:45:27.183000+00:00",
+            "LastUpdatedTime": "2026-03-12T01:48:46.012000+00:00"
+          },
+          "OffPeakWindowOptions": {
+            "Options": {
+              "Enabled": true,
+              "OffPeakWindow": {
+                "WindowStartTime": {
+                  "Hours": 0,
+                  "Minutes": 0
+                }
+              }
+            },
+            "Status": {
+              "CreationDate": "2025-02-27T07:20:31.125000+00:00",
+              "UpdateDate": "2025-02-27T07:42:47.392000+00:00",
+              "UpdateVersion": 10,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "SoftwareUpdateOptions": {
+            "Options": {
+              "AutoSoftwareUpdateEnabled": false
+            },
+            "Status": {
+              "CreationDate": "2025-02-27T07:20:31.111000+00:00",
+              "UpdateDate": "2025-02-27T07:42:47.382000+00:00",
+              "UpdateVersion": 10,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "ModifyingProperties": [],
+          "AIMLOptions": {
+            "Options": {
+              "NaturalLanguageQueryGenerationOptions": {
+                "DesiredState": "DISABLED",
+                "CurrentState": "NOT_ENABLED"
+              },
+              "S3VectorsEngine": {
+                "Enabled": false
+              },
+              "ServerlessVectorAcceleration": {
+                "Enabled": false
+              }
+            },
+            "Status": {
+              "CreationDate": "2025-02-27T07:20:31.116000+00:00",
+              "UpdateDate": "2026-03-12T01:45:27.110000+00:00",
+              "UpdateVersion": 58,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "DeploymentStrategyOptions": {
+            "Options": {
+              "DeploymentStrategy": "Default"
+            },
+            "Status": {
+              "CreationDate": "2026-04-06T19:32:30.351000+00:00",
+              "UpdateDate": "2026-04-06T19:32:30.351000+00:00",
+              "UpdateVersion": 61,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          }
+        }
+      }
+    },
+    "luckyus-opensearch-dify": {
+      "describe": {
+        "DomainStatus": {
+          "DomainId": "257394478466/luckyus-opensearch-dify",
+          "DomainName": "luckyus-opensearch-dify",
+          "ARN": "arn:aws:es:us-east-1:257394478466:domain/luckyus-opensearch-dify",
+          "Created": true,
+          "Deleted": false,
+          "Endpoints": {
+            "vpc": "vpc-luckyus-opensearch-dify-476fgzupv2mhhiacjpc4ac53ea.us-east-1.es.amazonaws.com"
+          },
+          "Processing": false,
+          "UpgradeProcessing": false,
+          "EngineVersion": "OpenSearch_2.15",
+          "ClusterConfig": {
+            "InstanceType": "r6g.large.search",
+            "InstanceCount": 2,
+            "DedicatedMasterEnabled": true,
+            "ZoneAwarenessEnabled": true,
+            "ZoneAwarenessConfig": {
+              "AvailabilityZoneCount": 2
+            },
+            "DedicatedMasterType": "m7g.large.search",
+            "DedicatedMasterCount": 3,
+            "WarmEnabled": false,
+            "ColdStorageOptions": {
+              "Enabled": false
+            },
+            "MultiAZWithStandbyEnabled": false,
+            "NodeOptions": [
+              {
+                "NodeType": "coordinator",
+                "NodeConfig": {
+                  "Enabled": false
+                }
+              }
+            ]
+          },
+          "EBSOptions": {
+            "EBSEnabled": true,
+            "VolumeType": "gp3",
+            "VolumeSize": 30,
+            "Iops": 3000,
+            "Throughput": 125
+          },
+          "AccessPolicies": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Principal\":{\"AWS\":\"*\"},\"Action\":\"es:*\",\"Resource\":\"arn:aws:es:us-east-1:257394478466:domain/luckyus-opensearch-dify/*\"}]}",
+          "IPAddressType": "ipv4",
+          "SnapshotOptions": {},
+          "VPCOptions": {
+            "VPCId": "vpc-0dce7ca7770422d33",
+            "SubnetIds": [
+              "subnet-01608eef3ea13c7d3",
+              "subnet-0acd412a7bc5ebc55"
+            ],
+            "AvailabilityZones": [
+              "us-east-1a",
+              "us-east-1b"
+            ],
+            "SecurityGroupIds": [
+              "sg-0deaa7cf7437e39c7"
+            ]
+          },
+          "CognitoOptions": {
+            "Enabled": false
+          },
+          "EncryptionAtRestOptions": {
+            "Enabled": true,
+            "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/0d74cdfc-57ba-4d94-8947-2249228352f1"
+          },
+          "NodeToNodeEncryptionOptions": {
+            "Enabled": true
+          },
+          "AdvancedOptions": {
+            "indices.fielddata.cache.size": "20",
+            "override_main_response_version": "false",
+            "indices.query.bool.max_clause_count": "1024",
+            "rest.action.multi.allow_explicit_index": "true"
+          },
+          "ServiceSoftwareOptions": {
+            "CurrentVersion": "OpenSearch_2_15_R20250403",
+            "NewVersion": "OpenSearch_2_15_R20260217-P1",
+            "UpdateAvailable": true,
+            "Cancellable": false,
+            "UpdateStatus": "ELIGIBLE",
+            "Description": "A newer release OpenSearch_2_15_R20260217-P1 is available.",
+            "AutomatedUpdateDate": "1970-01-01T00:00:00+00:00",
+            "OptionalDeployment": true
+          },
+          "DomainEndpointOptions": {
+            "EnforceHTTPS": true,
+            "TLSSecurityPolicy": "Policy-Min-TLS-1-2-2019-07",
+            "CustomEndpointEnabled": false
+          },
+          "AdvancedSecurityOptions": {
+            "Enabled": true,
+            "InternalUserDatabaseEnabled": true,
+            "AnonymousAuthEnabled": false
+          },
+          "IdentityCenterOptions": {},
+          "AutoTuneOptions": {
+            "State": "DISABLED",
+            "UseOffPeakWindow": false
+          },
+          "ChangeProgressDetails": {
+            "ChangeId": "f73202ca-c85d-4edc-923c-44ca3b287b66",
+            "ConfigChangeStatus": "Completed",
+            "InitiatedBy": "CUSTOMER",
+            "StartTime": "2025-05-20T01:28:15.186000+00:00",
+            "LastUpdatedTime": "2025-05-20T01:47:43.663000+00:00"
+          },
+          "OffPeakWindowOptions": {
+            "Enabled": true,
+            "OffPeakWindow": {
+              "WindowStartTime": {
+                "Hours": 0,
+                "Minutes": 0
+              }
+            }
+          },
+          "SoftwareUpdateOptions": {
+            "AutoSoftwareUpdateEnabled": false
+          },
+          "DomainProcessingStatus": "Active",
+          "ModifyingProperties": [],
+          "AIMLOptions": {
+            "NaturalLanguageQueryGenerationOptions": {
+              "DesiredState": "ENABLED",
+              "CurrentState": "ENABLE_COMPLETE"
+            }
+          },
+          "DeploymentStrategyOptions": {
+            "DeploymentStrategy": "Default"
+          }
+        }
+      },
+      "compatible_versions": {
+        "CompatibleVersions": [
+          {
+            "SourceVersion": "OpenSearch_2.15",
+            "TargetVersions": [
+              "OpenSearch_2.17",
+              "OpenSearch_2.19"
+            ]
+          }
+        ]
+      },
+      "config": {
+        "DomainConfig": {
+          "EngineVersion": {
+            "Options": "OpenSearch_2.15",
+            "Status": {
+              "CreationDate": "2025-05-19T10:45:21.293000+00:00",
+              "UpdateDate": "2025-05-19T10:55:55.631000+00:00",
+              "UpdateVersion": 12,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "ClusterConfig": {
+            "Options": {
+              "InstanceType": "r6g.large.search",
+              "InstanceCount": 2,
+              "DedicatedMasterEnabled": true,
+              "ZoneAwarenessEnabled": true,
+              "ZoneAwarenessConfig": {
+                "AvailabilityZoneCount": 2
+              },
+              "DedicatedMasterType": "m7g.large.search",
+              "DedicatedMasterCount": 3,
+              "WarmEnabled": false,
+              "ColdStorageOptions": {
+                "Enabled": false
+              },
+              "MultiAZWithStandbyEnabled": false,
+              "NodeOptions": [
+                {
+                  "NodeType": "coordinator",
+                  "NodeConfig": {
+                    "Enabled": false
+                  }
+                }
+              ]
+            },
+            "Status": {
+              "CreationDate": "2025-05-19T10:45:21.294000+00:00",
+              "UpdateDate": "2025-05-20T01:47:42.042000+00:00",
+              "UpdateVersion": 17,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "EBSOptions": {
+            "Options": {
+              "EBSEnabled": true,
+              "VolumeType": "gp3",
+              "VolumeSize": 30,
+              "Iops": 3000,
+              "Throughput": 125
+            },
+            "Status": {
+              "CreationDate": "2025-05-19T10:45:21.293000+00:00",
+              "UpdateDate": "2025-05-20T01:47:42.042000+00:00",
+              "UpdateVersion": 17,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "AccessPolicies": {
+            "Options": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Principal\":{\"AWS\":\"*\"},\"Action\":\"es:*\",\"Resource\":\"arn:aws:es:us-east-1:257394478466:domain/luckyus-opensearch-dify/*\"}]}",
+            "Status": {
+              "CreationDate": "2025-05-19T10:45:21.295000+00:00",
+              "UpdateDate": "2025-05-19T10:55:55.633000+00:00",
+              "UpdateVersion": 12,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "IPAddressType": {
+            "Options": "ipv4",
+            "Status": {
+              "CreationDate": "2025-05-19T10:45:21.292000+00:00",
+              "UpdateDate": "2025-05-19T10:55:55.631000+00:00",
+              "UpdateVersion": 12,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "SnapshotOptions": {
+            "Options": {
+              "AutomatedSnapshotStartHour": 0
+            },
+            "Status": {
+              "CreationDate": "2025-05-19T10:45:21.293000+00:00",
+              "UpdateDate": "2025-05-19T10:55:55.632000+00:00",
+              "UpdateVersion": 12,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "VPCOptions": {
+            "Options": {
+              "VPCId": "vpc-0dce7ca7770422d33",
+              "SubnetIds": [
+                "subnet-01608eef3ea13c7d3",
+                "subnet-0acd412a7bc5ebc55"
+              ],
+              "AvailabilityZones": [
+                "us-east-1a",
+                "us-east-1b"
+              ],
+              "SecurityGroupIds": [
+                "sg-0deaa7cf7437e39c7"
+              ]
+            },
+            "Status": {
+              "CreationDate": "2025-05-19T10:45:21.293000+00:00",
+              "UpdateDate": "2025-05-19T10:55:55.632000+00:00",
+              "UpdateVersion": 12,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "CognitoOptions": {
+            "Options": {
+              "Enabled": false
+            },
+            "Status": {
+              "CreationDate": "2026-04-06T19:32:32.954000+00:00",
+              "UpdateDate": "2026-04-06T19:32:32.954000+00:00",
+              "UpdateVersion": 18,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "EncryptionAtRestOptions": {
+            "Options": {
+              "Enabled": true,
+              "KmsKeyId": "arn:aws:kms:us-east-1:257394478466:key/0d74cdfc-57ba-4d94-8947-2249228352f1"
+            },
+            "Status": {
+              "CreationDate": "2025-05-19T10:45:21.293000+00:00",
+              "UpdateDate": "2025-05-19T10:55:55.631000+00:00",
+              "UpdateVersion": 12,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "NodeToNodeEncryptionOptions": {
+            "Options": {
+              "Enabled": true
+            },
+            "Status": {
+              "CreationDate": "2025-05-19T10:45:21.294000+00:00",
+              "UpdateDate": "2025-05-19T10:55:55.632000+00:00",
+              "UpdateVersion": 12,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "AdvancedOptions": {
+            "Options": {
+              "indices.fielddata.cache.size": "20",
+              "override_main_response_version": "false",
+              "indices.query.bool.max_clause_count": "1024",
+              "rest.action.multi.allow_explicit_index": "true"
+            },
+            "Status": {
+              "CreationDate": "2025-05-19T10:45:21.292000+00:00",
+              "UpdateDate": "2025-05-19T10:55:55.631000+00:00",
+              "UpdateVersion": 12,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "LogPublishingOptions": {
+            "Options": {},
+            "Status": {
+              "CreationDate": "2026-04-06T19:32:32.956000+00:00",
+              "UpdateDate": "2026-04-06T19:32:32.956000+00:00",
+              "UpdateVersion": 18,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "DomainEndpointOptions": {
+            "Options": {
+              "EnforceHTTPS": true,
+              "TLSSecurityPolicy": "Policy-Min-TLS-1-2-2019-07",
+              "CustomEndpointEnabled": false
+            },
+            "Status": {
+              "CreationDate": "2025-05-19T10:45:21.293000+00:00",
+              "UpdateDate": "2025-05-19T10:55:55.632000+00:00",
+              "UpdateVersion": 12,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "AdvancedSecurityOptions": {
+            "Options": {
+              "Enabled": true,
+              "InternalUserDatabaseEnabled": true,
+              "AnonymousAuthEnabled": false
+            },
+            "Status": {
+              "CreationDate": "2025-05-19T10:45:21.293000+00:00",
+              "UpdateDate": "2025-05-19T10:55:55.631000+00:00",
+              "UpdateVersion": 12,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "IdentityCenterOptions": {
+            "Options": {},
+            "Status": {
+              "CreationDate": "2026-04-06T19:32:32.955000+00:00",
+              "UpdateDate": "2026-04-06T19:32:32.955000+00:00",
+              "UpdateVersion": 18,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "AutoTuneOptions": {
+            "Options": {
+              "DesiredState": "DISABLED",
+              "RollbackOnDisable": "NO_ROLLBACK",
+              "MaintenanceSchedules": [],
+              "UseOffPeakWindow": false
+            },
+            "Status": {
+              "CreationDate": "2025-05-19T10:45:21.293000+00:00",
+              "UpdateDate": "2025-05-19T10:54:43.829000+00:00",
+              "UpdateVersion": 9,
+              "State": "DISABLED",
+              "PendingDeletion": false
+            }
+          },
+          "ChangeProgressDetails": {
+            "ChangeId": "f73202ca-c85d-4edc-923c-44ca3b287b66",
+            "ConfigChangeStatus": "Completed",
+            "InitiatedBy": "CUSTOMER",
+            "StartTime": "2025-05-20T01:28:15.186000+00:00",
+            "LastUpdatedTime": "2025-05-20T01:47:43.663000+00:00"
+          },
+          "OffPeakWindowOptions": {
+            "Options": {
+              "Enabled": true,
+              "OffPeakWindow": {
+                "WindowStartTime": {
+                  "Hours": 0,
+                  "Minutes": 0
+                }
+              }
+            },
+            "Status": {
+              "CreationDate": "2025-05-19T10:45:21.294000+00:00",
+              "UpdateDate": "2025-05-19T10:55:55.632000+00:00",
+              "UpdateVersion": 12,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "SoftwareUpdateOptions": {
+            "Options": {
+              "AutoSoftwareUpdateEnabled": false
+            },
+            "Status": {
+              "CreationDate": "2025-05-19T10:45:21.292000+00:00",
+              "UpdateDate": "2025-05-19T10:55:55.631000+00:00",
+              "UpdateVersion": 12,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "ModifyingProperties": [],
+          "AIMLOptions": {
+            "Options": {
+              "NaturalLanguageQueryGenerationOptions": {
+                "DesiredState": "ENABLED",
+                "CurrentState": "ENABLE_COMPLETE"
+              }
+            },
+            "Status": {
+              "CreationDate": "2025-05-19T10:45:21.293000+00:00",
+              "UpdateDate": "2025-05-20T01:28:15.069000+00:00",
+              "UpdateVersion": 14,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          },
+          "DeploymentStrategyOptions": {
+            "Options": {
+              "DeploymentStrategy": "Default"
+            },
+            "Status": {
+              "CreationDate": "2026-04-06T19:32:32.955000+00:00",
+              "UpdateDate": "2026-04-06T19:32:32.955000+00:00",
+              "UpdateVersion": 18,
+              "State": "Active",
+              "PendingDeletion": false
+            }
+          }
+        }
+      }
+    }
+  }
+}

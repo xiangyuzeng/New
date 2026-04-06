@@ -1,0 +1,1 @@
+{"error": "AccessDeniedException: databasecheck IAM user lacks dynamodb:ListTables and related permissions", "note": "No DynamoDB data accessible with current IAM credentials"}

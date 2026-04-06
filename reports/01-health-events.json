@@ -1,0 +1,1 @@
+{"error": "AccessDeniedException: IAM user databasecheck lacks health:DescribeEvents permission", "note": "AWS Health API requires Business/Enterprise Support plan and explicit IAM grants"}
