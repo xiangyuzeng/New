@@ -3,7 +3,7 @@
 | Field | Value |
 |-------|-------|
 | **Date** | 2026-04-08 |
-| **Version** | v2 — Management Review |
+| **Version** | v3 — Management Review (with gap analysis) |
 | **Author** | David Zeng (DBA/Infrastructure) |
 | **Status** | READY FOR EXECUTION (pending permission grant) |
 | **AWS Account** | 257394478466 (us-east-1) |
@@ -39,7 +39,7 @@
 
 ### Blocker
 
-**15 IAM permissions are denied** for the `databasecheck` user. A resource-scoped temporary IAM policy must be approved and applied before execution can begin. The complete policy JSON is provided in Section 八.
+**16 IAM permissions are denied** for the `databasecheck` user (15 original + `ec2:DeleteSecurityGroup` for Milvus SG cleanup). A resource-scoped temporary IAM policy must be approved and applied before execution can begin. The complete policy JSON is provided in Section 八.
 
 ---
 
@@ -55,7 +55,7 @@ The `databasecheck` IAM user currently has **read-only** access. The following w
 | 2 | ElastiCache | `elasticache:CreateSnapshot`, `elasticache:DeleteReplicationGroup` | 2 specific replication groups + snapshot prefix | Yes | **DENIED** |
 | 3 | OpenSearch | `es:DeleteDomain` | 1 specific domain | Untested | **Likely DENIED** |
 | 4 | EC2 | `ec2:StopInstances`, `ec2:TerminateInstances` | 2 specific instances | Yes | **DENIED** |
-| 5 | EC2 | `ec2:DeleteNetworkInterface` | 4 specific orphaned ENIs | Yes | **DENIED** |
+| 5 | EC2 | `ec2:DeleteNetworkInterface`, `ec2:DeleteSecurityGroup` | 4 orphaned ENIs + 1 Milvus SG (`sg-0550dcb1098214e38`) | Yes | **DENIED** |
 | 6 | S3 | `s3:ListBucket`, `s3:GetObject`, `s3:DeleteObject`, `s3:DeleteBucket` | 3 specific buckets | Partial | **DENIED** |
 | 7 | Route53 | `route53:ListHostedZones`, `route53:ListResourceRecordSets`, `route53:ChangeResourceRecordSets` | All (Route53 API limitation) | Yes | **DENIED** |
 | 8 | EKS | `eks:UpdateNodegroupConfig` | 1 specific nodegroup | Yes | **DENIED** |
@@ -811,7 +811,31 @@ aws s3 ls 2>&1 | grep dify
 # Expected: no results
 ```
 
-### 4.6 Shared Resources Safety Checklist
+### 4.6 Security Group Cleanup
+
+After the NLB `inf-milvus-service` is deleted, the Milvus-managed security group must be manually removed.
+
+**Security group**: `sg-0550dcb1098214e38`
+- Created by: aws-load-balancer-controller for Milvus NLB
+- Tag: `service.k8s.aws/stack: baseservices-cloud-dify/milvus`
+- Inbound rules: TCP 9091 (metrics), TCP 19530 (Milvus gRPC)
+- **Dify-only** — no other services reference this SG
+
+```bash
+# Step 1: Verify SG is not referenced by other resources
+aws ec2 describe-network-interfaces \
+  --filters 'Name=group-id,Values=sg-0550dcb1098214e38' \
+  --query 'NetworkInterfaces[].{ID:NetworkInterfaceId,Description:Description}' \
+  --region us-east-1
+# Expected: empty (after NLB deletion)
+
+# Step 2: Delete the security group (REQUIRES: ec2:DeleteSecurityGroup)
+aws ec2 delete-security-group \
+  --group-id sg-0550dcb1098214e38 \
+  --region us-east-1
+```
+
+### 4.7 Shared Resources Safety Checklist
 
 **DO NOT DELETE the following shared resources:**
 
@@ -820,7 +844,8 @@ aws s3 ls 2>&1 | grep dify
 | RDS Subnet Group | `rds-group` | Shared | 64 RDS instances |
 | ElastiCache Subnet Group | `redis-group` | Shared | 76 replication groups |
 | Security Group | `sg-0deaa7cf7437e39c7` | Shared | 623 ENIs across entire environment |
-| NLB Security Groups | `sg-0eeb5a6d5c495e30e`, `sg-0550dcb1098214e38` | Milvus NLB-specific | Auto-cleanup when NLB deleted |
+| NLB Security Group (VPC) | `sg-0eeb5a6d5c495e30e` | Milvus NLB-specific | Auto-cleanup when NLB deleted |
+| NLB Security Group (Milvus) | `sg-0550dcb1098214e38` | **Dify-only** (tagged `service.k8s.aws/stack: baseservices-cloud-dify/milvus`, ports 9091/19530) | **MUST DELETE manually** after NLB removal — see Section 4.7 |
 | Parameter Group | `default.postgres16` | AWS default | Cannot delete |
 | Parameter Group | `default.redis7` | AWS default | Cannot delete |
 | KMS Key | `0d74cdfc-57ba-4d94-8947-2249228352f1` | Scope unknown | Need admin verification |
@@ -1006,7 +1031,17 @@ aws route53 change-resource-record-sets \
 
 **Action**: Ask DevOps (彭啸) if `dify@luckincoffee.us` is used by any other service. If Dify-only, disable the SES identity after decommission.
 
-### 7.3 AWS IAM Credential Rotation (CRITICAL)
+**Owner**: DevOps (彭啸) — must confirm scope and rotate within **48 hours** of decommission start.
+
+### 7.3 Security Note: Hardcoded Credentials in K8s Annotations
+
+The `new-dify-*` deployments store database passwords, Redis passwords, and API keys as **plaintext in pod annotations** (not K8s Secrets). This is a security concern:
+
+- These credentials are visible via `kubectl describe pod` to anyone with pod read access
+- Namespace deletion will fully purge these — ensure namespace deletion completes successfully
+- **No additional action needed** beyond confirming namespace termination, as all referenced services (RDS, Redis, OpenSearch) will also be deleted
+
+### 7.4 AWS IAM Credential Rotation (CRITICAL)
 
 The Milvus ConfigMap contains hardcoded AWS access key `AKIATX3PIBWBAXDXUX65`. After decommission:
 
@@ -1028,7 +1063,7 @@ aws iam delete-access-key \
   --user-name <USER>
 ```
 
-### 7.4 MCP Gateway Entries to Remove
+### 7.5 MCP Gateway Entries to Remove
 
 3 entries in mcp-db-gateway (http://10.238.3.43:8080):
 
@@ -1044,6 +1079,54 @@ Contact MCP gateway admin to update the configuration file and restart the gatew
 
 ---
 
+## 七-B、Monitoring & Observability Cleanup
+
+### 7B.1 Prometheus Scrape Target Removal
+
+The Prometheus instance at `http://10.238.3.136:9090` actively scrapes `luckyus-redis-dify`. After the ElastiCache cluster is deleted, the scrape target will fail with connection errors, generating false alerts.
+
+**Action**: Remove or relabel the scrape target **before or immediately after** ElastiCache deletion.
+
+```bash
+# Verify the target exists:
+# Prometheus query: up{instance=~".*luckyus-redis-dify.*"}
+# Expected: shows target(s) for luckyus-redis-dify
+
+# After ElastiCache deletion, update Prometheus config or relabel rules to drop Dify targets.
+# Contact: Prometheus admin / DevOps (彭啸)
+```
+
+### 7B.2 Grafana Dashboard Cleanup
+
+Check for dashboards referencing Dify Redis, RDS, or OpenSearch metrics. Archive or update panels to prevent broken queries.
+
+```bash
+# Search Grafana for Dify-related dashboards:
+# grafana-lucky: search_dashboards(query="dify")
+# Look for panels querying: luckyus-redis-dify, aws-luckyus-dify-rw, luckyus-opensearch-dify
+```
+
+### 7B.3 CloudWatch Alarm Audit
+
+No active CloudWatch alarms were found for Dify resources (verified 2026-04-08). However, confirm on execution day:
+
+```bash
+aws cloudwatch describe-alarms \
+  --alarm-name-prefix "dify" \
+  --region us-east-1 \
+  --query 'MetricAlarms[].{Name:AlarmName,State:StateValue}'
+# Expected: empty. If any exist, disable before deletion to prevent alarm storms.
+```
+
+### 7B.4 IRSA Role Cleanup
+
+The `milvus-s3-access-sa` service account uses IAM Roles for Service Accounts (IRSA) to access S3. After namespace deletion, the associated IAM role becomes orphaned.
+
+- **Cannot verify now**: `iam:ListRoles` is denied for `databasecheck` user
+- **Post-decom task**: AWS admin should identify the IRSA role (annotation `eks.amazonaws.com/role-arn` on the service account) and delete it after confirming no other service accounts reference it
+
+---
+
 ## 八、Complete Permission Request Template
 
 **To**: Michael (CTO) / AWS Account Admin
@@ -1055,7 +1138,7 @@ Contact MCP gateway admin to update the configuration file and restart the gatew
 
 **Request**: Temporary IAM policy attachment for user `databasecheck` to execute Dify platform decommission.
 
-**Business Justification**: Dify AI platform has been idle since 2026-03-23 (15+ days zero API activity, 29 days zero user logins). Per DevOps lead 彭啸, project is paused for at least 6 months. Monthly cost: ~$2,190. Total savings over pause period: ~$12,000. All data will be preserved via snapshots before deletion.
+**Business Justification**: Dify AI platform has been idle since 2026-03-23 (16 days zero API activity, 30 days zero user logins). Per DevOps lead 彭啸, project is paused for at least 6 months. Monthly cost: $1,789 (EDP). Total savings over pause period: $10,734 (EDP). All data will be preserved via snapshots before deletion.
 
 **Duration**: 7 days (temporary). Remove after decommission is complete.
 
@@ -1117,16 +1200,18 @@ Contact MCP gateway admin to update the configuration file and restart the gatew
       ]
     },
     {
-      "Sid": "ENICleanup",
+      "Sid": "ENIAndSGCleanup",
       "Effect": "Allow",
       "Action": [
-        "ec2:DeleteNetworkInterface"
+        "ec2:DeleteNetworkInterface",
+        "ec2:DeleteSecurityGroup"
       ],
       "Resource": [
         "arn:aws:ec2:us-east-1:257394478466:network-interface/eni-0d623c6205c24d3a7",
         "arn:aws:ec2:us-east-1:257394478466:network-interface/eni-0ba40d95964577c62",
         "arn:aws:ec2:us-east-1:257394478466:network-interface/eni-0d7735e22a081705c",
-        "arn:aws:ec2:us-east-1:257394478466:network-interface/eni-0f2adc1cdec3cab8a"
+        "arn:aws:ec2:us-east-1:257394478466:network-interface/eni-0f2adc1cdec3cab8a",
+        "arn:aws:ec2:us-east-1:257394478466:security-group/sg-0550dcb1098214e38"
       ]
     },
     {
@@ -1205,6 +1290,37 @@ Contact MCP gateway admin to update the configuration file and restart the gatew
 | 0.6 | Confirm KMS key scope | Ask admin: is key 0d74cdfc-... used by other services? | kms:DescribeKey | TODO |
 | 0.7 | Notify stakeholders | Email: ops team, 彭啸, 王东尧 | N/A | TODO |
 
+### Pre-Flight Verification Checklist (Go/No-Go)
+
+Complete ALL items before proceeding to Phase 1. Any unchecked item is a **NO-GO**.
+
+- [ ] IAM permissions granted — 16 actions from Section 八 applied to `databasecheck`
+- [ ] Stakeholders notified — ops team, 彭啸, 王东尧 acknowledged
+- [ ] RDS automated snapshots verified — both instances have recent daily backups
+- [ ] ElastiCache snapshot capability confirmed — test `describe-snapshots` access
+- [ ] Cross-service integration audit clean (see commands below)
+- [ ] EBS volume reclaim policy confirmed as `Delete` (not `Retain`) for all 12 PVCs
+- [ ] Prometheus scrape target removal planned — DevOps (彭啸) notified
+- [ ] CloudWatch alarms for Dify resources checked — none active (or disabled)
+- [ ] Ingress controller health baseline recorded — `kubectl get pods -n kube-system -l app.kubernetes.io/name=ingress-nginx`
+- [ ] Helm release values exported — `helm get values dify -n baseservices-cloud-dify > ~/backup-dify-helm-values.yaml`
+- [ ] Helm release values exported — `helm get values milvus -n baseservices-cloud-dify > ~/backup-milvus-helm-values.yaml`
+- [ ] SMTP credential scope confirmed by DevOps (彭啸)
+
+#### Cross-Service Integration Audit Commands
+
+Run these before execution to ensure no other namespaces/services depend on Dify:
+
+```bash
+# Check for Dify references in other namespaces:
+kubectl get configmap --all-namespaces -o yaml | grep -i dify | grep -v baseservices-cloud-dify
+kubectl get secret --all-namespaces -o yaml | grep -i dify | grep -v baseservices-cloud-dify
+kubectl get ingress --all-namespaces -o yaml | grep -i dify | grep -v baseservices-cloud-dify
+
+# Expected: no results outside baseservices-cloud-dify namespace
+# If any hits found: STOP and investigate cross-dependencies before proceeding
+```
+
 ### Phase 1: Backup & Verify (~30 min)
 
 | # | Step | Command | Permission | Depends On |
@@ -1265,6 +1381,9 @@ Contact MCP gateway admin to update the configuration file and restart the gatew
 | 4.6 | Check custom param group usage | `aws elasticache describe-cache-clusters --query '..luckyus-ha-6..'` | Read-only | 3.11 |
 | 4.7 | Terminate EC2 (after 48h) | `aws ec2 terminate-instances --instance-ids i-06e7301a6e3f28df4 i-02d4ea4bbab7fd574` | ec2:TerminateInstances | 3.9 + 48h |
 | 4.8 | Check ClusterRoleBindings | `kubectl get clusterrolebinding -o json \| jq '..baseservices-cloud-dify..'` | kubectl | 2.12 |
+| 4.9 | Delete Milvus security group | `aws ec2 delete-security-group --group-id sg-0550dcb1098214e38` | ec2:DeleteSecurityGroup | 2.10 |
+| 4.10 | Remove Prometheus scrape target | Contact DevOps (彭啸) to update Prometheus config | Admin | 3.6 |
+| 4.11 | Archive/update Grafana dashboards | Remove/archive Dify-related dashboard panels | Admin | Phase 3 |
 
 ### Phase 5: EKS Node Scaling (1-2 weeks post-decommission)
 
@@ -1283,9 +1402,25 @@ Contact MCP gateway admin to update the configuration file and restart the gatew
 | 6.3 | Remove temporary IAM policy | Delete `DifyDecommission-Temporary-20260408` | Admin | Phase 4 |
 | 6.4 | Cost verification | Cost Explorer: compare pre/post | cost-explorer | 30 days post |
 | 6.5 | Update CLAUDE.md | Remove Dify references | — | Phase 4 |
-| 6.6 | Archive this runbook | Copy to /app/reports/ and push to GitHub | — | Phase 6 |
+| 6.6 | Identify & delete IRSA role | AWS admin: find role from `milvus-s3-access-sa` annotation, delete if Dify-only | iam:DeleteRole (admin) | Phase 4 |
+| 6.7 | Archive this runbook | Copy to /app/reports/ and push to GitHub | — | Phase 6 |
 
----
+### Post-Decommission Validation Checklist
+
+After all phases complete, verify full cleanup:
+
+- [ ] No running pods in `baseservices-cloud-dify` namespace — `kubectl get ns baseservices-cloud-dify` returns NotFound
+- [ ] Namespace fully terminated (not stuck in Terminating state)
+- [ ] NLB `inf-milvus-service` deleted — `aws elbv2 describe-load-balancers --names inf-milvus-service` returns error
+- [ ] Security group `sg-0550dcb1098214e38` deleted — `aws ec2 describe-security-groups --group-ids sg-0550dcb1098214e38` returns error
+- [ ] All 12 EBS volumes released — no orphaned volumes with `kubernetes.io/created-for/pvc/namespace=baseservices-cloud-dify` tag
+- [ ] Prometheus scrape targets clean — no failing `luckyus-redis-dify` targets in Prometheus UI
+- [ ] DNS records removed — `dify-console.luckincoffee.us` and `milvus-attu.luckincoffee.us` no longer resolve
+- [ ] AWS access key `AKIAT...UX65` deactivated (then deleted after 48h)
+- [ ] IRSA role for `milvus-s3-access-sa` identified and queued for deletion
+- [ ] MCP gateway entries removed (3 entries: 2 PostgreSQL, 1 Redis)
+- [ ] Manual snapshots verified (2 RDS + 2 Redis snapshots in `available` state)
+- [ ] Cost Explorer shows reduced spend 30 days post-decom
 
 ---
 
@@ -1303,5 +1438,5 @@ Contact MCP gateway admin to update the configuration file and restart the gatew
 **End of Runbook**
 
 Estimated execution time: Phases 1-3 = ~90 minutes (day-of), Phase 4 = +48 hours (EC2 observation), Phases 5-6 = +2 weeks (monitoring).
-Total line items in master checklist: 42 steps across 7 phases.
-Document version: v2 (Management Review) — 2026-04-08.
+Total line items in master checklist: 45 steps across 7 phases + pre-flight checklist (12 items) + post-decom validation (12 items).
+Document version: v3 (Management Review with gap analysis) — 2026-04-08.
