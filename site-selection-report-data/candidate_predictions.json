@@ -1,0 +1,1381 @@
+{
+  "model_version": "v1.0_original_lasso",
+  "model_date": "2026-04-08",
+  "original_model_date": "2026-02-14",
+  "training_n_original": 8,
+  "current_fleet_n": 11,
+  "note": "Using original Lasso coefficients + interaction term. Model predicts WEEKLY cups. Full retrain with N=11 recommended.",
+  "model_metrics_on_current_fleet": {
+    "r_squared": 0.8507,
+    "mape_pct": 10.9,
+    "rmse_weekly_cups": 347
+  },
+  "original_model_metrics": {
+    "mape": 4.081831411307368,
+    "rmse": 95.76793177446365,
+    "r2": 0.9873877177706892
+  },
+  "fleet_benchmarks": {
+    "fleet_median_daily_cups": 402,
+    "fleet_median_weekly_cups": 2812,
+    "fleet_mean_rent": 15909
+  },
+  "feature_coefficients": [
+    {
+      "feature": "foot_traffic_score",
+      "coefficient": 848.2938
+    },
+    {
+      "feature": "subway_count",
+      "coefficient": -30.9887
+    },
+    {
+      "feature": "weekday_pct",
+      "coefficient": -24.3313
+    },
+    {
+      "feature": "area_type_score",
+      "coefficient": 14.7477
+    },
+    {
+      "feature": "competitor_density",
+      "coefficient": -8.5573
+    },
+    {
+      "feature": "near_subway",
+      "coefficient": 0.0
+    },
+    {
+      "feature": "median_income",
+      "coefficient": 44.579
+    },
+    {
+      "feature": "rent_per_sqft",
+      "coefficient": -27.7496
+    },
+    {
+      "feature": "weekend_ratio",
+      "coefficient": 29.2712
+    },
+    {
+      "feature": "cannibalization_score",
+      "coefficient": -0.0
+    },
+    {
+      "feature": "ft_x_low_competition (interaction)",
+      "coefficient": 0.0
+    }
+  ],
+  "training_store_fit": [
+    {
+      "name": "8th & Broadway",
+      "actual_weekly": 4722,
+      "predicted_weekly": 4247,
+      "actual_daily": 675,
+      "predicted_daily": 607
+    },
+    {
+      "name": "28th & 6th",
+      "actual_weekly": 3027,
+      "predicted_weekly": 2754,
+      "actual_daily": 432,
+      "predicted_daily": 393
+    },
+    {
+      "name": "100 Maiden Ln",
+      "actual_weekly": 1708,
+      "predicted_weekly": 1507,
+      "actual_daily": 244,
+      "predicted_daily": 215
+    },
+    {
+      "name": "54th & 8th",
+      "actual_weekly": 2698,
+      "predicted_weekly": 2445,
+      "actual_daily": 385,
+      "predicted_daily": 349
+    },
+    {
+      "name": "33rd & 10th",
+      "actual_weekly": 1969,
+      "predicted_weekly": 1816,
+      "actual_daily": 281,
+      "predicted_daily": 259
+    },
+    {
+      "name": "102 Fulton",
+      "actual_weekly": 2812,
+      "predicted_weekly": 2520,
+      "actual_daily": 402,
+      "predicted_daily": 360
+    },
+    {
+      "name": "37th & Broadway",
+      "actual_weekly": 3032,
+      "predicted_weekly": 2571,
+      "actual_daily": 433,
+      "predicted_daily": 367
+    },
+    {
+      "name": "21st & 3rd",
+      "actual_weekly": 1922,
+      "predicted_weekly": 1753,
+      "actual_daily": 275,
+      "predicted_daily": 250
+    },
+    {
+      "name": "15th & 3rd",
+      "actual_weekly": 1462,
+      "predicted_weekly": 1344,
+      "actual_daily": 209,
+      "predicted_daily": 192
+    },
+    {
+      "name": "221 Grand",
+      "actual_weekly": 3456,
+      "predicted_weekly": 3154,
+      "actual_daily": 494,
+      "predicted_daily": 451
+    },
+    {
+      "name": "52nd & Madison",
+      "actual_weekly": 3293,
+      "predicted_weekly": 2610,
+      "actual_daily": 470,
+      "predicted_daily": 373
+    }
+  ],
+  "predictions": [
+    {
+      "store_id": "US00013",
+      "store_name": "Grand Central Terminal",
+      "address": "52 Vanderbilt Ave, New York, NY 10017",
+      "predicted_daily_cups": 523,
+      "predicted_weekly_cups": 3661,
+      "weekly_cups_90ci_lower": 3090,
+      "weekly_cups_90ci_upper": 4232,
+      "predicted_monthly_cups": 15691,
+      "five_factor_score": 63,
+      "five_factor_breakdown": {
+        "area_type": {
+          "score": 33,
+          "max": 35
+        },
+        "subway_access": {
+          "score": 17,
+          "max": 20
+        },
+        "weekend_resilience": {
+          "score": 9,
+          "max": 15
+        },
+        "cannibalization_penalty": {
+          "score": 4,
+          "max": 15
+        },
+        "rent_value": {
+          "score": 0,
+          "max": 15
+        }
+      },
+      "cannibalization": {
+        "nearest_store": "52nd & Madison",
+        "distance_miles": 0.33,
+        "estimated_impact_pct": "5-10%",
+        "risk_label": "Medium"
+      },
+      "pnl_monthly": {
+        "revenue": 86299,
+        "cogs": 23536,
+        "labor": 15000,
+        "rent": 25000,
+        "other_operating": 3000,
+        "net_profit": 19763,
+        "roi_pct": 46.0,
+        "breakeven_cups_per_day": 624
+      },
+      "data_confidence": {
+        "verified_features": 9,
+        "fallback_features": 1,
+        "fallback_list": [
+          "weekday_pct"
+        ],
+        "confidence_label": "High"
+      },
+      "risk_rating": "Weak",
+      "risk_reasons": [
+        "predicted 523 < breakeven 624"
+      ],
+      "rank_vs_pipeline": "#1 / 18",
+      "rank_vs_existing": "#2 / 12",
+      "nearest_comparable_store": {
+        "name": "221 Grand",
+        "actual_weekly_cups": 3456,
+        "actual_daily_cups": 494
+      }
+    },
+    {
+      "store_id": "US00021",
+      "store_name": "128 W 32nd St",
+      "address": "128 W 32nd St, New York, NY 10001",
+      "predicted_daily_cups": 477,
+      "predicted_weekly_cups": 3340,
+      "weekly_cups_90ci_lower": 2769,
+      "weekly_cups_90ci_upper": 3911,
+      "predicted_monthly_cups": 14316,
+      "five_factor_score": 75,
+      "five_factor_breakdown": {
+        "area_type": {
+          "score": 30,
+          "max": 35
+        },
+        "subway_access": {
+          "score": 20,
+          "max": 20
+        },
+        "weekend_resilience": {
+          "score": 15,
+          "max": 15
+        },
+        "cannibalization_penalty": {
+          "score": 0,
+          "max": 15
+        },
+        "rent_value": {
+          "score": 10,
+          "max": 15
+        }
+      },
+      "cannibalization": {
+        "nearest_store": "28th & 6th",
+        "distance_miles": 0.23,
+        "estimated_impact_pct": "10-20%",
+        "risk_label": "High"
+      },
+      "pnl_monthly": {
+        "revenue": 78736,
+        "cogs": 21473,
+        "labor": 15000,
+        "rent": 15000,
+        "other_operating": 3000,
+        "net_profit": 24262,
+        "roi_pct": 73.5,
+        "breakeven_cups_per_day": 479
+      },
+      "data_confidence": {
+        "verified_features": 9,
+        "fallback_features": 1,
+        "fallback_list": [
+          "weekday_pct"
+        ],
+        "confidence_label": "High"
+      },
+      "risk_rating": "Weak",
+      "risk_reasons": [
+        "predicted 477 < breakeven 479",
+        "high cannibalization"
+      ],
+      "rank_vs_pipeline": "#2 / 18",
+      "rank_vs_existing": "#3 / 12",
+      "nearest_comparable_store": {
+        "name": "52nd & Madison",
+        "actual_weekly_cups": 3293,
+        "actual_daily_cups": 470
+      }
+    },
+    {
+      "store_id": "US00010",
+      "store_name": "154 Bleecker",
+      "address": "154 Bleecker St, New York, NY 10012",
+      "predicted_daily_cups": 457,
+      "predicted_weekly_cups": 3199,
+      "weekly_cups_90ci_lower": 2628,
+      "weekly_cups_90ci_upper": 3770,
+      "predicted_monthly_cups": 13709,
+      "five_factor_score": 81,
+      "five_factor_breakdown": {
+        "area_type": {
+          "score": 35,
+          "max": 35
+        },
+        "subway_access": {
+          "score": 20,
+          "max": 20
+        },
+        "weekend_resilience": {
+          "score": 15,
+          "max": 15
+        },
+        "cannibalization_penalty": {
+          "score": 4,
+          "max": 15
+        },
+        "rent_value": {
+          "score": 7,
+          "max": 15
+        }
+      },
+      "cannibalization": {
+        "nearest_store": "8th & Broadway",
+        "distance_miles": 0.4,
+        "estimated_impact_pct": "5-10%",
+        "risk_label": "Medium"
+      },
+      "pnl_monthly": {
+        "revenue": 75401,
+        "cogs": 20564,
+        "labor": 15000,
+        "rent": 18000,
+        "other_operating": 3000,
+        "net_profit": 18837,
+        "roi_pct": 52.3,
+        "breakeven_cups_per_day": 522
+      },
+      "data_confidence": {
+        "verified_features": 9,
+        "fallback_features": 1,
+        "fallback_list": [
+          "weekday_pct"
+        ],
+        "confidence_label": "High"
+      },
+      "risk_rating": "Strong",
+      "risk_reasons": [
+        "five_factor=81>=70",
+        "predicted 457 > fleet_median 402"
+      ],
+      "rank_vs_pipeline": "#3 / 18",
+      "rank_vs_existing": "#4 / 12",
+      "nearest_comparable_store": {
+        "name": "52nd & Madison",
+        "actual_weekly_cups": 3293,
+        "actual_daily_cups": 470
+      }
+    },
+    {
+      "store_id": "US00026",
+      "store_name": "211 Schermerhorn",
+      "address": "211 Schermerhorn St, Brooklyn, NY 11201",
+      "predicted_daily_cups": 421,
+      "predicted_weekly_cups": 2945,
+      "weekly_cups_90ci_lower": 2374,
+      "weekly_cups_90ci_upper": 3516,
+      "predicted_monthly_cups": 12623,
+      "five_factor_score": 87,
+      "five_factor_breakdown": {
+        "area_type": {
+          "score": 30,
+          "max": 35
+        },
+        "subway_access": {
+          "score": 20,
+          "max": 20
+        },
+        "weekend_resilience": {
+          "score": 12,
+          "max": 15
+        },
+        "cannibalization_penalty": {
+          "score": 15,
+          "max": 15
+        },
+        "rent_value": {
+          "score": 10,
+          "max": 15
+        }
+      },
+      "cannibalization": {
+        "nearest_store": "100 Maiden Ln",
+        "distance_miles": 1.68,
+        "estimated_impact_pct": "0%",
+        "risk_label": "None"
+      },
+      "pnl_monthly": {
+        "revenue": 69427,
+        "cogs": 18935,
+        "labor": 15000,
+        "rent": 14000,
+        "other_operating": 3000,
+        "net_profit": 18492,
+        "roi_pct": 57.8,
+        "breakeven_cups_per_day": 464
+      },
+      "data_confidence": {
+        "verified_features": 9,
+        "fallback_features": 1,
+        "fallback_list": [
+          "weekday_pct"
+        ],
+        "confidence_label": "High"
+      },
+      "risk_rating": "Strong",
+      "risk_reasons": [
+        "five_factor=87>=70",
+        "predicted 421 > fleet_median 402"
+      ],
+      "rank_vs_pipeline": "#4 / 18",
+      "rank_vs_existing": "#6 / 12",
+      "nearest_comparable_store": {
+        "name": "28th & 6th",
+        "actual_weekly_cups": 3027,
+        "actual_daily_cups": 432
+      }
+    },
+    {
+      "store_id": "US00035",
+      "store_name": "35th & 5th",
+      "address": "366 5th Avenue, New York, NY 10001",
+      "predicted_daily_cups": 409,
+      "predicted_weekly_cups": 2862,
+      "weekly_cups_90ci_lower": 2291,
+      "weekly_cups_90ci_upper": 3433,
+      "predicted_monthly_cups": 12265,
+      "five_factor_score": 64,
+      "five_factor_breakdown": {
+        "area_type": {
+          "score": 28,
+          "max": 35
+        },
+        "subway_access": {
+          "score": 20,
+          "max": 20
+        },
+        "weekend_resilience": {
+          "score": 12,
+          "max": 15
+        },
+        "cannibalization_penalty": {
+          "score": 0,
+          "max": 15
+        },
+        "rent_value": {
+          "score": 4,
+          "max": 15
+        }
+      },
+      "cannibalization": {
+        "nearest_store": "37th & Broadway",
+        "distance_miles": 0.29,
+        "estimated_impact_pct": "10-20%",
+        "risk_label": "High"
+      },
+      "pnl_monthly": {
+        "revenue": 67457,
+        "cogs": 18397,
+        "labor": 15000,
+        "rent": 19000,
+        "other_operating": 3000,
+        "net_profit": 12060,
+        "roi_pct": 32.6,
+        "breakeven_cups_per_day": 537
+      },
+      "data_confidence": {
+        "verified_features": 9,
+        "fallback_features": 1,
+        "fallback_list": [
+          "weekday_pct"
+        ],
+        "confidence_label": "High"
+      },
+      "risk_rating": "Weak",
+      "risk_reasons": [
+        "predicted 409 < breakeven 537",
+        "high cannibalization"
+      ],
+      "rank_vs_pipeline": "#5 / 18",
+      "rank_vs_existing": "#6 / 12",
+      "nearest_comparable_store": {
+        "name": "102 Fulton",
+        "actual_weekly_cups": 2812,
+        "actual_daily_cups": 402
+      }
+    },
+    {
+      "store_id": "US00015",
+      "store_name": "41st & Lexington",
+      "address": "369 Lexington Ave, New York, NY 10017",
+      "predicted_daily_cups": 349,
+      "predicted_weekly_cups": 2444,
+      "weekly_cups_90ci_lower": 1873,
+      "weekly_cups_90ci_upper": 3015,
+      "predicted_monthly_cups": 10473,
+      "five_factor_score": 64,
+      "five_factor_breakdown": {
+        "area_type": {
+          "score": 23,
+          "max": 35
+        },
+        "subway_access": {
+          "score": 17,
+          "max": 20
+        },
+        "weekend_resilience": {
+          "score": 9,
+          "max": 15
+        },
+        "cannibalization_penalty": {
+          "score": 8,
+          "max": 15
+        },
+        "rent_value": {
+          "score": 7,
+          "max": 15
+        }
+      },
+      "cannibalization": {
+        "nearest_store": "52nd & Madison",
+        "distance_miles": 0.58,
+        "estimated_impact_pct": "5-10%",
+        "risk_label": "Medium"
+      },
+      "pnl_monthly": {
+        "revenue": 57603,
+        "cogs": 15710,
+        "labor": 15000,
+        "rent": 17000,
+        "other_operating": 3000,
+        "net_profit": 6893,
+        "roi_pct": 19.7,
+        "breakeven_cups_per_day": 508
+      },
+      "data_confidence": {
+        "verified_features": 9,
+        "fallback_features": 1,
+        "fallback_list": [
+          "weekday_pct"
+        ],
+        "confidence_label": "High"
+      },
+      "risk_rating": "Weak",
+      "risk_reasons": [
+        "predicted 349 < breakeven 508"
+      ],
+      "rank_vs_pipeline": "#6 / 18",
+      "rank_vs_existing": "#8 / 12",
+      "nearest_comparable_store": {
+        "name": "54th & 8th",
+        "actual_weekly_cups": 2698,
+        "actual_daily_cups": 385
+      }
+    },
+    {
+      "store_id": "US00011",
+      "store_name": "180 Varick",
+      "address": "180 Varick St, New York, NY 10014",
+      "predicted_daily_cups": 298,
+      "predicted_weekly_cups": 2083,
+      "weekly_cups_90ci_lower": 1512,
+      "weekly_cups_90ci_upper": 2654,
+      "predicted_monthly_cups": 8926,
+      "five_factor_score": 62,
+      "five_factor_breakdown": {
+        "area_type": {
+          "score": 24,
+          "max": 35
+        },
+        "subway_access": {
+          "score": 14,
+          "max": 20
+        },
+        "weekend_resilience": {
+          "score": 9,
+          "max": 15
+        },
+        "cannibalization_penalty": {
+          "score": 8,
+          "max": 15
+        },
+        "rent_value": {
+          "score": 7,
+          "max": 15
+        }
+      },
+      "cannibalization": {
+        "nearest_store": "8th & Broadway",
+        "distance_miles": 0.69,
+        "estimated_impact_pct": "5-10%",
+        "risk_label": "Medium"
+      },
+      "pnl_monthly": {
+        "revenue": 49094,
+        "cogs": 13389,
+        "labor": 15000,
+        "rent": 16000,
+        "other_operating": 3000,
+        "net_profit": 1705,
+        "roi_pct": 5.0,
+        "breakeven_cups_per_day": 493
+      },
+      "data_confidence": {
+        "verified_features": 9,
+        "fallback_features": 1,
+        "fallback_list": [
+          "weekday_pct"
+        ],
+        "confidence_label": "High"
+      },
+      "risk_rating": "Weak",
+      "risk_reasons": [
+        "predicted 298 < breakeven 493"
+      ],
+      "rank_vs_pipeline": "#7 / 18",
+      "rank_vs_existing": "#8 / 12",
+      "nearest_comparable_store": {
+        "name": "33rd & 10th",
+        "actual_weekly_cups": 1969,
+        "actual_daily_cups": 281
+      }
+    },
+    {
+      "store_id": "US00009",
+      "store_name": "48th & 3rd",
+      "address": "770 3rd Ave, New York, NY 10017",
+      "predicted_daily_cups": 296,
+      "predicted_weekly_cups": 2074,
+      "weekly_cups_90ci_lower": 1503,
+      "weekly_cups_90ci_upper": 2645,
+      "predicted_monthly_cups": 8890,
+      "five_factor_score": 56,
+      "five_factor_breakdown": {
+        "area_type": {
+          "score": 22,
+          "max": 35
+        },
+        "subway_access": {
+          "score": 14,
+          "max": 20
+        },
+        "weekend_resilience": {
+          "score": 6,
+          "max": 15
+        },
+        "cannibalization_penalty": {
+          "score": 4,
+          "max": 15
+        },
+        "rent_value": {
+          "score": 10,
+          "max": 15
+        }
+      },
+      "cannibalization": {
+        "nearest_store": "52nd & Madison",
+        "distance_miles": 0.35,
+        "estimated_impact_pct": "5-10%",
+        "risk_label": "Medium"
+      },
+      "pnl_monthly": {
+        "revenue": 48895,
+        "cogs": 13335,
+        "labor": 15000,
+        "rent": 14000,
+        "other_operating": 3000,
+        "net_profit": 3560,
+        "roi_pct": 11.1,
+        "breakeven_cups_per_day": 464
+      },
+      "data_confidence": {
+        "verified_features": 9,
+        "fallback_features": 1,
+        "fallback_list": [
+          "weekday_pct"
+        ],
+        "confidence_label": "High"
+      },
+      "risk_rating": "Weak",
+      "risk_reasons": [
+        "predicted 296 < breakeven 464"
+      ],
+      "rank_vs_pipeline": "#8 / 18",
+      "rank_vs_existing": "#8 / 12",
+      "nearest_comparable_store": {
+        "name": "33rd & 10th",
+        "actual_weekly_cups": 1969,
+        "actual_daily_cups": 281
+      }
+    },
+    {
+      "store_id": "US00014",
+      "store_name": "25 Park Row",
+      "address": "146 Chambers St, New York, NY 10007",
+      "predicted_daily_cups": 293,
+      "predicted_weekly_cups": 2054,
+      "weekly_cups_90ci_lower": 1483,
+      "weekly_cups_90ci_upper": 2626,
+      "predicted_monthly_cups": 8805,
+      "five_factor_score": 55,
+      "five_factor_breakdown": {
+        "area_type": {
+          "score": 18,
+          "max": 35
+        },
+        "subway_access": {
+          "score": 17,
+          "max": 20
+        },
+        "weekend_resilience": {
+          "score": 6,
+          "max": 15
+        },
+        "cannibalization_penalty": {
+          "score": 4,
+          "max": 15
+        },
+        "rent_value": {
+          "score": 10,
+          "max": 15
+        }
+      },
+      "cannibalization": {
+        "nearest_store": "102 Fulton",
+        "distance_miles": 0.44,
+        "estimated_impact_pct": "5-10%",
+        "risk_label": "Medium"
+      },
+      "pnl_monthly": {
+        "revenue": 48427,
+        "cogs": 13207,
+        "labor": 15000,
+        "rent": 14000,
+        "other_operating": 3000,
+        "net_profit": 3219,
+        "roi_pct": 10.1,
+        "breakeven_cups_per_day": 464
+      },
+      "data_confidence": {
+        "verified_features": 9,
+        "fallback_features": 1,
+        "fallback_list": [
+          "weekday_pct"
+        ],
+        "confidence_label": "High"
+      },
+      "risk_rating": "Weak",
+      "risk_reasons": [
+        "predicted 293 < breakeven 464"
+      ],
+      "rank_vs_pipeline": "#9 / 18",
+      "rank_vs_existing": "#8 / 12",
+      "nearest_comparable_store": {
+        "name": "33rd & 10th",
+        "actual_weekly_cups": 1969,
+        "actual_daily_cups": 281
+      }
+    },
+    {
+      "store_id": "US00016",
+      "store_name": "Reade & Broadway",
+      "address": "291 Broadway, New York, NY 10007",
+      "predicted_daily_cups": 292,
+      "predicted_weekly_cups": 2042,
+      "weekly_cups_90ci_lower": 1471,
+      "weekly_cups_90ci_upper": 2613,
+      "predicted_monthly_cups": 8752,
+      "five_factor_score": 58,
+      "five_factor_breakdown": {
+        "area_type": {
+          "score": 18,
+          "max": 35
+        },
+        "subway_access": {
+          "score": 17,
+          "max": 20
+        },
+        "weekend_resilience": {
+          "score": 6,
+          "max": 15
+        },
+        "cannibalization_penalty": {
+          "score": 4,
+          "max": 15
+        },
+        "rent_value": {
+          "score": 13,
+          "max": 15
+        }
+      },
+      "cannibalization": {
+        "nearest_store": "102 Fulton",
+        "distance_miles": 0.37,
+        "estimated_impact_pct": "5-10%",
+        "risk_label": "Medium"
+      },
+      "pnl_monthly": {
+        "revenue": 48137,
+        "cogs": 13128,
+        "labor": 15000,
+        "rent": 13000,
+        "other_operating": 3000,
+        "net_profit": 4009,
+        "roi_pct": 12.9,
+        "breakeven_cups_per_day": 450
+      },
+      "data_confidence": {
+        "verified_features": 9,
+        "fallback_features": 1,
+        "fallback_list": [
+          "weekday_pct"
+        ],
+        "confidence_label": "High"
+      },
+      "risk_rating": "Weak",
+      "risk_reasons": [
+        "predicted 292 < breakeven 450"
+      ],
+      "rank_vs_pipeline": "#10 / 18",
+      "rank_vs_existing": "#8 / 12",
+      "nearest_comparable_store": {
+        "name": "33rd & 10th",
+        "actual_weekly_cups": 1969,
+        "actual_daily_cups": 281
+      }
+    },
+    {
+      "store_id": "US00028",
+      "store_name": "Jackson Ave - LIC",
+      "address": "27-01 Jackson Ave, Long Island City, NY 11101",
+      "predicted_daily_cups": 284,
+      "predicted_weekly_cups": 1988,
+      "weekly_cups_90ci_lower": 1417,
+      "weekly_cups_90ci_upper": 2559,
+      "predicted_monthly_cups": 8519,
+      "five_factor_score": 73,
+      "five_factor_breakdown": {
+        "area_type": {
+          "score": 17,
+          "max": 35
+        },
+        "subway_access": {
+          "score": 14,
+          "max": 20
+        },
+        "weekend_resilience": {
+          "score": 12,
+          "max": 15
+        },
+        "cannibalization_penalty": {
+          "score": 15,
+          "max": 15
+        },
+        "rent_value": {
+          "score": 15,
+          "max": 15
+        }
+      },
+      "cannibalization": {
+        "nearest_store": "52nd & Madison",
+        "distance_miles": 1.94,
+        "estimated_impact_pct": "0%",
+        "risk_label": "None"
+      },
+      "pnl_monthly": {
+        "revenue": 46854,
+        "cogs": 12778,
+        "labor": 15000,
+        "rent": 11000,
+        "other_operating": 3000,
+        "net_profit": 5076,
+        "roi_pct": 17.5,
+        "breakeven_cups_per_day": 421
+      },
+      "data_confidence": {
+        "verified_features": 9,
+        "fallback_features": 1,
+        "fallback_list": [
+          "weekday_pct"
+        ],
+        "confidence_label": "High"
+      },
+      "risk_rating": "Weak",
+      "risk_reasons": [
+        "predicted 284 < breakeven 421"
+      ],
+      "rank_vs_pipeline": "#11 / 18",
+      "rank_vs_existing": "#8 / 12",
+      "nearest_comparable_store": {
+        "name": "33rd & 10th",
+        "actual_weekly_cups": 1969,
+        "actual_daily_cups": 281
+      }
+    },
+    {
+      "store_id": "US00017",
+      "store_name": "63rd & 3rd",
+      "address": "219 9th Ave, New York, NY 10011",
+      "predicted_daily_cups": 282,
+      "predicted_weekly_cups": 1972,
+      "weekly_cups_90ci_lower": 1401,
+      "weekly_cups_90ci_upper": 2543,
+      "predicted_monthly_cups": 8450,
+      "five_factor_score": 59,
+      "five_factor_breakdown": {
+        "area_type": {
+          "score": 15,
+          "max": 35
+        },
+        "subway_access": {
+          "score": 14,
+          "max": 20
+        },
+        "weekend_resilience": {
+          "score": 12,
+          "max": 15
+        },
+        "cannibalization_penalty": {
+          "score": 8,
+          "max": 15
+        },
+        "rent_value": {
+          "score": 10,
+          "max": 15
+        }
+      },
+      "cannibalization": {
+        "nearest_store": "33rd & 10th",
+        "distance_miles": 0.51,
+        "estimated_impact_pct": "5-10%",
+        "risk_label": "Medium"
+      },
+      "pnl_monthly": {
+        "revenue": 46475,
+        "cogs": 12675,
+        "labor": 15000,
+        "rent": 15000,
+        "other_operating": 3000,
+        "net_profit": 800,
+        "roi_pct": 2.4,
+        "breakeven_cups_per_day": 479
+      },
+      "data_confidence": {
+        "verified_features": 9,
+        "fallback_features": 1,
+        "fallback_list": [
+          "weekday_pct"
+        ],
+        "confidence_label": "High"
+      },
+      "risk_rating": "Weak",
+      "risk_reasons": [
+        "predicted 282 < breakeven 479"
+      ],
+      "rank_vs_pipeline": "#12 / 18",
+      "rank_vs_existing": "#8 / 12",
+      "nearest_comparable_store": {
+        "name": "33rd & 10th",
+        "actual_weekly_cups": 1969,
+        "actual_daily_cups": 281
+      }
+    },
+    {
+      "store_id": "US00022",
+      "store_name": "23rd & 8th",
+      "address": "244 8th Ave, New York, NY 10011",
+      "predicted_daily_cups": 256,
+      "predicted_weekly_cups": 1795,
+      "weekly_cups_90ci_lower": 1224,
+      "weekly_cups_90ci_upper": 2367,
+      "predicted_monthly_cups": 7695,
+      "five_factor_score": 51,
+      "five_factor_breakdown": {
+        "area_type": {
+          "score": 12,
+          "max": 35
+        },
+        "subway_access": {
+          "score": 10,
+          "max": 20
+        },
+        "weekend_resilience": {
+          "score": 15,
+          "max": 15
+        },
+        "cannibalization_penalty": {
+          "score": 4,
+          "max": 15
+        },
+        "rent_value": {
+          "score": 10,
+          "max": 15
+        }
+      },
+      "cannibalization": {
+        "nearest_store": "28th & 6th",
+        "distance_miles": 0.42,
+        "estimated_impact_pct": "5-10%",
+        "risk_label": "Medium"
+      },
+      "pnl_monthly": {
+        "revenue": 42321,
+        "cogs": 11542,
+        "labor": 15000,
+        "rent": 14000,
+        "other_operating": 3000,
+        "net_profit": -1221,
+        "roi_pct": -3.8,
+        "breakeven_cups_per_day": 464
+      },
+      "data_confidence": {
+        "verified_features": 9,
+        "fallback_features": 1,
+        "fallback_list": [
+          "weekday_pct"
+        ],
+        "confidence_label": "High"
+      },
+      "risk_rating": "Weak",
+      "risk_reasons": [
+        "predicted 256 < breakeven 464"
+      ],
+      "rank_vs_pipeline": "#13 / 18",
+      "rank_vs_existing": "#10 / 12",
+      "nearest_comparable_store": {
+        "name": "100 Maiden Ln",
+        "actual_weekly_cups": 1708,
+        "actual_daily_cups": 244
+      }
+    },
+    {
+      "store_id": "US00029",
+      "store_name": "148 Chambers",
+      "address": "148 Chambers St, New York, NY 10007",
+      "predicted_daily_cups": 242,
+      "predicted_weekly_cups": 1697,
+      "weekly_cups_90ci_lower": 1126,
+      "weekly_cups_90ci_upper": 2268,
+      "predicted_monthly_cups": 7274,
+      "five_factor_score": 54,
+      "five_factor_breakdown": {
+        "area_type": {
+          "score": 14,
+          "max": 35
+        },
+        "subway_access": {
+          "score": 17,
+          "max": 20
+        },
+        "weekend_resilience": {
+          "score": 9,
+          "max": 15
+        },
+        "cannibalization_penalty": {
+          "score": 4,
+          "max": 15
+        },
+        "rent_value": {
+          "score": 10,
+          "max": 15
+        }
+      },
+      "cannibalization": {
+        "nearest_store": "102 Fulton",
+        "distance_miles": 0.44,
+        "estimated_impact_pct": "5-10%",
+        "risk_label": "Medium"
+      },
+      "pnl_monthly": {
+        "revenue": 40009,
+        "cogs": 10912,
+        "labor": 15000,
+        "rent": 15000,
+        "other_operating": 3000,
+        "net_profit": -3903,
+        "roi_pct": -11.8,
+        "breakeven_cups_per_day": 479
+      },
+      "data_confidence": {
+        "verified_features": 9,
+        "fallback_features": 1,
+        "fallback_list": [
+          "weekday_pct"
+        ],
+        "confidence_label": "High"
+      },
+      "risk_rating": "Weak",
+      "risk_reasons": [
+        "predicted 242 < breakeven 479"
+      ],
+      "rank_vs_pipeline": "#14 / 18",
+      "rank_vs_existing": "#11 / 12",
+      "nearest_comparable_store": {
+        "name": "100 Maiden Ln",
+        "actual_weekly_cups": 1708,
+        "actual_daily_cups": 244
+      }
+    },
+    {
+      "store_id": "US00007",
+      "store_name": "108th & Broadway",
+      "address": "2799 Broadway, New York, NY 10025",
+      "predicted_daily_cups": 231,
+      "predicted_weekly_cups": 1620,
+      "weekly_cups_90ci_lower": 1048,
+      "weekly_cups_90ci_upper": 2191,
+      "predicted_monthly_cups": 6941,
+      "five_factor_score": 73,
+      "five_factor_breakdown": {
+        "area_type": {
+          "score": 20,
+          "max": 35
+        },
+        "subway_access": {
+          "score": 10,
+          "max": 20
+        },
+        "weekend_resilience": {
+          "score": 15,
+          "max": 15
+        },
+        "cannibalization_penalty": {
+          "score": 15,
+          "max": 15
+        },
+        "rent_value": {
+          "score": 13,
+          "max": 15
+        }
+      },
+      "cannibalization": {
+        "nearest_store": "54th & 8th",
+        "distance_miles": 2.79,
+        "estimated_impact_pct": "0%",
+        "risk_label": "None"
+      },
+      "pnl_monthly": {
+        "revenue": 38176,
+        "cogs": 10412,
+        "labor": 15000,
+        "rent": 12000,
+        "other_operating": 3000,
+        "net_profit": -2236,
+        "roi_pct": -7.5,
+        "breakeven_cups_per_day": 435
+      },
+      "data_confidence": {
+        "verified_features": 9,
+        "fallback_features": 1,
+        "fallback_list": [
+          "weekday_pct"
+        ],
+        "confidence_label": "High"
+      },
+      "risk_rating": "Weak",
+      "risk_reasons": [
+        "predicted 231 < breakeven 435"
+      ],
+      "rank_vs_pipeline": "#15 / 18",
+      "rank_vs_existing": "#11 / 12",
+      "nearest_comparable_store": {
+        "name": "100 Maiden Ln",
+        "actual_weekly_cups": 1708,
+        "actual_daily_cups": 244
+      }
+    },
+    {
+      "store_id": "US00018",
+      "store_name": "40th & 10th",
+      "address": "550 10th Ave, New York, NY 10018",
+      "predicted_daily_cups": 216,
+      "predicted_weekly_cups": 1512,
+      "weekly_cups_90ci_lower": 941,
+      "weekly_cups_90ci_upper": 2084,
+      "predicted_monthly_cups": 6482,
+      "five_factor_score": 50,
+      "five_factor_breakdown": {
+        "area_type": {
+          "score": 17,
+          "max": 35
+        },
+        "subway_access": {
+          "score": 10,
+          "max": 20
+        },
+        "weekend_resilience": {
+          "score": 12,
+          "max": 15
+        },
+        "cannibalization_penalty": {
+          "score": 4,
+          "max": 15
+        },
+        "rent_value": {
+          "score": 7,
+          "max": 15
+        }
+      },
+      "cannibalization": {
+        "nearest_store": "33rd & 10th",
+        "distance_miles": 0.36,
+        "estimated_impact_pct": "5-10%",
+        "risk_label": "Medium"
+      },
+      "pnl_monthly": {
+        "revenue": 35649,
+        "cogs": 9722,
+        "labor": 15000,
+        "rent": 16000,
+        "other_operating": 3000,
+        "net_profit": -8074,
+        "roi_pct": -23.7,
+        "breakeven_cups_per_day": 493
+      },
+      "data_confidence": {
+        "verified_features": 9,
+        "fallback_features": 1,
+        "fallback_list": [
+          "weekday_pct"
+        ],
+        "confidence_label": "High"
+      },
+      "risk_rating": "Weak",
+      "risk_reasons": [
+        "predicted 216 < breakeven 493"
+      ],
+      "rank_vs_pipeline": "#16 / 18",
+      "rank_vs_existing": "#11 / 12",
+      "nearest_comparable_store": {
+        "name": "15th & 3rd",
+        "actual_weekly_cups": 1462,
+        "actual_daily_cups": 209
+      }
+    },
+    {
+      "store_id": "US00019",
+      "store_name": "29th & 3rd",
+      "address": "401 3rd Ave, New York, NY 10016",
+      "predicted_daily_cups": 169,
+      "predicted_weekly_cups": 1180,
+      "weekly_cups_90ci_lower": 609,
+      "weekly_cups_90ci_upper": 1751,
+      "predicted_monthly_cups": 5057,
+      "five_factor_score": 49,
+      "five_factor_breakdown": {
+        "area_type": {
+          "score": 5,
+          "max": 35
+        },
+        "subway_access": {
+          "score": 10,
+          "max": 20
+        },
+        "weekend_resilience": {
+          "score": 15,
+          "max": 15
+        },
+        "cannibalization_penalty": {
+          "score": 4,
+          "max": 15
+        },
+        "rent_value": {
+          "score": 15,
+          "max": 15
+        }
+      },
+      "cannibalization": {
+        "nearest_store": "21st & 3rd",
+        "distance_miles": 0.39,
+        "estimated_impact_pct": "5-10%",
+        "risk_label": "Medium"
+      },
+      "pnl_monthly": {
+        "revenue": 27814,
+        "cogs": 7586,
+        "labor": 15000,
+        "rent": 11000,
+        "other_operating": 3000,
+        "net_profit": -8771,
+        "roi_pct": -30.2,
+        "breakeven_cups_per_day": 421
+      },
+      "data_confidence": {
+        "verified_features": 9,
+        "fallback_features": 1,
+        "fallback_list": [
+          "weekday_pct"
+        ],
+        "confidence_label": "High"
+      },
+      "risk_rating": "Weak",
+      "risk_reasons": [
+        "five_factor=49<50",
+        "predicted 169 < breakeven 421"
+      ],
+      "rank_vs_pipeline": "#17 / 18",
+      "rank_vs_existing": "#12 / 12",
+      "nearest_comparable_store": {
+        "name": "15th & 3rd",
+        "actual_weekly_cups": 1462,
+        "actual_daily_cups": 209
+      }
+    },
+    {
+      "store_id": "US00023",
+      "store_name": "23rd & 1st",
+      "address": "352 E 23rd St, New York, NY 10010",
+      "predicted_daily_cups": 117,
+      "predicted_weekly_cups": 816,
+      "weekly_cups_90ci_lower": 245,
+      "weekly_cups_90ci_upper": 1387,
+      "predicted_monthly_cups": 3498,
+      "five_factor_score": 35,
+      "five_factor_breakdown": {
+        "area_type": {
+          "score": 5,
+          "max": 35
+        },
+        "subway_access": {
+          "score": 0,
+          "max": 20
+        },
+        "weekend_resilience": {
+          "score": 15,
+          "max": 15
+        },
+        "cannibalization_penalty": {
+          "score": 0,
+          "max": 15
+        },
+        "rent_value": {
+          "score": 15,
+          "max": 15
+        }
+      },
+      "cannibalization": {
+        "nearest_store": "21st & 3rd",
+        "distance_miles": 0.26,
+        "estimated_impact_pct": "10-20%",
+        "risk_label": "High"
+      },
+      "pnl_monthly": {
+        "revenue": 19237,
+        "cogs": 5246,
+        "labor": 15000,
+        "rent": 10000,
+        "other_operating": 3000,
+        "net_profit": -14010,
+        "roi_pct": -50.0,
+        "breakeven_cups_per_day": 406
+      },
+      "data_confidence": {
+        "verified_features": 9,
+        "fallback_features": 1,
+        "fallback_list": [
+          "weekday_pct"
+        ],
+        "confidence_label": "High"
+      },
+      "risk_rating": "Weak",
+      "risk_reasons": [
+        "five_factor=35<50",
+        "predicted 117 < breakeven 406",
+        "high cannibalization"
+      ],
+      "rank_vs_pipeline": "#18 / 18",
+      "rank_vs_existing": "#12 / 12",
+      "nearest_comparable_store": {
+        "name": "15th & 3rd",
+        "actual_weekly_cups": 1462,
+        "actual_daily_cups": 209
+      }
+    }
+  ]
+}

@@ -1,0 +1,353 @@
+{
+  "extraction_date": "2026-04-08",
+  "total_candidates": 18,
+  "removed_now_active": [
+    "16th & 6th (US00012)",
+    "52nd & Madison (US00027)"
+  ],
+  "new_candidate": "63rd & 3rd (US00017)",
+  "candidates": [
+    {
+      "store_id": "US00026",
+      "store_name": "211 Schermerhorn",
+      "address": "211 Schermerhorn St, Brooklyn, NY 11201",
+      "latitude": 40.688944,
+      "longitude": -73.985381,
+      "area_type": "commercial_transit_hub",
+      "monthly_rent": 14000,
+      "sqft": 750,
+      "status": "pipeline",
+      "feature_source": "csv_enriched",
+      "features_from_db": {
+        "median_income": 80000,
+        "subway_count": 10,
+        "foot_traffic_score": 70,
+        "competitor_density": 3,
+        "weekday_pct": 0.6
+      }
+    },
+    {
+      "store_id": "US00010",
+      "store_name": "154 Bleecker",
+      "address": "154 Bleecker St, New York, NY 10012",
+      "latitude": 40.728185,
+      "longitude": -73.999602,
+      "area_type": "university_tourist",
+      "monthly_rent": 18000,
+      "sqft": 750,
+      "status": "pipeline",
+      "feature_source": "csv_enriched",
+      "features_from_db": {
+        "median_income": 85000,
+        "subway_count": 8,
+        "foot_traffic_score": 75,
+        "competitor_density": 4,
+        "weekday_pct": 0.5
+      }
+    },
+    {
+      "store_id": "US00021",
+      "store_name": "128 W 32nd St",
+      "address": "128 W 32nd St, New York, NY 10001",
+      "latitude": 40.748921,
+      "longitude": -73.990053,
+      "area_type": "commercial_transit_hub",
+      "monthly_rent": 15000,
+      "sqft": 700,
+      "status": "pipeline",
+      "feature_source": "csv_enriched",
+      "features_from_db": {
+        "median_income": 75000,
+        "subway_count": 11,
+        "foot_traffic_score": 80,
+        "competitor_density": 4,
+        "weekday_pct": 0.55
+      }
+    },
+    {
+      "store_id": "US00028",
+      "store_name": "Jackson Ave - LIC",
+      "address": "27-01 Jackson Ave, Long Island City, NY 11101",
+      "latitude": 40.748002,
+      "longitude": -73.941039,
+      "area_type": "emerging_commercial",
+      "monthly_rent": 11000,
+      "sqft": 700,
+      "status": "pipeline",
+      "feature_source": "csv_enriched",
+      "features_from_db": {
+        "median_income": 85000,
+        "subway_count": 4,
+        "foot_traffic_score": 45,
+        "competitor_density": 2,
+        "weekday_pct": 0.6
+      }
+    },
+    {
+      "store_id": "US00035",
+      "store_name": "35th & 5th",
+      "address": "366 5th Avenue, New York, NY 10001",
+      "latitude": 40.749116,
+      "longitude": -73.984616,
+      "area_type": "commercial_tourist",
+      "monthly_rent": 19000,
+      "sqft": 800,
+      "status": "pipeline",
+      "feature_source": "csv_enriched",
+      "features_from_db": {
+        "median_income": 75000,
+        "subway_count": 8,
+        "foot_traffic_score": 70,
+        "competitor_density": 5,
+        "weekday_pct": 0.58
+      }
+    },
+    {
+      "store_id": "US00007",
+      "store_name": "108th & Broadway",
+      "address": "2799 Broadway, New York, NY 10025",
+      "latitude": 40.802905,
+      "longitude": -73.967925,
+      "area_type": "university_residential",
+      "monthly_rent": 12000,
+      "sqft": 700,
+      "status": "pipeline",
+      "feature_source": "csv_enriched",
+      "features_from_db": {
+        "median_income": 70000,
+        "subway_count": 1,
+        "foot_traffic_score": 35,
+        "competitor_density": 2,
+        "weekday_pct": 0.5
+      }
+    },
+    {
+      "store_id": "US00011",
+      "store_name": "180 Varick",
+      "address": "180 Varick St, New York, NY 10014",
+      "latitude": 40.727598,
+      "longitude": -74.005142,
+      "area_type": "tech_office",
+      "monthly_rent": 16000,
+      "sqft": 700,
+      "status": "pipeline",
+      "feature_source": "csv_enriched",
+      "features_from_db": {
+        "median_income": 100000,
+        "subway_count": 4,
+        "foot_traffic_score": 50,
+        "competitor_density": 3,
+        "weekday_pct": 0.75
+      }
+    },
+    {
+      "store_id": "US00015",
+      "store_name": "41st & Lexington",
+      "address": "369 Lexington Ave, New York, NY 10017",
+      "latitude": 40.750579,
+      "longitude": -73.976431,
+      "area_type": "office_transit",
+      "monthly_rent": 17000,
+      "sqft": 700,
+      "status": "pipeline",
+      "feature_source": "csv_enriched",
+      "features_from_db": {
+        "median_income": 90000,
+        "subway_count": 5,
+        "foot_traffic_score": 60,
+        "competitor_density": 4,
+        "weekday_pct": 0.75
+      }
+    },
+    {
+      "store_id": "US00022",
+      "store_name": "23rd & 8th",
+      "address": "244 8th Ave, New York, NY 10011",
+      "latitude": 40.744798,
+      "longitude": -73.998477,
+      "area_type": "residential_commercial",
+      "monthly_rent": 14000,
+      "sqft": 650,
+      "status": "pipeline",
+      "feature_source": "csv_enriched",
+      "features_from_db": {
+        "median_income": 95000,
+        "subway_count": 2,
+        "foot_traffic_score": 40,
+        "competitor_density": 3,
+        "weekday_pct": 0.55
+      }
+    },
+    {
+      "store_id": "US00009",
+      "store_name": "48th & 3rd",
+      "address": "770 3rd Ave, New York, NY 10017",
+      "latitude": 40.754363,
+      "longitude": -73.972121,
+      "area_type": "office_commercial",
+      "monthly_rent": 14000,
+      "sqft": 700,
+      "status": "pipeline",
+      "feature_source": "csv_enriched",
+      "features_from_db": {
+        "median_income": 95000,
+        "subway_count": 3,
+        "foot_traffic_score": 50,
+        "competitor_density": 3,
+        "weekday_pct": 0.78
+      }
+    },
+    {
+      "store_id": "US00016",
+      "store_name": "Reade & Broadway",
+      "address": "291 Broadway, New York, NY 10007",
+      "latitude": 40.714923,
+      "longitude": -74.006079,
+      "area_type": "government_office",
+      "monthly_rent": 13000,
+      "sqft": 650,
+      "status": "pipeline",
+      "feature_source": "csv_enriched",
+      "features_from_db": {
+        "median_income": 100000,
+        "subway_count": 7,
+        "foot_traffic_score": 50,
+        "competitor_density": 2,
+        "weekday_pct": 0.8
+      }
+    },
+    {
+      "store_id": "US00014",
+      "store_name": "25 Park Row",
+      "address": "146 Chambers St, New York, NY 10007",
+      "latitude": 40.715592,
+      "longitude": -74.009858,
+      "area_type": "government_office",
+      "monthly_rent": 14000,
+      "sqft": 700,
+      "status": "pipeline",
+      "feature_source": "csv_enriched",
+      "features_from_db": {
+        "median_income": 100000,
+        "subway_count": 7,
+        "foot_traffic_score": 50,
+        "competitor_density": 2,
+        "weekday_pct": 0.78
+      }
+    },
+    {
+      "store_id": "US00018",
+      "store_name": "40th & 10th",
+      "address": "550 10th Ave, New York, NY 10018",
+      "latitude": 40.758497,
+      "longitude": -73.996096,
+      "area_type": "emerging_commercial",
+      "monthly_rent": 16000,
+      "sqft": 700,
+      "status": "pipeline",
+      "feature_source": "csv_enriched",
+      "features_from_db": {
+        "median_income": 80000,
+        "subway_count": 1,
+        "foot_traffic_score": 35,
+        "competitor_density": 2,
+        "weekday_pct": 0.65
+      }
+    },
+    {
+      "store_id": "US00019",
+      "store_name": "29th & 3rd",
+      "address": "401 3rd Ave, New York, NY 10016",
+      "latitude": 40.742275,
+      "longitude": -73.980474,
+      "area_type": "residential",
+      "monthly_rent": 11000,
+      "sqft": 600,
+      "status": "pipeline",
+      "feature_source": "csv_enriched",
+      "features_from_db": {
+        "median_income": 85000,
+        "subway_count": 1,
+        "foot_traffic_score": 25,
+        "competitor_density": 1,
+        "weekday_pct": 0.55
+      }
+    },
+    {
+      "store_id": "US00029",
+      "store_name": "148 Chambers",
+      "address": "148 Chambers St, New York, NY 10007",
+      "latitude": 40.715636,
+      "longitude": -74.009908,
+      "area_type": "government_residential",
+      "monthly_rent": 15000,
+      "sqft": 700,
+      "status": "pipeline",
+      "feature_source": "csv_enriched",
+      "features_from_db": {
+        "median_income": 100000,
+        "subway_count": 5,
+        "foot_traffic_score": 40,
+        "competitor_density": 2,
+        "weekday_pct": 0.7
+      }
+    },
+    {
+      "store_id": "US00013",
+      "store_name": "Grand Central Terminal",
+      "address": "52 Vanderbilt Ave, New York, NY 10017",
+      "latitude": 40.754291,
+      "longitude": -73.977128,
+      "area_type": "major_transit_hub",
+      "monthly_rent": 25000,
+      "sqft": 600,
+      "status": "pipeline",
+      "feature_source": "csv_enriched",
+      "features_from_db": {
+        "median_income": 90000,
+        "subway_count": 6,
+        "foot_traffic_score": 90,
+        "competitor_density": 4,
+        "weekday_pct": 0.7
+      }
+    },
+    {
+      "store_id": "US00023",
+      "store_name": "23rd & 1st",
+      "address": "352 E 23rd St, New York, NY 10010",
+      "latitude": 40.736731,
+      "longitude": -73.978947,
+      "area_type": "residential",
+      "monthly_rent": 10000,
+      "sqft": 550,
+      "status": "pipeline",
+      "feature_source": "csv_enriched",
+      "features_from_db": {
+        "median_income": 85000,
+        "subway_count": 0,
+        "foot_traffic_score": 15,
+        "competitor_density": 1,
+        "weekday_pct": 0.5
+      }
+    },
+    {
+      "store_id": "US00017",
+      "store_name": "63rd & 3rd",
+      "address": "219 9th Ave, New York, NY 10011",
+      "latitude": 40.746667,
+      "longitude": -74.0014,
+      "area_type": "mixed_commercial",
+      "monthly_rent": 15000,
+      "sqft": 700,
+      "status": "pipeline",
+      "feature_source": "db_new_candidate",
+      "features_from_db": {
+        "median_income": 90000,
+        "subway_count": 3,
+        "foot_traffic_score": 45,
+        "competitor_density": 3,
+        "weekday_pct": 0.58
+      }
+    }
+  ]
+}

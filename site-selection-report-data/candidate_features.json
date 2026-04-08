@@ -1,0 +1,961 @@
+{
+  "extraction_date": "2026-04-08",
+  "active_store_count_for_cannibalization": 12,
+  "note": "Cannibalization recalculated against 12 active stores. Encoding: min(dist/2.0, 1.0)",
+  "candidates": [
+    {
+      "store_id": "US00026",
+      "store_name": "211 Schermerhorn",
+      "nearest_active_store": "100 Maiden Ln",
+      "nearest_active_distance_mi": 1.68,
+      "features": {
+        "foot_traffic_score": {
+          "value": 70,
+          "source": "manual_enrichment"
+        },
+        "subway_count": {
+          "value": 10,
+          "source": "mta_data"
+        },
+        "weekday_pct": {
+          "value": 0.6,
+          "source": "area_type_proxy"
+        },
+        "area_type_score": {
+          "value": 80,
+          "source": "derived_from_area_type"
+        },
+        "competitor_density": {
+          "value": 3,
+          "source": "google_maps_manual"
+        },
+        "near_subway": {
+          "value": 1,
+          "source": "derived (subway_count>=3)"
+        },
+        "median_income": {
+          "value": 80000,
+          "source": "census_acs_estimate"
+        },
+        "rent_per_sqft": {
+          "value": 85,
+          "source": "commercial_re_market_rate"
+        },
+        "weekend_ratio": {
+          "value": 0.4,
+          "source": "derived (1-weekday_pct)"
+        },
+        "cannibalization_score": {
+          "value": 0.838,
+          "source": "haversine (min_dist/2, capped at 1.0)"
+        }
+      },
+      "verified_feature_count": 9,
+      "fallback_feature_count": 1,
+      "fallback_features": [
+        "weekday_pct"
+      ]
+    },
+    {
+      "store_id": "US00010",
+      "store_name": "154 Bleecker",
+      "nearest_active_store": "8th & Broadway",
+      "nearest_active_distance_mi": 0.4,
+      "features": {
+        "foot_traffic_score": {
+          "value": 75,
+          "source": "manual_enrichment"
+        },
+        "subway_count": {
+          "value": 8,
+          "source": "mta_data"
+        },
+        "weekday_pct": {
+          "value": 0.5,
+          "source": "area_type_proxy"
+        },
+        "area_type_score": {
+          "value": 100,
+          "source": "derived_from_area_type"
+        },
+        "competitor_density": {
+          "value": 4,
+          "source": "google_maps_manual"
+        },
+        "near_subway": {
+          "value": 1,
+          "source": "derived (subway_count>=3)"
+        },
+        "median_income": {
+          "value": 85000,
+          "source": "census_acs_estimate"
+        },
+        "rent_per_sqft": {
+          "value": 120,
+          "source": "commercial_re_market_rate"
+        },
+        "weekend_ratio": {
+          "value": 0.5,
+          "source": "derived (1-weekday_pct)"
+        },
+        "cannibalization_score": {
+          "value": 0.2,
+          "source": "haversine (min_dist/2, capped at 1.0)"
+        }
+      },
+      "verified_feature_count": 9,
+      "fallback_feature_count": 1,
+      "fallback_features": [
+        "weekday_pct"
+      ]
+    },
+    {
+      "store_id": "US00021",
+      "store_name": "128 W 32nd St",
+      "nearest_active_store": "28th & 6th",
+      "nearest_active_distance_mi": 0.23,
+      "features": {
+        "foot_traffic_score": {
+          "value": 80,
+          "source": "manual_enrichment"
+        },
+        "subway_count": {
+          "value": 11,
+          "source": "mta_data"
+        },
+        "weekday_pct": {
+          "value": 0.55,
+          "source": "area_type_proxy"
+        },
+        "area_type_score": {
+          "value": 80,
+          "source": "derived_from_area_type"
+        },
+        "competitor_density": {
+          "value": 4,
+          "source": "google_maps_manual"
+        },
+        "near_subway": {
+          "value": 1,
+          "source": "derived (subway_count>=3)"
+        },
+        "median_income": {
+          "value": 75000,
+          "source": "census_acs_estimate"
+        },
+        "rent_per_sqft": {
+          "value": 100,
+          "source": "commercial_re_market_rate"
+        },
+        "weekend_ratio": {
+          "value": 0.45,
+          "source": "derived (1-weekday_pct)"
+        },
+        "cannibalization_score": {
+          "value": 0.113,
+          "source": "haversine (min_dist/2, capped at 1.0)"
+        }
+      },
+      "verified_feature_count": 9,
+      "fallback_feature_count": 1,
+      "fallback_features": [
+        "weekday_pct"
+      ]
+    },
+    {
+      "store_id": "US00028",
+      "store_name": "Jackson Ave - LIC",
+      "nearest_active_store": "52nd & Madison",
+      "nearest_active_distance_mi": 1.94,
+      "features": {
+        "foot_traffic_score": {
+          "value": 45,
+          "source": "manual_enrichment"
+        },
+        "subway_count": {
+          "value": 4,
+          "source": "mta_data"
+        },
+        "weekday_pct": {
+          "value": 0.6,
+          "source": "area_type_proxy"
+        },
+        "area_type_score": {
+          "value": 35,
+          "source": "derived_from_area_type"
+        },
+        "competitor_density": {
+          "value": 2,
+          "source": "google_maps_manual"
+        },
+        "near_subway": {
+          "value": 1,
+          "source": "derived (subway_count>=3)"
+        },
+        "median_income": {
+          "value": 85000,
+          "source": "census_acs_estimate"
+        },
+        "rent_per_sqft": {
+          "value": 65,
+          "source": "commercial_re_market_rate"
+        },
+        "weekend_ratio": {
+          "value": 0.4,
+          "source": "derived (1-weekday_pct)"
+        },
+        "cannibalization_score": {
+          "value": 0.97,
+          "source": "haversine (min_dist/2, capped at 1.0)"
+        }
+      },
+      "verified_feature_count": 9,
+      "fallback_feature_count": 1,
+      "fallback_features": [
+        "weekday_pct"
+      ]
+    },
+    {
+      "store_id": "US00035",
+      "store_name": "35th & 5th",
+      "nearest_active_store": "37th & Broadway",
+      "nearest_active_distance_mi": 0.29,
+      "features": {
+        "foot_traffic_score": {
+          "value": 70,
+          "source": "manual_enrichment"
+        },
+        "subway_count": {
+          "value": 8,
+          "source": "mta_data"
+        },
+        "weekday_pct": {
+          "value": 0.58,
+          "source": "area_type_proxy"
+        },
+        "area_type_score": {
+          "value": 65,
+          "source": "derived_from_area_type"
+        },
+        "competitor_density": {
+          "value": 5,
+          "source": "google_maps_manual"
+        },
+        "near_subway": {
+          "value": 1,
+          "source": "derived (subway_count>=3)"
+        },
+        "median_income": {
+          "value": 75000,
+          "source": "census_acs_estimate"
+        },
+        "rent_per_sqft": {
+          "value": 130,
+          "source": "commercial_re_market_rate"
+        },
+        "weekend_ratio": {
+          "value": 0.42,
+          "source": "derived (1-weekday_pct)"
+        },
+        "cannibalization_score": {
+          "value": 0.146,
+          "source": "haversine (min_dist/2, capped at 1.0)"
+        }
+      },
+      "verified_feature_count": 9,
+      "fallback_feature_count": 1,
+      "fallback_features": [
+        "weekday_pct"
+      ]
+    },
+    {
+      "store_id": "US00007",
+      "store_name": "108th & Broadway",
+      "nearest_active_store": "54th & 8th",
+      "nearest_active_distance_mi": 2.79,
+      "features": {
+        "foot_traffic_score": {
+          "value": 35,
+          "source": "manual_enrichment"
+        },
+        "subway_count": {
+          "value": 1,
+          "source": "mta_data"
+        },
+        "weekday_pct": {
+          "value": 0.5,
+          "source": "area_type_proxy"
+        },
+        "area_type_score": {
+          "value": 40,
+          "source": "derived_from_area_type"
+        },
+        "competitor_density": {
+          "value": 2,
+          "source": "google_maps_manual"
+        },
+        "near_subway": {
+          "value": 0,
+          "source": "derived (subway_count>=3)"
+        },
+        "median_income": {
+          "value": 70000,
+          "source": "census_acs_estimate"
+        },
+        "rent_per_sqft": {
+          "value": 70,
+          "source": "commercial_re_market_rate"
+        },
+        "weekend_ratio": {
+          "value": 0.5,
+          "source": "derived (1-weekday_pct)"
+        },
+        "cannibalization_score": {
+          "value": 1.0,
+          "source": "haversine (min_dist/2, capped at 1.0)"
+        }
+      },
+      "verified_feature_count": 9,
+      "fallback_feature_count": 1,
+      "fallback_features": [
+        "weekday_pct"
+      ]
+    },
+    {
+      "store_id": "US00011",
+      "store_name": "180 Varick",
+      "nearest_active_store": "8th & Broadway",
+      "nearest_active_distance_mi": 0.69,
+      "features": {
+        "foot_traffic_score": {
+          "value": 50,
+          "source": "manual_enrichment"
+        },
+        "subway_count": {
+          "value": 4,
+          "source": "mta_data"
+        },
+        "weekday_pct": {
+          "value": 0.75,
+          "source": "area_type_proxy"
+        },
+        "area_type_score": {
+          "value": 50,
+          "source": "derived_from_area_type"
+        },
+        "competitor_density": {
+          "value": 3,
+          "source": "google_maps_manual"
+        },
+        "near_subway": {
+          "value": 1,
+          "source": "derived (subway_count>=3)"
+        },
+        "median_income": {
+          "value": 100000,
+          "source": "census_acs_estimate"
+        },
+        "rent_per_sqft": {
+          "value": 100,
+          "source": "commercial_re_market_rate"
+        },
+        "weekend_ratio": {
+          "value": 0.25,
+          "source": "derived (1-weekday_pct)"
+        },
+        "cannibalization_score": {
+          "value": 0.343,
+          "source": "haversine (min_dist/2, capped at 1.0)"
+        }
+      },
+      "verified_feature_count": 9,
+      "fallback_feature_count": 1,
+      "fallback_features": [
+        "weekday_pct"
+      ]
+    },
+    {
+      "store_id": "US00015",
+      "store_name": "41st & Lexington",
+      "nearest_active_store": "52nd & Madison",
+      "nearest_active_distance_mi": 0.58,
+      "features": {
+        "foot_traffic_score": {
+          "value": 60,
+          "source": "manual_enrichment"
+        },
+        "subway_count": {
+          "value": 5,
+          "source": "mta_data"
+        },
+        "weekday_pct": {
+          "value": 0.75,
+          "source": "area_type_proxy"
+        },
+        "area_type_score": {
+          "value": 50,
+          "source": "derived_from_area_type"
+        },
+        "competitor_density": {
+          "value": 4,
+          "source": "google_maps_manual"
+        },
+        "near_subway": {
+          "value": 1,
+          "source": "derived (subway_count>=3)"
+        },
+        "median_income": {
+          "value": 90000,
+          "source": "census_acs_estimate"
+        },
+        "rent_per_sqft": {
+          "value": 110,
+          "source": "commercial_re_market_rate"
+        },
+        "weekend_ratio": {
+          "value": 0.25,
+          "source": "derived (1-weekday_pct)"
+        },
+        "cannibalization_score": {
+          "value": 0.29,
+          "source": "haversine (min_dist/2, capped at 1.0)"
+        }
+      },
+      "verified_feature_count": 9,
+      "fallback_feature_count": 1,
+      "fallback_features": [
+        "weekday_pct"
+      ]
+    },
+    {
+      "store_id": "US00022",
+      "store_name": "23rd & 8th",
+      "nearest_active_store": "28th & 6th",
+      "nearest_active_distance_mi": 0.42,
+      "features": {
+        "foot_traffic_score": {
+          "value": 40,
+          "source": "manual_enrichment"
+        },
+        "subway_count": {
+          "value": 2,
+          "source": "mta_data"
+        },
+        "weekday_pct": {
+          "value": 0.55,
+          "source": "area_type_proxy"
+        },
+        "area_type_score": {
+          "value": 25,
+          "source": "derived_from_area_type"
+        },
+        "competitor_density": {
+          "value": 3,
+          "source": "google_maps_manual"
+        },
+        "near_subway": {
+          "value": 0,
+          "source": "derived (subway_count>=3)"
+        },
+        "median_income": {
+          "value": 95000,
+          "source": "census_acs_estimate"
+        },
+        "rent_per_sqft": {
+          "value": 90,
+          "source": "commercial_re_market_rate"
+        },
+        "weekend_ratio": {
+          "value": 0.45,
+          "source": "derived (1-weekday_pct)"
+        },
+        "cannibalization_score": {
+          "value": 0.209,
+          "source": "haversine (min_dist/2, capped at 1.0)"
+        }
+      },
+      "verified_feature_count": 9,
+      "fallback_feature_count": 1,
+      "fallback_features": [
+        "weekday_pct"
+      ]
+    },
+    {
+      "store_id": "US00009",
+      "store_name": "48th & 3rd",
+      "nearest_active_store": "52nd & Madison",
+      "nearest_active_distance_mi": 0.35,
+      "features": {
+        "foot_traffic_score": {
+          "value": 50,
+          "source": "manual_enrichment"
+        },
+        "subway_count": {
+          "value": 3,
+          "source": "mta_data"
+        },
+        "weekday_pct": {
+          "value": 0.78,
+          "source": "area_type_proxy"
+        },
+        "area_type_score": {
+          "value": 50,
+          "source": "derived_from_area_type"
+        },
+        "competitor_density": {
+          "value": 3,
+          "source": "google_maps_manual"
+        },
+        "near_subway": {
+          "value": 1,
+          "source": "derived (subway_count>=3)"
+        },
+        "median_income": {
+          "value": 95000,
+          "source": "census_acs_estimate"
+        },
+        "rent_per_sqft": {
+          "value": 95,
+          "source": "commercial_re_market_rate"
+        },
+        "weekend_ratio": {
+          "value": 0.22,
+          "source": "derived (1-weekday_pct)"
+        },
+        "cannibalization_score": {
+          "value": 0.177,
+          "source": "haversine (min_dist/2, capped at 1.0)"
+        }
+      },
+      "verified_feature_count": 9,
+      "fallback_feature_count": 1,
+      "fallback_features": [
+        "weekday_pct"
+      ]
+    },
+    {
+      "store_id": "US00016",
+      "store_name": "Reade & Broadway",
+      "nearest_active_store": "102 Fulton",
+      "nearest_active_distance_mi": 0.37,
+      "features": {
+        "foot_traffic_score": {
+          "value": 50,
+          "source": "manual_enrichment"
+        },
+        "subway_count": {
+          "value": 7,
+          "source": "mta_data"
+        },
+        "weekday_pct": {
+          "value": 0.8,
+          "source": "area_type_proxy"
+        },
+        "area_type_score": {
+          "value": 40,
+          "source": "derived_from_area_type"
+        },
+        "competitor_density": {
+          "value": 2,
+          "source": "google_maps_manual"
+        },
+        "near_subway": {
+          "value": 1,
+          "source": "derived (subway_count>=3)"
+        },
+        "median_income": {
+          "value": 100000,
+          "source": "census_acs_estimate"
+        },
+        "rent_per_sqft": {
+          "value": 85,
+          "source": "commercial_re_market_rate"
+        },
+        "weekend_ratio": {
+          "value": 0.2,
+          "source": "derived (1-weekday_pct)"
+        },
+        "cannibalization_score": {
+          "value": 0.183,
+          "source": "haversine (min_dist/2, capped at 1.0)"
+        }
+      },
+      "verified_feature_count": 9,
+      "fallback_feature_count": 1,
+      "fallback_features": [
+        "weekday_pct"
+      ]
+    },
+    {
+      "store_id": "US00014",
+      "store_name": "25 Park Row",
+      "nearest_active_store": "102 Fulton",
+      "nearest_active_distance_mi": 0.44,
+      "features": {
+        "foot_traffic_score": {
+          "value": 50,
+          "source": "manual_enrichment"
+        },
+        "subway_count": {
+          "value": 7,
+          "source": "mta_data"
+        },
+        "weekday_pct": {
+          "value": 0.78,
+          "source": "area_type_proxy"
+        },
+        "area_type_score": {
+          "value": 40,
+          "source": "derived_from_area_type"
+        },
+        "competitor_density": {
+          "value": 2,
+          "source": "google_maps_manual"
+        },
+        "near_subway": {
+          "value": 1,
+          "source": "derived (subway_count>=3)"
+        },
+        "median_income": {
+          "value": 100000,
+          "source": "census_acs_estimate"
+        },
+        "rent_per_sqft": {
+          "value": 85,
+          "source": "commercial_re_market_rate"
+        },
+        "weekend_ratio": {
+          "value": 0.22,
+          "source": "derived (1-weekday_pct)"
+        },
+        "cannibalization_score": {
+          "value": 0.22,
+          "source": "haversine (min_dist/2, capped at 1.0)"
+        }
+      },
+      "verified_feature_count": 9,
+      "fallback_feature_count": 1,
+      "fallback_features": [
+        "weekday_pct"
+      ]
+    },
+    {
+      "store_id": "US00018",
+      "store_name": "40th & 10th",
+      "nearest_active_store": "33rd & 10th",
+      "nearest_active_distance_mi": 0.36,
+      "features": {
+        "foot_traffic_score": {
+          "value": 35,
+          "source": "manual_enrichment"
+        },
+        "subway_count": {
+          "value": 1,
+          "source": "mta_data"
+        },
+        "weekday_pct": {
+          "value": 0.65,
+          "source": "area_type_proxy"
+        },
+        "area_type_score": {
+          "value": 35,
+          "source": "derived_from_area_type"
+        },
+        "competitor_density": {
+          "value": 2,
+          "source": "google_maps_manual"
+        },
+        "near_subway": {
+          "value": 0,
+          "source": "derived (subway_count>=3)"
+        },
+        "median_income": {
+          "value": 80000,
+          "source": "census_acs_estimate"
+        },
+        "rent_per_sqft": {
+          "value": 90,
+          "source": "commercial_re_market_rate"
+        },
+        "weekend_ratio": {
+          "value": 0.35,
+          "source": "derived (1-weekday_pct)"
+        },
+        "cannibalization_score": {
+          "value": 0.181,
+          "source": "haversine (min_dist/2, capped at 1.0)"
+        }
+      },
+      "verified_feature_count": 9,
+      "fallback_feature_count": 1,
+      "fallback_features": [
+        "weekday_pct"
+      ]
+    },
+    {
+      "store_id": "US00019",
+      "store_name": "29th & 3rd",
+      "nearest_active_store": "21st & 3rd",
+      "nearest_active_distance_mi": 0.39,
+      "features": {
+        "foot_traffic_score": {
+          "value": 25,
+          "source": "manual_enrichment"
+        },
+        "subway_count": {
+          "value": 1,
+          "source": "mta_data"
+        },
+        "weekday_pct": {
+          "value": 0.55,
+          "source": "area_type_proxy"
+        },
+        "area_type_score": {
+          "value": 10,
+          "source": "derived_from_area_type"
+        },
+        "competitor_density": {
+          "value": 1,
+          "source": "google_maps_manual"
+        },
+        "near_subway": {
+          "value": 0,
+          "source": "derived (subway_count>=3)"
+        },
+        "median_income": {
+          "value": 85000,
+          "source": "census_acs_estimate"
+        },
+        "rent_per_sqft": {
+          "value": 75,
+          "source": "commercial_re_market_rate"
+        },
+        "weekend_ratio": {
+          "value": 0.45,
+          "source": "derived (1-weekday_pct)"
+        },
+        "cannibalization_score": {
+          "value": 0.193,
+          "source": "haversine (min_dist/2, capped at 1.0)"
+        }
+      },
+      "verified_feature_count": 9,
+      "fallback_feature_count": 1,
+      "fallback_features": [
+        "weekday_pct"
+      ]
+    },
+    {
+      "store_id": "US00029",
+      "store_name": "148 Chambers",
+      "nearest_active_store": "102 Fulton",
+      "nearest_active_distance_mi": 0.44,
+      "features": {
+        "foot_traffic_score": {
+          "value": 40,
+          "source": "manual_enrichment"
+        },
+        "subway_count": {
+          "value": 5,
+          "source": "mta_data"
+        },
+        "weekday_pct": {
+          "value": 0.7,
+          "source": "area_type_proxy"
+        },
+        "area_type_score": {
+          "value": 30,
+          "source": "derived_from_area_type"
+        },
+        "competitor_density": {
+          "value": 2,
+          "source": "google_maps_manual"
+        },
+        "near_subway": {
+          "value": 1,
+          "source": "derived (subway_count>=3)"
+        },
+        "median_income": {
+          "value": 100000,
+          "source": "census_acs_estimate"
+        },
+        "rent_per_sqft": {
+          "value": 85,
+          "source": "commercial_re_market_rate"
+        },
+        "weekend_ratio": {
+          "value": 0.3,
+          "source": "derived (1-weekday_pct)"
+        },
+        "cannibalization_score": {
+          "value": 0.222,
+          "source": "haversine (min_dist/2, capped at 1.0)"
+        }
+      },
+      "verified_feature_count": 9,
+      "fallback_feature_count": 1,
+      "fallback_features": [
+        "weekday_pct"
+      ]
+    },
+    {
+      "store_id": "US00013",
+      "store_name": "Grand Central Terminal",
+      "nearest_active_store": "52nd & Madison",
+      "nearest_active_distance_mi": 0.33,
+      "features": {
+        "foot_traffic_score": {
+          "value": 90,
+          "source": "manual_enrichment"
+        },
+        "subway_count": {
+          "value": 6,
+          "source": "mta_data"
+        },
+        "weekday_pct": {
+          "value": 0.7,
+          "source": "area_type_proxy"
+        },
+        "area_type_score": {
+          "value": 70,
+          "source": "derived_from_area_type"
+        },
+        "competitor_density": {
+          "value": 4,
+          "source": "google_maps_manual"
+        },
+        "near_subway": {
+          "value": 1,
+          "source": "derived (subway_count>=3)"
+        },
+        "median_income": {
+          "value": 90000,
+          "source": "census_acs_estimate"
+        },
+        "rent_per_sqft": {
+          "value": 160,
+          "source": "commercial_re_market_rate"
+        },
+        "weekend_ratio": {
+          "value": 0.3,
+          "source": "derived (1-weekday_pct)"
+        },
+        "cannibalization_score": {
+          "value": 0.167,
+          "source": "haversine (min_dist/2, capped at 1.0)"
+        }
+      },
+      "verified_feature_count": 9,
+      "fallback_feature_count": 1,
+      "fallback_features": [
+        "weekday_pct"
+      ]
+    },
+    {
+      "store_id": "US00023",
+      "store_name": "23rd & 1st",
+      "nearest_active_store": "21st & 3rd",
+      "nearest_active_distance_mi": 0.26,
+      "features": {
+        "foot_traffic_score": {
+          "value": 15,
+          "source": "manual_enrichment"
+        },
+        "subway_count": {
+          "value": 0,
+          "source": "mta_data"
+        },
+        "weekday_pct": {
+          "value": 0.5,
+          "source": "area_type_proxy"
+        },
+        "area_type_score": {
+          "value": 10,
+          "source": "derived_from_area_type"
+        },
+        "competitor_density": {
+          "value": 1,
+          "source": "google_maps_manual"
+        },
+        "near_subway": {
+          "value": 0,
+          "source": "derived (subway_count>=3)"
+        },
+        "median_income": {
+          "value": 85000,
+          "source": "census_acs_estimate"
+        },
+        "rent_per_sqft": {
+          "value": 65,
+          "source": "commercial_re_market_rate"
+        },
+        "weekend_ratio": {
+          "value": 0.5,
+          "source": "derived (1-weekday_pct)"
+        },
+        "cannibalization_score": {
+          "value": 0.131,
+          "source": "haversine (min_dist/2, capped at 1.0)"
+        }
+      },
+      "verified_feature_count": 9,
+      "fallback_feature_count": 1,
+      "fallback_features": [
+        "weekday_pct"
+      ]
+    },
+    {
+      "store_id": "US00017",
+      "store_name": "63rd & 3rd",
+      "nearest_active_store": "33rd & 10th",
+      "nearest_active_distance_mi": 0.51,
+      "features": {
+        "foot_traffic_score": {
+          "value": 45,
+          "source": "manual_enrichment"
+        },
+        "subway_count": {
+          "value": 3,
+          "source": "mta_data"
+        },
+        "weekday_pct": {
+          "value": 0.58,
+          "source": "area_type_proxy"
+        },
+        "area_type_score": {
+          "value": 50,
+          "source": "derived_from_area_type"
+        },
+        "competitor_density": {
+          "value": 3,
+          "source": "google_maps_manual"
+        },
+        "near_subway": {
+          "value": 1,
+          "source": "derived (subway_count>=3)"
+        },
+        "median_income": {
+          "value": 90000,
+          "source": "census_acs_estimate"
+        },
+        "rent_per_sqft": {
+          "value": 95,
+          "source": "commercial_re_market_rate"
+        },
+        "weekend_ratio": {
+          "value": 0.42,
+          "source": "derived (1-weekday_pct)"
+        },
+        "cannibalization_score": {
+          "value": 0.253,
+          "source": "haversine (min_dist/2, capped at 1.0)"
+        }
+      },
+      "verified_feature_count": 9,
+      "fallback_feature_count": 1,
+      "fallback_features": [
+        "weekday_pct"
+      ]
+    }
+  ]
+}

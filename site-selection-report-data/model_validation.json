@@ -1,0 +1,136 @@
+{
+  "validation_date": "2026-04-08",
+  "method": "Apply original N=8 model to expanded N=11 fleet",
+  "training_n": 11,
+  "loocv_results": [
+    {
+      "store_name": "8th & Broadway",
+      "actual_weekly_cups": 4722,
+      "predicted_weekly_cups": 4247,
+      "actual_daily_cups": 675,
+      "predicted_daily_cups": 607,
+      "error_pct": 10.1,
+      "actual_rank": 1,
+      "predicted_rank": 1,
+      "rank_match": true
+    },
+    {
+      "store_name": "221 Grand",
+      "actual_weekly_cups": 3456,
+      "predicted_weekly_cups": 3154,
+      "actual_daily_cups": 494,
+      "predicted_daily_cups": 451,
+      "error_pct": 8.7,
+      "actual_rank": 2,
+      "predicted_rank": 2,
+      "rank_match": true
+    },
+    {
+      "store_name": "52nd & Madison",
+      "actual_weekly_cups": 3293,
+      "predicted_weekly_cups": 2610,
+      "actual_daily_cups": 470,
+      "predicted_daily_cups": 373,
+      "error_pct": 20.7,
+      "actual_rank": 3,
+      "predicted_rank": 4,
+      "rank_match": false
+    },
+    {
+      "store_name": "37th & Broadway",
+      "actual_weekly_cups": 3032,
+      "predicted_weekly_cups": 2571,
+      "actual_daily_cups": 433,
+      "predicted_daily_cups": 367,
+      "error_pct": 15.2,
+      "actual_rank": 4,
+      "predicted_rank": 5,
+      "rank_match": false
+    },
+    {
+      "store_name": "28th & 6th",
+      "actual_weekly_cups": 3027,
+      "predicted_weekly_cups": 2754,
+      "actual_daily_cups": 432,
+      "predicted_daily_cups": 393,
+      "error_pct": 9.0,
+      "actual_rank": 5,
+      "predicted_rank": 3,
+      "rank_match": false
+    },
+    {
+      "store_name": "102 Fulton",
+      "actual_weekly_cups": 2812,
+      "predicted_weekly_cups": 2520,
+      "actual_daily_cups": 402,
+      "predicted_daily_cups": 360,
+      "error_pct": 10.4,
+      "actual_rank": 6,
+      "predicted_rank": 6,
+      "rank_match": true
+    },
+    {
+      "store_name": "54th & 8th",
+      "actual_weekly_cups": 2698,
+      "predicted_weekly_cups": 2445,
+      "actual_daily_cups": 385,
+      "predicted_daily_cups": 349,
+      "error_pct": 9.4,
+      "actual_rank": 7,
+      "predicted_rank": 7,
+      "rank_match": true
+    },
+    {
+      "store_name": "33rd & 10th",
+      "actual_weekly_cups": 1969,
+      "predicted_weekly_cups": 1816,
+      "actual_daily_cups": 281,
+      "predicted_daily_cups": 259,
+      "error_pct": 7.8,
+      "actual_rank": 8,
+      "predicted_rank": 8,
+      "rank_match": true
+    },
+    {
+      "store_name": "21st & 3rd",
+      "actual_weekly_cups": 1922,
+      "predicted_weekly_cups": 1753,
+      "actual_daily_cups": 275,
+      "predicted_daily_cups": 250,
+      "error_pct": 8.8,
+      "actual_rank": 9,
+      "predicted_rank": 9,
+      "rank_match": true
+    },
+    {
+      "store_name": "100 Maiden Ln",
+      "actual_weekly_cups": 1708,
+      "predicted_weekly_cups": 1507,
+      "actual_daily_cups": 244,
+      "predicted_daily_cups": 215,
+      "error_pct": 11.8,
+      "actual_rank": 10,
+      "predicted_rank": 10,
+      "rank_match": true
+    },
+    {
+      "store_name": "15th & 3rd",
+      "actual_weekly_cups": 1462,
+      "predicted_weekly_cups": 1344,
+      "actual_daily_cups": 209,
+      "predicted_daily_cups": 192,
+      "error_pct": 8.1,
+      "actual_rank": 11,
+      "predicted_rank": 11,
+      "rank_match": true
+    }
+  ],
+  "overall_metrics": {
+    "r_squared": 0.8507,
+    "mape_pct": 10.9,
+    "rmse_weekly_cups": 347,
+    "max_error_pct": 20.7,
+    "rank_accuracy": "8/11 exact match"
+  },
+  "note": "3 new stores (33rd & 10th, 21st & 3rd, 52nd & Madison) serve as out-of-sample validation."
+}

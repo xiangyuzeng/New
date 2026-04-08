@@ -1,0 +1,67 @@
+{
+  "winner_name": "Lasso (\u03b1=1.0)",
+  "feature_cols": [
+    "foot_traffic_score",
+    "subway_count",
+    "weekday_pct",
+    "area_type_score",
+    "competitor_density",
+    "near_subway",
+    "median_income",
+    "rent_per_sqft",
+    "weekend_ratio",
+    "cannibalization_score"
+  ],
+  "scaler_mean": [
+    55.912499999999994,
+    7.0,
+    0.6025,
+    59.375,
+    3.25,
+    1.0,
+    86250.0,
+    93.75,
+    0.39749999999999996,
+    0.24524999999999997
+  ],
+  "scaler_scale": [
+    19.906559063534814,
+    2.345207879911715,
+    0.08728545125048044,
+    22.560682059725057,
+    0.9682458365518543,
+    1.0,
+    17984.368212422698,
+    15.155444566227676,
+    0.08728545125048044,
+    0.11484309948795357
+  ],
+  "coef": [
+    848.2937693390346,
+    -30.988651587601677,
+    -24.33127887347326,
+    14.747749616653763,
+    -8.557253100932813,
+    0.0,
+    44.57898581812007,
+    -27.7495741228872,
+    29.271239766063037,
+    -0.0,
+    0.0
+  ],
+  "intercept": 2366.9375,
+  "metrics": {
+    "r_squared": 0.8507,
+    "mape": 10.9,
+    "rmse": 347.19
+  },
+  "unit_economics": {
+    "avg_cup_price": 5.5,
+    "margin_per_cup": 2.3,
+    "labor_monthly": 15000,
+    "supplies_monthly": 3000
+  },
+  "generated_at": "2026-04-08",
+  "training_n": 11,
+  "note": "Original model applied to expanded fleet. Recommend sklearn Lasso retrain."
+}
