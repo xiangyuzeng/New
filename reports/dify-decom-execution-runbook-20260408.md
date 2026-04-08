@@ -3,14 +3,153 @@
 | Field | Value |
 |-------|-------|
 | **Date** | 2026-04-08 |
+| **Version** | v2 — Management Review |
 | **Author** | David Zeng (DBA/Infrastructure) |
 | **Status** | READY FOR EXECUTION (pending permission grant) |
 | **AWS Account** | 257394478466 (us-east-1) |
 | **IAM User** | databasecheck |
 | **EKS Cluster** | prod-worker01-eks-us |
 | **Namespace** | baseservices-cloud-dify |
-| **Estimated Savings** | ~$2,190/mo (~$12,000 over 6-month pause) |
+| **Validated Monthly Cost** | $1,789/mo (EDP) · $2,592/mo (On-Demand) |
+| **6-Month Savings** | $10,734 (EDP) |
+| **Data Validated** | 2026-04-08 (all resource states confirmed live) |
 | **Previous Reports** | v1 Plan (2026-03-24), v2 Technical (2026-03-25), v3 Update (2026-04-07) |
+
+---
+
+## Executive Summary
+
+### Decision
+
+**Full shutdown recommended** for the 6-month project pause. All resources are confirmed idle, all data will be preserved via snapshots, and restore is possible within 2-4 hours if the project restarts.
+
+### Key Facts
+
+| Metric | Value |
+|--------|-------|
+| Platform status | **IDLE** — 16 days since last API call (2026-03-23), 30 days since last user login (2026-03-09) |
+| Active users | **0** — no logins since 2026-03-09 |
+| Active API tokens | **0** — last token dormant since 2026-03-23 (7 calls, then silence) |
+| Monthly spend (EDP) | **$1,789/mo** across 7 AWS services |
+| 6-month savings | **$10,734** (net of ~$5/yr snapshot retention) |
+| Snapshot retention cost | **$0.78/mo** (EDP) for RDS + Redis manual snapshots |
+| Restore time | **2-4 hours** (RDS restore ~15 min, Redis ~5 min, K8s redeploy ~1-2 hrs) |
+| Business impact | **Zero** — no users, no API consumers, no downstream dependencies |
+| Total resources | 2 RDS, 2 ElastiCache, 1 OpenSearch, 2 EC2, 3 S3, 1 NLB, 46 K8s pods, 12 EBS volumes |
+
+### Blocker
+
+**15 IAM permissions are denied** for the `databasecheck` user. A resource-scoped temporary IAM policy must be approved and applied before execution can begin. The complete policy JSON is provided in Section 八.
+
+---
+
+## Permissions Required to Proceed
+
+### Category 1: AWS IAM Permissions (BLOCKER)
+
+The `databasecheck` IAM user currently has **read-only** access. The following write permissions must be granted before any decommission action.
+
+| # | Service | Actions Required | Resource Scope | Tested | Status |
+|---|---------|-----------------|----------------|--------|--------|
+| 1 | RDS | `rds:CreateDBSnapshot`, `rds:ModifyDBInstance`, `rds:DeleteDBInstance` | 2 specific DB instances + snapshot prefix | Yes (2026-04-08) | **DENIED** |
+| 2 | ElastiCache | `elasticache:CreateSnapshot`, `elasticache:DeleteReplicationGroup` | 2 specific replication groups + snapshot prefix | Yes | **DENIED** |
+| 3 | OpenSearch | `es:DeleteDomain` | 1 specific domain | Untested | **Likely DENIED** |
+| 4 | EC2 | `ec2:StopInstances`, `ec2:TerminateInstances` | 2 specific instances | Yes | **DENIED** |
+| 5 | EC2 | `ec2:DeleteNetworkInterface` | 4 specific orphaned ENIs | Yes | **DENIED** |
+| 6 | S3 | `s3:ListBucket`, `s3:GetObject`, `s3:DeleteObject`, `s3:DeleteBucket` | 3 specific buckets | Partial | **DENIED** |
+| 7 | Route53 | `route53:ListHostedZones`, `route53:ListResourceRecordSets`, `route53:ChangeResourceRecordSets` | All (Route53 API limitation) | Yes | **DENIED** |
+| 8 | EKS | `eks:UpdateNodegroupConfig` | 1 specific nodegroup | Yes | **DENIED** |
+| 9 | KMS | `kms:DescribeKey`, `kms:ListAliases`, `kms:ListGrants` | 1 specific key | Yes | **DENIED** |
+
+**Action required**: Apply the IAM policy in Section 八 to user `databasecheck`. Policy is resource-scoped to Dify resources only. Recommended duration: 7 days.
+
+### Category 2: Kubernetes / EKS Access
+
+| # | Requirement | Current State | Action |
+|---|------------|---------------|--------|
+| 1 | MCP eks-server write mode | Read-only (no `--allow-write` flag) | Enable `--allow-write` in MCP server config |
+| 2 | Helm CLI access | Untested | Verify: `helm list -n baseservices-cloud-dify` |
+| 3 | kubectl write access | Via MCP only (read-only) | Direct kubectl access OR MCP write mode |
+| 4 | K8s Secrets read | RBAC 403 | Coordinate with EKS admin if Helm release secrets need inspection |
+
+### Category 3: Administrative Actions (non-IAM)
+
+| # | Action | Owner | Status |
+|---|--------|-------|--------|
+| 1 | Confirm SMTP scope: is `dify@luckincoffee.us` used by other services? | DevOps (彭啸) | TODO |
+| 2 | Confirm KMS key scope: is key `0d74cdfc-...` used by other services? | AWS Admin | TODO |
+| 3 | MCP gateway config update (remove 3 Dify entries) | MCP Gateway Admin | After deletion |
+| 4 | Deactivate Milvus IAM access key `AKIAT...UX65` | IAM Admin | After K8s teardown |
+| 5 | Stakeholder notification (ops team, 彭啸, 王东尧) | David Zeng | TODO |
+
+### Category 4: Approval Required
+
+| Approver | Scope | Status |
+|----------|-------|--------|
+| CTO (Michael) | IAM policy grant + budget approval | Pending |
+| DevOps Lead (彭啸) | K8s namespace + Milvus teardown coordination | Pending |
+| Ops (王东尧) | Non-DB resource reclamation acknowledgement | Pending |
+
+---
+
+## Cost Impact Analysis
+
+### Per-Resource Monthly Cost Breakdown (Validated 2026-04-08)
+
+EDP discount: 31% (On-Demand x 0.69). All pricing from AWS API for us-east-1.
+
+| # | Service | Configuration | On-Demand/mo | EDP/mo | % of Total |
+|---|---------|--------------|-------------|--------|------------|
+| 1 | **RDS PostgreSQL** | 2x db.r5.xlarge Multi-AZ, 20GB gp3 each | $1,468.00 | $1,012.92 | 56.6% |
+| 2 | **OpenSearch** | 2x r6g.large.search (data) + 3x m7g.large.search (dedicated master), 30GB gp3/node, 2-AZ | $660.42 | $455.70 | 25.5% |
+| 3 | **ElastiCache Redis** | cache.m6g.large x2 (old) + cache.t4g.micro x2 (new) | $241.24 | $166.46 | 9.3% |
+| 4 | **EC2** | 2x c6i.large (isredify01, iluckydifyjump01) | $124.10 | $85.62 | 4.8% |
+| 5 | **EBS (K8s)** | 12 gp3 volumes, 990GB total | $79.20 | $54.65 | 3.1% |
+| 6 | **NLB** | 1x internal (inf-milvus-service) | $16.43 | $11.34 | 0.6% |
+| 7 | **EFS + S3** | 10GB EFS + 73MB S3 (3 buckets) | $3.00 | $2.07 | 0.1% |
+| | **Running Total** | | **$2,592.39** | **$1,788.76** | **100%** |
+
+### Post-Decommission Ongoing Cost
+
+| Item | EDP/mo | Annual | Notes |
+|------|--------|--------|-------|
+| RDS manual snapshots (2x 20GB) | $0.64 | $7.68 | Until project restarts or 12 months |
+| ElastiCache snapshots (2x ~3GB) | $0.14 | $1.68 | Until project restarts or 12 months |
+| **Total snapshot retention** | **$0.78** | **$9.36** | |
+
+### Savings Summary
+
+| Period | Gross Savings (EDP) | Snapshot Cost | Net Savings |
+|--------|-------------------|---------------|-------------|
+| Per month | $1,788.76 | $0.78 | **$1,787.98** |
+| 6-month pause | $10,732.56 | $4.68 | **$10,727.88** |
+| 12 months | $21,465.12 | $9.36 | **$21,455.76** |
+
+---
+
+## Risk Assessment
+
+| # | Risk | Likelihood | Impact | Mitigation | Rollback |
+|---|------|-----------|--------|------------|----------|
+| R1 | K8s namespace stuck in Terminating state | Low | Medium | Only standard `kubernetes` finalizer present (verified). Force-remove finalizer via kubectl API if stuck >5 min. | N/A — retry with force |
+| R2 | NLB not auto-deleted after K8s Service removal | Low | Low | NLB deletion_protection=false (confirmed). aws-load-balancer-controller healthy. Manual `elbv2 delete-load-balancer` as fallback. | Manual delete |
+| R3 | EBS volumes orphaned after PVC deletion | Low | Low | Verify via `ec2 describe-volumes` with namespace tag filter. Manual delete if needed (need ec2:DeleteVolume). | Manual delete |
+| R4 | Shared resources accidentally deleted | Low | **Critical** | Resource-scoped IAM policy (Section 八) prevents access to non-Dify resources. DO NOT DELETE checklist in Section 4.6 covers 9 shared resources. | Immediate incident response |
+| R5 | Milvus embedded AWS credentials compromised post-decom | Medium | Medium | ConfigMap with key `AKIAT...UX65` exists until namespace deleted. Deactivate key immediately after K8s teardown (Phase 4.5). | Re-key if compromised |
+| R6 | KMS key is shared with other services | Unknown | Medium | Cannot verify (kms:DescribeKey denied). Admin must confirm scope before any key action. Default: leave key untouched. | No action on key |
+| R7 | Platform restart needed within 6 months | Low | Medium | All data preserved: RDS snapshots (restore ~15 min), Redis snapshots (~5 min), K8s YAML backup, S3 data is only 73MB. Full restore: 2-4 hours. | Restore from snapshots + redeploy |
+
+### Rollback Capabilities
+
+| Resource | Backup Method | Restore Time | Retention |
+|----------|-------------|-------------|-----------|
+| RDS PostgreSQL (2 instances) | Manual snapshots (decom-final-*) | ~15 min per instance | Until explicitly deleted |
+| ElastiCache Redis (2 clusters) | Manual snapshots (decom-final-*) | ~5 min per cluster | Until explicitly deleted |
+| OpenSearch | No snapshot (only 26 docs — trivial) | Rebuild from scratch: ~30 min | N/A |
+| K8s namespace | Full YAML backup (~/backup-dify-namespace-full.yaml) | kubectl apply: ~10 min | Local file |
+| S3 buckets | Not backed up (73MB, versioning off) | Recreate + re-upload if needed | N/A |
+| Ingress config | YAML backup (~/backup-dify-ingresses.yaml) | kubectl apply: ~1 min | Local file |
+| Helm values | Helm release secrets (if readable) or reconstruct | Helm install: ~5 min | Dependent on Secret access |
 
 ---
 
@@ -290,7 +429,7 @@ kubectl get namespace baseservices-cloud-dify
                                  │  S3: lk-infra-dify  │
                                  │  Object Storage     │
                                  │  73MB / 663 objects  │
-                                 │  AWS creds embedded  │
+                                 │  IAM creds embedded  │
                                  └─────────────────────┘
          ServiceAccount: milvus-s3-access-sa
          Attu Web UI: milvus-attu (port 3000)
@@ -306,7 +445,7 @@ kubectl get namespace baseservices-cloud-dify
 | Pulsar ZK data | 3 EBS volumes (20GB each) | 60GB | YES | No — cluster state |
 | S3 object store | s3://lk-infra-dify | 73MB | NO — requires S3 cleanup | Optional (vector embeddings) |
 
-**Total EBS**: 990GB across 12 volumes. All auto-clean when PVCs are deleted (assuming reclaimPolicy=Delete).
+**Total EBS**: 990GB across 12 gp3 volumes (verified 2026-04-08, all in-use state). All auto-clean when PVCs are deleted (assuming reclaimPolicy=Delete).
 
 ### 3.3 Teardown Strategy
 
@@ -552,7 +691,11 @@ aws elasticache describe-cache-clusters \
 
 ### 4.3 OpenSearch Deletion
 
-**Domain**: `luckyus-opensearch-dify` (2x r6g.large data + 3x m7g.large, 60GB)
+**Domain**: `luckyus-opensearch-dify`
+- **Data nodes**: 2x r6g.large.search (data), 30GB gp3 each
+- **Dedicated masters**: 3x m7g.large.search
+- **Zone awareness**: 2 AZs (us-east-1a, us-east-1b)
+- **Warm/Cold**: Disabled
 
 **Key config**:
 - VPC: vpc-0dce7ca7770422d33
@@ -604,8 +747,8 @@ aws ec2 delete-network-interface --network-interface-id eni-0f2adc1cdec3cab8a --
 ### 4.4 EC2 Instance Deletion
 
 **Instances**:
-- i-06e7301a6e3f28df4 (isredify01, c6i.large) — Milvus-related
-- i-02d4ea4bbab7fd574 (iluckydifyjump01, c6i.large) — Dify jump server
+- i-06e7301a6e3f28df4 (isredify01-prod-usa-aws, c6i.large) — Milvus/SRE Dify server
+- i-02d4ea4bbab7fd574 (iluckydifyjump01-prod-usa-aws, c6i.large) — Dify jump server
 
 **Both have**: DeleteOnTermination=true on root EBS volumes (vol-00f8df5db42547f32, vol-00419fed999cc4e01)
 
@@ -1044,6 +1187,8 @@ Contact MCP gateway admin to update the configuration file and restart the gatew
 
 **Recommended approach**: Create an inline policy on user `databasecheck`, set a calendar reminder to remove after 7 days.
 
+**Note on Route53 scope**: The `Route53DifyDNS` statement uses `Resource: "*"` because AWS Route53 does not support resource-level permissions for `ListHostedZones` and `ListResourceRecordSets` actions per [AWS documentation](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/access-control-overview.html). The `ChangeResourceRecordSets` action will only be used for the 2 Dify DNS records (`dify-console.luckincoffee.us`, `milvus-attu.luckincoffee.us`).
+
 ---
 
 ## 九、Master Execution Checklist
@@ -1142,6 +1287,21 @@ Contact MCP gateway admin to update the configuration file and restart the gatew
 
 ---
 
+---
+
+## 十、Approval & Sign-Off
+
+| Role | Name | Responsibility | Signature | Date |
+|------|------|---------------|-----------|------|
+| DBA / Author | David Zeng (曾翔宇) | Prepared runbook, validated all resource states and costs, will execute decommission | __________ | __________ |
+| DevOps Lead | 彭啸 | Reviewed K8s + Milvus teardown plan, coordinates with Ops for non-DB resources | __________ | __________ |
+| CTO / AWS Admin | Michael | Approves IAM permission grant (Section 八), budget sign-off for cost optimization | __________ | __________ |
+| Ops | 王东尧 | Acknowledges no downstream dependencies, no objections to shutdown | __________ | __________ |
+
+---
+
 **End of Runbook**
 
 Estimated execution time: Phases 1-3 = ~90 minutes (day-of), Phase 4 = +48 hours (EC2 observation), Phases 5-6 = +2 weeks (monitoring).
+Total line items in master checklist: 42 steps across 7 phases.
+Document version: v2 (Management Review) — 2026-04-08.
