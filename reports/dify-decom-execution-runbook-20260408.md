@@ -3,7 +3,7 @@
 | Field | Value |
 |-------|-------|
 | **Date** | 2026-04-08 |
-| **Version** | v3 — Management Review (with gap analysis) |
+| **Version** | v4 — Operator-Ready (with glossary, prerequisites, troubleshooting) |
 | **Author** | David Zeng (DBA/Infrastructure) |
 | **Status** | READY FOR EXECUTION (pending permission grant) |
 | **AWS Account** | 257394478466 (us-east-1) |
@@ -14,6 +14,143 @@
 | **6-Month Savings** | $10,734 (EDP) |
 | **Data Validated** | 2026-04-08 (all resource states confirmed live) |
 | **Previous Reports** | v1 Plan (2026-03-24), v2 Technical (2026-03-25), v3 Update (2026-04-07) |
+
+---
+
+## Glossary of Key Terms
+
+If you are unfamiliar with any technology referenced in this runbook, consult this glossary first.
+
+| Term | What It Is | Why It Matters Here |
+|------|-----------|-------------------|
+| **AWS CLI** | Command-line tool to manage AWS services. All `aws ...` commands in this runbook use it. | Must be installed and configured before any execution. |
+| **kubectl** | Command-line tool to manage Kubernetes (K8s) clusters. All `kubectl ...` commands use it. | Must be installed and connected to the right cluster. |
+| **Helm** | A "package manager" for Kubernetes — it installs/uninstalls groups of K8s resources as a single unit called a "release". | Dify and Milvus were installed via Helm. `helm uninstall` cleanly removes everything Helm installed. |
+| **Namespace** | A logical boundary inside Kubernetes that groups related resources. Think of it like a folder. | All Dify resources live in the `baseservices-cloud-dify` namespace. |
+| **Pod** | The smallest deployable unit in Kubernetes — one or more containers running together. | Dify has 46 pods that will all be deleted. |
+| **PVC (PersistentVolumeClaim)** | A request for storage in Kubernetes. It creates an actual disk (EBS or EFS volume) in AWS. | Deleting a PVC deletes the underlying AWS disk — this is how we clean up 990GB of storage. |
+| **StorageClass** | Defines what type of storage a PVC creates (e.g., SSD, HDD) and what happens when the PVC is deleted. | `reclaimPolicy=Delete` means the disk is automatically deleted. `Retain` means it stays (orphaned). |
+| **StatefulSet** | A K8s resource for applications that need stable storage (like databases). Each pod gets its own PVC. | Milvus etcd and Pulsar use StatefulSets — their PVCs are NOT auto-deleted by `helm uninstall`. |
+| **NLB (Network Load Balancer)** | An AWS load balancer that distributes network traffic. | Milvus uses one NLB. It auto-deletes when the K8s Service is removed. |
+| **IRSA** | IAM Roles for Service Accounts — lets K8s pods assume AWS IAM roles without storing credentials. | Milvus uses IRSA for S3 access. The IAM role becomes orphaned after namespace deletion. |
+| **Ingress** | A K8s resource that routes external HTTP traffic to services inside the cluster. | Dify has 2 ingress rules. Deleting them removes web access routes (but DNS records remain). |
+| **Finalizer** | A K8s mechanism that prevents resource deletion until cleanup is complete. | If a namespace has a stuck finalizer, it stays in "Terminating" state forever. We can force-remove it. |
+| **RDS** | AWS Relational Database Service — managed PostgreSQL/MySQL databases. | Dify uses 2 RDS PostgreSQL instances. |
+| **ElastiCache** | AWS managed Redis/Memcached service. | Dify uses 2 Redis clusters (ElastiCache). |
+| **OpenSearch** | AWS managed search/analytics engine (based on Elasticsearch). | Dify uses 1 OpenSearch domain with only 26 documents. |
+| **EDP** | Enterprise Discount Program — Luckin's 31% discount on AWS On-Demand pricing. Actual cost = On-Demand × 0.69. | All cost figures labeled "EDP" reflect our real cost. |
+| **KMS** | AWS Key Management Service — manages encryption keys. | OpenSearch uses a KMS key that may be shared with other services. |
+| **ENI** | Elastic Network Interface — a virtual network card in AWS. | OpenSearch leaves orphaned ENIs after deletion that may need manual cleanup. |
+| **SES** | AWS Simple Email Service — for sending email. | Dify used SES for notifications via `dify@luckincoffee.us`. |
+
+---
+
+## Prerequisites: Tool Installation & Configuration
+
+Before starting ANY execution step, verify all required tools are installed and configured. Run every command below and confirm the expected output.
+
+### P1. AWS CLI
+
+```bash
+# Check if AWS CLI is installed:
+aws --version
+# Expected output (example): aws-cli/2.x.x Python/3.x.x Linux/...
+# If NOT installed: https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+
+# Verify you are logged in as the correct IAM user:
+aws sts get-caller-identity --region us-east-1
+# Expected output:
+# {
+#     "UserId": "AIDA...",
+#     "Account": "257394478466",
+#     "Arn": "arn:aws:iam::257394478466:user/databasecheck"
+# }
+# ⚠️ If Account is NOT 257394478466, STOP — you are in the wrong AWS account.
+
+# Verify default region:
+aws configure get region
+# Expected: us-east-1
+# If blank or different, set it:
+# aws configure set region us-east-1
+```
+
+### P2. kubectl
+
+```bash
+# Check if kubectl is installed:
+kubectl version --client
+# Expected output (example): Client Version: v1.28.x ...
+# If NOT installed: https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
+
+# Configure kubectl to connect to the EKS cluster:
+aws eks update-kubeconfig --name prod-worker01-eks-us --region us-east-1
+# Expected output: Added new context arn:aws:eks:us-east-1:257394478466:cluster/prod-worker01-eks-us to /home/<user>/.kube/config
+
+# Verify connection:
+kubectl get nodes
+# Expected: List of 13 nodes in "Ready" status
+# If you see "error: You must be logged in to the server" — your kubeconfig is wrong or IAM permissions are missing.
+
+# Verify you can access the Dify namespace:
+kubectl get pods -n baseservices-cloud-dify --no-headers | wc -l
+# Expected: 46 (approximate — the number of running Dify+Milvus pods)
+```
+
+### P3. Helm CLI
+
+```bash
+# Check if Helm is installed:
+helm version
+# Expected output (example): version.BuildInfo{Version:"v3.x.x", ...}
+# If NOT installed: https://helm.sh/docs/intro/install/
+
+# Verify you can see Dify Helm releases:
+helm list -n baseservices-cloud-dify
+# Expected output (2 releases):
+# NAME    NAMESPACE                    REVISION  STATUS    CHART           APP VERSION
+# dify    baseservices-cloud-dify      1         deployed  dify-0.0.1      ...
+# milvus  baseservices-cloud-dify      1         deployed  milvus-4.0.31   ...
+# If you see 0 releases: Helm may not have read access to K8s secrets — coordinate with EKS admin.
+```
+
+### P4. jq (JSON processor)
+
+```bash
+# Check if jq is installed (needed for namespace finalizer force-removal):
+jq --version
+# Expected output (example): jq-1.6
+# If NOT installed:
+# Amazon Linux / RHEL: sudo yum install jq
+# Ubuntu / Debian: sudo apt-get install jq
+# macOS: brew install jq
+```
+
+### P5. Disable AWS CLI Pager
+
+For long outputs, AWS CLI opens a pager (like `less`) which blocks scripts. Disable it:
+
+```bash
+export AWS_PAGER=""
+# Or permanently: aws configure set cli_pager ""
+```
+
+### P6. Permission Smoke Test
+
+Before spending time on backups, verify that IAM permissions have actually been granted:
+
+```bash
+# Quick test: try to describe a snapshot (should work even before creating one)
+aws rds describe-db-snapshots --db-instance-identifier aws-luckyus-dify-rw \
+  --query 'DBSnapshots[0].DBSnapshotIdentifier' --region us-east-1
+
+# Test a WRITE permission (dry-run equivalent — this will fail gracefully if denied):
+aws ec2 stop-instances --instance-ids i-06e7301a6e3f28df4 --dry-run --region us-east-1 2>&1
+# If permissions GRANTED: "Request would have succeeded, but DryRun flag is set"
+# If permissions DENIED: "UnauthorizedOperation" — STOP, IAM policy not yet applied
+
+aws ec2 delete-network-interface --network-interface-id eni-0d623c6205c24d3a7 --dry-run --region us-east-1 2>&1
+# Same pattern: "DryRun" = OK, "UnauthorizedOperation" = not ready
+```
 
 ---
 
@@ -354,10 +491,18 @@ kubectl delete namespace baseservices-cloud-dify
 kubectl get namespace baseservices-cloud-dify
 # Expected: Error from server (NotFound)
 
-# K7.2 If namespace stuck in Terminating (>5 min), force-remove finalizer:
-# kubectl get namespace baseservices-cloud-dify -o json | \
-#   jq '.spec.finalizers = []' | \
-#   kubectl replace --raw "/api/v1/namespaces/baseservices-cloud-dify/finalize" -f -
+# K7.2 Check if namespace is still deleting:
+kubectl get namespace baseservices-cloud-dify 2>&1
+# IF output says "NotFound" → SUCCESS, skip to verification.
+# IF output shows status "Terminating" → wait up to 5 minutes, then check again.
+
+# K7.3 ONLY IF namespace is stuck in "Terminating" for more than 5 minutes:
+# This force-removes the finalizer that is blocking deletion.
+# ⚠️ Do NOT run this unless the namespace has been stuck for >5 minutes.
+kubectl get namespace baseservices-cloud-dify -o json | \
+  jq '.spec.finalizers = []' | \
+  kubectl replace --raw "/api/v1/namespaces/baseservices-cloud-dify/finalize" -f -
+# Expected: the namespace will disappear within seconds.
 ```
 
 ### 2.4 Expected Automatic Cleanup
@@ -375,7 +520,7 @@ kubectl get namespace baseservices-cloud-dify
 
 | # | Resource | Action | Command |
 |---|----------|--------|---------|
-| 1 | EFS access point / mount targets | Verify EFS cleanup after PVC deletion | `aws efs describe-mount-targets --file-system-id <fs-id>` (need efs:Describe permission) |
+| 1 | EFS access point / mount targets | Verify EFS cleanup after PVC deletion. First find the EFS ID: `kubectl get pv -o custom-columns=DRIVER:.spec.csi.driver,HANDLE:.spec.csi.volumeHandle \| grep efs` → then: `aws efs describe-mount-targets --file-system-id <ID_FROM_ABOVE> --region us-east-1` | Need efs:Describe permission |
 | 2 | DNS records | Manual deletion in Route53 | See Section 六 |
 | 3 | ClusterRoleBindings | Check and delete any referencing Dify SAs | `kubectl get clusterrolebinding -o json \| jq '.items[] \| select(.subjects[]?.namespace=="baseservices-cloud-dify")'` |
 | 4 | EBS volumes | Verify all 12 volumes deleted | `aws ec2 describe-volumes --filters 'Name=tag:kubernetes.io/created-for/pvc/namespace,Values=baseservices-cloud-dify' --region us-east-1` |
@@ -548,6 +693,9 @@ aws rds create-db-snapshot \
   --region us-east-1
 
 # === RDS Step 2: Wait for snapshots to complete ===
+# These commands BLOCK until the snapshot is ready. Takes 5-15 minutes per snapshot.
+# No output while waiting — this is normal. Just wait.
+# If it takes >30 minutes, press Ctrl+C and check the snapshot status manually (Step 3).
 aws rds wait db-snapshot-available \
   --db-snapshot-identifier decom-final-dify-rw-20260408 \
   --region us-east-1
@@ -561,11 +709,19 @@ aws rds describe-db-snapshots \
   --db-snapshot-identifier decom-final-dify-rw-20260408 \
   --query 'DBSnapshots[0].{ID:DBSnapshotIdentifier,Status:Status,Size:AllocatedStorage}' \
   --region us-east-1
+# Expected output:
+# {
+#     "ID": "decom-final-dify-rw-20260408",
+#     "Status": "available",        ← MUST be "available" before proceeding
+#     "Size": 20
+# }
 
 aws rds describe-db-snapshots \
   --db-snapshot-identifier decom-final-difynew-rw-20260408 \
   --query 'DBSnapshots[0].{ID:DBSnapshotIdentifier,Status:Status,Size:AllocatedStorage}' \
   --region us-east-1
+# Expected: same format, Status = "available"
+# ⚠️ Do NOT proceed to RDS deletion until BOTH snapshots show "available".
 
 # === RDS Step 4: Disable deletion protection (REQUIRES: rds:ModifyDBInstance) ===
 aws rds modify-db-instance \
@@ -645,18 +801,32 @@ aws elasticache create-snapshot \
   --snapshot-name decom-final-redis-difynew-20260408 \
   --region us-east-1
 
-# === Redis Step 2: Wait for snapshots ===
-# ElastiCache has no 'wait' command; poll:
-aws elasticache describe-snapshots \
-  --snapshot-name decom-final-redis-dify-20260408 \
-  --query 'Snapshots[0].SnapshotStatus' \
-  --region us-east-1
-# Repeat until Status = "available" (~2-5 min)
+# === Redis Step 2: Wait for snapshots (no built-in 'wait' — must poll) ===
+# Poll every 30 seconds until status = "available". Usually takes 2-5 minutes.
+# You can run both checks in a simple loop:
 
-aws elasticache describe-snapshots \
-  --snapshot-name decom-final-redis-difynew-20260408 \
-  --query 'Snapshots[0].SnapshotStatus' \
-  --region us-east-1
+echo "Waiting for Redis snapshots..."
+for SNAP in decom-final-redis-dify-20260408 decom-final-redis-difynew-20260408; do
+  while true; do
+    STATUS=$(aws elasticache describe-snapshots \
+      --snapshot-name "$SNAP" \
+      --query 'Snapshots[0].SnapshotStatus' \
+      --output text \
+      --region us-east-1)
+    echo "  $SNAP: $STATUS"
+    if [ "$STATUS" = "available" ]; then
+      echo "  ✓ $SNAP is ready."
+      break
+    fi
+    echo "  Waiting 30 seconds..."
+    sleep 30
+  done
+done
+echo "All Redis snapshots are available. Safe to proceed."
+
+# Expected progression: "creating" → "available" (2-5 minutes)
+# If status shows "failed": check CloudWatch events for the replication group.
+# If stuck >10 minutes: contact AWS support — snapshot may be blocked by a running backup.
 
 # === Redis Step 3: Delete replication groups (REQUIRES: elasticache:DeleteReplicationGroup) ===
 aws elasticache delete-replication-group \
@@ -758,13 +928,35 @@ aws ec2 stop-instances \
   --instance-ids i-06e7301a6e3f28df4 i-02d4ea4bbab7fd574 \
   --region us-east-1
 
-# === EC2 Step 2: Wait for stopped state ===
+# Expected output:
+# {
+#     "StoppingInstances": [
+#         {"InstanceId": "i-06e7301a6e3f28df4", "CurrentState": {"Name": "stopping"}, ...},
+#         {"InstanceId": "i-02d4ea4bbab7fd574", "CurrentState": {"Name": "stopping"}, ...}
+#     ]
+# }
+
+# === EC2 Step 2: Wait for stopped state (takes 1-3 minutes) ===
 aws ec2 wait instance-stopped \
   --instance-ids i-06e7301a6e3f28df4 i-02d4ea4bbab7fd574 \
   --region us-east-1
+# This command blocks until both instances are fully stopped.
+# No output = success. If it times out after 10 minutes, check the AWS Console.
 
-# === EC2 Step 3: Observe 48 hours ===
-# Monitor for any alerts or complaints. If nothing surfaces after 48h, proceed.
+# === EC2 Step 3: 48-hour observation period ===
+# PURPOSE: If any team member or automated system depends on these servers,
+# they will notice within 48 hours and alert you.
+#
+# WHAT TO DO:
+# 1. Note the stop time: date -u → e.g., "2026-04-08T14:00:00Z"
+# 2. Set a calendar reminder for 48 hours later
+# 3. During the 48h window:
+#    - Check Grafana alerts dashboard daily
+#    - Check #ops Slack channel (or equivalent) for complaints
+#    - Check email for any monitoring alerts mentioning "isredify01" or "iluckydifyjump01"
+# 4. IF someone reports a dependency: restart the instance immediately:
+#    aws ec2 start-instances --instance-ids <INSTANCE_ID> --region us-east-1
+# 5. IF 48 hours pass with no complaints: proceed to Step 4 (terminate).
 
 # === EC2 Step 4: Terminate (REQUIRES: ec2:TerminateInstances) ===
 aws ec2 terminate-instances \
@@ -960,50 +1152,127 @@ spec:
 
 ### 6.4 Route53 Cleanup Commands
 
+> **For non-experts**: Route53 is AWS's DNS service. DNS records map human-readable names (like `dify-console.luckincoffee.us`) to IP addresses. We need to delete Dify's DNS records so the names stop pointing to deleted services. This is a 3-step process: find the "zone" (folder), list the records, then delete them.
+
 ```bash
 # REQUIRES: route53:ListHostedZones, route53:ChangeResourceRecordSets
 
-# Step 1: Find the hosted zone for luckincoffee.us
+# ============================================================
+# Step 1: Find the hosted zone ID for luckincoffee.us
+# ============================================================
 aws route53 list-hosted-zones-by-name \
   --dns-name luckincoffee.us \
   --max-items 1 \
+  --query 'HostedZones[0].Id' \
+  --output text \
   --region us-east-1
 
-# Step 2: List Dify records
+# Expected output (example): /hostedzone/Z0123456789ABCDEFGHIJ
+# ⚠️ Copy the part after "/hostedzone/" — that is your ZONE_ID.
+# Example: Z0123456789ABCDEFGHIJ
+#
+# Save it as a variable for the next steps:
+ZONE_ID=$(aws route53 list-hosted-zones-by-name \
+  --dns-name luckincoffee.us \
+  --max-items 1 \
+  --query 'HostedZones[0].Id' \
+  --output text \
+  --region us-east-1 | sed 's|/hostedzone/||')
+echo "Zone ID: $ZONE_ID"
+# Verify this is NOT empty. If empty, the zone doesn't exist or you lack permissions.
+
+# ============================================================
+# Step 2: List Dify-related DNS records
+# ============================================================
 aws route53 list-resource-record-sets \
-  --hosted-zone-id <ZONE_ID> \
-  --query "ResourceRecordSets[?contains(Name, 'dify')]" \
+  --hosted-zone-id "$ZONE_ID" \
+  --query "ResourceRecordSets[?contains(Name, 'dify') || contains(Name, 'milvus')]" \
+  --output json \
   --region us-east-1
 
-# Step 3: Delete records (build JSON from Step 2 output)
+# Expected output (example — your actual values may differ):
+# [
+#   {
+#     "Name": "dify-console.luckincoffee.us.",
+#     "Type": "A",
+#     "TTL": 300,
+#     "ResourceRecords": [{"Value": "10.238.14.214"}]
+#   },
+#   {
+#     "Name": "milvus-attu.luckincoffee.us.",
+#     "Type": "CNAME",
+#     "TTL": 300,
+#     "ResourceRecords": [{"Value": "some-internal-hostname.example.com"}]
+#   }
+# ]
+#
+# ⚠️ IMPORTANT: Write down the EXACT values for Type, TTL, and ResourceRecords
+# from YOUR output. You need these exact values for Step 3.
+# If a record uses "AliasTarget" instead of "ResourceRecords", see the note below.
+
+# ============================================================
+# Step 3: Delete the records
+# ============================================================
+# ⚠️ Replace the Type, TTL, and Value fields below with YOUR actual values from Step 2.
+# The values shown here are EXAMPLES ONLY.
+
 aws route53 change-resource-record-sets \
-  --hosted-zone-id <ZONE_ID> \
+  --hosted-zone-id "$ZONE_ID" \
   --change-batch '{
     "Changes": [
       {
         "Action": "DELETE",
         "ResourceRecordSet": {
           "Name": "dify-console.luckincoffee.us.",
-          "Type": "<TYPE>",
-          "TTL": <TTL>,
-          "ResourceRecords": [{"Value": "<VALUE>"}]
+          "Type": "A",
+          "TTL": 300,
+          "ResourceRecords": [{"Value": "10.238.14.214"}]
         }
       },
       {
         "Action": "DELETE",
         "ResourceRecordSet": {
           "Name": "milvus-attu.luckincoffee.us.",
-          "Type": "<TYPE>",
-          "TTL": <TTL>,
-          "ResourceRecords": [{"Value": "<VALUE>"}]
+          "Type": "CNAME",
+          "TTL": 300,
+          "ResourceRecords": [{"Value": "some-internal-hostname.example.com"}]
         }
       }
     ]
   }' \
   --region us-east-1
+
+# Expected output on success:
+# {
+#     "ChangeInfo": {
+#         "Id": "/change/C0123456789ABC",
+#         "Status": "PENDING",
+#         "SubmittedAt": "2026-04-08T..."
+#     }
+# }
+# Status "PENDING" is normal — DNS changes propagate within 60 seconds.
+
+# ============================================================
+# Note: If Step 2 shows "AliasTarget" instead of "ResourceRecords"
+# ============================================================
+# Some records use AWS Alias (no TTL field). The delete command is different:
+#
+# {
+#   "Action": "DELETE",
+#   "ResourceRecordSet": {
+#     "Name": "dify-console.luckincoffee.us.",
+#     "Type": "A",
+#     "AliasTarget": {
+#       "HostedZoneId": "<ALIAS_ZONE_ID from Step 2>",
+#       "DNSName": "<ALIAS_DNS_NAME from Step 2>",
+#       "EvaluateTargetHealth": false
+#     }
+#   }
+# }
+# Copy the AliasTarget block EXACTLY as shown in Step 2 output.
 ```
 
-**Fallback**: If DBA user cannot get Route53 access, provide the record names to DevOps (彭啸) for manual cleanup.
+**Fallback**: If DBA user cannot get Route53 access, provide the 2 record names (`dify-console.luckincoffee.us`, `milvus-attu.luckincoffee.us`) to DevOps (彭啸) for manual cleanup via the AWS Console.
 
 ---
 
@@ -1045,22 +1314,50 @@ The `new-dify-*` deployments store database passwords, Redis passwords, and API 
 
 The Milvus ConfigMap contains hardcoded AWS access key `AKIATX3PIBWBAXDXUX65`. After decommission:
 
+> **⚠️ These commands require IAM admin access** — the `databasecheck` user cannot run them. Hand this section to Michael (CTO) or the AWS account admin.
+
 ```bash
 # REQUIRES: IAM admin access (NOT databasecheck user)
 
-# Step 1: Check what IAM user owns the key
+# ============================================================
+# Step 1: Find which IAM user owns this access key
+# ============================================================
 aws iam get-access-key-last-used --access-key-id AKIATX3PIBWBAXDXUX65
 
+# Expected output (example):
+# {
+#     "UserName": "milvus-s3-user",        ← THIS is the <USER> value you need below
+#     "AccessKeyLastUsed": {
+#         "LastUsedDate": "2026-03-23T...",
+#         "ServiceName": "s3",
+#         "Region": "us-east-1"
+#     }
+# }
+# ⚠️ Copy the "UserName" value — you need it for Steps 2 and 3.
+
+# ============================================================
 # Step 2: Deactivate the key (safe — can re-enable if needed)
+# ============================================================
+# Replace "milvus-s3-user" with the actual UserName from Step 1:
 aws iam update-access-key \
   --access-key-id AKIATX3PIBWBAXDXUX65 \
   --status Inactive \
-  --user-name <USER>
+  --user-name milvus-s3-user
 
-# Step 3: After 48h with no issues, delete the key
+# Expected output: (none — silence means success)
+# Verify it's inactive:
+aws iam list-access-keys --user-name milvus-s3-user
+# Look for: "Status": "Inactive" next to the key ID
+
+# ============================================================
+# Step 3: After 48 hours with no issues, delete the key permanently
+# ============================================================
+# Replace "milvus-s3-user" with the actual UserName from Step 1:
 aws iam delete-access-key \
   --access-key-id AKIATX3PIBWBAXDXUX65 \
-  --user-name <USER>
+  --user-name milvus-s3-user
+
+# Expected output: (none — silence means success)
 ```
 
 ### 7.5 MCP Gateway Entries to Remove
@@ -1302,10 +1599,38 @@ Complete ALL items before proceeding to Phase 1. Any unchecked item is a **NO-GO
 - [ ] EBS volume reclaim policy confirmed as `Delete` (not `Retain`) for all 12 PVCs
 - [ ] Prometheus scrape target removal planned — DevOps (彭啸) notified
 - [ ] CloudWatch alarms for Dify resources checked — none active (or disabled)
-- [ ] Ingress controller health baseline recorded — `kubectl get pods -n kube-system -l app.kubernetes.io/name=ingress-nginx`
+- [ ] Ingress controller health baseline recorded — `kubectl get pods -A -l app.kubernetes.io/name=ingress-nginx` (may be in `ingress-nginx` namespace, not `kube-system`)
 - [ ] Helm release values exported — `helm get values dify -n baseservices-cloud-dify > ~/backup-dify-helm-values.yaml`
 - [ ] Helm release values exported — `helm get values milvus -n baseservices-cloud-dify > ~/backup-milvus-helm-values.yaml`
 - [ ] SMTP credential scope confirmed by DevOps (彭啸)
+
+#### EBS/EFS Storage Reclaim Policy Verification
+
+This is critical: if `reclaimPolicy` is `Retain` instead of `Delete`, EBS volumes will NOT auto-delete when PVCs are deleted, leaving orphaned disks that still cost money.
+
+```bash
+# Check StorageClass reclaim policies:
+kubectl get storageclass -o custom-columns=NAME:.metadata.name,PROVISIONER:.provisioner,RECLAIM:.reclaimPolicy
+
+# Expected output (example):
+# NAME      PROVISIONER          RECLAIM
+# ebs-sc    ebs.csi.aws.com      Delete      ← GOOD: volumes auto-delete
+# efs-sc    efs.csi.aws.com      Delete      ← GOOD: EFS auto-cleans
+# gp2       kubernetes.io/...    Delete      ← Default, OK
+
+# ⚠️ If any StorageClass used by Dify shows "Retain":
+# Volumes will NOT auto-delete. You must manually delete them after PVC deletion.
+# Add manual EBS deletion to Phase 4 cleanup steps.
+
+# Check which StorageClass each Dify PVC uses:
+kubectl get pvc -n baseservices-cloud-dify -o custom-columns=NAME:.metadata.name,STORAGECLASS:.spec.storageClassName,STATUS:.status.phase
+
+# Identify the EFS file system ID (needed for EFS cleanup verification):
+kubectl get pv -o custom-columns=NAME:.metadata.name,DRIVER:.spec.csi.driver,HANDLE:.spec.csi.volumeHandle \
+  | grep efs
+# The HANDLE column shows the EFS file system ID (e.g., fs-0abc1234def56789)
+# Save this value — you'll need it to verify EFS cleanup after namespace deletion.
+```
 
 #### Cross-Service Integration Audit Commands
 
@@ -1424,6 +1749,148 @@ After all phases complete, verify full cleanup:
 
 ---
 
+## 九-B、Common Errors & Troubleshooting
+
+If you encounter any of these errors during execution, use the corresponding fix.
+
+### Error: "not authorized to perform" / "AccessDenied"
+
+**Cause**: The IAM policy from Section 八 has not been applied, or was applied to the wrong user.
+
+```bash
+# Verify your identity:
+aws sts get-caller-identity --region us-east-1
+# Check that "Arn" ends with ":user/databasecheck"
+
+# Ask AWS admin to verify the policy is attached:
+aws iam list-user-policies --user-name databasecheck
+aws iam list-attached-user-policies --user-name databasecheck
+# Look for "DifyDecommission-Temporary-20260408"
+```
+
+### Error: "You must be logged in to the server" (kubectl)
+
+**Cause**: kubeconfig is not configured or token has expired.
+
+```bash
+# Refresh the kubeconfig:
+aws eks update-kubeconfig --name prod-worker01-eks-us --region us-east-1
+
+# Verify:
+kubectl get nodes
+```
+
+### Error: Namespace stuck in "Terminating" state
+
+**Cause**: A finalizer is blocking deletion, or a resource inside the namespace cannot be cleaned up.
+
+```bash
+# Step 1: Check what's blocking:
+kubectl get all -n baseservices-cloud-dify
+# If pods are still running, they need to finish terminating first.
+
+# Step 2: Check for stuck finalizers on resources:
+kubectl api-resources --verbs=list --namespaced -o name | \
+  xargs -n 1 kubectl get --show-kind --ignore-not-found -n baseservices-cloud-dify
+
+# Step 3: If nothing is left but namespace is still Terminating (>5 min):
+kubectl get namespace baseservices-cloud-dify -o json | \
+  jq '.spec.finalizers = []' | \
+  kubectl replace --raw "/api/v1/namespaces/baseservices-cloud-dify/finalize" -f -
+```
+
+### Error: "DBSnapshotAlreadyExists" (RDS snapshot)
+
+**Cause**: A snapshot with the same name already exists (e.g., from a previous attempt).
+
+```bash
+# Check if the existing snapshot is usable:
+aws rds describe-db-snapshots \
+  --db-snapshot-identifier decom-final-dify-rw-20260408 \
+  --query 'DBSnapshots[0].Status' --output text --region us-east-1
+# If "available": you can skip snapshot creation and proceed.
+# If "failed": delete it and retry:
+aws rds delete-db-snapshot \
+  --db-snapshot-identifier decom-final-dify-rw-20260408 --region us-east-1
+# Then re-run the create-db-snapshot command.
+```
+
+### Error: "DependencyViolation" when deleting security group
+
+**Cause**: Something (usually an ENI) still references the security group.
+
+```bash
+# Find what's using the SG:
+aws ec2 describe-network-interfaces \
+  --filters "Name=group-id,Values=sg-0550dcb1098214e38" \
+  --query 'NetworkInterfaces[].{ID:NetworkInterfaceId,Description:Description,Status:Status}' \
+  --region us-east-1
+# Wait for all ENIs to be released, then retry the delete.
+```
+
+### Error: "ResourceInUse" when deleting ElastiCache
+
+**Cause**: A snapshot is still in progress, or the cluster is in a modifying state.
+
+```bash
+# Check cluster status:
+aws elasticache describe-replication-groups \
+  --replication-group-id luckyus-redis-dify \
+  --query 'ReplicationGroups[0].Status' --output text --region us-east-1
+# Wait for status = "available" before retrying deletion.
+```
+
+### Error: NLB still exists after K8s Service deletion
+
+**Cause**: The aws-load-balancer-controller may be slow or unhealthy.
+
+```bash
+# Step 1: Check controller health:
+kubectl get pods -n kube-system -l app.kubernetes.io/name=aws-load-balancer-controller
+
+# Step 2: If controller is running but NLB persists >10 min, delete manually:
+aws elbv2 delete-load-balancer \
+  --load-balancer-arn arn:aws:elasticloadbalancing:us-east-1:257394478466:loadbalancer/net/inf-milvus-service/83c26a421d630082 \
+  --region us-east-1
+```
+
+### Error: EBS volumes still exist after PVC deletion
+
+**Cause**: StorageClass reclaimPolicy is "Retain" instead of "Delete".
+
+```bash
+# List orphaned Dify volumes:
+aws ec2 describe-volumes \
+  --filters 'Name=tag:kubernetes.io/created-for/pvc/namespace,Values=baseservices-cloud-dify' \
+  --query 'Volumes[].{ID:VolumeId,Size:Size,State:State}' \
+  --region us-east-1
+
+# Delete each one manually (REQUIRES: ec2:DeleteVolume):
+# aws ec2 delete-volume --volume-id vol-XXXXX --region us-east-1
+```
+
+### Error: Helm uninstall fails with "release not found"
+
+**Cause**: Helm release metadata (K8s Secrets) may be corrupted or inaccessible.
+
+```bash
+# Fall back to Option B (delete resources directly):
+kubectl delete all --all -n baseservices-cloud-dify
+kubectl delete pvc,configmap,ingress,serviceaccount --all -n baseservices-cloud-dify
+kubectl delete namespace baseservices-cloud-dify
+```
+
+### General: "How do I know if a command succeeded?"
+
+| Situation | Success looks like | Failure looks like |
+|-----------|-------------------|-------------------|
+| `aws ... wait ...` | No output, returns to prompt | Error message or timeout after 10+ min |
+| `aws ... delete ...` | No output, or JSON with status | Error message starting with "An error occurred" |
+| `kubectl delete ...` | `"resource" deleted` | `Error from server (NotFound)` or `forbidden` |
+| `helm uninstall ...` | `release "name" uninstalled` | `Error: release: not found` |
+
+---
+
 ## 十、Approval & Sign-Off
 
 | Role | Name | Responsibility | Signature | Date |
@@ -1439,4 +1906,4 @@ After all phases complete, verify full cleanup:
 
 Estimated execution time: Phases 1-3 = ~90 minutes (day-of), Phase 4 = +48 hours (EC2 observation), Phases 5-6 = +2 weeks (monitoring).
 Total line items in master checklist: 45 steps across 7 phases + pre-flight checklist (12 items) + post-decom validation (12 items).
-Document version: v3 (Management Review with gap analysis) — 2026-04-08.
+Document version: v4 (Operator-Ready with glossary, prerequisites, troubleshooting) — 2026-04-08.
