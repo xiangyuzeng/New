@@ -1,0 +1,470 @@
+{
+  "generated": "2026-04-09T17:51:38.310205",
+  "dataThrough": "2026-04-07",
+  "fleetSize": 11,
+  "excludedStores": [
+    "16th & 6th (only 15 days data)"
+  ],
+  "seasonalIndex": {
+    "observed": {
+      "2025-07": {
+        "index": 1.353,
+        "storeCount": 2,
+        "method": "fleet_median"
+      },
+      "2025-08": {
+        "index": 1.337,
+        "storeCount": 2,
+        "method": "fleet_median"
+      },
+      "2025-09": {
+        "index": 1.223,
+        "storeCount": 5,
+        "method": "fleet_median"
+      },
+      "2025-10": {
+        "index": 1.224,
+        "storeCount": 5,
+        "method": "fleet_median"
+      },
+      "2025-11": {
+        "index": 1.048,
+        "storeCount": 5,
+        "method": "fleet_median"
+      },
+      "2025-12": {
+        "index": 0.889,
+        "storeCount": 9,
+        "method": "fleet_median"
+      },
+      "2026-01": {
+        "index": 0.866,
+        "storeCount": 9,
+        "method": "fleet_median"
+      },
+      "2026-02": {
+        "index": 0.871,
+        "storeCount": 10,
+        "method": "fleet_median"
+      },
+      "2026-03": {
+        "index": 0.963,
+        "storeCount": 10,
+        "method": "fleet_median"
+      }
+    },
+    "projected": {
+      "2026-04": {
+        "index": 1.06,
+        "method": "linear_interpolation_mar_to_jul",
+        "confidence": "low",
+        "extrapolated": true
+      },
+      "2026-05": {
+        "index": 1.16,
+        "method": "linear_interpolation_mar_to_jul",
+        "confidence": "low",
+        "extrapolated": true
+      },
+      "2026-06": {
+        "index": 1.26,
+        "method": "extrapolated_approaching_summer",
+        "confidence": "low",
+        "extrapolated": true
+      },
+      "2026-07": {
+        "index": 1.353,
+        "method": "repeat_prior_year",
+        "confidence": "medium",
+        "extrapolated": false
+      },
+      "2026-08": {
+        "index": 1.337,
+        "method": "repeat_prior_year",
+        "confidence": "medium",
+        "extrapolated": false
+      },
+      "2026-09": {
+        "index": 1.223,
+        "method": "repeat_prior_year",
+        "confidence": "medium",
+        "extrapolated": false
+      },
+      "2026-10": {
+        "index": 1.224,
+        "method": "repeat_prior_year",
+        "confidence": "medium",
+        "extrapolated": false
+      },
+      "2026-11": {
+        "index": 1.048,
+        "method": "repeat_prior_year",
+        "confidence": "medium",
+        "extrapolated": false
+      },
+      "2026-12": {
+        "index": 0.889,
+        "method": "repeat_prior_year",
+        "confidence": "medium",
+        "extrapolated": false
+      }
+    },
+    "formula": "seasonal_index = store_monthly_avg_daily_cups / store_annual_mean_daily_cups; fleet = median(all store indices)"
+  },
+  "maturationCurve": {
+    "fleetAverage": {
+      "0": 1.338,
+      "1": 1.226,
+      "2": 1.18,
+      "3": 1.228,
+      "4": 1.242,
+      "5": 1.197,
+      "6": 1.119,
+      "7": 1.147,
+      "8": 1.116,
+      "9": 1.075,
+      "10": 1.105,
+      "11": 1.015,
+      "12": 1.091
+    },
+    "byGroup": {
+      "tourist": {
+        "n_stores": 3,
+        "weeks": {
+          "0": 1.149,
+          "1": 0.99,
+          "2": 0.985,
+          "3": 1.105,
+          "4": 1.16,
+          "5": 1.163,
+          "6": 1.123,
+          "7": 1.077,
+          "8": 1.085,
+          "9": 1.051,
+          "10": 1.179,
+          "11": 1.136,
+          "12": 1.154
+        }
+      },
+      "balanced": {
+        "n_stores": 3,
+        "weeks": {
+          "0": 2.27,
+          "1": 1.812,
+          "2": 1.545,
+          "3": 1.66,
+          "4": 1.753,
+          "5": 1.912,
+          "6": 1.192,
+          "7": 1.24,
+          "8": 1.252,
+          "9": 1.211,
+          "10": 1.115,
+          "11": 0.968,
+          "12": 1.199
+        }
+      },
+      "commuter": {
+        "n_stores": 5,
+        "weeks": {
+          "0": 1.266,
+          "1": 1.251,
+          "2": 1.224,
+          "3": 1.216,
+          "4": 1.19,
+          "5": 1.075,
+          "6": 1.079,
+          "7": 1.129,
+          "8": 1.038,
+          "9": 1.024,
+          "10": 1.045,
+          "11": 0.948,
+          "12": 0.989
+        }
+      }
+    },
+    "insights": {
+      "avgWeeksToSteady": 4.5,
+      "openingSpikeRange": "94-227%",
+      "troughWeek": 2,
+      "troughPct": 118
+    },
+    "formula": "maturation_pct = week_avg_daily_cups / mean(weeks_5+_daily_cups)"
+  },
+  "dowPatterns": {
+    "byGroup": {
+      "commuter": {
+        "stores": [
+          "100 Maiden Ln",
+          "33rd & 10th",
+          "102 Fulton",
+          "37th & Broadway",
+          "52nd & Madison"
+        ],
+        "pattern": {
+          "Mon": 0.98,
+          "Tue": 1.15,
+          "Wed": 1.21,
+          "Thu": 1.14,
+          "Fri": 1.04,
+          "Sat": 0.77,
+          "Sun": 0.71
+        },
+        "weekdayPct": 79
+      },
+      "balanced": {
+        "stores": [
+          "28th & 6th",
+          "21st & 3rd",
+          "15th & 3rd"
+        ],
+        "pattern": {
+          "Mon": 0.92,
+          "Tue": 0.99,
+          "Wed": 1.05,
+          "Thu": 0.98,
+          "Fri": 1.13,
+          "Sat": 1.16,
+          "Sun": 0.91
+        },
+        "weekdayPct": 71
+      },
+      "tourist": {
+        "stores": [
+          "8th & Broadway",
+          "54th & 8th",
+          "221 Grand"
+        ],
+        "pattern": {
+          "Mon": 0.91,
+          "Tue": 1.07,
+          "Wed": 1.07,
+          "Thu": 1.02,
+          "Fri": 1.0,
+          "Sat": 1.04,
+          "Sun": 0.89
+        },
+        "weekdayPct": 72
+      }
+    },
+    "formula": "dow_index = dow_avg_cups / daily_avg_cups; group = median(store indices)"
+  },
+  "revenueBenchmarks": {
+    "byGroup": {
+      "tourist": {
+        "median_rev_per_cup": 3.67,
+        "mean_rev_per_cup": 3.74,
+        "range": [
+          3.62,
+          3.93
+        ],
+        "n_stores": 3
+      },
+      "balanced": {
+        "median_rev_per_cup": 3.68,
+        "mean_rev_per_cup": 3.69,
+        "range": [
+          3.53,
+          3.86
+        ],
+        "n_stores": 3
+      },
+      "commuter": {
+        "median_rev_per_cup": 3.61,
+        "mean_rev_per_cup": 3.65,
+        "range": [
+          3.17,
+          3.97
+        ],
+        "n_stores": 5
+      }
+    },
+    "fleetAvg": 3.69,
+    "formula": "rev_per_cup = avg_daily_revenue / avg_daily_cups (from active_stores_performance.json)"
+  },
+  "weeklyVariance": {
+    "byGroup": {
+      "tourist": {
+        "avg_cv": 0.283,
+        "median_cv": 0.28,
+        "n_stores": 3
+      },
+      "balanced": {
+        "avg_cv": 0.432,
+        "median_cv": 0.432,
+        "n_stores": 2
+      },
+      "commuter": {
+        "avg_cv": 0.235,
+        "median_cv": 0.242,
+        "n_stores": 5
+      }
+    },
+    "fleetAvgCV": 0.289,
+    "formula": "CV = std(weekly_cup_totals) / mean(weekly_cup_totals); 80% CI = forecast +/- 1.28 * CV * forecast"
+  },
+  "comparableMatching": {
+    "Grand Central Terminal": {
+      "bestMatch": "28th & 6th",
+      "bestMatchDaily": 432,
+      "bestMatchDistance": 0.536,
+      "candidatePredicted": 534,
+      "delta": "+23.6%",
+      "secondMatch": "52nd & Madison",
+      "secondMatchDaily": 433
+    },
+    "211 Schermerhorn": {
+      "bestMatch": "28th & 6th",
+      "bestMatchDaily": 432,
+      "bestMatchDistance": 0.169,
+      "candidatePredicted": 476,
+      "delta": "+10.2%",
+      "secondMatch": "221 Grand",
+      "secondMatchDaily": 493
+    },
+    "154 Bleecker": {
+      "bestMatch": "28th & 6th",
+      "bestMatchDaily": 432,
+      "bestMatchDistance": 0.087,
+      "candidatePredicted": 423,
+      "delta": "-2.1%",
+      "secondMatch": "37th & Broadway",
+      "secondMatchDaily": 436
+    },
+    "128 W 32nd St": {
+      "bestMatch": "28th & 6th",
+      "bestMatchDaily": 432,
+      "bestMatchDistance": 0.073,
+      "candidatePredicted": 415,
+      "delta": "-3.9%",
+      "secondMatch": "102 Fulton",
+      "secondMatchDaily": 401
+    },
+    "35th & 5th": {
+      "bestMatch": "28th & 6th",
+      "bestMatchDaily": 432,
+      "bestMatchDistance": 0.241,
+      "candidatePredicted": 371,
+      "delta": "-14.1%",
+      "secondMatch": "54th & 8th",
+      "secondMatchDaily": 385
+    },
+    "41st & Lexington": {
+      "bestMatch": "28th & 6th",
+      "bestMatchDaily": 432,
+      "bestMatchDistance": 0.232,
+      "candidatePredicted": 346,
+      "delta": "-19.9%",
+      "secondMatch": "21st & 3rd",
+      "secondMatchDaily": 274
+    },
+    "Jackson Ave - LIC": {
+      "bestMatch": "21st & 3rd",
+      "bestMatchDaily": 274,
+      "bestMatchDistance": 0.194,
+      "candidatePredicted": 309,
+      "delta": "+12.8%",
+      "secondMatch": "28th & 6th",
+      "secondMatchDaily": 432
+    },
+    "180 Varick": {
+      "bestMatch": "21st & 3rd",
+      "bestMatchDaily": 274,
+      "bestMatchDistance": 0.191,
+      "candidatePredicted": 299,
+      "delta": "+9.1%",
+      "secondMatch": "28th & 6th",
+      "secondMatchDaily": 432
+    },
+    "48th & 3rd": {
+      "bestMatch": "21st & 3rd",
+      "bestMatchDaily": 274,
+      "bestMatchDistance": 0.07,
+      "candidatePredicted": 284,
+      "delta": "+3.6%",
+      "secondMatch": "33rd & 10th",
+      "secondMatchDaily": 283
+    },
+    "25 Park Row": {
+      "bestMatch": "21st & 3rd",
+      "bestMatchDaily": 274,
+      "bestMatchDistance": 0.037,
+      "candidatePredicted": 273,
+      "delta": "-0.4%",
+      "secondMatch": "33rd & 10th",
+      "secondMatchDaily": 283
+    },
+    "Reade & Broadway": {
+      "bestMatch": "21st & 3rd",
+      "bestMatchDaily": 274,
+      "bestMatchDistance": 0.073,
+      "candidatePredicted": 254,
+      "delta": "-7.3%",
+      "secondMatch": "15th & 3rd",
+      "secondMatchDaily": 209
+    },
+    "63rd & 3rd": {
+      "bestMatch": "21st & 3rd",
+      "bestMatchDaily": 274,
+      "bestMatchDistance": 0.154,
+      "candidatePredicted": 250,
+      "delta": "-8.8%",
+      "secondMatch": "15th & 3rd",
+      "secondMatchDaily": 209
+    },
+    "108th & Broadway": {
+      "bestMatch": "21st & 3rd",
+      "bestMatchDaily": 274,
+      "bestMatchDistance": 0.128,
+      "candidatePredicted": 248,
+      "delta": "-9.5%",
+      "secondMatch": "15th & 3rd",
+      "secondMatchDaily": 209
+    },
+    "148 Chambers": {
+      "bestMatch": "15th & 3rd",
+      "bestMatchDaily": 209,
+      "bestMatchDistance": 0.105,
+      "candidatePredicted": 210,
+      "delta": "+0.5%",
+      "secondMatch": "21st & 3rd",
+      "secondMatchDaily": 274
+    },
+    "23rd & 8th": {
+      "bestMatch": "15th & 3rd",
+      "bestMatchDaily": 209,
+      "bestMatchDistance": 0.091,
+      "candidatePredicted": 204,
+      "delta": "-2.4%",
+      "secondMatch": "21st & 3rd",
+      "secondMatchDaily": 274
+    },
+    "40th & 10th": {
+      "bestMatch": "15th & 3rd",
+      "bestMatchDaily": 209,
+      "bestMatchDistance": 0.32,
+      "candidatePredicted": 170,
+      "delta": "-18.7%",
+      "secondMatch": "21st & 3rd",
+      "secondMatchDaily": 274
+    },
+    "29th & 3rd": {
+      "bestMatch": "15th & 3rd",
+      "bestMatchDaily": 209,
+      "bestMatchDistance": 0.569,
+      "candidatePredicted": 97,
+      "delta": "-53.6%",
+      "secondMatch": "21st & 3rd",
+      "secondMatchDaily": 274
+    },
+    "23rd & 1st": {
+      "bestMatch": "15th & 3rd",
+      "bestMatchDaily": 209,
+      "bestMatchDistance": 0.918,
+      "candidatePredicted": 31,
+      "delta": "-85.2%",
+      "secondMatch": "21st & 3rd",
+      "secondMatchDaily": 274
+    }
+  }
+}

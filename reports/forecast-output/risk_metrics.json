@@ -1,0 +1,675 @@
+{
+  "generated": "2026-04-09T17:51:38.346646",
+  "methodology": {
+    "weights": {
+      "modelAccuracy": 0.3,
+      "cannibalization": 0.2,
+      "seasonalReliability": 0.15,
+      "locationSimilarity": 0.2,
+      "dataQuality": 0.15
+    },
+    "ciMethod": "80% CI = forecast +/- 1.28 x CV x forecast"
+  },
+  "candidates": {
+    "Grand Central Terminal": {
+      "baseDaily": 534,
+      "modelUncertainty": {
+        "source": "RMSE 110 weekly = +/-16.0 daily",
+        "pct": 2.9,
+        "rangeLow": 518.0,
+        "rangeHigh": 550.0
+      },
+      "cannibalizationRisk": {
+        "huffPct": 14.4,
+        "level": "Medium",
+        "note": "Medium"
+      },
+      "seasonalRisk": {
+        "worstMonth": "January",
+        "worstDailyEstimate": 462.0,
+        "bestMonth": "July",
+        "bestDailyEstimate": 723.0,
+        "seasonalRange": "462.0-723.0 cups/day"
+      },
+      "outOfSampleRisk": {
+        "isOutOfSample": false,
+        "note": null,
+        "adjustmentSuggested": null
+      },
+      "compositeConfidence": "high",
+      "confidenceScore": 76.0,
+      "confidenceBreakdown": {
+        "modelAccuracy": 71,
+        "cannibalizationCertainty": 71,
+        "seasonalReliability": 76,
+        "locationSimilarity": 90,
+        "dataQuality": 75
+      },
+      "specialNotes": [
+        "v1 underestimated 52nd & Madison (premium office) by 2.8x. v2 still has 8.1% error. Premium office candidates may have upside not captured by the model."
+      ]
+    },
+    "211 Schermerhorn": {
+      "baseDaily": 476,
+      "modelUncertainty": {
+        "source": "RMSE 110 weekly = +/-16.0 daily",
+        "pct": 3.3,
+        "rangeLow": 460.0,
+        "rangeHigh": 492.0
+      },
+      "cannibalizationRisk": {
+        "huffPct": 0.0,
+        "level": "None",
+        "note": "None"
+      },
+      "seasonalRisk": {
+        "worstMonth": "January",
+        "worstDailyEstimate": 412.0,
+        "bestMonth": "July",
+        "bestDailyEstimate": 644.0,
+        "seasonalRange": "412.0-644.0 cups/day"
+      },
+      "outOfSampleRisk": {
+        "isOutOfSample": true,
+        "note": "All 11 training stores are in Manhattan. This prediction is an out-of-sample extrapolation. Widen CI by 30%.",
+        "adjustmentSuggested": "Widen CI by 30%"
+      },
+      "compositeConfidence": "medium",
+      "confidenceScore": 73.0,
+      "confidenceBreakdown": {
+        "modelAccuracy": 67,
+        "cannibalizationCertainty": 100,
+        "seasonalReliability": 76,
+        "locationSimilarity": 50,
+        "dataQuality": 75
+      },
+      "specialNotes": [
+        "Brooklyn/LIC location -- all training data is Manhattan. Store profile may differ from model assumptions."
+      ]
+    },
+    "154 Bleecker": {
+      "baseDaily": 423,
+      "modelUncertainty": {
+        "source": "RMSE 110 weekly = +/-16.0 daily",
+        "pct": 3.7,
+        "rangeLow": 407.0,
+        "rangeHigh": 439.0
+      },
+      "cannibalizationRisk": {
+        "huffPct": 17.5,
+        "level": "Medium",
+        "note": "Medium"
+      },
+      "seasonalRisk": {
+        "worstMonth": "January",
+        "worstDailyEstimate": 366.0,
+        "bestMonth": "July",
+        "bestDailyEstimate": 572.0,
+        "seasonalRange": "366.0-572.0 cups/day"
+      },
+      "outOfSampleRisk": {
+        "isOutOfSample": false,
+        "note": null,
+        "adjustmentSuggested": null
+      },
+      "compositeConfidence": "medium",
+      "confidenceScore": 72.0,
+      "confidenceBreakdown": {
+        "modelAccuracy": 63,
+        "cannibalizationCertainty": 65,
+        "seasonalReliability": 76,
+        "locationSimilarity": 90,
+        "dataQuality": 75
+      },
+      "specialNotes": []
+    },
+    "128 W 32nd St": {
+      "baseDaily": 415,
+      "modelUncertainty": {
+        "source": "RMSE 110 weekly = +/-16.0 daily",
+        "pct": 3.8,
+        "rangeLow": 399.0,
+        "rangeHigh": 431.0
+      },
+      "cannibalizationRisk": {
+        "huffPct": 22.5,
+        "level": "Medium",
+        "note": "High"
+      },
+      "seasonalRisk": {
+        "worstMonth": "January",
+        "worstDailyEstimate": 359.0,
+        "bestMonth": "July",
+        "bestDailyEstimate": 561.0,
+        "seasonalRange": "359.0-561.0 cups/day"
+      },
+      "outOfSampleRisk": {
+        "isOutOfSample": false,
+        "note": null,
+        "adjustmentSuggested": null
+      },
+      "compositeConfidence": "medium",
+      "confidenceScore": 70.0,
+      "confidenceBreakdown": {
+        "modelAccuracy": 62,
+        "cannibalizationCertainty": 55,
+        "seasonalReliability": 76,
+        "locationSimilarity": 90,
+        "dataQuality": 75
+      },
+      "specialNotes": []
+    },
+    "35th & 5th": {
+      "baseDaily": 371,
+      "modelUncertainty": {
+        "source": "RMSE 110 weekly = +/-16.0 daily",
+        "pct": 4.2,
+        "rangeLow": 355.0,
+        "rangeHigh": 387.0
+      },
+      "cannibalizationRisk": {
+        "huffPct": 23.2,
+        "level": "Medium",
+        "note": "High"
+      },
+      "seasonalRisk": {
+        "worstMonth": "January",
+        "worstDailyEstimate": 321.0,
+        "bestMonth": "July",
+        "bestDailyEstimate": 502.0,
+        "seasonalRange": "321.0-502.0 cups/day"
+      },
+      "outOfSampleRisk": {
+        "isOutOfSample": false,
+        "note": null,
+        "adjustmentSuggested": null
+      },
+      "compositeConfidence": "medium",
+      "confidenceScore": 69.0,
+      "confidenceBreakdown": {
+        "modelAccuracy": 58,
+        "cannibalizationCertainty": 54,
+        "seasonalReliability": 76,
+        "locationSimilarity": 90,
+        "dataQuality": 75
+      },
+      "specialNotes": [
+        "v1 underestimated 52nd & Madison (premium office) by 2.8x. v2 still has 8.1% error. Premium office candidates may have upside not captured by the model."
+      ]
+    },
+    "41st & Lexington": {
+      "baseDaily": 346,
+      "modelUncertainty": {
+        "source": "RMSE 110 weekly = +/-16.0 daily",
+        "pct": 4.5,
+        "rangeLow": 330.0,
+        "rangeHigh": 362.0
+      },
+      "cannibalizationRisk": {
+        "huffPct": 16.2,
+        "level": "Medium",
+        "note": "Medium"
+      },
+      "seasonalRisk": {
+        "worstMonth": "January",
+        "worstDailyEstimate": 300.0,
+        "bestMonth": "July",
+        "bestDailyEstimate": 468.0,
+        "seasonalRange": "300.0-468.0 cups/day"
+      },
+      "outOfSampleRisk": {
+        "isOutOfSample": false,
+        "note": null,
+        "adjustmentSuggested": null
+      },
+      "compositeConfidence": "medium",
+      "confidenceScore": 71.0,
+      "confidenceBreakdown": {
+        "modelAccuracy": 55,
+        "cannibalizationCertainty": 68,
+        "seasonalReliability": 76,
+        "locationSimilarity": 90,
+        "dataQuality": 75
+      },
+      "specialNotes": [
+        "v1 underestimated 52nd & Madison (premium office) by 2.8x. v2 still has 8.1% error. Premium office candidates may have upside not captured by the model."
+      ]
+    },
+    "Jackson Ave - LIC": {
+      "baseDaily": 309,
+      "modelUncertainty": {
+        "source": "RMSE 110 weekly = +/-16.0 daily",
+        "pct": 5.1,
+        "rangeLow": 293.0,
+        "rangeHigh": 325.0
+      },
+      "cannibalizationRisk": {
+        "huffPct": 0.0,
+        "level": "None",
+        "note": "None"
+      },
+      "seasonalRisk": {
+        "worstMonth": "January",
+        "worstDailyEstimate": 268.0,
+        "bestMonth": "July",
+        "bestDailyEstimate": 418.0,
+        "seasonalRange": "268.0-418.0 cups/day"
+      },
+      "outOfSampleRisk": {
+        "isOutOfSample": true,
+        "note": "All 11 training stores are in Manhattan. This prediction is an out-of-sample extrapolation. Widen CI by 30%.",
+        "adjustmentSuggested": "Widen CI by 30%"
+      },
+      "compositeConfidence": "medium",
+      "confidenceScore": 67.0,
+      "confidenceBreakdown": {
+        "modelAccuracy": 49,
+        "cannibalizationCertainty": 100,
+        "seasonalReliability": 76,
+        "locationSimilarity": 50,
+        "dataQuality": 75
+      },
+      "specialNotes": [
+        "Brooklyn/LIC location -- all training data is Manhattan. Store profile may differ from model assumptions."
+      ]
+    },
+    "180 Varick": {
+      "baseDaily": 299,
+      "modelUncertainty": {
+        "source": "RMSE 110 weekly = +/-16.0 daily",
+        "pct": 5.3,
+        "rangeLow": 283.0,
+        "rangeHigh": 315.0
+      },
+      "cannibalizationRisk": {
+        "huffPct": 13.7,
+        "level": "Medium",
+        "note": "Medium"
+      },
+      "seasonalRisk": {
+        "worstMonth": "January",
+        "worstDailyEstimate": 259.0,
+        "bestMonth": "July",
+        "bestDailyEstimate": 405.0,
+        "seasonalRange": "259.0-405.0 cups/day"
+      },
+      "outOfSampleRisk": {
+        "isOutOfSample": false,
+        "note": null,
+        "adjustmentSuggested": null
+      },
+      "compositeConfidence": "medium",
+      "confidenceScore": 69.0,
+      "confidenceBreakdown": {
+        "modelAccuracy": 47,
+        "cannibalizationCertainty": 73,
+        "seasonalReliability": 76,
+        "locationSimilarity": 90,
+        "dataQuality": 75
+      },
+      "specialNotes": [
+        "v1 underestimated 52nd & Madison (premium office) by 2.8x. v2 still has 8.1% error. Premium office candidates may have upside not captured by the model."
+      ]
+    },
+    "48th & 3rd": {
+      "baseDaily": 284,
+      "modelUncertainty": {
+        "source": "RMSE 110 weekly = +/-16.0 daily",
+        "pct": 5.5,
+        "rangeLow": 268.0,
+        "rangeHigh": 300.0
+      },
+      "cannibalizationRisk": {
+        "huffPct": 17.0,
+        "level": "Medium",
+        "note": "Medium"
+      },
+      "seasonalRisk": {
+        "worstMonth": "January",
+        "worstDailyEstimate": 246.0,
+        "bestMonth": "July",
+        "bestDailyEstimate": 384.0,
+        "seasonalRange": "246.0-384.0 cups/day"
+      },
+      "outOfSampleRisk": {
+        "isOutOfSample": false,
+        "note": null,
+        "adjustmentSuggested": null
+      },
+      "compositeConfidence": "medium",
+      "confidenceScore": 67.0,
+      "confidenceBreakdown": {
+        "modelAccuracy": 45,
+        "cannibalizationCertainty": 66,
+        "seasonalReliability": 76,
+        "locationSimilarity": 90,
+        "dataQuality": 75
+      },
+      "specialNotes": []
+    },
+    "25 Park Row": {
+      "baseDaily": 273,
+      "modelUncertainty": {
+        "source": "RMSE 110 weekly = +/-16.0 daily",
+        "pct": 5.7,
+        "rangeLow": 257.0,
+        "rangeHigh": 289.0
+      },
+      "cannibalizationRisk": {
+        "huffPct": 19.2,
+        "level": "Medium",
+        "note": "Medium"
+      },
+      "seasonalRisk": {
+        "worstMonth": "January",
+        "worstDailyEstimate": 236.0,
+        "bestMonth": "July",
+        "bestDailyEstimate": 369.0,
+        "seasonalRange": "236.0-369.0 cups/day"
+      },
+      "outOfSampleRisk": {
+        "isOutOfSample": false,
+        "note": null,
+        "adjustmentSuggested": null
+      },
+      "compositeConfidence": "medium",
+      "confidenceScore": 66.0,
+      "confidenceBreakdown": {
+        "modelAccuracy": 43,
+        "cannibalizationCertainty": 62,
+        "seasonalReliability": 76,
+        "locationSimilarity": 90,
+        "dataQuality": 75
+      },
+      "specialNotes": []
+    },
+    "Reade & Broadway": {
+      "baseDaily": 254,
+      "modelUncertainty": {
+        "source": "RMSE 110 weekly = +/-16.0 daily",
+        "pct": 6.2,
+        "rangeLow": 238.0,
+        "rangeHigh": 270.0
+      },
+      "cannibalizationRisk": {
+        "huffPct": 24.9,
+        "level": "Medium",
+        "note": "Medium"
+      },
+      "seasonalRisk": {
+        "worstMonth": "January",
+        "worstDailyEstimate": 220.0,
+        "bestMonth": "July",
+        "bestDailyEstimate": 344.0,
+        "seasonalRange": "220.0-344.0 cups/day"
+      },
+      "outOfSampleRisk": {
+        "isOutOfSample": false,
+        "note": null,
+        "adjustmentSuggested": null
+      },
+      "compositeConfidence": "medium",
+      "confidenceScore": 62.0,
+      "confidenceBreakdown": {
+        "modelAccuracy": 38,
+        "cannibalizationCertainty": 50,
+        "seasonalReliability": 76,
+        "locationSimilarity": 90,
+        "dataQuality": 75
+      },
+      "specialNotes": []
+    },
+    "63rd & 3rd": {
+      "baseDaily": 250,
+      "modelUncertainty": {
+        "source": "RMSE 110 weekly = +/-16.0 daily",
+        "pct": 6.3,
+        "rangeLow": 234.0,
+        "rangeHigh": 266.0
+      },
+      "cannibalizationRisk": {
+        "huffPct": 19.5,
+        "level": "Medium",
+        "note": "Medium"
+      },
+      "seasonalRisk": {
+        "worstMonth": "January",
+        "worstDailyEstimate": 216.0,
+        "bestMonth": "July",
+        "bestDailyEstimate": 338.0,
+        "seasonalRange": "216.0-338.0 cups/day"
+      },
+      "outOfSampleRisk": {
+        "isOutOfSample": false,
+        "note": null,
+        "adjustmentSuggested": null
+      },
+      "compositeConfidence": "medium",
+      "confidenceScore": 64.0,
+      "confidenceBreakdown": {
+        "modelAccuracy": 37,
+        "cannibalizationCertainty": 61,
+        "seasonalReliability": 76,
+        "locationSimilarity": 90,
+        "dataQuality": 75
+      },
+      "specialNotes": []
+    },
+    "108th & Broadway": {
+      "baseDaily": 248,
+      "modelUncertainty": {
+        "source": "RMSE 110 weekly = +/-16.0 daily",
+        "pct": 6.3,
+        "rangeLow": 232.0,
+        "rangeHigh": 264.0
+      },
+      "cannibalizationRisk": {
+        "huffPct": 0.0,
+        "level": "None",
+        "note": "None"
+      },
+      "seasonalRisk": {
+        "worstMonth": "January",
+        "worstDailyEstimate": 215.0,
+        "bestMonth": "July",
+        "bestDailyEstimate": 336.0,
+        "seasonalRange": "215.0-336.0 cups/day"
+      },
+      "outOfSampleRisk": {
+        "isOutOfSample": false,
+        "note": null,
+        "adjustmentSuggested": null
+      },
+      "compositeConfidence": "medium",
+      "confidenceScore": 72.0,
+      "confidenceBreakdown": {
+        "modelAccuracy": 37,
+        "cannibalizationCertainty": 100,
+        "seasonalReliability": 76,
+        "locationSimilarity": 90,
+        "dataQuality": 75
+      },
+      "specialNotes": []
+    },
+    "148 Chambers": {
+      "baseDaily": 210,
+      "modelUncertainty": {
+        "source": "RMSE 110 weekly = +/-16.0 daily",
+        "pct": 7.5,
+        "rangeLow": 194.0,
+        "rangeHigh": 226.0
+      },
+      "cannibalizationRisk": {
+        "huffPct": 23.5,
+        "level": "Medium",
+        "note": "Medium"
+      },
+      "seasonalRisk": {
+        "worstMonth": "January",
+        "worstDailyEstimate": 182.0,
+        "bestMonth": "July",
+        "bestDailyEstimate": 284.0,
+        "seasonalRange": "182.0-284.0 cups/day"
+      },
+      "outOfSampleRisk": {
+        "isOutOfSample": false,
+        "note": null,
+        "adjustmentSuggested": null
+      },
+      "compositeConfidence": "medium",
+      "confidenceScore": 59.0,
+      "confidenceBreakdown": {
+        "modelAccuracy": 25,
+        "cannibalizationCertainty": 53,
+        "seasonalReliability": 76,
+        "locationSimilarity": 90,
+        "dataQuality": 75
+      },
+      "specialNotes": []
+    },
+    "23rd & 8th": {
+      "baseDaily": 204,
+      "modelUncertainty": {
+        "source": "RMSE 110 weekly = +/-16.0 daily",
+        "pct": 7.7,
+        "rangeLow": 188.0,
+        "rangeHigh": 220.0
+      },
+      "cannibalizationRisk": {
+        "huffPct": 26.2,
+        "level": "High",
+        "note": "Medium"
+      },
+      "seasonalRisk": {
+        "worstMonth": "January",
+        "worstDailyEstimate": 177.0,
+        "bestMonth": "July",
+        "bestDailyEstimate": 276.0,
+        "seasonalRange": "177.0-276.0 cups/day"
+      },
+      "outOfSampleRisk": {
+        "isOutOfSample": false,
+        "note": null,
+        "adjustmentSuggested": null
+      },
+      "compositeConfidence": "medium",
+      "confidenceScore": 57.0,
+      "confidenceBreakdown": {
+        "modelAccuracy": 23,
+        "cannibalizationCertainty": 48,
+        "seasonalReliability": 76,
+        "locationSimilarity": 90,
+        "dataQuality": 75
+      },
+      "specialNotes": []
+    },
+    "40th & 10th": {
+      "baseDaily": 170,
+      "modelUncertainty": {
+        "source": "RMSE 110 weekly = +/-16.0 daily",
+        "pct": 9.2,
+        "rangeLow": 154.0,
+        "rangeHigh": 186.0
+      },
+      "cannibalizationRisk": {
+        "huffPct": 30.1,
+        "level": "High",
+        "note": "Medium"
+      },
+      "seasonalRisk": {
+        "worstMonth": "January",
+        "worstDailyEstimate": 147.0,
+        "bestMonth": "July",
+        "bestDailyEstimate": 230.0,
+        "seasonalRange": "147.0-230.0 cups/day"
+      },
+      "outOfSampleRisk": {
+        "isOutOfSample": false,
+        "note": null,
+        "adjustmentSuggested": null
+      },
+      "compositeConfidence": "low",
+      "confidenceScore": 51.0,
+      "confidenceBreakdown": {
+        "modelAccuracy": 8,
+        "cannibalizationCertainty": 40,
+        "seasonalReliability": 76,
+        "locationSimilarity": 90,
+        "dataQuality": 75
+      },
+      "specialNotes": []
+    },
+    "29th & 3rd": {
+      "baseDaily": 97,
+      "modelUncertainty": {
+        "source": "RMSE 110 weekly = +/-16.0 daily",
+        "pct": 16.1,
+        "rangeLow": 81.0,
+        "rangeHigh": 113.0
+      },
+      "cannibalizationRisk": {
+        "huffPct": 43.9,
+        "level": "High",
+        "note": "Medium"
+      },
+      "seasonalRisk": {
+        "worstMonth": "January",
+        "worstDailyEstimate": 84.0,
+        "bestMonth": "July",
+        "bestDailyEstimate": 131.0,
+        "seasonalRange": "84.0-131.0 cups/day"
+      },
+      "outOfSampleRisk": {
+        "isOutOfSample": false,
+        "note": null,
+        "adjustmentSuggested": null
+      },
+      "compositeConfidence": "low",
+      "confidenceScore": 43.0,
+      "confidenceBreakdown": {
+        "modelAccuracy": 0,
+        "cannibalizationCertainty": 12,
+        "seasonalReliability": 76,
+        "locationSimilarity": 90,
+        "dataQuality": 75
+      },
+      "specialNotes": []
+    },
+    "23rd & 1st": {
+      "baseDaily": 31,
+      "modelUncertainty": {
+        "source": "RMSE 110 weekly = +/-16.0 daily",
+        "pct": 50.9,
+        "rangeLow": 15.0,
+        "rangeHigh": 47.0
+      },
+      "cannibalizationRisk": {
+        "huffPct": 70.5,
+        "level": "High",
+        "note": "High"
+      },
+      "seasonalRisk": {
+        "worstMonth": "January",
+        "worstDailyEstimate": 27.0,
+        "bestMonth": "July",
+        "bestDailyEstimate": 42.0,
+        "seasonalRange": "27.0-42.0 cups/day"
+      },
+      "outOfSampleRisk": {
+        "isOutOfSample": false,
+        "note": null,
+        "adjustmentSuggested": null
+      },
+      "compositeConfidence": "low",
+      "confidenceScore": 41.0,
+      "confidenceBreakdown": {
+        "modelAccuracy": 0,
+        "cannibalizationCertainty": 0,
+        "seasonalReliability": 76,
+        "locationSimilarity": 90,
+        "dataQuality": 75
+      },
+      "specialNotes": []
+    }
+  }
+}

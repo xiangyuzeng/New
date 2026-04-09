@@ -1,0 +1,2711 @@
+{
+  "generated": "2026-04-09T17:51:38.343712",
+  "assumptions": {
+    "cogsPerCup": 1.5,
+    "laborMonthly": 15000,
+    "otherMonthly": 3000,
+    "revenuePerCup": "area-type-specific (see fleet_patterns.revenueBenchmarks)"
+  },
+  "candidates": {
+    "Grand Central Terminal": {
+      "rent": 25000,
+      "revPerCup": 3.61,
+      "scenarios": {
+        "open_apr": {
+          "openingMonth": "Apr",
+          "months": [
+            {
+              "month": "Apr",
+              "avgDailyCups": 696.0,
+              "monthlyCups": 20880.0,
+              "revenue": 75377.0,
+              "cogs": 31320.0,
+              "labor": 15000,
+              "rent": 25000,
+              "other": 3000,
+              "profit": 1057.0,
+              "cumulative": 1057.0
+            },
+            {
+              "month": "May",
+              "avgDailyCups": 669.0,
+              "monthlyCups": 20070.0,
+              "revenue": 72453.0,
+              "cogs": 30105.0,
+              "labor": 15000,
+              "rent": 25000,
+              "other": 3000,
+              "profit": -652.0,
+              "cumulative": 404.0
+            },
+            {
+              "month": "Jun",
+              "avgDailyCups": 677.0,
+              "monthlyCups": 20300.0,
+              "revenue": 73283.0,
+              "cogs": 30450.0,
+              "labor": 15000,
+              "rent": 25000,
+              "other": 3000,
+              "profit": -167.0,
+              "cumulative": 238.0
+            }
+          ],
+          "monthLabels": [
+            "Apr",
+            "May",
+            "Jun"
+          ],
+          "breakEvenMonth": 1,
+          "month6Cumulative": 238.0
+        },
+        "open_jul": {
+          "openingMonth": "Jul",
+          "months": [
+            {
+              "month": "Jul",
+              "avgDailyCups": 888.0,
+              "monthlyCups": 26652.0,
+              "revenue": 96214.0,
+              "cogs": 39978.0,
+              "labor": 15000,
+              "rent": 25000,
+              "other": 3000,
+              "profit": 13236.0,
+              "cumulative": 13236.0
+            },
+            {
+              "month": "Aug",
+              "avgDailyCups": 771.0,
+              "monthlyCups": 23138.0,
+              "revenue": 83526.0,
+              "cogs": 34706.0,
+              "labor": 15000,
+              "rent": 25000,
+              "other": 3000,
+              "profit": 5820.0,
+              "cumulative": 19056.0
+            },
+            {
+              "month": "Sep",
+              "avgDailyCups": 657.0,
+              "monthlyCups": 19700.0,
+              "revenue": 71117.0,
+              "cogs": 29550.0,
+              "labor": 15000,
+              "rent": 25000,
+              "other": 3000,
+              "profit": -1433.0,
+              "cumulative": 17623.0
+            }
+          ],
+          "monthLabels": [
+            "Jul",
+            "Aug",
+            "Sep"
+          ],
+          "breakEvenMonth": 1,
+          "month6Cumulative": 17623.0
+        },
+        "open_oct": {
+          "openingMonth": "Oct",
+          "months": [
+            {
+              "month": "Oct",
+              "avgDailyCups": 804.0,
+              "monthlyCups": 24108.0,
+              "revenue": 87030.0,
+              "cogs": 36162.0,
+              "labor": 15000,
+              "rent": 25000,
+              "other": 3000,
+              "profit": 7868.0,
+              "cumulative": 7868.0
+            },
+            {
+              "month": "Nov",
+              "avgDailyCups": 605.0,
+              "monthlyCups": 18142.0,
+              "revenue": 65494.0,
+              "cogs": 27214.0,
+              "labor": 15000,
+              "rent": 25000,
+              "other": 3000,
+              "profit": -4719.0,
+              "cumulative": 3149.0
+            },
+            {
+              "month": "Dec",
+              "avgDailyCups": 477.0,
+              "monthlyCups": 14320.0,
+              "revenue": 51695.0,
+              "cogs": 21480.0,
+              "labor": 15000,
+              "rent": 25000,
+              "other": 3000,
+              "profit": -12785.0,
+              "cumulative": -9636.0
+            }
+          ],
+          "monthLabels": [
+            "Oct",
+            "Nov",
+            "Dec"
+          ],
+          "breakEvenMonth": 1,
+          "month6Cumulative": -9636.0
+        }
+      }
+    },
+    "211 Schermerhorn": {
+      "rent": 14000,
+      "revPerCup": 3.61,
+      "scenarios": {
+        "open_apr": {
+          "openingMonth": "Apr",
+          "months": [
+            {
+              "month": "Apr",
+              "avgDailyCups": 620.0,
+              "monthlyCups": 18612.0,
+              "revenue": 67189.0,
+              "cogs": 27918.0,
+              "labor": 15000,
+              "rent": 14000,
+              "other": 3000,
+              "profit": 7271.0,
+              "cumulative": 7271.0
+            },
+            {
+              "month": "May",
+              "avgDailyCups": 596.0,
+              "monthlyCups": 17895.0,
+              "revenue": 64601.0,
+              "cogs": 26842.0,
+              "labor": 15000,
+              "rent": 14000,
+              "other": 3000,
+              "profit": 5758.0,
+              "cumulative": 13030.0
+            },
+            {
+              "month": "Jun",
+              "avgDailyCups": 603.0,
+              "monthlyCups": 18100.0,
+              "revenue": 65341.0,
+              "cogs": 27150.0,
+              "labor": 15000,
+              "rent": 14000,
+              "other": 3000,
+              "profit": 6191.0,
+              "cumulative": 19221.0
+            }
+          ],
+          "monthLabels": [
+            "Apr",
+            "May",
+            "Jun"
+          ],
+          "breakEvenMonth": 1,
+          "month6Cumulative": 19221.0
+        },
+        "open_jul": {
+          "openingMonth": "Jul",
+          "months": [
+            {
+              "month": "Jul",
+              "avgDailyCups": 792.0,
+              "monthlyCups": 23748.0,
+              "revenue": 85730.0,
+              "cogs": 35622.0,
+              "labor": 15000,
+              "rent": 14000,
+              "other": 3000,
+              "profit": 18108.0,
+              "cumulative": 18108.0
+            },
+            {
+              "month": "Aug",
+              "avgDailyCups": 688.0,
+              "monthlyCups": 20632.0,
+              "revenue": 74483.0,
+              "cogs": 30949.0,
+              "labor": 15000,
+              "rent": 14000,
+              "other": 3000,
+              "profit": 11535.0,
+              "cumulative": 29643.0
+            },
+            {
+              "month": "Sep",
+              "avgDailyCups": 585.0,
+              "monthlyCups": 17560.0,
+              "revenue": 63392.0,
+              "cogs": 26340.0,
+              "labor": 15000,
+              "rent": 14000,
+              "other": 3000,
+              "profit": 5052.0,
+              "cumulative": 34694.0
+            }
+          ],
+          "monthLabels": [
+            "Jul",
+            "Aug",
+            "Sep"
+          ],
+          "breakEvenMonth": 1,
+          "month6Cumulative": 34694.0
+        },
+        "open_oct": {
+          "openingMonth": "Oct",
+          "months": [
+            {
+              "month": "Oct",
+              "avgDailyCups": 716.0,
+              "monthlyCups": 21486.0,
+              "revenue": 77564.0,
+              "cogs": 32229.0,
+              "labor": 15000,
+              "rent": 14000,
+              "other": 3000,
+              "profit": 13335.0,
+              "cumulative": 13335.0
+            },
+            {
+              "month": "Nov",
+              "avgDailyCups": 539.0,
+              "monthlyCups": 16162.0,
+              "revenue": 58347.0,
+              "cogs": 24244.0,
+              "labor": 15000,
+              "rent": 14000,
+              "other": 3000,
+              "profit": 2103.0,
+              "cumulative": 15438.0
+            },
+            {
+              "month": "Dec",
+              "avgDailyCups": 425.0,
+              "monthlyCups": 12760.0,
+              "revenue": 46064.0,
+              "cogs": 19140.0,
+              "labor": 15000,
+              "rent": 14000,
+              "other": 3000,
+              "profit": -5076.0,
+              "cumulative": 10362.0
+            }
+          ],
+          "monthLabels": [
+            "Oct",
+            "Nov",
+            "Dec"
+          ],
+          "breakEvenMonth": 1,
+          "month6Cumulative": 10362.0
+        }
+      }
+    },
+    "154 Bleecker": {
+      "rent": 18000,
+      "revPerCup": 3.61,
+      "scenarios": {
+        "open_apr": {
+          "openingMonth": "Apr",
+          "months": [
+            {
+              "month": "Apr",
+              "avgDailyCups": 551.0,
+              "monthlyCups": 16542.0,
+              "revenue": 59717.0,
+              "cogs": 24813.0,
+              "labor": 15000,
+              "rent": 18000,
+              "other": 3000,
+              "profit": -1096.0,
+              "cumulative": -1096.0
+            },
+            {
+              "month": "May",
+              "avgDailyCups": 530.0,
+              "monthlyCups": 15892.0,
+              "revenue": 57372.0,
+              "cogs": 23839.0,
+              "labor": 15000,
+              "rent": 18000,
+              "other": 3000,
+              "profit": -2467.0,
+              "cumulative": -3563.0
+            },
+            {
+              "month": "Jun",
+              "avgDailyCups": 536.0,
+              "monthlyCups": 16080.0,
+              "revenue": 58049.0,
+              "cogs": 24120.0,
+              "labor": 15000,
+              "rent": 18000,
+              "other": 3000,
+              "profit": -2071.0,
+              "cumulative": -5634.0
+            }
+          ],
+          "monthLabels": [
+            "Apr",
+            "May",
+            "Jun"
+          ],
+          "breakEvenMonth": null,
+          "month6Cumulative": -5634.0
+        },
+        "open_jul": {
+          "openingMonth": "Jul",
+          "months": [
+            {
+              "month": "Jul",
+              "avgDailyCups": 704.0,
+              "monthlyCups": 21114.0,
+              "revenue": 76222.0,
+              "cogs": 31671.0,
+              "labor": 15000,
+              "rent": 18000,
+              "other": 3000,
+              "profit": 8551.0,
+              "cumulative": 8551.0
+            },
+            {
+              "month": "Aug",
+              "avgDailyCups": 611.0,
+              "monthlyCups": 18330.0,
+              "revenue": 66171.0,
+              "cogs": 27495.0,
+              "labor": 15000,
+              "rent": 18000,
+              "other": 3000,
+              "profit": 2676.0,
+              "cumulative": 11227.0
+            },
+            {
+              "month": "Sep",
+              "avgDailyCups": 520.0,
+              "monthlyCups": 15610.0,
+              "revenue": 56352.0,
+              "cogs": 23415.0,
+              "labor": 15000,
+              "rent": 18000,
+              "other": 3000,
+              "profit": -3063.0,
+              "cumulative": 8164.0
+            }
+          ],
+          "monthLabels": [
+            "Jul",
+            "Aug",
+            "Sep"
+          ],
+          "breakEvenMonth": 1,
+          "month6Cumulative": 8164.0
+        },
+        "open_oct": {
+          "openingMonth": "Oct",
+          "months": [
+            {
+              "month": "Oct",
+              "avgDailyCups": 637.0,
+              "monthlyCups": 19098.0,
+              "revenue": 68944.0,
+              "cogs": 28647.0,
+              "labor": 15000,
+              "rent": 18000,
+              "other": 3000,
+              "profit": 4297.0,
+              "cumulative": 4297.0
+            },
+            {
+              "month": "Nov",
+              "avgDailyCups": 479.0,
+              "monthlyCups": 14362.0,
+              "revenue": 51849.0,
+              "cogs": 21544.0,
+              "labor": 15000,
+              "rent": 18000,
+              "other": 3000,
+              "profit": -5695.0,
+              "cumulative": -1398.0
+            },
+            {
+              "month": "Dec",
+              "avgDailyCups": 378.0,
+              "monthlyCups": 11340.0,
+              "revenue": 40937.0,
+              "cogs": 17010.0,
+              "labor": 15000,
+              "rent": 18000,
+              "other": 3000,
+              "profit": -12073.0,
+              "cumulative": -13471.0
+            }
+          ],
+          "monthLabels": [
+            "Oct",
+            "Nov",
+            "Dec"
+          ],
+          "breakEvenMonth": 1,
+          "month6Cumulative": -13471.0
+        }
+      }
+    },
+    "128 W 32nd St": {
+      "rent": 15000,
+      "revPerCup": 3.61,
+      "scenarios": {
+        "open_apr": {
+          "openingMonth": "Apr",
+          "months": [
+            {
+              "month": "Apr",
+              "avgDailyCups": 541.0,
+              "monthlyCups": 16218.0,
+              "revenue": 58547.0,
+              "cogs": 24327.0,
+              "labor": 15000,
+              "rent": 15000,
+              "other": 3000,
+              "profit": 1220.0,
+              "cumulative": 1220.0
+            },
+            {
+              "month": "May",
+              "avgDailyCups": 520.0,
+              "monthlyCups": 15608.0,
+              "revenue": 56343.0,
+              "cogs": 23411.0,
+              "labor": 15000,
+              "rent": 15000,
+              "other": 3000,
+              "profit": -68.0,
+              "cumulative": 1152.0
+            },
+            {
+              "month": "Jun",
+              "avgDailyCups": 526.0,
+              "monthlyCups": 15770.0,
+              "revenue": 56930.0,
+              "cogs": 23655.0,
+              "labor": 15000,
+              "rent": 15000,
+              "other": 3000,
+              "profit": 275.0,
+              "cumulative": 1427.0
+            }
+          ],
+          "monthLabels": [
+            "Apr",
+            "May",
+            "Jun"
+          ],
+          "breakEvenMonth": 1,
+          "month6Cumulative": 1427.0
+        },
+        "open_jul": {
+          "openingMonth": "Jul",
+          "months": [
+            {
+              "month": "Jul",
+              "avgDailyCups": 690.0,
+              "monthlyCups": 20706.0,
+              "revenue": 74749.0,
+              "cogs": 31059.0,
+              "labor": 15000,
+              "rent": 15000,
+              "other": 3000,
+              "profit": 10690.0,
+              "cumulative": 10690.0
+            },
+            {
+              "month": "Aug",
+              "avgDailyCups": 599.0,
+              "monthlyCups": 17978.0,
+              "revenue": 64899.0,
+              "cogs": 26966.0,
+              "labor": 15000,
+              "rent": 15000,
+              "other": 3000,
+              "profit": 4933.0,
+              "cumulative": 15622.0
+            },
+            {
+              "month": "Sep",
+              "avgDailyCups": 510.0,
+              "monthlyCups": 15310.0,
+              "revenue": 55269.0,
+              "cogs": 22965.0,
+              "labor": 15000,
+              "rent": 15000,
+              "other": 3000,
+              "profit": -696.0,
+              "cumulative": 14926.0
+            }
+          ],
+          "monthLabels": [
+            "Jul",
+            "Aug",
+            "Sep"
+          ],
+          "breakEvenMonth": 1,
+          "month6Cumulative": 14926.0
+        },
+        "open_oct": {
+          "openingMonth": "Oct",
+          "months": [
+            {
+              "month": "Oct",
+              "avgDailyCups": 624.0,
+              "monthlyCups": 18732.0,
+              "revenue": 67623.0,
+              "cogs": 28098.0,
+              "labor": 15000,
+              "rent": 15000,
+              "other": 3000,
+              "profit": 6525.0,
+              "cumulative": 6525.0
+            },
+            {
+              "month": "Nov",
+              "avgDailyCups": 470.0,
+              "monthlyCups": 14092.0,
+              "revenue": 50874.0,
+              "cogs": 21139.0,
+              "labor": 15000,
+              "rent": 15000,
+              "other": 3000,
+              "profit": -3265.0,
+              "cumulative": 3260.0
+            },
+            {
+              "month": "Dec",
+              "avgDailyCups": 371.0,
+              "monthlyCups": 11140.0,
+              "revenue": 40215.0,
+              "cogs": 16710.0,
+              "labor": 15000,
+              "rent": 15000,
+              "other": 3000,
+              "profit": -9495.0,
+              "cumulative": -6235.0
+            }
+          ],
+          "monthLabels": [
+            "Oct",
+            "Nov",
+            "Dec"
+          ],
+          "breakEvenMonth": 1,
+          "month6Cumulative": -6235.0
+        }
+      }
+    },
+    "35th & 5th": {
+      "rent": 19000,
+      "revPerCup": 3.61,
+      "scenarios": {
+        "open_apr": {
+          "openingMonth": "Apr",
+          "months": [
+            {
+              "month": "Apr",
+              "avgDailyCups": 483.0,
+              "monthlyCups": 14502.0,
+              "revenue": 52352.0,
+              "cogs": 21753.0,
+              "labor": 15000,
+              "rent": 19000,
+              "other": 3000,
+              "profit": -6401.0,
+              "cumulative": -6401.0
+            },
+            {
+              "month": "May",
+              "avgDailyCups": 465.0,
+              "monthlyCups": 13950.0,
+              "revenue": 50360.0,
+              "cogs": 20925.0,
+              "labor": 15000,
+              "rent": 19000,
+              "other": 3000,
+              "profit": -7566.0,
+              "cumulative": -13966.0
+            },
+            {
+              "month": "Jun",
+              "avgDailyCups": 470.0,
+              "monthlyCups": 14100.0,
+              "revenue": 50901.0,
+              "cogs": 21150.0,
+              "labor": 15000,
+              "rent": 19000,
+              "other": 3000,
+              "profit": -7249.0,
+              "cumulative": -21215.0
+            }
+          ],
+          "monthLabels": [
+            "Apr",
+            "May",
+            "Jun"
+          ],
+          "breakEvenMonth": null,
+          "month6Cumulative": -21215.0
+        },
+        "open_jul": {
+          "openingMonth": "Jul",
+          "months": [
+            {
+              "month": "Jul",
+              "avgDailyCups": 617.0,
+              "monthlyCups": 18504.0,
+              "revenue": 66799.0,
+              "cogs": 27756.0,
+              "labor": 15000,
+              "rent": 19000,
+              "other": 3000,
+              "profit": 2043.0,
+              "cumulative": 2043.0
+            },
+            {
+              "month": "Aug",
+              "avgDailyCups": 536.0,
+              "monthlyCups": 16072.0,
+              "revenue": 58022.0,
+              "cogs": 24109.0,
+              "labor": 15000,
+              "rent": 19000,
+              "other": 3000,
+              "profit": -3087.0,
+              "cumulative": -1044.0
+            },
+            {
+              "month": "Sep",
+              "avgDailyCups": 456.0,
+              "monthlyCups": 13690.0,
+              "revenue": 49421.0,
+              "cogs": 20535.0,
+              "labor": 15000,
+              "rent": 19000,
+              "other": 3000,
+              "profit": -8114.0,
+              "cumulative": -9158.0
+            }
+          ],
+          "monthLabels": [
+            "Jul",
+            "Aug",
+            "Sep"
+          ],
+          "breakEvenMonth": 1,
+          "month6Cumulative": -9158.0
+        },
+        "open_oct": {
+          "openingMonth": "Oct",
+          "months": [
+            {
+              "month": "Oct",
+              "avgDailyCups": 558.0,
+              "monthlyCups": 16746.0,
+              "revenue": 60453.0,
+              "cogs": 25119.0,
+              "labor": 15000,
+              "rent": 19000,
+              "other": 3000,
+              "profit": -1666.0,
+              "cumulative": -1666.0
+            },
+            {
+              "month": "Nov",
+              "avgDailyCups": 420.0,
+              "monthlyCups": 12608.0,
+              "revenue": 45513.0,
+              "cogs": 18911.0,
+              "labor": 15000,
+              "rent": 19000,
+              "other": 3000,
+              "profit": -10398.0,
+              "cumulative": -12064.0
+            },
+            {
+              "month": "Dec",
+              "avgDailyCups": 332.0,
+              "monthlyCups": 9960.0,
+              "revenue": 35956.0,
+              "cogs": 14940.0,
+              "labor": 15000,
+              "rent": 19000,
+              "other": 3000,
+              "profit": -15984.0,
+              "cumulative": -28049.0
+            }
+          ],
+          "monthLabels": [
+            "Oct",
+            "Nov",
+            "Dec"
+          ],
+          "breakEvenMonth": null,
+          "month6Cumulative": -28049.0
+        }
+      }
+    },
+    "41st & Lexington": {
+      "rent": 17000,
+      "revPerCup": 3.61,
+      "scenarios": {
+        "open_apr": {
+          "openingMonth": "Apr",
+          "months": [
+            {
+              "month": "Apr",
+              "avgDailyCups": 451.0,
+              "monthlyCups": 13524.0,
+              "revenue": 48822.0,
+              "cogs": 20286.0,
+              "labor": 15000,
+              "rent": 17000,
+              "other": 3000,
+              "profit": -6464.0,
+              "cumulative": -6464.0
+            },
+            {
+              "month": "May",
+              "avgDailyCups": 434.0,
+              "monthlyCups": 13005.0,
+              "revenue": 46948.0,
+              "cogs": 19508.0,
+              "labor": 15000,
+              "rent": 17000,
+              "other": 3000,
+              "profit": -7559.0,
+              "cumulative": -14024.0
+            },
+            {
+              "month": "Jun",
+              "avgDailyCups": 438.0,
+              "monthlyCups": 13150.0,
+              "revenue": 47472.0,
+              "cogs": 19725.0,
+              "labor": 15000,
+              "rent": 17000,
+              "other": 3000,
+              "profit": -7254.0,
+              "cumulative": -21277.0
+            }
+          ],
+          "monthLabels": [
+            "Apr",
+            "May",
+            "Jun"
+          ],
+          "breakEvenMonth": null,
+          "month6Cumulative": -21277.0
+        },
+        "open_jul": {
+          "openingMonth": "Jul",
+          "months": [
+            {
+              "month": "Jul",
+              "avgDailyCups": 576.0,
+              "monthlyCups": 17268.0,
+              "revenue": 62337.0,
+              "cogs": 25902.0,
+              "labor": 15000,
+              "rent": 17000,
+              "other": 3000,
+              "profit": 1435.0,
+              "cumulative": 1435.0
+            },
+            {
+              "month": "Aug",
+              "avgDailyCups": 500.0,
+              "monthlyCups": 14985.0,
+              "revenue": 54096.0,
+              "cogs": 22478.0,
+              "labor": 15000,
+              "rent": 17000,
+              "other": 3000,
+              "profit": -3382.0,
+              "cumulative": -1946.0
+            },
+            {
+              "month": "Sep",
+              "avgDailyCups": 425.0,
+              "monthlyCups": 12760.0,
+              "revenue": 46064.0,
+              "cogs": 19140.0,
+              "labor": 15000,
+              "rent": 17000,
+              "other": 3000,
+              "profit": -8076.0,
+              "cumulative": -10023.0
+            }
+          ],
+          "monthLabels": [
+            "Jul",
+            "Aug",
+            "Sep"
+          ],
+          "breakEvenMonth": 1,
+          "month6Cumulative": -10023.0
+        },
+        "open_oct": {
+          "openingMonth": "Oct",
+          "months": [
+            {
+              "month": "Oct",
+              "avgDailyCups": 521.0,
+              "monthlyCups": 15618.0,
+              "revenue": 56381.0,
+              "cogs": 23427.0,
+              "labor": 15000,
+              "rent": 17000,
+              "other": 3000,
+              "profit": -2046.0,
+              "cumulative": -2046.0
+            },
+            {
+              "month": "Nov",
+              "avgDailyCups": 392.0,
+              "monthlyCups": 11745.0,
+              "revenue": 42399.0,
+              "cogs": 17618.0,
+              "labor": 15000,
+              "rent": 17000,
+              "other": 3000,
+              "profit": -10218.0,
+              "cumulative": -12264.0
+            },
+            {
+              "month": "Dec",
+              "avgDailyCups": 309.0,
+              "monthlyCups": 9280.0,
+              "revenue": 33501.0,
+              "cogs": 13920.0,
+              "labor": 15000,
+              "rent": 17000,
+              "other": 3000,
+              "profit": -15419.0,
+              "cumulative": -27683.0
+            }
+          ],
+          "monthLabels": [
+            "Oct",
+            "Nov",
+            "Dec"
+          ],
+          "breakEvenMonth": null,
+          "month6Cumulative": -27683.0
+        }
+      }
+    },
+    "Jackson Ave - LIC": {
+      "rent": 11000,
+      "revPerCup": 3.68,
+      "scenarios": {
+        "open_apr": {
+          "openingMonth": "Apr",
+          "months": [
+            {
+              "month": "Apr",
+              "avgDailyCups": 592.0,
+              "monthlyCups": 17772.0,
+              "revenue": 65401.0,
+              "cogs": 26658.0,
+              "labor": 15000,
+              "rent": 11000,
+              "other": 3000,
+              "profit": 9743.0,
+              "cumulative": 9743.0
+            },
+            {
+              "month": "May",
+              "avgDailyCups": 501.0,
+              "monthlyCups": 15038.0,
+              "revenue": 55338.0,
+              "cogs": 22556.0,
+              "labor": 15000,
+              "rent": 11000,
+              "other": 3000,
+              "profit": 3782.0,
+              "cumulative": 13525.0
+            },
+            {
+              "month": "Jun",
+              "avgDailyCups": 427.0,
+              "monthlyCups": 12820.0,
+              "revenue": 47178.0,
+              "cogs": 19230.0,
+              "labor": 15000,
+              "rent": 11000,
+              "other": 3000,
+              "profit": -1052.0,
+              "cumulative": 12472.0
+            }
+          ],
+          "monthLabels": [
+            "Apr",
+            "May",
+            "Jun"
+          ],
+          "breakEvenMonth": 1,
+          "month6Cumulative": 12472.0
+        },
+        "open_jul": {
+          "openingMonth": "Jul",
+          "months": [
+            {
+              "month": "Jul",
+              "avgDailyCups": 756.0,
+              "monthlyCups": 22680.0,
+              "revenue": 83462.0,
+              "cogs": 34020.0,
+              "labor": 15000,
+              "rent": 11000,
+              "other": 3000,
+              "profit": 20442.0,
+              "cumulative": 20442.0
+            },
+            {
+              "month": "Aug",
+              "avgDailyCups": 578.0,
+              "monthlyCups": 17332.0,
+              "revenue": 63784.0,
+              "cogs": 25999.0,
+              "labor": 15000,
+              "rent": 11000,
+              "other": 3000,
+              "profit": 8785.0,
+              "cumulative": 29227.0
+            },
+            {
+              "month": "Sep",
+              "avgDailyCups": 415.0,
+              "monthlyCups": 12450.0,
+              "revenue": 45816.0,
+              "cogs": 18675.0,
+              "labor": 15000,
+              "rent": 11000,
+              "other": 3000,
+              "profit": -1859.0,
+              "cumulative": 27368.0
+            }
+          ],
+          "monthLabels": [
+            "Jul",
+            "Aug",
+            "Sep"
+          ],
+          "breakEvenMonth": 1,
+          "month6Cumulative": 27368.0
+        },
+        "open_oct": {
+          "openingMonth": "Oct",
+          "months": [
+            {
+              "month": "Oct",
+              "avgDailyCups": 684.0,
+              "monthlyCups": 20514.0,
+              "revenue": 75492.0,
+              "cogs": 30771.0,
+              "labor": 15000,
+              "rent": 11000,
+              "other": 3000,
+              "profit": 15721.0,
+              "cumulative": 15721.0
+            },
+            {
+              "month": "Nov",
+              "avgDailyCups": 453.0,
+              "monthlyCups": 13590.0,
+              "revenue": 50011.0,
+              "cogs": 20385.0,
+              "labor": 15000,
+              "rent": 11000,
+              "other": 3000,
+              "profit": 626.0,
+              "cumulative": 16347.0
+            },
+            {
+              "month": "Dec",
+              "avgDailyCups": 302.0,
+              "monthlyCups": 9050.0,
+              "revenue": 33304.0,
+              "cogs": 13575.0,
+              "labor": 15000,
+              "rent": 11000,
+              "other": 3000,
+              "profit": -9271.0,
+              "cumulative": 7076.0
+            }
+          ],
+          "monthLabels": [
+            "Oct",
+            "Nov",
+            "Dec"
+          ],
+          "breakEvenMonth": 1,
+          "month6Cumulative": 7076.0
+        }
+      }
+    },
+    "180 Varick": {
+      "rent": 16000,
+      "revPerCup": 3.61,
+      "scenarios": {
+        "open_apr": {
+          "openingMonth": "Apr",
+          "months": [
+            {
+              "month": "Apr",
+              "avgDailyCups": 389.0,
+              "monthlyCups": 11682.0,
+              "revenue": 42172.0,
+              "cogs": 17523.0,
+              "labor": 15000,
+              "rent": 16000,
+              "other": 3000,
+              "profit": -9351.0,
+              "cumulative": -9351.0
+            },
+            {
+              "month": "May",
+              "avgDailyCups": 375.0,
+              "monthlyCups": 11242.0,
+              "revenue": 40585.0,
+              "cogs": 16864.0,
+              "labor": 15000,
+              "rent": 16000,
+              "other": 3000,
+              "profit": -10278.0,
+              "cumulative": -19629.0
+            },
+            {
+              "month": "Jun",
+              "avgDailyCups": 379.0,
+              "monthlyCups": 11370.0,
+              "revenue": 41046.0,
+              "cogs": 17055.0,
+              "labor": 15000,
+              "rent": 16000,
+              "other": 3000,
+              "profit": -10009.0,
+              "cumulative": -29639.0
+            }
+          ],
+          "monthLabels": [
+            "Apr",
+            "May",
+            "Jun"
+          ],
+          "breakEvenMonth": null,
+          "month6Cumulative": -29639.0
+        },
+        "open_jul": {
+          "openingMonth": "Jul",
+          "months": [
+            {
+              "month": "Jul",
+              "avgDailyCups": 497.0,
+              "monthlyCups": 14916.0,
+              "revenue": 53847.0,
+              "cogs": 22374.0,
+              "labor": 15000,
+              "rent": 16000,
+              "other": 3000,
+              "profit": -2527.0,
+              "cumulative": -2527.0
+            },
+            {
+              "month": "Aug",
+              "avgDailyCups": 432.0,
+              "monthlyCups": 12952.0,
+              "revenue": 46759.0,
+              "cogs": 19429.0,
+              "labor": 15000,
+              "rent": 16000,
+              "other": 3000,
+              "profit": -6670.0,
+              "cumulative": -9197.0
+            },
+            {
+              "month": "Sep",
+              "avgDailyCups": 368.0,
+              "monthlyCups": 11030.0,
+              "revenue": 39818.0,
+              "cogs": 16545.0,
+              "labor": 15000,
+              "rent": 16000,
+              "other": 3000,
+              "profit": -10727.0,
+              "cumulative": -19924.0
+            }
+          ],
+          "monthLabels": [
+            "Jul",
+            "Aug",
+            "Sep"
+          ],
+          "breakEvenMonth": null,
+          "month6Cumulative": -19924.0
+        },
+        "open_oct": {
+          "openingMonth": "Oct",
+          "months": [
+            {
+              "month": "Oct",
+              "avgDailyCups": 450.0,
+              "monthlyCups": 13500.0,
+              "revenue": 48735.0,
+              "cogs": 20250.0,
+              "labor": 15000,
+              "rent": 16000,
+              "other": 3000,
+              "profit": -5515.0,
+              "cumulative": -5515.0
+            },
+            {
+              "month": "Nov",
+              "avgDailyCups": 338.0,
+              "monthlyCups": 10155.0,
+              "revenue": 36660.0,
+              "cogs": 15232.0,
+              "labor": 15000,
+              "rent": 16000,
+              "other": 3000,
+              "profit": -12573.0,
+              "cumulative": -18088.0
+            },
+            {
+              "month": "Dec",
+              "avgDailyCups": 267.0,
+              "monthlyCups": 8020.0,
+              "revenue": 28952.0,
+              "cogs": 12030.0,
+              "labor": 15000,
+              "rent": 16000,
+              "other": 3000,
+              "profit": -17078.0,
+              "cumulative": -35166.0
+            }
+          ],
+          "monthLabels": [
+            "Oct",
+            "Nov",
+            "Dec"
+          ],
+          "breakEvenMonth": null,
+          "month6Cumulative": -35166.0
+        }
+      }
+    },
+    "48th & 3rd": {
+      "rent": 14000,
+      "revPerCup": 3.61,
+      "scenarios": {
+        "open_apr": {
+          "openingMonth": "Apr",
+          "months": [
+            {
+              "month": "Apr",
+              "avgDailyCups": 370.0,
+              "monthlyCups": 11100.0,
+              "revenue": 40071.0,
+              "cogs": 16650.0,
+              "labor": 15000,
+              "rent": 14000,
+              "other": 3000,
+              "profit": -8579.0,
+              "cumulative": -8579.0
+            },
+            {
+              "month": "May",
+              "avgDailyCups": 356.0,
+              "monthlyCups": 10672.0,
+              "revenue": 38528.0,
+              "cogs": 16009.0,
+              "labor": 15000,
+              "rent": 14000,
+              "other": 3000,
+              "profit": -9481.0,
+              "cumulative": -18060.0
+            },
+            {
+              "month": "Jun",
+              "avgDailyCups": 360.0,
+              "monthlyCups": 10790.0,
+              "revenue": 38952.0,
+              "cogs": 16185.0,
+              "labor": 15000,
+              "rent": 14000,
+              "other": 3000,
+              "profit": -9233.0,
+              "cumulative": -27293.0
+            }
+          ],
+          "monthLabels": [
+            "Apr",
+            "May",
+            "Jun"
+          ],
+          "breakEvenMonth": null,
+          "month6Cumulative": -27293.0
+        },
+        "open_jul": {
+          "openingMonth": "Jul",
+          "months": [
+            {
+              "month": "Jul",
+              "avgDailyCups": 472.0,
+              "monthlyCups": 14166.0,
+              "revenue": 51139.0,
+              "cogs": 21249.0,
+              "labor": 15000,
+              "rent": 14000,
+              "other": 3000,
+              "profit": -2110.0,
+              "cumulative": -2110.0
+            },
+            {
+              "month": "Aug",
+              "avgDailyCups": 410.0,
+              "monthlyCups": 12308.0,
+              "revenue": 44430.0,
+              "cogs": 18461.0,
+              "labor": 15000,
+              "rent": 14000,
+              "other": 3000,
+              "profit": -6031.0,
+              "cumulative": -8141.0
+            },
+            {
+              "month": "Sep",
+              "avgDailyCups": 349.0,
+              "monthlyCups": 10480.0,
+              "revenue": 37833.0,
+              "cogs": 15720.0,
+              "labor": 15000,
+              "rent": 14000,
+              "other": 3000,
+              "profit": -9887.0,
+              "cumulative": -18028.0
+            }
+          ],
+          "monthLabels": [
+            "Jul",
+            "Aug",
+            "Sep"
+          ],
+          "breakEvenMonth": null,
+          "month6Cumulative": -18028.0
+        },
+        "open_oct": {
+          "openingMonth": "Oct",
+          "months": [
+            {
+              "month": "Oct",
+              "avgDailyCups": 427.0,
+              "monthlyCups": 12822.0,
+              "revenue": 46287.0,
+              "cogs": 19233.0,
+              "labor": 15000,
+              "rent": 14000,
+              "other": 3000,
+              "profit": -4946.0,
+              "cumulative": -4946.0
+            },
+            {
+              "month": "Nov",
+              "avgDailyCups": 322.0,
+              "monthlyCups": 9645.0,
+              "revenue": 34818.0,
+              "cogs": 14468.0,
+              "labor": 15000,
+              "rent": 14000,
+              "other": 3000,
+              "profit": -11649.0,
+              "cumulative": -16595.0
+            },
+            {
+              "month": "Dec",
+              "avgDailyCups": 254.0,
+              "monthlyCups": 7620.0,
+              "revenue": 27508.0,
+              "cogs": 11430.0,
+              "labor": 15000,
+              "rent": 14000,
+              "other": 3000,
+              "profit": -15922.0,
+              "cumulative": -32516.0
+            }
+          ],
+          "monthLabels": [
+            "Oct",
+            "Nov",
+            "Dec"
+          ],
+          "breakEvenMonth": null,
+          "month6Cumulative": -32516.0
+        }
+      }
+    },
+    "25 Park Row": {
+      "rent": 14000,
+      "revPerCup": 3.61,
+      "scenarios": {
+        "open_apr": {
+          "openingMonth": "Apr",
+          "months": [
+            {
+              "month": "Apr",
+              "avgDailyCups": 356.0,
+              "monthlyCups": 10668.0,
+              "revenue": 38511.0,
+              "cogs": 16002.0,
+              "labor": 15000,
+              "rent": 14000,
+              "other": 3000,
+              "profit": -9491.0,
+              "cumulative": -9491.0
+            },
+            {
+              "month": "May",
+              "avgDailyCups": 342.0,
+              "monthlyCups": 10268.0,
+              "revenue": 37066.0,
+              "cogs": 15401.0,
+              "labor": 15000,
+              "rent": 14000,
+              "other": 3000,
+              "profit": -10336.0,
+              "cumulative": -19826.0
+            },
+            {
+              "month": "Jun",
+              "avgDailyCups": 346.0,
+              "monthlyCups": 10370.0,
+              "revenue": 37436.0,
+              "cogs": 15555.0,
+              "labor": 15000,
+              "rent": 14000,
+              "other": 3000,
+              "profit": -10119.0,
+              "cumulative": -29945.0
+            }
+          ],
+          "monthLabels": [
+            "Apr",
+            "May",
+            "Jun"
+          ],
+          "breakEvenMonth": null,
+          "month6Cumulative": -29945.0
+        },
+        "open_jul": {
+          "openingMonth": "Jul",
+          "months": [
+            {
+              "month": "Jul",
+              "avgDailyCups": 454.0,
+              "monthlyCups": 13626.0,
+              "revenue": 49190.0,
+              "cogs": 20439.0,
+              "labor": 15000,
+              "rent": 14000,
+              "other": 3000,
+              "profit": -3249.0,
+              "cumulative": -3249.0
+            },
+            {
+              "month": "Aug",
+              "avgDailyCups": 394.0,
+              "monthlyCups": 11828.0,
+              "revenue": 42697.0,
+              "cogs": 17741.0,
+              "labor": 15000,
+              "rent": 14000,
+              "other": 3000,
+              "profit": -7044.0,
+              "cumulative": -10293.0
+            },
+            {
+              "month": "Sep",
+              "avgDailyCups": 336.0,
+              "monthlyCups": 10080.0,
+              "revenue": 36389.0,
+              "cogs": 15120.0,
+              "labor": 15000,
+              "rent": 14000,
+              "other": 3000,
+              "profit": -10731.0,
+              "cumulative": -21024.0
+            }
+          ],
+          "monthLabels": [
+            "Jul",
+            "Aug",
+            "Sep"
+          ],
+          "breakEvenMonth": null,
+          "month6Cumulative": -21024.0
+        },
+        "open_oct": {
+          "openingMonth": "Oct",
+          "months": [
+            {
+              "month": "Oct",
+              "avgDailyCups": 411.0,
+              "monthlyCups": 12324.0,
+              "revenue": 44490.0,
+              "cogs": 18486.0,
+              "labor": 15000,
+              "rent": 14000,
+              "other": 3000,
+              "profit": -5996.0,
+              "cumulative": -5996.0
+            },
+            {
+              "month": "Nov",
+              "avgDailyCups": 309.0,
+              "monthlyCups": 9278.0,
+              "revenue": 33492.0,
+              "cogs": 13916.0,
+              "labor": 15000,
+              "rent": 14000,
+              "other": 3000,
+              "profit": -12424.0,
+              "cumulative": -18421.0
+            },
+            {
+              "month": "Dec",
+              "avgDailyCups": 244.0,
+              "monthlyCups": 7330.0,
+              "revenue": 26461.0,
+              "cogs": 10995.0,
+              "labor": 15000,
+              "rent": 14000,
+              "other": 3000,
+              "profit": -16534.0,
+              "cumulative": -34955.0
+            }
+          ],
+          "monthLabels": [
+            "Oct",
+            "Nov",
+            "Dec"
+          ],
+          "breakEvenMonth": null,
+          "month6Cumulative": -34955.0
+        }
+      }
+    },
+    "Reade & Broadway": {
+      "rent": 13000,
+      "revPerCup": 3.61,
+      "scenarios": {
+        "open_apr": {
+          "openingMonth": "Apr",
+          "months": [
+            {
+              "month": "Apr",
+              "avgDailyCups": 331.0,
+              "monthlyCups": 9930.0,
+              "revenue": 35847.0,
+              "cogs": 14895.0,
+              "labor": 15000,
+              "rent": 13000,
+              "other": 3000,
+              "profit": -10048.0,
+              "cumulative": -10048.0
+            },
+            {
+              "month": "May",
+              "avgDailyCups": 318.0,
+              "monthlyCups": 9555.0,
+              "revenue": 34494.0,
+              "cogs": 14332.0,
+              "labor": 15000,
+              "rent": 13000,
+              "other": 3000,
+              "profit": -10839.0,
+              "cumulative": -20887.0
+            },
+            {
+              "month": "Jun",
+              "avgDailyCups": 322.0,
+              "monthlyCups": 9650.0,
+              "revenue": 34836.0,
+              "cogs": 14475.0,
+              "labor": 15000,
+              "rent": 13000,
+              "other": 3000,
+              "profit": -10638.0,
+              "cumulative": -31525.0
+            }
+          ],
+          "monthLabels": [
+            "Apr",
+            "May",
+            "Jun"
+          ],
+          "breakEvenMonth": null,
+          "month6Cumulative": -31525.0
+        },
+        "open_jul": {
+          "openingMonth": "Jul",
+          "months": [
+            {
+              "month": "Jul",
+              "avgDailyCups": 423.0,
+              "monthlyCups": 12678.0,
+              "revenue": 45768.0,
+              "cogs": 19017.0,
+              "labor": 15000,
+              "rent": 13000,
+              "other": 3000,
+              "profit": -4249.0,
+              "cumulative": -4249.0
+            },
+            {
+              "month": "Aug",
+              "avgDailyCups": 367.0,
+              "monthlyCups": 11002.0,
+              "revenue": 39719.0,
+              "cogs": 16504.0,
+              "labor": 15000,
+              "rent": 13000,
+              "other": 3000,
+              "profit": -7785.0,
+              "cumulative": -12034.0
+            },
+            {
+              "month": "Sep",
+              "avgDailyCups": 312.0,
+              "monthlyCups": 9370.0,
+              "revenue": 33826.0,
+              "cogs": 14055.0,
+              "labor": 15000,
+              "rent": 13000,
+              "other": 3000,
+              "profit": -11229.0,
+              "cumulative": -23263.0
+            }
+          ],
+          "monthLabels": [
+            "Jul",
+            "Aug",
+            "Sep"
+          ],
+          "breakEvenMonth": null,
+          "month6Cumulative": -23263.0
+        },
+        "open_oct": {
+          "openingMonth": "Oct",
+          "months": [
+            {
+              "month": "Oct",
+              "avgDailyCups": 382.0,
+              "monthlyCups": 11472.0,
+              "revenue": 41414.0,
+              "cogs": 17208.0,
+              "labor": 15000,
+              "rent": 13000,
+              "other": 3000,
+              "profit": -6794.0,
+              "cumulative": -6794.0
+            },
+            {
+              "month": "Nov",
+              "avgDailyCups": 288.0,
+              "monthlyCups": 8625.0,
+              "revenue": 31136.0,
+              "cogs": 12938.0,
+              "labor": 15000,
+              "rent": 13000,
+              "other": 3000,
+              "profit": -12801.0,
+              "cumulative": -19595.0
+            },
+            {
+              "month": "Dec",
+              "avgDailyCups": 227.0,
+              "monthlyCups": 6810.0,
+              "revenue": 24584.0,
+              "cogs": 10215.0,
+              "labor": 15000,
+              "rent": 13000,
+              "other": 3000,
+              "profit": -16631.0,
+              "cumulative": -36226.0
+            }
+          ],
+          "monthLabels": [
+            "Oct",
+            "Nov",
+            "Dec"
+          ],
+          "breakEvenMonth": null,
+          "month6Cumulative": -36226.0
+        }
+      }
+    },
+    "63rd & 3rd": {
+      "rent": 15000,
+      "revPerCup": 3.68,
+      "scenarios": {
+        "open_apr": {
+          "openingMonth": "Apr",
+          "months": [
+            {
+              "month": "Apr",
+              "avgDailyCups": 479.0,
+              "monthlyCups": 14376.0,
+              "revenue": 52904.0,
+              "cogs": 21564.0,
+              "labor": 15000,
+              "rent": 15000,
+              "other": 3000,
+              "profit": -1660.0,
+              "cumulative": -1660.0
+            },
+            {
+              "month": "May",
+              "avgDailyCups": 406.0,
+              "monthlyCups": 12172.0,
+              "revenue": 44795.0,
+              "cogs": 18259.0,
+              "labor": 15000,
+              "rent": 15000,
+              "other": 3000,
+              "profit": -6464.0,
+              "cumulative": -8124.0
+            },
+            {
+              "month": "Jun",
+              "avgDailyCups": 346.0,
+              "monthlyCups": 10370.0,
+              "revenue": 38162.0,
+              "cogs": 15555.0,
+              "labor": 15000,
+              "rent": 15000,
+              "other": 3000,
+              "profit": -10393.0,
+              "cumulative": -18518.0
+            }
+          ],
+          "monthLabels": [
+            "Apr",
+            "May",
+            "Jun"
+          ],
+          "breakEvenMonth": null,
+          "month6Cumulative": -18518.0
+        },
+        "open_jul": {
+          "openingMonth": "Jul",
+          "months": [
+            {
+              "month": "Jul",
+              "avgDailyCups": 612.0,
+              "monthlyCups": 18348.0,
+              "revenue": 67521.0,
+              "cogs": 27522.0,
+              "labor": 15000,
+              "rent": 15000,
+              "other": 3000,
+              "profit": 6999.0,
+              "cumulative": 6999.0
+            },
+            {
+              "month": "Aug",
+              "avgDailyCups": 467.0,
+              "monthlyCups": 14018.0,
+              "revenue": 51584.0,
+              "cogs": 21026.0,
+              "labor": 15000,
+              "rent": 15000,
+              "other": 3000,
+              "profit": -2442.0,
+              "cumulative": 4557.0
+            },
+            {
+              "month": "Sep",
+              "avgDailyCups": 336.0,
+              "monthlyCups": 10070.0,
+              "revenue": 37058.0,
+              "cogs": 15105.0,
+              "labor": 15000,
+              "rent": 15000,
+              "other": 3000,
+              "profit": -11047.0,
+              "cumulative": -6491.0
+            }
+          ],
+          "monthLabels": [
+            "Jul",
+            "Aug",
+            "Sep"
+          ],
+          "breakEvenMonth": 1,
+          "month6Cumulative": -6491.0
+        },
+        "open_oct": {
+          "openingMonth": "Oct",
+          "months": [
+            {
+              "month": "Oct",
+              "avgDailyCups": 553.0,
+              "monthlyCups": 16596.0,
+              "revenue": 61073.0,
+              "cogs": 24894.0,
+              "labor": 15000,
+              "rent": 15000,
+              "other": 3000,
+              "profit": 3179.0,
+              "cumulative": 3179.0
+            },
+            {
+              "month": "Nov",
+              "avgDailyCups": 366.0,
+              "monthlyCups": 10995.0,
+              "revenue": 40462.0,
+              "cogs": 16492.0,
+              "labor": 15000,
+              "rent": 15000,
+              "other": 3000,
+              "profit": -9031.0,
+              "cumulative": -5852.0
+            },
+            {
+              "month": "Dec",
+              "avgDailyCups": 244.0,
+              "monthlyCups": 7320.0,
+              "revenue": 26938.0,
+              "cogs": 10980.0,
+              "labor": 15000,
+              "rent": 15000,
+              "other": 3000,
+              "profit": -17042.0,
+              "cumulative": -22894.0
+            }
+          ],
+          "monthLabels": [
+            "Oct",
+            "Nov",
+            "Dec"
+          ],
+          "breakEvenMonth": 1,
+          "month6Cumulative": -22894.0
+        }
+      }
+    },
+    "108th & Broadway": {
+      "rent": 12000,
+      "revPerCup": 3.67,
+      "scenarios": {
+        "open_apr": {
+          "openingMonth": "Apr",
+          "months": [
+            {
+              "month": "Apr",
+              "avgDailyCups": 283.0,
+              "monthlyCups": 8496.0,
+              "revenue": 31180.0,
+              "cogs": 12744.0,
+              "labor": 15000,
+              "rent": 12000,
+              "other": 3000,
+              "profit": -11564.0,
+              "cumulative": -11564.0
+            },
+            {
+              "month": "May",
+              "avgDailyCups": 320.0,
+              "monthlyCups": 9600.0,
+              "revenue": 35232.0,
+              "cogs": 14400.0,
+              "labor": 15000,
+              "rent": 12000,
+              "other": 3000,
+              "profit": -9168.0,
+              "cumulative": -20732.0
+            },
+            {
+              "month": "Jun",
+              "avgDailyCups": 350.0,
+              "monthlyCups": 10510.0,
+              "revenue": 38572.0,
+              "cogs": 15765.0,
+              "labor": 15000,
+              "rent": 12000,
+              "other": 3000,
+              "profit": -7193.0,
+              "cumulative": -27925.0
+            }
+          ],
+          "monthLabels": [
+            "Apr",
+            "May",
+            "Jun"
+          ],
+          "breakEvenMonth": null,
+          "month6Cumulative": -27925.0
+        },
+        "open_jul": {
+          "openingMonth": "Jul",
+          "months": [
+            {
+              "month": "Jul",
+              "avgDailyCups": 362.0,
+              "monthlyCups": 10854.0,
+              "revenue": 39834.0,
+              "cogs": 16281.0,
+              "labor": 15000,
+              "rent": 12000,
+              "other": 3000,
+              "profit": -6447.0,
+              "cumulative": -6447.0
+            },
+            {
+              "month": "Aug",
+              "avgDailyCups": 369.0,
+              "monthlyCups": 11062.0,
+              "revenue": 40599.0,
+              "cogs": 16594.0,
+              "labor": 15000,
+              "rent": 12000,
+              "other": 3000,
+              "profit": -5994.0,
+              "cumulative": -12441.0
+            },
+            {
+              "month": "Sep",
+              "avgDailyCups": 341.0,
+              "monthlyCups": 10220.0,
+              "revenue": 37507.0,
+              "cogs": 15330.0,
+              "labor": 15000,
+              "rent": 12000,
+              "other": 3000,
+              "profit": -7823.0,
+              "cumulative": -20264.0
+            }
+          ],
+          "monthLabels": [
+            "Jul",
+            "Aug",
+            "Sep"
+          ],
+          "breakEvenMonth": null,
+          "month6Cumulative": -20264.0
+        },
+        "open_oct": {
+          "openingMonth": "Oct",
+          "months": [
+            {
+              "month": "Oct",
+              "avgDailyCups": 327.0,
+              "monthlyCups": 9816.0,
+              "revenue": 36025.0,
+              "cogs": 14724.0,
+              "labor": 15000,
+              "rent": 12000,
+              "other": 3000,
+              "profit": -8699.0,
+              "cumulative": -8699.0
+            },
+            {
+              "month": "Nov",
+              "avgDailyCups": 289.0,
+              "monthlyCups": 8670.0,
+              "revenue": 31819.0,
+              "cogs": 13005.0,
+              "labor": 15000,
+              "rent": 12000,
+              "other": 3000,
+              "profit": -11186.0,
+              "cumulative": -19885.0
+            },
+            {
+              "month": "Dec",
+              "avgDailyCups": 247.0,
+              "monthlyCups": 7420.0,
+              "revenue": 27231.0,
+              "cogs": 11130.0,
+              "labor": 15000,
+              "rent": 12000,
+              "other": 3000,
+              "profit": -13899.0,
+              "cumulative": -33784.0
+            }
+          ],
+          "monthLabels": [
+            "Oct",
+            "Nov",
+            "Dec"
+          ],
+          "breakEvenMonth": null,
+          "month6Cumulative": -33784.0
+        }
+      }
+    },
+    "148 Chambers": {
+      "rent": 15000,
+      "revPerCup": 3.61,
+      "scenarios": {
+        "open_apr": {
+          "openingMonth": "Apr",
+          "months": [
+            {
+              "month": "Apr",
+              "avgDailyCups": 274.0,
+              "monthlyCups": 8208.0,
+              "revenue": 29631.0,
+              "cogs": 12312.0,
+              "labor": 15000,
+              "rent": 15000,
+              "other": 3000,
+              "profit": -15681.0,
+              "cumulative": -15681.0
+            },
+            {
+              "month": "May",
+              "avgDailyCups": 263.0,
+              "monthlyCups": 7898.0,
+              "revenue": 28510.0,
+              "cogs": 11846.0,
+              "labor": 15000,
+              "rent": 15000,
+              "other": 3000,
+              "profit": -16336.0,
+              "cumulative": -32017.0
+            },
+            {
+              "month": "Jun",
+              "avgDailyCups": 266.0,
+              "monthlyCups": 7990.0,
+              "revenue": 28844.0,
+              "cogs": 11985.0,
+              "labor": 15000,
+              "rent": 15000,
+              "other": 3000,
+              "profit": -16141.0,
+              "cumulative": -48158.0
+            }
+          ],
+          "monthLabels": [
+            "Apr",
+            "May",
+            "Jun"
+          ],
+          "breakEvenMonth": null,
+          "month6Cumulative": -48158.0
+        },
+        "open_jul": {
+          "openingMonth": "Jul",
+          "months": [
+            {
+              "month": "Jul",
+              "avgDailyCups": 349.0,
+              "monthlyCups": 10482.0,
+              "revenue": 37840.0,
+              "cogs": 15723.0,
+              "labor": 15000,
+              "rent": 15000,
+              "other": 3000,
+              "profit": -10883.0,
+              "cumulative": -10883.0
+            },
+            {
+              "month": "Aug",
+              "avgDailyCups": 303.0,
+              "monthlyCups": 9098.0,
+              "revenue": 32842.0,
+              "cogs": 13646.0,
+              "labor": 15000,
+              "rent": 15000,
+              "other": 3000,
+              "profit": -13804.0,
+              "cumulative": -24687.0
+            },
+            {
+              "month": "Sep",
+              "avgDailyCups": 258.0,
+              "monthlyCups": 7740.0,
+              "revenue": 27941.0,
+              "cogs": 11610.0,
+              "labor": 15000,
+              "rent": 15000,
+              "other": 3000,
+              "profit": -16669.0,
+              "cumulative": -41356.0
+            }
+          ],
+          "monthLabels": [
+            "Jul",
+            "Aug",
+            "Sep"
+          ],
+          "breakEvenMonth": null,
+          "month6Cumulative": -41356.0
+        },
+        "open_oct": {
+          "openingMonth": "Oct",
+          "months": [
+            {
+              "month": "Oct",
+              "avgDailyCups": 316.0,
+              "monthlyCups": 9486.0,
+              "revenue": 34244.0,
+              "cogs": 14229.0,
+              "labor": 15000,
+              "rent": 15000,
+              "other": 3000,
+              "profit": -12985.0,
+              "cumulative": -12985.0
+            },
+            {
+              "month": "Nov",
+              "avgDailyCups": 238.0,
+              "monthlyCups": 7125.0,
+              "revenue": 25721.0,
+              "cogs": 10688.0,
+              "labor": 15000,
+              "rent": 15000,
+              "other": 3000,
+              "profit": -17966.0,
+              "cumulative": -30951.0
+            },
+            {
+              "month": "Dec",
+              "avgDailyCups": 188.0,
+              "monthlyCups": 5630.0,
+              "revenue": 20324.0,
+              "cogs": 8445.0,
+              "labor": 15000,
+              "rent": 15000,
+              "other": 3000,
+              "profit": -21121.0,
+              "cumulative": -52071.0
+            }
+          ],
+          "monthLabels": [
+            "Oct",
+            "Nov",
+            "Dec"
+          ],
+          "breakEvenMonth": null,
+          "month6Cumulative": -52071.0
+        }
+      }
+    },
+    "23rd & 8th": {
+      "rent": 14000,
+      "revPerCup": 3.67,
+      "scenarios": {
+        "open_apr": {
+          "openingMonth": "Apr",
+          "months": [
+            {
+              "month": "Apr",
+              "avgDailyCups": 233.0,
+              "monthlyCups": 6990.0,
+              "revenue": 25653.0,
+              "cogs": 10485.0,
+              "labor": 15000,
+              "rent": 14000,
+              "other": 3000,
+              "profit": -16832.0,
+              "cumulative": -16832.0
+            },
+            {
+              "month": "May",
+              "avgDailyCups": 263.0,
+              "monthlyCups": 7898.0,
+              "revenue": 28984.0,
+              "cogs": 11846.0,
+              "labor": 15000,
+              "rent": 14000,
+              "other": 3000,
+              "profit": -14862.0,
+              "cumulative": -31694.0
+            },
+            {
+              "month": "Jun",
+              "avgDailyCups": 288.0,
+              "monthlyCups": 8650.0,
+              "revenue": 31746.0,
+              "cogs": 12975.0,
+              "labor": 15000,
+              "rent": 14000,
+              "other": 3000,
+              "profit": -13230.0,
+              "cumulative": -44924.0
+            }
+          ],
+          "monthLabels": [
+            "Apr",
+            "May",
+            "Jun"
+          ],
+          "breakEvenMonth": null,
+          "month6Cumulative": -44924.0
+        },
+        "open_jul": {
+          "openingMonth": "Jul",
+          "months": [
+            {
+              "month": "Jul",
+              "avgDailyCups": 297.0,
+              "monthlyCups": 8922.0,
+              "revenue": 32744.0,
+              "cogs": 13383.0,
+              "labor": 15000,
+              "rent": 14000,
+              "other": 3000,
+              "profit": -12639.0,
+              "cumulative": -12639.0
+            },
+            {
+              "month": "Aug",
+              "avgDailyCups": 303.0,
+              "monthlyCups": 9098.0,
+              "revenue": 33388.0,
+              "cogs": 13646.0,
+              "labor": 15000,
+              "rent": 14000,
+              "other": 3000,
+              "profit": -12258.0,
+              "cumulative": -24898.0
+            },
+            {
+              "month": "Sep",
+              "avgDailyCups": 280.0,
+              "monthlyCups": 8390.0,
+              "revenue": 30791.0,
+              "cogs": 12585.0,
+              "labor": 15000,
+              "rent": 14000,
+              "other": 3000,
+              "profit": -13794.0,
+              "cumulative": -38691.0
+            }
+          ],
+          "monthLabels": [
+            "Jul",
+            "Aug",
+            "Sep"
+          ],
+          "breakEvenMonth": null,
+          "month6Cumulative": -38691.0
+        },
+        "open_oct": {
+          "openingMonth": "Oct",
+          "months": [
+            {
+              "month": "Oct",
+              "avgDailyCups": 269.0,
+              "monthlyCups": 8076.0,
+              "revenue": 29639.0,
+              "cogs": 12114.0,
+              "labor": 15000,
+              "rent": 14000,
+              "other": 3000,
+              "profit": -14475.0,
+              "cumulative": -14475.0
+            },
+            {
+              "month": "Nov",
+              "avgDailyCups": 238.0,
+              "monthlyCups": 7132.0,
+              "revenue": 26176.0,
+              "cogs": 10699.0,
+              "labor": 15000,
+              "rent": 14000,
+              "other": 3000,
+              "profit": -16522.0,
+              "cumulative": -30998.0
+            },
+            {
+              "month": "Dec",
+              "avgDailyCups": 204.0,
+              "monthlyCups": 6110.0,
+              "revenue": 22424.0,
+              "cogs": 9165.0,
+              "labor": 15000,
+              "rent": 14000,
+              "other": 3000,
+              "profit": -18741.0,
+              "cumulative": -49739.0
+            }
+          ],
+          "monthLabels": [
+            "Oct",
+            "Nov",
+            "Dec"
+          ],
+          "breakEvenMonth": null,
+          "month6Cumulative": -49739.0
+        }
+      }
+    },
+    "40th & 10th": {
+      "rent": 16000,
+      "revPerCup": 3.61,
+      "scenarios": {
+        "open_apr": {
+          "openingMonth": "Apr",
+          "months": [
+            {
+              "month": "Apr",
+              "avgDailyCups": 221.0,
+              "monthlyCups": 6642.0,
+              "revenue": 23978.0,
+              "cogs": 9963.0,
+              "labor": 15000,
+              "rent": 16000,
+              "other": 3000,
+              "profit": -19985.0,
+              "cumulative": -19985.0
+            },
+            {
+              "month": "May",
+              "avgDailyCups": 213.0,
+              "monthlyCups": 6398.0,
+              "revenue": 23095.0,
+              "cogs": 9596.0,
+              "labor": 15000,
+              "rent": 16000,
+              "other": 3000,
+              "profit": -20501.0,
+              "cumulative": -40487.0
+            },
+            {
+              "month": "Jun",
+              "avgDailyCups": 215.0,
+              "monthlyCups": 6460.0,
+              "revenue": 23321.0,
+              "cogs": 9690.0,
+              "labor": 15000,
+              "rent": 16000,
+              "other": 3000,
+              "profit": -20369.0,
+              "cumulative": -60856.0
+            }
+          ],
+          "monthLabels": [
+            "Apr",
+            "May",
+            "Jun"
+          ],
+          "breakEvenMonth": null,
+          "month6Cumulative": -60856.0
+        },
+        "open_jul": {
+          "openingMonth": "Jul",
+          "months": [
+            {
+              "month": "Jul",
+              "avgDailyCups": 283.0,
+              "monthlyCups": 8490.0,
+              "revenue": 30649.0,
+              "cogs": 12735.0,
+              "labor": 15000,
+              "rent": 16000,
+              "other": 3000,
+              "profit": -16086.0,
+              "cumulative": -16086.0
+            },
+            {
+              "month": "Aug",
+              "avgDailyCups": 246.0,
+              "monthlyCups": 7365.0,
+              "revenue": 26588.0,
+              "cogs": 11048.0,
+              "labor": 15000,
+              "rent": 16000,
+              "other": 3000,
+              "profit": -18460.0,
+              "cumulative": -34546.0
+            },
+            {
+              "month": "Sep",
+              "avgDailyCups": 209.0,
+              "monthlyCups": 6270.0,
+              "revenue": 22635.0,
+              "cogs": 9405.0,
+              "labor": 15000,
+              "rent": 16000,
+              "other": 3000,
+              "profit": -20770.0,
+              "cumulative": -55316.0
+            }
+          ],
+          "monthLabels": [
+            "Jul",
+            "Aug",
+            "Sep"
+          ],
+          "breakEvenMonth": null,
+          "month6Cumulative": -55316.0
+        },
+        "open_oct": {
+          "openingMonth": "Oct",
+          "months": [
+            {
+              "month": "Oct",
+              "avgDailyCups": 256.0,
+              "monthlyCups": 7674.0,
+              "revenue": 27703.0,
+              "cogs": 11511.0,
+              "labor": 15000,
+              "rent": 16000,
+              "other": 3000,
+              "profit": -17808.0,
+              "cumulative": -17808.0
+            },
+            {
+              "month": "Nov",
+              "avgDailyCups": 192.0,
+              "monthlyCups": 5775.0,
+              "revenue": 20848.0,
+              "cogs": 8662.0,
+              "labor": 15000,
+              "rent": 16000,
+              "other": 3000,
+              "profit": -21815.0,
+              "cumulative": -39623.0
+            },
+            {
+              "month": "Dec",
+              "avgDailyCups": 152.0,
+              "monthlyCups": 4560.0,
+              "revenue": 16462.0,
+              "cogs": 6840.0,
+              "labor": 15000,
+              "rent": 16000,
+              "other": 3000,
+              "profit": -24378.0,
+              "cumulative": -64001.0
+            }
+          ],
+          "monthLabels": [
+            "Oct",
+            "Nov",
+            "Dec"
+          ],
+          "breakEvenMonth": null,
+          "month6Cumulative": -64001.0
+        }
+      }
+    },
+    "29th & 3rd": {
+      "rent": 11000,
+      "revPerCup": 3.67,
+      "scenarios": {
+        "open_apr": {
+          "openingMonth": "Apr",
+          "months": [
+            {
+              "month": "Apr",
+              "avgDailyCups": 111.0,
+              "monthlyCups": 3324.0,
+              "revenue": 12199.0,
+              "cogs": 4986.0,
+              "labor": 15000,
+              "rent": 11000,
+              "other": 3000,
+              "profit": -21787.0,
+              "cumulative": -21787.0
+            },
+            {
+              "month": "May",
+              "avgDailyCups": 125.0,
+              "monthlyCups": 3750.0,
+              "revenue": 13762.0,
+              "cogs": 5625.0,
+              "labor": 15000,
+              "rent": 11000,
+              "other": 3000,
+              "profit": -20862.0,
+              "cumulative": -42649.0
+            },
+            {
+              "month": "Jun",
+              "avgDailyCups": 137.0,
+              "monthlyCups": 4110.0,
+              "revenue": 15084.0,
+              "cogs": 6165.0,
+              "labor": 15000,
+              "rent": 11000,
+              "other": 3000,
+              "profit": -20081.0,
+              "cumulative": -62731.0
+            }
+          ],
+          "monthLabels": [
+            "Apr",
+            "May",
+            "Jun"
+          ],
+          "breakEvenMonth": null,
+          "month6Cumulative": -62731.0
+        },
+        "open_jul": {
+          "openingMonth": "Jul",
+          "months": [
+            {
+              "month": "Jul",
+              "avgDailyCups": 141.0,
+              "monthlyCups": 4242.0,
+              "revenue": 15568.0,
+              "cogs": 6363.0,
+              "labor": 15000,
+              "rent": 11000,
+              "other": 3000,
+              "profit": -19795.0,
+              "cumulative": -19795.0
+            },
+            {
+              "month": "Aug",
+              "avgDailyCups": 144.0,
+              "monthlyCups": 4335.0,
+              "revenue": 15909.0,
+              "cogs": 6502.0,
+              "labor": 15000,
+              "rent": 11000,
+              "other": 3000,
+              "profit": -19593.0,
+              "cumulative": -39388.0
+            },
+            {
+              "month": "Sep",
+              "avgDailyCups": 133.0,
+              "monthlyCups": 4000.0,
+              "revenue": 14680.0,
+              "cogs": 6000.0,
+              "labor": 15000,
+              "rent": 11000,
+              "other": 3000,
+              "profit": -20320.0,
+              "cumulative": -59708.0
+            }
+          ],
+          "monthLabels": [
+            "Jul",
+            "Aug",
+            "Sep"
+          ],
+          "breakEvenMonth": null,
+          "month6Cumulative": -59708.0
+        },
+        "open_oct": {
+          "openingMonth": "Oct",
+          "months": [
+            {
+              "month": "Oct",
+              "avgDailyCups": 128.0,
+              "monthlyCups": 3840.0,
+              "revenue": 14093.0,
+              "cogs": 5760.0,
+              "labor": 15000,
+              "rent": 11000,
+              "other": 3000,
+              "profit": -20667.0,
+              "cumulative": -20667.0
+            },
+            {
+              "month": "Nov",
+              "avgDailyCups": 113.0,
+              "monthlyCups": 3382.0,
+              "revenue": 12414.0,
+              "cogs": 5074.0,
+              "labor": 15000,
+              "rent": 11000,
+              "other": 3000,
+              "profit": -21660.0,
+              "cumulative": -42327.0
+            },
+            {
+              "month": "Dec",
+              "avgDailyCups": 97.0,
+              "monthlyCups": 2910.0,
+              "revenue": 10680.0,
+              "cogs": 4365.0,
+              "labor": 15000,
+              "rent": 11000,
+              "other": 3000,
+              "profit": -22685.0,
+              "cumulative": -65012.0
+            }
+          ],
+          "monthLabels": [
+            "Oct",
+            "Nov",
+            "Dec"
+          ],
+          "breakEvenMonth": null,
+          "month6Cumulative": -65012.0
+        }
+      }
+    },
+    "23rd & 1st": {
+      "rent": 10000,
+      "revPerCup": 3.67,
+      "scenarios": {
+        "open_apr": {
+          "openingMonth": "Apr",
+          "months": [
+            {
+              "month": "Apr",
+              "avgDailyCups": 35.0,
+              "monthlyCups": 1062.0,
+              "revenue": 3898.0,
+              "cogs": 1593.0,
+              "labor": 15000,
+              "rent": 10000,
+              "other": 3000,
+              "profit": -25695.0,
+              "cumulative": -25695.0
+            },
+            {
+              "month": "May",
+              "avgDailyCups": 40.0,
+              "monthlyCups": 1200.0,
+              "revenue": 4404.0,
+              "cogs": 1800.0,
+              "labor": 15000,
+              "rent": 10000,
+              "other": 3000,
+              "profit": -25396.0,
+              "cumulative": -51091.0
+            },
+            {
+              "month": "Jun",
+              "avgDailyCups": 44.0,
+              "monthlyCups": 1310.0,
+              "revenue": 4808.0,
+              "cogs": 1965.0,
+              "labor": 15000,
+              "rent": 10000,
+              "other": 3000,
+              "profit": -25157.0,
+              "cumulative": -76249.0
+            }
+          ],
+          "monthLabels": [
+            "Apr",
+            "May",
+            "Jun"
+          ],
+          "breakEvenMonth": null,
+          "month6Cumulative": -76249.0
+        },
+        "open_jul": {
+          "openingMonth": "Jul",
+          "months": [
+            {
+              "month": "Jul",
+              "avgDailyCups": 45.0,
+              "monthlyCups": 1356.0,
+              "revenue": 4977.0,
+              "cogs": 2034.0,
+              "labor": 15000,
+              "rent": 10000,
+              "other": 3000,
+              "profit": -25057.0,
+              "cumulative": -25057.0
+            },
+            {
+              "month": "Aug",
+              "avgDailyCups": 46.0,
+              "monthlyCups": 1388.0,
+              "revenue": 5092.0,
+              "cogs": 2081.0,
+              "labor": 15000,
+              "rent": 10000,
+              "other": 3000,
+              "profit": -24989.0,
+              "cumulative": -50047.0
+            },
+            {
+              "month": "Sep",
+              "avgDailyCups": 43.0,
+              "monthlyCups": 1280.0,
+              "revenue": 4698.0,
+              "cogs": 1920.0,
+              "labor": 15000,
+              "rent": 10000,
+              "other": 3000,
+              "profit": -25222.0,
+              "cumulative": -75269.0
+            }
+          ],
+          "monthLabels": [
+            "Jul",
+            "Aug",
+            "Sep"
+          ],
+          "breakEvenMonth": null,
+          "month6Cumulative": -75269.0
+        },
+        "open_oct": {
+          "openingMonth": "Oct",
+          "months": [
+            {
+              "month": "Oct",
+              "avgDailyCups": 41.0,
+              "monthlyCups": 1230.0,
+              "revenue": 4514.0,
+              "cogs": 1845.0,
+              "labor": 15000,
+              "rent": 10000,
+              "other": 3000,
+              "profit": -25331.0,
+              "cumulative": -25331.0
+            },
+            {
+              "month": "Nov",
+              "avgDailyCups": 36.0,
+              "monthlyCups": 1080.0,
+              "revenue": 3964.0,
+              "cogs": 1620.0,
+              "labor": 15000,
+              "rent": 10000,
+              "other": 3000,
+              "profit": -25656.0,
+              "cumulative": -50987.0
+            },
+            {
+              "month": "Dec",
+              "avgDailyCups": 31.0,
+              "monthlyCups": 920.0,
+              "revenue": 3376.0,
+              "cogs": 1380.0,
+              "labor": 15000,
+              "rent": 10000,
+              "other": 3000,
+              "profit": -26004.0,
+              "cumulative": -76991.0
+            }
+          ],
+          "monthLabels": [
+            "Oct",
+            "Nov",
+            "Dec"
+          ],
+          "breakEvenMonth": null,
+          "month6Cumulative": -76991.0
+        }
+      }
+    }
+  }
+}

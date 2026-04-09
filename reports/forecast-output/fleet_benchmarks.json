@@ -1,0 +1,281 @@
+{
+  "generated": "2026-04-09T17:51:38.347263",
+  "fleetDistribution": {
+    "dailyCups": {
+      "p25": 278,
+      "p50": 401,
+      "p75": 434,
+      "p90": 493,
+      "min": 209,
+      "max": 675
+    },
+    "weeklyCups": {
+      "p25": 1946,
+      "p50": 2812,
+      "p75": 3162
+    }
+  },
+  "fleetProfitability": {
+    "stores": [
+      {
+        "store": "8th & Broadway",
+        "dailyCups": 675,
+        "revPerCup": 3.62,
+        "rent": 18000,
+        "monthlyRevenue": 73305,
+        "monthlyProfit": 6930,
+        "profitable": true
+      },
+      {
+        "store": "28th & 6th",
+        "dailyCups": 432,
+        "revPerCup": 3.86,
+        "rent": 16000,
+        "monthlyRevenue": 50026,
+        "monthlyProfit": -3414,
+        "profitable": false
+      },
+      {
+        "store": "100 Maiden Ln",
+        "dailyCups": 243,
+        "revPerCup": 3.97,
+        "rent": 14000,
+        "monthlyRevenue": 28941,
+        "monthlyProfit": -13994,
+        "profitable": false
+      },
+      {
+        "store": "54th & 8th",
+        "dailyCups": 385,
+        "revPerCup": 3.93,
+        "rent": 17000,
+        "monthlyRevenue": 45392,
+        "monthlyProfit": -6934,
+        "profitable": false
+      },
+      {
+        "store": "33rd & 10th",
+        "dailyCups": 283,
+        "revPerCup": 3.61,
+        "rent": 14000,
+        "monthlyRevenue": 30649,
+        "monthlyProfit": -14086,
+        "profitable": false
+      },
+      {
+        "store": "102 Fulton",
+        "dailyCups": 401,
+        "revPerCup": 3.93,
+        "rent": 15000,
+        "monthlyRevenue": 47278,
+        "monthlyProfit": -3767,
+        "profitable": false
+      },
+      {
+        "store": "37th & Broadway",
+        "dailyCups": 436,
+        "revPerCup": 3.58,
+        "rent": 20000,
+        "monthlyRevenue": 46826,
+        "monthlyProfit": -10794,
+        "profitable": false
+      },
+      {
+        "store": "21st & 3rd",
+        "dailyCups": 274,
+        "revPerCup": 3.53,
+        "rent": 13000,
+        "monthlyRevenue": 29017,
+        "monthlyProfit": -14313,
+        "profitable": false
+      },
+      {
+        "store": "15th & 3rd",
+        "dailyCups": 209,
+        "revPerCup": 3.68,
+        "rent": 12000,
+        "monthlyRevenue": 23074,
+        "monthlyProfit": -16331,
+        "profitable": false
+      },
+      {
+        "store": "221 Grand",
+        "dailyCups": 493,
+        "revPerCup": 3.67,
+        "rent": 14000,
+        "monthlyRevenue": 54279,
+        "monthlyProfit": 94,
+        "profitable": true
+      },
+      {
+        "store": "52nd & Madison",
+        "dailyCups": 433,
+        "revPerCup": 3.17,
+        "rent": 22000,
+        "monthlyRevenue": 41178,
+        "monthlyProfit": -18307,
+        "profitable": false
+      }
+    ],
+    "profitableCount": 2,
+    "totalStores": 11,
+    "note": "At current pricing, 2 of 11 stores are profitable after rent+labor+COGS."
+  },
+  "candidateVsFleet": [
+    {
+      "candidate": "Grand Central Terminal",
+      "predicted": 534,
+      "fleetPercentile": 91,
+      "aboveMedian": true,
+      "closestFleetStore": "221 Grand (493 cups)"
+    },
+    {
+      "candidate": "211 Schermerhorn",
+      "predicted": 476,
+      "fleetPercentile": 82,
+      "aboveMedian": true,
+      "closestFleetStore": "221 Grand (493 cups)"
+    },
+    {
+      "candidate": "154 Bleecker",
+      "predicted": 423,
+      "fleetPercentile": 55,
+      "aboveMedian": true,
+      "closestFleetStore": "28th & 6th (432 cups)"
+    },
+    {
+      "candidate": "128 W 32nd St",
+      "predicted": 415,
+      "fleetPercentile": 55,
+      "aboveMedian": true,
+      "closestFleetStore": "102 Fulton (401 cups)"
+    },
+    {
+      "candidate": "35th & 5th",
+      "predicted": 371,
+      "fleetPercentile": 36,
+      "aboveMedian": false,
+      "closestFleetStore": "54th & 8th (385 cups)"
+    },
+    {
+      "candidate": "41st & Lexington",
+      "predicted": 346,
+      "fleetPercentile": 36,
+      "aboveMedian": false,
+      "closestFleetStore": "54th & 8th (385 cups)"
+    },
+    {
+      "candidate": "Jackson Ave - LIC",
+      "predicted": 309,
+      "fleetPercentile": 36,
+      "aboveMedian": false,
+      "closestFleetStore": "33rd & 10th (283 cups)"
+    },
+    {
+      "candidate": "180 Varick",
+      "predicted": 299,
+      "fleetPercentile": 36,
+      "aboveMedian": false,
+      "closestFleetStore": "33rd & 10th (283 cups)"
+    },
+    {
+      "candidate": "48th & 3rd",
+      "predicted": 284,
+      "fleetPercentile": 36,
+      "aboveMedian": false,
+      "closestFleetStore": "33rd & 10th (283 cups)"
+    },
+    {
+      "candidate": "25 Park Row",
+      "predicted": 273,
+      "fleetPercentile": 18,
+      "aboveMedian": false,
+      "closestFleetStore": "21st & 3rd (274 cups)"
+    },
+    {
+      "candidate": "Reade & Broadway",
+      "predicted": 254,
+      "fleetPercentile": 18,
+      "aboveMedian": false,
+      "closestFleetStore": "100 Maiden Ln (243 cups)"
+    },
+    {
+      "candidate": "63rd & 3rd",
+      "predicted": 250,
+      "fleetPercentile": 18,
+      "aboveMedian": false,
+      "closestFleetStore": "100 Maiden Ln (243 cups)"
+    },
+    {
+      "candidate": "108th & Broadway",
+      "predicted": 248,
+      "fleetPercentile": 18,
+      "aboveMedian": false,
+      "closestFleetStore": "100 Maiden Ln (243 cups)"
+    },
+    {
+      "candidate": "148 Chambers",
+      "predicted": 210,
+      "fleetPercentile": 9,
+      "aboveMedian": false,
+      "closestFleetStore": "15th & 3rd (209 cups)"
+    },
+    {
+      "candidate": "23rd & 8th",
+      "predicted": 204,
+      "fleetPercentile": 0,
+      "aboveMedian": false,
+      "closestFleetStore": "15th & 3rd (209 cups)"
+    },
+    {
+      "candidate": "40th & 10th",
+      "predicted": 170,
+      "fleetPercentile": 0,
+      "aboveMedian": false,
+      "closestFleetStore": "15th & 3rd (209 cups)"
+    },
+    {
+      "candidate": "29th & 3rd",
+      "predicted": 97,
+      "fleetPercentile": 0,
+      "aboveMedian": false,
+      "closestFleetStore": "15th & 3rd (209 cups)"
+    },
+    {
+      "candidate": "23rd & 1st",
+      "predicted": 31,
+      "fleetPercentile": 0,
+      "aboveMedian": false,
+      "closestFleetStore": "15th & 3rd (209 cups)"
+    }
+  ],
+  "recentOpenings": {
+    "16th & 6th": {
+      "openDate": "2026-03-23",
+      "weeksOpen": 2,
+      "dailyAvg": "N/A",
+      "note": "Early phase"
+    },
+    "21st & 3rd": {
+      "openDate": "2026-02-06",
+      "weeksOpen": 8,
+      "dailyAvg": 274,
+      "note": "Stabilizing"
+    },
+    "52nd & Madison": {
+      "openDate": "2026-02-26",
+      "weeksOpen": 6,
+      "dailyAvg": 433,
+      "note": "Stabilizing"
+    }
+  },
+  "52ndMadisonLesson": {
+    "store": "52nd & Madison",
+    "v1Prediction": 2610,
+    "v2Prediction": 3025,
+    "actual": 3293,
+    "v1Error": "20.7% under",
+    "v2Error": "8.1% under",
+    "lesson": "v1 massively underestimated premium office locations. v2 corrected most but not all bias. Premium office candidates may still have systematic upside."
+  }
+}

@@ -1,0 +1,784 @@
+{
+  "generated": "2026-04-09T17:51:38.347510",
+  "priceSensitivity": {
+    "pricePoints": [
+      3.65,
+      4.2,
+      4.5
+    ],
+    "candidates": {
+      "Grand Central Terminal": {
+        "rent": 25000,
+        "scenarios": [
+          {
+            "price": 3.65,
+            "openMonth": "Apr",
+            "firstMonthNet": 2247.0,
+            "month3Cum": 2999.0,
+            "breakEvenDaily": 667.0
+          },
+          {
+            "price": 3.65,
+            "openMonth": "Jul",
+            "firstMonthNet": 14760.0,
+            "month3Cum": 24139.0,
+            "breakEvenDaily": 667.0
+          },
+          {
+            "price": 3.65,
+            "openMonth": "Dec",
+            "firstMonthNet": -5058.0,
+            "month3Cum": -18770.0,
+            "breakEvenDaily": 667.0
+          },
+          {
+            "price": 4.2,
+            "openMonth": "Apr",
+            "firstMonthNet": 13822.0,
+            "month3Cum": 36766.0,
+            "breakEvenDaily": 531.0
+          },
+          {
+            "price": 4.2,
+            "openMonth": "Jul",
+            "firstMonthNet": 29536.0,
+            "month3Cum": 63314.0,
+            "breakEvenDaily": 531.0
+          },
+          {
+            "price": 4.2,
+            "openMonth": "Dec",
+            "firstMonthNet": 4648.0,
+            "month3Cum": 9429.0,
+            "breakEvenDaily": 531.0
+          },
+          {
+            "price": 4.5,
+            "openMonth": "Apr",
+            "firstMonthNet": 20135.0,
+            "month3Cum": 55185.0,
+            "breakEvenDaily": 478.0
+          },
+          {
+            "price": 4.5,
+            "openMonth": "Jul",
+            "firstMonthNet": 37595.0,
+            "month3Cum": 84682.0,
+            "breakEvenDaily": 478.0
+          },
+          {
+            "price": 4.5,
+            "openMonth": "Dec",
+            "firstMonthNet": 9942.0,
+            "month3Cum": 24810.0,
+            "breakEvenDaily": 478.0
+          }
+        ]
+      },
+      "211 Schermerhorn": {
+        "rent": 14000,
+        "scenarios": [
+          {
+            "price": 3.65,
+            "openMonth": "Apr",
+            "firstMonthNet": 8345.0,
+            "month3Cum": 21680.0,
+            "breakEvenDaily": 496.0
+          },
+          {
+            "price": 3.65,
+            "openMonth": "Jul",
+            "firstMonthNet": 19471.0,
+            "month3Cum": 40498.0,
+            "breakEvenDaily": 496.0
+          },
+          {
+            "price": 3.65,
+            "openMonth": "Dec",
+            "firstMonthNet": 1830.0,
+            "month3Cum": 2266.0,
+            "breakEvenDaily": 496.0
+          },
+          {
+            "price": 4.2,
+            "openMonth": "Apr",
+            "firstMonthNet": 18666.0,
+            "month3Cum": 51784.0,
+            "breakEvenDaily": 395.0
+          },
+          {
+            "price": 4.2,
+            "openMonth": "Jul",
+            "firstMonthNet": 32638.0,
+            "month3Cum": 75416.0,
+            "breakEvenDaily": 395.0
+          },
+          {
+            "price": 4.2,
+            "openMonth": "Dec",
+            "firstMonthNet": 10484.0,
+            "month3Cum": 27404.0,
+            "breakEvenDaily": 395.0
+          },
+          {
+            "price": 4.5,
+            "openMonth": "Apr",
+            "firstMonthNet": 24295.0,
+            "month3Cum": 68205.0,
+            "breakEvenDaily": 356.0
+          },
+          {
+            "price": 4.5,
+            "openMonth": "Jul",
+            "firstMonthNet": 39820.0,
+            "month3Cum": 94462.0,
+            "breakEvenDaily": 356.0
+          },
+          {
+            "price": 4.5,
+            "openMonth": "Dec",
+            "firstMonthNet": 15205.0,
+            "month3Cum": 41115.0,
+            "breakEvenDaily": 356.0
+          }
+        ]
+      },
+      "154 Bleecker": {
+        "rent": 18000,
+        "scenarios": [
+          {
+            "price": 3.65,
+            "openMonth": "Apr",
+            "firstMonthNet": -154.0,
+            "month3Cum": -3445.0,
+            "breakEvenDaily": 558.0
+          },
+          {
+            "price": 3.65,
+            "openMonth": "Jul",
+            "firstMonthNet": 9763.0,
+            "month3Cum": 13324.0,
+            "breakEvenDaily": 558.0
+          },
+          {
+            "price": 3.65,
+            "openMonth": "Dec",
+            "firstMonthNet": -5959.0,
+            "month3Cum": -20699.0,
+            "breakEvenDaily": 558.0
+          },
+          {
+            "price": 4.2,
+            "openMonth": "Apr",
+            "firstMonthNet": 9016.0,
+            "month3Cum": 23301.0,
+            "breakEvenDaily": 444.0
+          },
+          {
+            "price": 4.2,
+            "openMonth": "Jul",
+            "firstMonthNet": 21470.0,
+            "month3Cum": 44361.0,
+            "breakEvenDaily": 444.0
+          },
+          {
+            "price": 4.2,
+            "openMonth": "Dec",
+            "firstMonthNet": 1726.0,
+            "month3Cum": 1634.0,
+            "breakEvenDaily": 444.0
+          },
+          {
+            "price": 4.5,
+            "openMonth": "Apr",
+            "firstMonthNet": 14018.0,
+            "month3Cum": 37890.0,
+            "breakEvenDaily": 400.0
+          },
+          {
+            "price": 4.5,
+            "openMonth": "Jul",
+            "firstMonthNet": 27855.0,
+            "month3Cum": 61290.0,
+            "breakEvenDaily": 400.0
+          },
+          {
+            "price": 4.5,
+            "openMonth": "Dec",
+            "firstMonthNet": 5918.0,
+            "month3Cum": 13815.0,
+            "breakEvenDaily": 400.0
+          }
+        ]
+      },
+      "128 W 32nd St": {
+        "rent": 15000,
+        "scenarios": [
+          {
+            "price": 3.65,
+            "openMonth": "Apr",
+            "firstMonthNet": 2152.0,
+            "month3Cum": 3571.0,
+            "breakEvenDaily": 512.0
+          },
+          {
+            "price": 3.65,
+            "openMonth": "Jul",
+            "firstMonthNet": 11876.0,
+            "month3Cum": 19986.0,
+            "breakEvenDaily": 512.0
+          },
+          {
+            "price": 3.65,
+            "openMonth": "Dec",
+            "firstMonthNet": -3491.0,
+            "month3Cum": -13296.0,
+            "breakEvenDaily": 512.0
+          },
+          {
+            "price": 4.2,
+            "openMonth": "Apr",
+            "firstMonthNet": 11145.0,
+            "month3Cum": 29810.0,
+            "breakEvenDaily": 407.0
+          },
+          {
+            "price": 4.2,
+            "openMonth": "Jul",
+            "firstMonthNet": 23356.0,
+            "month3Cum": 50425.0,
+            "breakEvenDaily": 407.0
+          },
+          {
+            "price": 4.2,
+            "openMonth": "Dec",
+            "firstMonthNet": 4058.0,
+            "month3Cum": 8629.0,
+            "breakEvenDaily": 407.0
+          },
+          {
+            "price": 4.5,
+            "openMonth": "Apr",
+            "firstMonthNet": 16050.0,
+            "month3Cum": 44123.0,
+            "breakEvenDaily": 367.0
+          },
+          {
+            "price": 4.5,
+            "openMonth": "Jul",
+            "firstMonthNet": 29618.0,
+            "month3Cum": 67028.0,
+            "breakEvenDaily": 367.0
+          },
+          {
+            "price": 4.5,
+            "openMonth": "Dec",
+            "firstMonthNet": 8175.0,
+            "month3Cum": 20588.0,
+            "breakEvenDaily": 367.0
+          }
+        ]
+      },
+      "35th & 5th": {
+        "rent": 19000,
+        "scenarios": [
+          {
+            "price": 3.65,
+            "openMonth": "Apr",
+            "firstMonthNet": -5572.0,
+            "month3Cum": -19297.0,
+            "breakEvenDaily": 574.0
+          },
+          {
+            "price": 3.65,
+            "openMonth": "Jul",
+            "firstMonthNet": 3103.0,
+            "month3Cum": -4640.0,
+            "breakEvenDaily": 574.0
+          },
+          {
+            "price": 3.65,
+            "openMonth": "Dec",
+            "firstMonthNet": -10620.0,
+            "month3Cum": -34390.0,
+            "breakEvenDaily": 574.0
+          },
+          {
+            "price": 4.2,
+            "openMonth": "Apr",
+            "firstMonthNet": 2467.0,
+            "month3Cum": 4162.0,
+            "breakEvenDaily": 457.0
+          },
+          {
+            "price": 4.2,
+            "openMonth": "Jul",
+            "firstMonthNet": 13362.0,
+            "month3Cum": 22569.0,
+            "breakEvenDaily": 457.0
+          },
+          {
+            "price": 4.2,
+            "openMonth": "Dec",
+            "firstMonthNet": -3871.0,
+            "month3Cum": -14792.0,
+            "breakEvenDaily": 457.0
+          },
+          {
+            "price": 4.5,
+            "openMonth": "Apr",
+            "firstMonthNet": 6852.0,
+            "month3Cum": 16958.0,
+            "breakEvenDaily": 411.0
+          },
+          {
+            "price": 4.5,
+            "openMonth": "Jul",
+            "firstMonthNet": 18958.0,
+            "month3Cum": 37410.0,
+            "breakEvenDaily": 411.0
+          },
+          {
+            "price": 4.5,
+            "openMonth": "Dec",
+            "firstMonthNet": -190.0,
+            "month3Cum": -4102.0,
+            "breakEvenDaily": 411.0
+          }
+        ]
+      },
+      "41st & Lexington": {
+        "rent": 17000,
+        "scenarios": [
+          {
+            "price": 3.65,
+            "openMonth": "Apr",
+            "firstMonthNet": -5685.0,
+            "month3Cum": -19489.0,
+            "breakEvenDaily": 543.0
+          },
+          {
+            "price": 3.65,
+            "openMonth": "Jul",
+            "firstMonthNet": 2426.0,
+            "month3Cum": -5799.0,
+            "breakEvenDaily": 543.0
+          },
+          {
+            "price": 3.65,
+            "openMonth": "Dec",
+            "firstMonthNet": -10426.0,
+            "month3Cum": -33582.0,
+            "breakEvenDaily": 543.0
+          },
+          {
+            "price": 4.2,
+            "openMonth": "Apr",
+            "firstMonthNet": 1814.0,
+            "month3Cum": 2386.0,
+            "breakEvenDaily": 432.0
+          },
+          {
+            "price": 4.2,
+            "openMonth": "Jul",
+            "firstMonthNet": 12000.0,
+            "month3Cum": 19578.0,
+            "breakEvenDaily": 432.0
+          },
+          {
+            "price": 4.2,
+            "openMonth": "Dec",
+            "firstMonthNet": -4139.0,
+            "month3Cum": -15313.0,
+            "breakEvenDaily": 432.0
+          },
+          {
+            "price": 4.5,
+            "openMonth": "Apr",
+            "firstMonthNet": 5905.0,
+            "month3Cum": 14318.0,
+            "breakEvenDaily": 389.0
+          },
+          {
+            "price": 4.5,
+            "openMonth": "Jul",
+            "firstMonthNet": 17222.0,
+            "month3Cum": 33420.0,
+            "breakEvenDaily": 389.0
+          },
+          {
+            "price": 4.5,
+            "openMonth": "Dec",
+            "firstMonthNet": -710.0,
+            "month3Cum": -5348.0,
+            "breakEvenDaily": 389.0
+          }
+        ]
+      }
+    }
+  },
+  "rentNegotiation": {
+    "candidates": {
+      "Grand Central Terminal": {
+        "currentRent": 25000,
+        "steadyStateDaily": 534,
+        "targets": {
+          "at_3.65": {
+            "maxRent": 16443.0,
+            "currentRent": 25000,
+            "headroom": -8557.0,
+            "needsReduction": true,
+            "formula": "max_rent = (534 x 30 x 3.65) - (534 x 30 x 1.5) - 15000 - 3000 = 16443.0"
+          },
+          "at_4.2": {
+            "maxRent": 25254.0,
+            "currentRent": 25000,
+            "headroom": 254.0,
+            "needsReduction": false,
+            "formula": "max_rent = (534 x 30 x 4.2) - (534 x 30 x 1.5) - 15000 - 3000 = 25254.0"
+          }
+        }
+      },
+      "211 Schermerhorn": {
+        "currentRent": 14000,
+        "steadyStateDaily": 476,
+        "targets": {
+          "at_3.65": {
+            "maxRent": 12702.0,
+            "currentRent": 14000,
+            "headroom": -1298.0,
+            "needsReduction": true,
+            "formula": "max_rent = (476 x 30 x 3.65) - (476 x 30 x 1.5) - 15000 - 3000 = 12702.0"
+          },
+          "at_4.2": {
+            "maxRent": 20556.0,
+            "currentRent": 14000,
+            "headroom": 6556.0,
+            "needsReduction": false,
+            "formula": "max_rent = (476 x 30 x 4.2) - (476 x 30 x 1.5) - 15000 - 3000 = 20556.0"
+          }
+        }
+      },
+      "154 Bleecker": {
+        "currentRent": 18000,
+        "steadyStateDaily": 423,
+        "targets": {
+          "at_3.65": {
+            "maxRent": 9284.0,
+            "currentRent": 18000,
+            "headroom": -8716.0,
+            "needsReduction": true,
+            "formula": "max_rent = (423 x 30 x 3.65) - (423 x 30 x 1.5) - 15000 - 3000 = 9284.0"
+          },
+          "at_4.2": {
+            "maxRent": 16263.0,
+            "currentRent": 18000,
+            "headroom": -1737.0,
+            "needsReduction": true,
+            "formula": "max_rent = (423 x 30 x 4.2) - (423 x 30 x 1.5) - 15000 - 3000 = 16263.0"
+          }
+        }
+      },
+      "128 W 32nd St": {
+        "currentRent": 15000,
+        "steadyStateDaily": 415,
+        "targets": {
+          "at_3.65": {
+            "maxRent": 8768.0,
+            "currentRent": 15000,
+            "headroom": -6232.0,
+            "needsReduction": true,
+            "formula": "max_rent = (415 x 30 x 3.65) - (415 x 30 x 1.5) - 15000 - 3000 = 8768.0"
+          },
+          "at_4.2": {
+            "maxRent": 15615.0,
+            "currentRent": 15000,
+            "headroom": 615.0,
+            "needsReduction": false,
+            "formula": "max_rent = (415 x 30 x 4.2) - (415 x 30 x 1.5) - 15000 - 3000 = 15615.0"
+          }
+        }
+      },
+      "35th & 5th": {
+        "currentRent": 19000,
+        "steadyStateDaily": 371,
+        "targets": {
+          "at_3.65": {
+            "maxRent": 5930.0,
+            "currentRent": 19000,
+            "headroom": -13070.0,
+            "needsReduction": true,
+            "formula": "max_rent = (371 x 30 x 3.65) - (371 x 30 x 1.5) - 15000 - 3000 = 5930.0"
+          },
+          "at_4.2": {
+            "maxRent": 12051.0,
+            "currentRent": 19000,
+            "headroom": -6949.0,
+            "needsReduction": true,
+            "formula": "max_rent = (371 x 30 x 4.2) - (371 x 30 x 1.5) - 15000 - 3000 = 12051.0"
+          }
+        }
+      },
+      "41st & Lexington": {
+        "currentRent": 17000,
+        "steadyStateDaily": 346,
+        "targets": {
+          "at_3.65": {
+            "maxRent": 4317.0,
+            "currentRent": 17000,
+            "headroom": -12683.0,
+            "needsReduction": true,
+            "formula": "max_rent = (346 x 30 x 3.65) - (346 x 30 x 1.5) - 15000 - 3000 = 4317.0"
+          },
+          "at_4.2": {
+            "maxRent": 10026.0,
+            "currentRent": 17000,
+            "headroom": -6974.0,
+            "needsReduction": true,
+            "formula": "max_rent = (346 x 30 x 4.2) - (346 x 30 x 1.5) - 15000 - 3000 = 10026.0"
+          }
+        }
+      },
+      "Jackson Ave - LIC": {
+        "currentRent": 11000,
+        "steadyStateDaily": 309,
+        "targets": {
+          "at_3.65": {
+            "maxRent": 1930.0,
+            "currentRent": 11000,
+            "headroom": -9070.0,
+            "needsReduction": true,
+            "formula": "max_rent = (309 x 30 x 3.65) - (309 x 30 x 1.5) - 15000 - 3000 = 1930.0"
+          },
+          "at_4.2": {
+            "maxRent": 7029.0,
+            "currentRent": 11000,
+            "headroom": -3971.0,
+            "needsReduction": true,
+            "formula": "max_rent = (309 x 30 x 4.2) - (309 x 30 x 1.5) - 15000 - 3000 = 7029.0"
+          }
+        }
+      },
+      "180 Varick": {
+        "currentRent": 16000,
+        "steadyStateDaily": 299,
+        "targets": {
+          "at_3.65": {
+            "maxRent": 1286.0,
+            "currentRent": 16000,
+            "headroom": -14714.0,
+            "needsReduction": true,
+            "formula": "max_rent = (299 x 30 x 3.65) - (299 x 30 x 1.5) - 15000 - 3000 = 1286.0"
+          },
+          "at_4.2": {
+            "maxRent": 6219.0,
+            "currentRent": 16000,
+            "headroom": -9781.0,
+            "needsReduction": true,
+            "formula": "max_rent = (299 x 30 x 4.2) - (299 x 30 x 1.5) - 15000 - 3000 = 6219.0"
+          }
+        }
+      },
+      "48th & 3rd": {
+        "currentRent": 14000,
+        "steadyStateDaily": 284,
+        "targets": {
+          "at_3.65": {
+            "maxRent": 318.0,
+            "currentRent": 14000,
+            "headroom": -13682.0,
+            "needsReduction": true,
+            "formula": "max_rent = (284 x 30 x 3.65) - (284 x 30 x 1.5) - 15000 - 3000 = 318.0"
+          },
+          "at_4.2": {
+            "maxRent": 5004.0,
+            "currentRent": 14000,
+            "headroom": -8996.0,
+            "needsReduction": true,
+            "formula": "max_rent = (284 x 30 x 4.2) - (284 x 30 x 1.5) - 15000 - 3000 = 5004.0"
+          }
+        }
+      },
+      "25 Park Row": {
+        "currentRent": 14000,
+        "steadyStateDaily": 273,
+        "targets": {
+          "at_3.65": {
+            "maxRent": 0,
+            "currentRent": 14000,
+            "headroom": -14000,
+            "needsReduction": true,
+            "formula": "max_rent = (273 x 30 x 3.65) - (273 x 30 x 1.5) - 15000 - 3000 = 0"
+          },
+          "at_4.2": {
+            "maxRent": 4113.0,
+            "currentRent": 14000,
+            "headroom": -9887.0,
+            "needsReduction": true,
+            "formula": "max_rent = (273 x 30 x 4.2) - (273 x 30 x 1.5) - 15000 - 3000 = 4113.0"
+          }
+        }
+      },
+      "Reade & Broadway": {
+        "currentRent": 13000,
+        "steadyStateDaily": 254,
+        "targets": {
+          "at_3.65": {
+            "maxRent": 0,
+            "currentRent": 13000,
+            "headroom": -13000,
+            "needsReduction": true,
+            "formula": "max_rent = (254 x 30 x 3.65) - (254 x 30 x 1.5) - 15000 - 3000 = 0"
+          },
+          "at_4.2": {
+            "maxRent": 2574.0,
+            "currentRent": 13000,
+            "headroom": -10426.0,
+            "needsReduction": true,
+            "formula": "max_rent = (254 x 30 x 4.2) - (254 x 30 x 1.5) - 15000 - 3000 = 2574.0"
+          }
+        }
+      },
+      "63rd & 3rd": {
+        "currentRent": 15000,
+        "steadyStateDaily": 250,
+        "targets": {
+          "at_3.65": {
+            "maxRent": 0,
+            "currentRent": 15000,
+            "headroom": -15000,
+            "needsReduction": true,
+            "formula": "max_rent = (250 x 30 x 3.65) - (250 x 30 x 1.5) - 15000 - 3000 = 0"
+          },
+          "at_4.2": {
+            "maxRent": 2250.0,
+            "currentRent": 15000,
+            "headroom": -12750.0,
+            "needsReduction": true,
+            "formula": "max_rent = (250 x 30 x 4.2) - (250 x 30 x 1.5) - 15000 - 3000 = 2250.0"
+          }
+        }
+      },
+      "108th & Broadway": {
+        "currentRent": 12000,
+        "steadyStateDaily": 248,
+        "targets": {
+          "at_3.65": {
+            "maxRent": 0,
+            "currentRent": 12000,
+            "headroom": -12000,
+            "needsReduction": true,
+            "formula": "max_rent = (248 x 30 x 3.65) - (248 x 30 x 1.5) - 15000 - 3000 = 0"
+          },
+          "at_4.2": {
+            "maxRent": 2088.0,
+            "currentRent": 12000,
+            "headroom": -9912.0,
+            "needsReduction": true,
+            "formula": "max_rent = (248 x 30 x 4.2) - (248 x 30 x 1.5) - 15000 - 3000 = 2088.0"
+          }
+        }
+      },
+      "148 Chambers": {
+        "currentRent": 15000,
+        "steadyStateDaily": 210,
+        "targets": {
+          "at_3.65": {
+            "maxRent": 0,
+            "currentRent": 15000,
+            "headroom": -15000,
+            "needsReduction": true,
+            "formula": "max_rent = (210 x 30 x 3.65) - (210 x 30 x 1.5) - 15000 - 3000 = 0"
+          },
+          "at_4.2": {
+            "maxRent": 0,
+            "currentRent": 15000,
+            "headroom": -15000,
+            "needsReduction": true,
+            "formula": "max_rent = (210 x 30 x 4.2) - (210 x 30 x 1.5) - 15000 - 3000 = 0"
+          }
+        }
+      },
+      "23rd & 8th": {
+        "currentRent": 14000,
+        "steadyStateDaily": 204,
+        "targets": {
+          "at_3.65": {
+            "maxRent": 0,
+            "currentRent": 14000,
+            "headroom": -14000,
+            "needsReduction": true,
+            "formula": "max_rent = (204 x 30 x 3.65) - (204 x 30 x 1.5) - 15000 - 3000 = 0"
+          },
+          "at_4.2": {
+            "maxRent": 0,
+            "currentRent": 14000,
+            "headroom": -14000,
+            "needsReduction": true,
+            "formula": "max_rent = (204 x 30 x 4.2) - (204 x 30 x 1.5) - 15000 - 3000 = 0"
+          }
+        }
+      },
+      "40th & 10th": {
+        "currentRent": 16000,
+        "steadyStateDaily": 170,
+        "targets": {
+          "at_3.65": {
+            "maxRent": 0,
+            "currentRent": 16000,
+            "headroom": -16000,
+            "needsReduction": true,
+            "formula": "max_rent = (170 x 30 x 3.65) - (170 x 30 x 1.5) - 15000 - 3000 = 0"
+          },
+          "at_4.2": {
+            "maxRent": 0,
+            "currentRent": 16000,
+            "headroom": -16000,
+            "needsReduction": true,
+            "formula": "max_rent = (170 x 30 x 4.2) - (170 x 30 x 1.5) - 15000 - 3000 = 0"
+          }
+        }
+      },
+      "29th & 3rd": {
+        "currentRent": 11000,
+        "steadyStateDaily": 97,
+        "targets": {
+          "at_3.65": {
+            "maxRent": 0,
+            "currentRent": 11000,
+            "headroom": -11000,
+            "needsReduction": true,
+            "formula": "max_rent = (97 x 30 x 3.65) - (97 x 30 x 1.5) - 15000 - 3000 = 0"
+          },
+          "at_4.2": {
+            "maxRent": 0,
+            "currentRent": 11000,
+            "headroom": -11000,
+            "needsReduction": true,
+            "formula": "max_rent = (97 x 30 x 4.2) - (97 x 30 x 1.5) - 15000 - 3000 = 0"
+          }
+        }
+      },
+      "23rd & 1st": {
+        "currentRent": 10000,
+        "steadyStateDaily": 31,
+        "targets": {
+          "at_3.65": {
+            "maxRent": 0,
+            "currentRent": 10000,
+            "headroom": -10000,
+            "needsReduction": true,
+            "formula": "max_rent = (31 x 30 x 3.65) - (31 x 30 x 1.5) - 15000 - 3000 = 0"
+          },
+          "at_4.2": {
+            "maxRent": 0,
+            "currentRent": 10000,
+            "headroom": -10000,
+            "needsReduction": true,
+            "formula": "max_rent = (31 x 30 x 4.2) - (31 x 30 x 1.5) - 15000 - 3000 = 0"
+          }
+        }
+      }
+    }
+  }
+}
