@@ -1,0 +1,5426 @@
+{
+  "metadata": {
+    "generatedAt": "2026-04-09",
+    "purpose": "Supplementary analytics for dashboard v2.0 \u2014 does NOT overlap with existing data",
+    "dataThrough": "2026-04-07",
+    "csvRows": 1806,
+    "storeCount": 12
+  },
+  "weeklyTimeSeries": {
+    "perStore": {
+      "US00001": {
+        "name": "8th & Broadway",
+        "weeks": [
+          {
+            "week": "2025-W27",
+            "weekStart": "2025-06-30",
+            "cups": 6009,
+            "days": 7,
+            "avgDaily": 858.4
+          },
+          {
+            "week": "2025-W28",
+            "weekStart": "2025-07-07",
+            "cups": 5565,
+            "days": 7,
+            "avgDaily": 795.0
+          },
+          {
+            "week": "2025-W29",
+            "weekStart": "2025-07-14",
+            "cups": 4943,
+            "days": 7,
+            "avgDaily": 706.1
+          },
+          {
+            "week": "2025-W30",
+            "weekStart": "2025-07-21",
+            "cups": 5104,
+            "days": 7,
+            "avgDaily": 729.1
+          },
+          {
+            "week": "2025-W31",
+            "weekStart": "2025-07-28",
+            "cups": 5519,
+            "days": 7,
+            "avgDaily": 788.4
+          },
+          {
+            "week": "2025-W32",
+            "weekStart": "2025-08-04",
+            "cups": 6004,
+            "days": 7,
+            "avgDaily": 857.7
+          },
+          {
+            "week": "2025-W33",
+            "weekStart": "2025-08-11",
+            "cups": 5129,
+            "days": 7,
+            "avgDaily": 732.7
+          },
+          {
+            "week": "2025-W34",
+            "weekStart": "2025-08-18",
+            "cups": 4770,
+            "days": 7,
+            "avgDaily": 681.4
+          },
+          {
+            "week": "2025-W35",
+            "weekStart": "2025-08-25",
+            "cups": 5094,
+            "days": 7,
+            "avgDaily": 727.7
+          },
+          {
+            "week": "2025-W36",
+            "weekStart": "2025-09-01",
+            "cups": 5360,
+            "days": 7,
+            "avgDaily": 765.7
+          },
+          {
+            "week": "2025-W37",
+            "weekStart": "2025-09-08",
+            "cups": 6231,
+            "days": 7,
+            "avgDaily": 890.1
+          },
+          {
+            "week": "2025-W38",
+            "weekStart": "2025-09-15",
+            "cups": 6294,
+            "days": 7,
+            "avgDaily": 899.1
+          },
+          {
+            "week": "2025-W39",
+            "weekStart": "2025-09-22",
+            "cups": 6325,
+            "days": 7,
+            "avgDaily": 903.6
+          },
+          {
+            "week": "2025-W40",
+            "weekStart": "2025-09-29",
+            "cups": 6980,
+            "days": 7,
+            "avgDaily": 997.1
+          },
+          {
+            "week": "2025-W41",
+            "weekStart": "2025-10-06",
+            "cups": 5936,
+            "days": 7,
+            "avgDaily": 848.0
+          },
+          {
+            "week": "2025-W42",
+            "weekStart": "2025-10-13",
+            "cups": 5701,
+            "days": 7,
+            "avgDaily": 814.4
+          },
+          {
+            "week": "2025-W43",
+            "weekStart": "2025-10-20",
+            "cups": 5487,
+            "days": 7,
+            "avgDaily": 783.9
+          },
+          {
+            "week": "2025-W44",
+            "weekStart": "2025-10-27",
+            "cups": 5754,
+            "days": 7,
+            "avgDaily": 822.0
+          },
+          {
+            "week": "2025-W45",
+            "weekStart": "2025-11-03",
+            "cups": 5739,
+            "days": 7,
+            "avgDaily": 819.9
+          },
+          {
+            "week": "2025-W46",
+            "weekStart": "2025-11-10",
+            "cups": 4931,
+            "days": 7,
+            "avgDaily": 704.4
+          },
+          {
+            "week": "2025-W47",
+            "weekStart": "2025-11-17",
+            "cups": 5440,
+            "days": 7,
+            "avgDaily": 777.1
+          },
+          {
+            "week": "2025-W48",
+            "weekStart": "2025-11-24",
+            "cups": 4090,
+            "days": 7,
+            "avgDaily": 584.3
+          },
+          {
+            "week": "2025-W49",
+            "weekStart": "2025-12-01",
+            "cups": 5305,
+            "days": 7,
+            "avgDaily": 757.9
+          },
+          {
+            "week": "2025-W50",
+            "weekStart": "2025-12-08",
+            "cups": 5024,
+            "days": 7,
+            "avgDaily": 717.7
+          },
+          {
+            "week": "2025-W51",
+            "weekStart": "2025-12-15",
+            "cups": 3439,
+            "days": 7,
+            "avgDaily": 491.3
+          },
+          {
+            "week": "2025-W52",
+            "weekStart": "2025-12-22",
+            "cups": 1897,
+            "days": 7,
+            "avgDaily": 271.0
+          },
+          {
+            "week": "2026-W01",
+            "weekStart": "2025-12-29",
+            "cups": 2201,
+            "days": 7,
+            "avgDaily": 314.4
+          },
+          {
+            "week": "2026-W02",
+            "weekStart": "2026-01-05",
+            "cups": 2471,
+            "days": 7,
+            "avgDaily": 353.0
+          },
+          {
+            "week": "2026-W03",
+            "weekStart": "2026-01-12",
+            "cups": 2640,
+            "days": 7,
+            "avgDaily": 377.1
+          },
+          {
+            "week": "2026-W04",
+            "weekStart": "2026-01-19",
+            "cups": 3404,
+            "days": 7,
+            "avgDaily": 486.3
+          },
+          {
+            "week": "2026-W05",
+            "weekStart": "2026-01-26",
+            "cups": 3450,
+            "days": 6,
+            "avgDaily": 575.0
+          },
+          {
+            "week": "2026-W06",
+            "weekStart": "2026-02-02",
+            "cups": 4047,
+            "days": 7,
+            "avgDaily": 578.1
+          },
+          {
+            "week": "2026-W07",
+            "weekStart": "2026-02-09",
+            "cups": 4451,
+            "days": 7,
+            "avgDaily": 635.9
+          },
+          {
+            "week": "2026-W08",
+            "weekStart": "2026-02-16",
+            "cups": 3621,
+            "days": 7,
+            "avgDaily": 517.3
+          },
+          {
+            "week": "2026-W09",
+            "weekStart": "2026-02-23",
+            "cups": 3522,
+            "days": 6,
+            "avgDaily": 587.0
+          },
+          {
+            "week": "2026-W10",
+            "weekStart": "2026-03-02",
+            "cups": 4465,
+            "days": 7,
+            "avgDaily": 637.9
+          },
+          {
+            "week": "2026-W11",
+            "weekStart": "2026-03-09",
+            "cups": 4059,
+            "days": 7,
+            "avgDaily": 579.9
+          },
+          {
+            "week": "2026-W12",
+            "weekStart": "2026-03-16",
+            "cups": 2929,
+            "days": 7,
+            "avgDaily": 418.4
+          },
+          {
+            "week": "2026-W13",
+            "weekStart": "2026-03-23",
+            "cups": 5109,
+            "days": 7,
+            "avgDaily": 729.9
+          },
+          {
+            "week": "2026-W14",
+            "weekStart": "2026-03-30",
+            "cups": 5534,
+            "days": 7,
+            "avgDaily": 790.6
+          }
+        ]
+      },
+      "US00002": {
+        "name": "28th & 6th",
+        "weeks": [
+          {
+            "week": "2025-W27",
+            "weekStart": "2025-06-30",
+            "cups": 6699,
+            "days": 7,
+            "avgDaily": 957.0
+          },
+          {
+            "week": "2025-W28",
+            "weekStart": "2025-07-07",
+            "cups": 5348,
+            "days": 7,
+            "avgDaily": 764.0
+          },
+          {
+            "week": "2025-W29",
+            "weekStart": "2025-07-14",
+            "cups": 4559,
+            "days": 7,
+            "avgDaily": 651.3
+          },
+          {
+            "week": "2025-W30",
+            "weekStart": "2025-07-21",
+            "cups": 4899,
+            "days": 7,
+            "avgDaily": 699.9
+          },
+          {
+            "week": "2025-W31",
+            "weekStart": "2025-07-28",
+            "cups": 5175,
+            "days": 7,
+            "avgDaily": 739.3
+          },
+          {
+            "week": "2025-W32",
+            "weekStart": "2025-08-04",
+            "cups": 5643,
+            "days": 7,
+            "avgDaily": 806.1
+          },
+          {
+            "week": "2025-W33",
+            "weekStart": "2025-08-11",
+            "cups": 4852,
+            "days": 7,
+            "avgDaily": 693.1
+          },
+          {
+            "week": "2025-W34",
+            "weekStart": "2025-08-18",
+            "cups": 4454,
+            "days": 7,
+            "avgDaily": 636.3
+          },
+          {
+            "week": "2025-W35",
+            "weekStart": "2025-08-25",
+            "cups": 4583,
+            "days": 7,
+            "avgDaily": 654.7
+          },
+          {
+            "week": "2025-W36",
+            "weekStart": "2025-09-01",
+            "cups": 3925,
+            "days": 7,
+            "avgDaily": 560.7
+          },
+          {
+            "week": "2025-W37",
+            "weekStart": "2025-09-08",
+            "cups": 3728,
+            "days": 7,
+            "avgDaily": 532.6
+          },
+          {
+            "week": "2025-W38",
+            "weekStart": "2025-09-15",
+            "cups": 3984,
+            "days": 7,
+            "avgDaily": 569.1
+          },
+          {
+            "week": "2025-W39",
+            "weekStart": "2025-09-22",
+            "cups": 3628,
+            "days": 7,
+            "avgDaily": 518.3
+          },
+          {
+            "week": "2025-W40",
+            "weekStart": "2025-09-29",
+            "cups": 3938,
+            "days": 7,
+            "avgDaily": 562.6
+          },
+          {
+            "week": "2025-W41",
+            "weekStart": "2025-10-06",
+            "cups": 3286,
+            "days": 7,
+            "avgDaily": 469.4
+          },
+          {
+            "week": "2025-W42",
+            "weekStart": "2025-10-13",
+            "cups": 3318,
+            "days": 7,
+            "avgDaily": 474.0
+          },
+          {
+            "week": "2025-W43",
+            "weekStart": "2025-10-20",
+            "cups": 3341,
+            "days": 7,
+            "avgDaily": 477.3
+          },
+          {
+            "week": "2025-W44",
+            "weekStart": "2025-10-27",
+            "cups": 3179,
+            "days": 7,
+            "avgDaily": 454.1
+          },
+          {
+            "week": "2025-W45",
+            "weekStart": "2025-11-03",
+            "cups": 3468,
+            "days": 7,
+            "avgDaily": 495.4
+          },
+          {
+            "week": "2025-W46",
+            "weekStart": "2025-11-10",
+            "cups": 3172,
+            "days": 7,
+            "avgDaily": 453.1
+          },
+          {
+            "week": "2025-W47",
+            "weekStart": "2025-11-17",
+            "cups": 3212,
+            "days": 7,
+            "avgDaily": 458.9
+          },
+          {
+            "week": "2025-W48",
+            "weekStart": "2025-11-24",
+            "cups": 2928,
+            "days": 7,
+            "avgDaily": 418.3
+          },
+          {
+            "week": "2025-W49",
+            "weekStart": "2025-12-01",
+            "cups": 2693,
+            "days": 7,
+            "avgDaily": 384.7
+          },
+          {
+            "week": "2025-W50",
+            "weekStart": "2025-12-08",
+            "cups": 2501,
+            "days": 7,
+            "avgDaily": 357.3
+          },
+          {
+            "week": "2025-W51",
+            "weekStart": "2025-12-15",
+            "cups": 2275,
+            "days": 7,
+            "avgDaily": 325.0
+          },
+          {
+            "week": "2025-W52",
+            "weekStart": "2025-12-22",
+            "cups": 1648,
+            "days": 7,
+            "avgDaily": 235.4
+          },
+          {
+            "week": "2026-W01",
+            "weekStart": "2025-12-29",
+            "cups": 1803,
+            "days": 7,
+            "avgDaily": 257.6
+          },
+          {
+            "week": "2026-W02",
+            "weekStart": "2026-01-05",
+            "cups": 2127,
+            "days": 7,
+            "avgDaily": 303.9
+          },
+          {
+            "week": "2026-W03",
+            "weekStart": "2026-01-12",
+            "cups": 2072,
+            "days": 7,
+            "avgDaily": 296.0
+          },
+          {
+            "week": "2026-W04",
+            "weekStart": "2026-01-19",
+            "cups": 1806,
+            "days": 7,
+            "avgDaily": 258.0
+          },
+          {
+            "week": "2026-W05",
+            "weekStart": "2026-01-26",
+            "cups": 1830,
+            "days": 7,
+            "avgDaily": 261.4
+          },
+          {
+            "week": "2026-W06",
+            "weekStart": "2026-02-02",
+            "cups": 1969,
+            "days": 7,
+            "avgDaily": 281.3
+          },
+          {
+            "week": "2026-W07",
+            "weekStart": "2026-02-09",
+            "cups": 2159,
+            "days": 7,
+            "avgDaily": 308.4
+          },
+          {
+            "week": "2026-W08",
+            "weekStart": "2026-02-16",
+            "cups": 2032,
+            "days": 7,
+            "avgDaily": 290.3
+          },
+          {
+            "week": "2026-W09",
+            "weekStart": "2026-02-23",
+            "cups": 1798,
+            "days": 6,
+            "avgDaily": 299.7
+          },
+          {
+            "week": "2026-W10",
+            "weekStart": "2026-03-02",
+            "cups": 2179,
+            "days": 7,
+            "avgDaily": 311.3
+          },
+          {
+            "week": "2026-W11",
+            "weekStart": "2026-03-09",
+            "cups": 2455,
+            "days": 7,
+            "avgDaily": 350.7
+          },
+          {
+            "week": "2026-W12",
+            "weekStart": "2026-03-16",
+            "cups": 2301,
+            "days": 7,
+            "avgDaily": 328.7
+          },
+          {
+            "week": "2026-W13",
+            "weekStart": "2026-03-23",
+            "cups": 2574,
+            "days": 7,
+            "avgDaily": 367.7
+          },
+          {
+            "week": "2026-W14",
+            "weekStart": "2026-03-30",
+            "cups": 2610,
+            "days": 7,
+            "avgDaily": 372.9
+          }
+        ]
+      },
+      "US00003": {
+        "name": "100 Maiden Ln",
+        "weeks": [
+          {
+            "week": "2025-W37",
+            "weekStart": "2025-09-08",
+            "cups": 1857,
+            "days": 6,
+            "avgDaily": 309.5
+          },
+          {
+            "week": "2025-W38",
+            "weekStart": "2025-09-15",
+            "cups": 2515,
+            "days": 7,
+            "avgDaily": 359.3
+          },
+          {
+            "week": "2025-W39",
+            "weekStart": "2025-09-22",
+            "cups": 2533,
+            "days": 7,
+            "avgDaily": 361.9
+          },
+          {
+            "week": "2025-W40",
+            "weekStart": "2025-09-29",
+            "cups": 2643,
+            "days": 7,
+            "avgDaily": 377.6
+          },
+          {
+            "week": "2025-W41",
+            "weekStart": "2025-10-06",
+            "cups": 2303,
+            "days": 7,
+            "avgDaily": 329.0
+          },
+          {
+            "week": "2025-W42",
+            "weekStart": "2025-10-13",
+            "cups": 2099,
+            "days": 7,
+            "avgDaily": 299.9
+          },
+          {
+            "week": "2025-W43",
+            "weekStart": "2025-10-20",
+            "cups": 2193,
+            "days": 7,
+            "avgDaily": 313.3
+          },
+          {
+            "week": "2025-W44",
+            "weekStart": "2025-10-27",
+            "cups": 2057,
+            "days": 7,
+            "avgDaily": 293.9
+          },
+          {
+            "week": "2025-W45",
+            "weekStart": "2025-11-03",
+            "cups": 2160,
+            "days": 7,
+            "avgDaily": 308.6
+          },
+          {
+            "week": "2025-W46",
+            "weekStart": "2025-11-10",
+            "cups": 1864,
+            "days": 7,
+            "avgDaily": 266.3
+          },
+          {
+            "week": "2025-W47",
+            "weekStart": "2025-11-17",
+            "cups": 1823,
+            "days": 7,
+            "avgDaily": 260.4
+          },
+          {
+            "week": "2025-W48",
+            "weekStart": "2025-11-24",
+            "cups": 1297,
+            "days": 6,
+            "avgDaily": 216.2
+          },
+          {
+            "week": "2025-W49",
+            "weekStart": "2025-12-01",
+            "cups": 1805,
+            "days": 7,
+            "avgDaily": 257.9
+          },
+          {
+            "week": "2025-W50",
+            "weekStart": "2025-12-08",
+            "cups": 1733,
+            "days": 7,
+            "avgDaily": 247.6
+          },
+          {
+            "week": "2025-W51",
+            "weekStart": "2025-12-15",
+            "cups": 1534,
+            "days": 7,
+            "avgDaily": 219.1
+          },
+          {
+            "week": "2025-W52",
+            "weekStart": "2025-12-22",
+            "cups": 1010,
+            "days": 6,
+            "avgDaily": 168.3
+          },
+          {
+            "week": "2026-W01",
+            "weekStart": "2025-12-29",
+            "cups": 1238,
+            "days": 7,
+            "avgDaily": 176.9
+          },
+          {
+            "week": "2026-W02",
+            "weekStart": "2026-01-05",
+            "cups": 1715,
+            "days": 7,
+            "avgDaily": 245.0
+          },
+          {
+            "week": "2026-W03",
+            "weekStart": "2026-01-12",
+            "cups": 1744,
+            "days": 7,
+            "avgDaily": 249.1
+          },
+          {
+            "week": "2026-W04",
+            "weekStart": "2026-01-19",
+            "cups": 1403,
+            "days": 6,
+            "avgDaily": 233.8
+          },
+          {
+            "week": "2026-W05",
+            "weekStart": "2026-01-26",
+            "cups": 1419,
+            "days": 7,
+            "avgDaily": 202.7
+          },
+          {
+            "week": "2026-W06",
+            "weekStart": "2026-02-02",
+            "cups": 1553,
+            "days": 7,
+            "avgDaily": 221.9
+          },
+          {
+            "week": "2026-W07",
+            "weekStart": "2026-02-09",
+            "cups": 1519,
+            "days": 7,
+            "avgDaily": 217.0
+          },
+          {
+            "week": "2026-W08",
+            "weekStart": "2026-02-16",
+            "cups": 1362,
+            "days": 7,
+            "avgDaily": 194.6
+          },
+          {
+            "week": "2026-W09",
+            "weekStart": "2026-02-23",
+            "cups": 1255,
+            "days": 6,
+            "avgDaily": 209.2
+          },
+          {
+            "week": "2026-W10",
+            "weekStart": "2026-03-02",
+            "cups": 1474,
+            "days": 7,
+            "avgDaily": 210.6
+          },
+          {
+            "week": "2026-W11",
+            "weekStart": "2026-03-09",
+            "cups": 1636,
+            "days": 7,
+            "avgDaily": 233.7
+          },
+          {
+            "week": "2026-W12",
+            "weekStart": "2026-03-16",
+            "cups": 1570,
+            "days": 7,
+            "avgDaily": 224.3
+          },
+          {
+            "week": "2026-W13",
+            "weekStart": "2026-03-23",
+            "cups": 1741,
+            "days": 7,
+            "avgDaily": 248.7
+          },
+          {
+            "week": "2026-W14",
+            "weekStart": "2026-03-30",
+            "cups": 1902,
+            "days": 7,
+            "avgDaily": 271.7
+          }
+        ]
+      },
+      "US00005": {
+        "name": "54th & 8th",
+        "weeks": [
+          {
+            "week": "2025-W35",
+            "weekStart": "2025-08-25",
+            "cups": 3260,
+            "days": 7,
+            "avgDaily": 465.7
+          },
+          {
+            "week": "2025-W36",
+            "weekStart": "2025-09-01",
+            "cups": 2894,
+            "days": 7,
+            "avgDaily": 413.4
+          },
+          {
+            "week": "2025-W37",
+            "weekStart": "2025-09-08",
+            "cups": 2965,
+            "days": 7,
+            "avgDaily": 423.6
+          },
+          {
+            "week": "2025-W38",
+            "weekStart": "2025-09-15",
+            "cups": 3459,
+            "days": 7,
+            "avgDaily": 494.1
+          },
+          {
+            "week": "2025-W39",
+            "weekStart": "2025-09-22",
+            "cups": 3392,
+            "days": 7,
+            "avgDaily": 484.6
+          },
+          {
+            "week": "2025-W40",
+            "weekStart": "2025-09-29",
+            "cups": 3644,
+            "days": 7,
+            "avgDaily": 520.6
+          },
+          {
+            "week": "2025-W41",
+            "weekStart": "2025-10-06",
+            "cups": 3277,
+            "days": 7,
+            "avgDaily": 468.1
+          },
+          {
+            "week": "2025-W42",
+            "weekStart": "2025-10-13",
+            "cups": 3305,
+            "days": 7,
+            "avgDaily": 472.1
+          },
+          {
+            "week": "2025-W43",
+            "weekStart": "2025-10-20",
+            "cups": 3342,
+            "days": 7,
+            "avgDaily": 477.4
+          },
+          {
+            "week": "2025-W44",
+            "weekStart": "2025-10-27",
+            "cups": 3141,
+            "days": 7,
+            "avgDaily": 448.7
+          },
+          {
+            "week": "2025-W45",
+            "weekStart": "2025-11-03",
+            "cups": 3245,
+            "days": 7,
+            "avgDaily": 463.6
+          },
+          {
+            "week": "2025-W46",
+            "weekStart": "2025-11-10",
+            "cups": 2900,
+            "days": 7,
+            "avgDaily": 414.3
+          },
+          {
+            "week": "2025-W47",
+            "weekStart": "2025-11-17",
+            "cups": 2891,
+            "days": 7,
+            "avgDaily": 413.0
+          },
+          {
+            "week": "2025-W48",
+            "weekStart": "2025-11-24",
+            "cups": 2894,
+            "days": 7,
+            "avgDaily": 413.4
+          },
+          {
+            "week": "2025-W49",
+            "weekStart": "2025-12-01",
+            "cups": 2789,
+            "days": 7,
+            "avgDaily": 398.4
+          },
+          {
+            "week": "2025-W50",
+            "weekStart": "2025-12-08",
+            "cups": 2579,
+            "days": 7,
+            "avgDaily": 368.4
+          },
+          {
+            "week": "2025-W51",
+            "weekStart": "2025-12-15",
+            "cups": 2354,
+            "days": 7,
+            "avgDaily": 336.3
+          },
+          {
+            "week": "2025-W52",
+            "weekStart": "2025-12-22",
+            "cups": 2072,
+            "days": 7,
+            "avgDaily": 296.0
+          },
+          {
+            "week": "2026-W01",
+            "weekStart": "2025-12-29",
+            "cups": 2069,
+            "days": 7,
+            "avgDaily": 295.6
+          },
+          {
+            "week": "2026-W02",
+            "weekStart": "2026-01-05",
+            "cups": 2533,
+            "days": 7,
+            "avgDaily": 361.9
+          },
+          {
+            "week": "2026-W03",
+            "weekStart": "2026-01-12",
+            "cups": 2430,
+            "days": 7,
+            "avgDaily": 347.1
+          },
+          {
+            "week": "2026-W04",
+            "weekStart": "2026-01-19",
+            "cups": 2137,
+            "days": 7,
+            "avgDaily": 305.3
+          },
+          {
+            "week": "2026-W05",
+            "weekStart": "2026-01-26",
+            "cups": 2048,
+            "days": 7,
+            "avgDaily": 292.6
+          },
+          {
+            "week": "2026-W06",
+            "weekStart": "2026-02-02",
+            "cups": 2105,
+            "days": 7,
+            "avgDaily": 300.7
+          },
+          {
+            "week": "2026-W07",
+            "weekStart": "2026-02-09",
+            "cups": 2421,
+            "days": 7,
+            "avgDaily": 345.9
+          },
+          {
+            "week": "2026-W08",
+            "weekStart": "2026-02-16",
+            "cups": 2125,
+            "days": 7,
+            "avgDaily": 303.6
+          },
+          {
+            "week": "2026-W09",
+            "weekStart": "2026-02-23",
+            "cups": 1894,
+            "days": 6,
+            "avgDaily": 315.7
+          },
+          {
+            "week": "2026-W10",
+            "weekStart": "2026-03-02",
+            "cups": 2331,
+            "days": 7,
+            "avgDaily": 333.0
+          },
+          {
+            "week": "2026-W11",
+            "weekStart": "2026-03-09",
+            "cups": 2615,
+            "days": 7,
+            "avgDaily": 373.6
+          },
+          {
+            "week": "2026-W12",
+            "weekStart": "2026-03-16",
+            "cups": 2497,
+            "days": 7,
+            "avgDaily": 356.7
+          },
+          {
+            "week": "2026-W13",
+            "weekStart": "2026-03-23",
+            "cups": 2924,
+            "days": 7,
+            "avgDaily": 417.7
+          },
+          {
+            "week": "2026-W14",
+            "weekStart": "2026-03-30",
+            "cups": 3045,
+            "days": 7,
+            "avgDaily": 435.0
+          }
+        ]
+      },
+      "US00008": {
+        "name": "33rd & 10th",
+        "weeks": [
+          {
+            "week": "2025-W49",
+            "weekStart": "2025-12-01",
+            "cups": 2005,
+            "days": 7,
+            "avgDaily": 286.4
+          },
+          {
+            "week": "2025-W50",
+            "weekStart": "2025-12-08",
+            "cups": 2115,
+            "days": 7,
+            "avgDaily": 302.1
+          },
+          {
+            "week": "2025-W51",
+            "weekStart": "2025-12-15",
+            "cups": 1928,
+            "days": 7,
+            "avgDaily": 275.4
+          },
+          {
+            "week": "2025-W52",
+            "weekStart": "2025-12-22",
+            "cups": 987,
+            "days": 6,
+            "avgDaily": 164.5
+          },
+          {
+            "week": "2026-W01",
+            "weekStart": "2025-12-29",
+            "cups": 1074,
+            "days": 6,
+            "avgDaily": 179.0
+          },
+          {
+            "week": "2026-W02",
+            "weekStart": "2026-01-05",
+            "cups": 2122,
+            "days": 7,
+            "avgDaily": 303.1
+          },
+          {
+            "week": "2026-W03",
+            "weekStart": "2026-01-12",
+            "cups": 2198,
+            "days": 7,
+            "avgDaily": 314.0
+          },
+          {
+            "week": "2026-W04",
+            "weekStart": "2026-01-19",
+            "cups": 1745,
+            "days": 6,
+            "avgDaily": 290.8
+          },
+          {
+            "week": "2026-W05",
+            "weekStart": "2026-01-26",
+            "cups": 1563,
+            "days": 7,
+            "avgDaily": 223.3
+          },
+          {
+            "week": "2026-W06",
+            "weekStart": "2026-02-02",
+            "cups": 2021,
+            "days": 7,
+            "avgDaily": 288.7
+          },
+          {
+            "week": "2026-W07",
+            "weekStart": "2026-02-09",
+            "cups": 2117,
+            "days": 7,
+            "avgDaily": 302.4
+          },
+          {
+            "week": "2026-W08",
+            "weekStart": "2026-02-16",
+            "cups": 1704,
+            "days": 7,
+            "avgDaily": 243.4
+          },
+          {
+            "week": "2026-W09",
+            "weekStart": "2026-02-23",
+            "cups": 1420,
+            "days": 6,
+            "avgDaily": 236.7
+          },
+          {
+            "week": "2026-W10",
+            "weekStart": "2026-03-02",
+            "cups": 1809,
+            "days": 7,
+            "avgDaily": 258.4
+          },
+          {
+            "week": "2026-W11",
+            "weekStart": "2026-03-09",
+            "cups": 2279,
+            "days": 7,
+            "avgDaily": 325.6
+          },
+          {
+            "week": "2026-W12",
+            "weekStart": "2026-03-16",
+            "cups": 2028,
+            "days": 7,
+            "avgDaily": 289.7
+          },
+          {
+            "week": "2026-W13",
+            "weekStart": "2026-03-23",
+            "cups": 2168,
+            "days": 7,
+            "avgDaily": 309.7
+          },
+          {
+            "week": "2026-W14",
+            "weekStart": "2026-03-30",
+            "cups": 2356,
+            "days": 7,
+            "avgDaily": 336.6
+          }
+        ]
+      },
+      "US00006": {
+        "name": "102 Fulton",
+        "weeks": [
+          {
+            "week": "2025-W36",
+            "weekStart": "2025-09-01",
+            "cups": 3471,
+            "days": 7,
+            "avgDaily": 495.9
+          },
+          {
+            "week": "2025-W37",
+            "weekStart": "2025-09-08",
+            "cups": 3468,
+            "days": 7,
+            "avgDaily": 495.4
+          },
+          {
+            "week": "2025-W38",
+            "weekStart": "2025-09-15",
+            "cups": 3566,
+            "days": 7,
+            "avgDaily": 509.4
+          },
+          {
+            "week": "2025-W39",
+            "weekStart": "2025-09-22",
+            "cups": 3509,
+            "days": 7,
+            "avgDaily": 501.3
+          },
+          {
+            "week": "2025-W40",
+            "weekStart": "2025-09-29",
+            "cups": 3865,
+            "days": 7,
+            "avgDaily": 552.1
+          },
+          {
+            "week": "2025-W41",
+            "weekStart": "2025-10-06",
+            "cups": 3548,
+            "days": 7,
+            "avgDaily": 506.9
+          },
+          {
+            "week": "2025-W42",
+            "weekStart": "2025-10-13",
+            "cups": 3327,
+            "days": 7,
+            "avgDaily": 475.3
+          },
+          {
+            "week": "2025-W43",
+            "weekStart": "2025-10-20",
+            "cups": 3418,
+            "days": 7,
+            "avgDaily": 488.3
+          },
+          {
+            "week": "2025-W44",
+            "weekStart": "2025-10-27",
+            "cups": 3272,
+            "days": 7,
+            "avgDaily": 467.4
+          },
+          {
+            "week": "2025-W45",
+            "weekStart": "2025-11-03",
+            "cups": 3365,
+            "days": 7,
+            "avgDaily": 480.7
+          },
+          {
+            "week": "2025-W46",
+            "weekStart": "2025-11-10",
+            "cups": 2997,
+            "days": 7,
+            "avgDaily": 428.1
+          },
+          {
+            "week": "2025-W47",
+            "weekStart": "2025-11-17",
+            "cups": 3120,
+            "days": 7,
+            "avgDaily": 445.7
+          },
+          {
+            "week": "2025-W48",
+            "weekStart": "2025-11-24",
+            "cups": 2716,
+            "days": 7,
+            "avgDaily": 388.0
+          },
+          {
+            "week": "2025-W49",
+            "weekStart": "2025-12-01",
+            "cups": 3042,
+            "days": 7,
+            "avgDaily": 434.6
+          },
+          {
+            "week": "2025-W50",
+            "weekStart": "2025-12-08",
+            "cups": 2955,
+            "days": 7,
+            "avgDaily": 422.1
+          },
+          {
+            "week": "2025-W51",
+            "weekStart": "2025-12-15",
+            "cups": 2781,
+            "days": 7,
+            "avgDaily": 397.3
+          },
+          {
+            "week": "2025-W52",
+            "weekStart": "2025-12-22",
+            "cups": 1975,
+            "days": 7,
+            "avgDaily": 282.1
+          },
+          {
+            "week": "2026-W01",
+            "weekStart": "2025-12-29",
+            "cups": 2046,
+            "days": 7,
+            "avgDaily": 292.3
+          },
+          {
+            "week": "2026-W02",
+            "weekStart": "2026-01-05",
+            "cups": 2684,
+            "days": 7,
+            "avgDaily": 383.4
+          },
+          {
+            "week": "2026-W03",
+            "weekStart": "2026-01-12",
+            "cups": 2546,
+            "days": 7,
+            "avgDaily": 363.7
+          },
+          {
+            "week": "2026-W04",
+            "weekStart": "2026-01-19",
+            "cups": 2166,
+            "days": 7,
+            "avgDaily": 309.4
+          },
+          {
+            "week": "2026-W05",
+            "weekStart": "2026-01-26",
+            "cups": 2189,
+            "days": 7,
+            "avgDaily": 312.7
+          },
+          {
+            "week": "2026-W06",
+            "weekStart": "2026-02-02",
+            "cups": 2478,
+            "days": 7,
+            "avgDaily": 354.0
+          },
+          {
+            "week": "2026-W07",
+            "weekStart": "2026-02-09",
+            "cups": 2698,
+            "days": 7,
+            "avgDaily": 385.4
+          },
+          {
+            "week": "2026-W08",
+            "weekStart": "2026-02-16",
+            "cups": 2100,
+            "days": 7,
+            "avgDaily": 300.0
+          },
+          {
+            "week": "2026-W09",
+            "weekStart": "2026-02-23",
+            "cups": 2013,
+            "days": 6,
+            "avgDaily": 335.5
+          },
+          {
+            "week": "2026-W10",
+            "weekStart": "2026-03-02",
+            "cups": 2533,
+            "days": 7,
+            "avgDaily": 361.9
+          },
+          {
+            "week": "2026-W11",
+            "weekStart": "2026-03-09",
+            "cups": 2730,
+            "days": 7,
+            "avgDaily": 390.0
+          },
+          {
+            "week": "2026-W12",
+            "weekStart": "2026-03-16",
+            "cups": 2598,
+            "days": 7,
+            "avgDaily": 371.1
+          },
+          {
+            "week": "2026-W13",
+            "weekStart": "2026-03-23",
+            "cups": 2939,
+            "days": 7,
+            "avgDaily": 419.9
+          },
+          {
+            "week": "2026-W14",
+            "weekStart": "2026-03-30",
+            "cups": 2818,
+            "days": 7,
+            "avgDaily": 402.6
+          }
+        ]
+      },
+      "US00004": {
+        "name": "37th & Broadway",
+        "weeks": [
+          {
+            "week": "2025-W48",
+            "weekStart": "2025-11-24",
+            "cups": 2832,
+            "days": 7,
+            "avgDaily": 404.6
+          },
+          {
+            "week": "2025-W49",
+            "weekStart": "2025-12-01",
+            "cups": 3189,
+            "days": 7,
+            "avgDaily": 455.6
+          },
+          {
+            "week": "2025-W50",
+            "weekStart": "2025-12-08",
+            "cups": 2836,
+            "days": 7,
+            "avgDaily": 405.1
+          },
+          {
+            "week": "2025-W51",
+            "weekStart": "2025-12-15",
+            "cups": 2947,
+            "days": 7,
+            "avgDaily": 421.0
+          },
+          {
+            "week": "2025-W52",
+            "weekStart": "2025-12-22",
+            "cups": 2162,
+            "days": 7,
+            "avgDaily": 308.9
+          },
+          {
+            "week": "2026-W01",
+            "weekStart": "2025-12-29",
+            "cups": 1888,
+            "days": 7,
+            "avgDaily": 269.7
+          },
+          {
+            "week": "2026-W02",
+            "weekStart": "2026-01-05",
+            "cups": 3134,
+            "days": 7,
+            "avgDaily": 447.7
+          },
+          {
+            "week": "2026-W03",
+            "weekStart": "2026-01-12",
+            "cups": 3119,
+            "days": 7,
+            "avgDaily": 445.6
+          },
+          {
+            "week": "2026-W04",
+            "weekStart": "2026-01-19",
+            "cups": 2496,
+            "days": 6,
+            "avgDaily": 416.0
+          },
+          {
+            "week": "2026-W06",
+            "weekStart": "2026-02-02",
+            "cups": 2887,
+            "days": 7,
+            "avgDaily": 412.4
+          },
+          {
+            "week": "2026-W07",
+            "weekStart": "2026-02-09",
+            "cups": 3337,
+            "days": 7,
+            "avgDaily": 476.7
+          },
+          {
+            "week": "2026-W08",
+            "weekStart": "2026-02-16",
+            "cups": 2614,
+            "days": 7,
+            "avgDaily": 373.4
+          },
+          {
+            "week": "2026-W09",
+            "weekStart": "2026-02-23",
+            "cups": 2436,
+            "days": 6,
+            "avgDaily": 406.0
+          },
+          {
+            "week": "2026-W10",
+            "weekStart": "2026-03-02",
+            "cups": 3150,
+            "days": 7,
+            "avgDaily": 450.0
+          },
+          {
+            "week": "2026-W11",
+            "weekStart": "2026-03-09",
+            "cups": 3540,
+            "days": 7,
+            "avgDaily": 505.7
+          },
+          {
+            "week": "2026-W12",
+            "weekStart": "2026-03-16",
+            "cups": 3489,
+            "days": 7,
+            "avgDaily": 498.4
+          },
+          {
+            "week": "2026-W13",
+            "weekStart": "2026-03-23",
+            "cups": 3968,
+            "days": 7,
+            "avgDaily": 566.9
+          },
+          {
+            "week": "2026-W14",
+            "weekStart": "2026-03-30",
+            "cups": 4106,
+            "days": 7,
+            "avgDaily": 586.6
+          }
+        ]
+      },
+      "US00012": {
+        "name": "16th & 6th",
+        "weeks": [
+          {
+            "week": "2026-W13",
+            "weekStart": "2026-03-23",
+            "cups": 912,
+            "days": 6,
+            "avgDaily": 152.0
+          },
+          {
+            "week": "2026-W14",
+            "weekStart": "2026-03-30",
+            "cups": 1335,
+            "days": 7,
+            "avgDaily": 190.7
+          }
+        ]
+      },
+      "US00020": {
+        "name": "21st & 3rd",
+        "weeks": [
+          {
+            "week": "2026-W07",
+            "weekStart": "2026-02-09",
+            "cups": 2069,
+            "days": 7,
+            "avgDaily": 295.6
+          },
+          {
+            "week": "2026-W08",
+            "weekStart": "2026-02-16",
+            "cups": 1812,
+            "days": 7,
+            "avgDaily": 258.9
+          },
+          {
+            "week": "2026-W09",
+            "weekStart": "2026-02-23",
+            "cups": 1526,
+            "days": 6,
+            "avgDaily": 254.3
+          },
+          {
+            "week": "2026-W10",
+            "weekStart": "2026-03-02",
+            "cups": 1038,
+            "days": 7,
+            "avgDaily": 148.3
+          },
+          {
+            "week": "2026-W11",
+            "weekStart": "2026-03-09",
+            "cups": 2064,
+            "days": 7,
+            "avgDaily": 294.9
+          },
+          {
+            "week": "2026-W12",
+            "weekStart": "2026-03-16",
+            "cups": 2084,
+            "days": 7,
+            "avgDaily": 297.7
+          },
+          {
+            "week": "2026-W13",
+            "weekStart": "2026-03-23",
+            "cups": 1838,
+            "days": 7,
+            "avgDaily": 262.6
+          }
+        ]
+      },
+      "US00024": {
+        "name": "15th & 3rd",
+        "weeks": [
+          {
+            "week": "2025-W51",
+            "weekStart": "2025-12-15",
+            "cups": 1380,
+            "days": 7,
+            "avgDaily": 197.1
+          },
+          {
+            "week": "2025-W52",
+            "weekStart": "2025-12-22",
+            "cups": 971,
+            "days": 7,
+            "avgDaily": 138.7
+          },
+          {
+            "week": "2026-W01",
+            "weekStart": "2025-12-29",
+            "cups": 1164,
+            "days": 7,
+            "avgDaily": 166.3
+          },
+          {
+            "week": "2026-W02",
+            "weekStart": "2026-01-05",
+            "cups": 1441,
+            "days": 7,
+            "avgDaily": 205.9
+          },
+          {
+            "week": "2026-W03",
+            "weekStart": "2026-01-12",
+            "cups": 1522,
+            "days": 7,
+            "avgDaily": 217.4
+          },
+          {
+            "week": "2026-W04",
+            "weekStart": "2026-01-19",
+            "cups": 1303,
+            "days": 7,
+            "avgDaily": 186.1
+          },
+          {
+            "week": "2026-W05",
+            "weekStart": "2026-01-26",
+            "cups": 1419,
+            "days": 7,
+            "avgDaily": 202.7
+          },
+          {
+            "week": "2026-W06",
+            "weekStart": "2026-02-02",
+            "cups": 1477,
+            "days": 7,
+            "avgDaily": 211.0
+          },
+          {
+            "week": "2026-W07",
+            "weekStart": "2026-02-09",
+            "cups": 1389,
+            "days": 7,
+            "avgDaily": 198.4
+          },
+          {
+            "week": "2026-W08",
+            "weekStart": "2026-02-16",
+            "cups": 1202,
+            "days": 7,
+            "avgDaily": 171.7
+          },
+          {
+            "week": "2026-W09",
+            "weekStart": "2026-02-23",
+            "cups": 1229,
+            "days": 6,
+            "avgDaily": 204.8
+          },
+          {
+            "week": "2026-W10",
+            "weekStart": "2026-03-02",
+            "cups": 1493,
+            "days": 7,
+            "avgDaily": 213.3
+          },
+          {
+            "week": "2026-W11",
+            "weekStart": "2026-03-09",
+            "cups": 1468,
+            "days": 7,
+            "avgDaily": 209.7
+          },
+          {
+            "week": "2026-W12",
+            "weekStart": "2026-03-16",
+            "cups": 1327,
+            "days": 7,
+            "avgDaily": 189.6
+          },
+          {
+            "week": "2026-W13",
+            "weekStart": "2026-03-23",
+            "cups": 1525,
+            "days": 7,
+            "avgDaily": 217.9
+          },
+          {
+            "week": "2026-W14",
+            "weekStart": "2026-03-30",
+            "cups": 1965,
+            "days": 7,
+            "avgDaily": 280.7
+          }
+        ]
+      },
+      "US00025": {
+        "name": "221 Grand",
+        "weeks": [
+          {
+            "week": "2025-W51",
+            "weekStart": "2025-12-15",
+            "cups": 4509,
+            "days": 7,
+            "avgDaily": 644.1
+          },
+          {
+            "week": "2025-W52",
+            "weekStart": "2025-12-22",
+            "cups": 3777,
+            "days": 7,
+            "avgDaily": 539.6
+          },
+          {
+            "week": "2026-W01",
+            "weekStart": "2025-12-29",
+            "cups": 3910,
+            "days": 7,
+            "avgDaily": 558.6
+          },
+          {
+            "week": "2026-W02",
+            "weekStart": "2026-01-05",
+            "cups": 4138,
+            "days": 7,
+            "avgDaily": 591.1
+          },
+          {
+            "week": "2026-W03",
+            "weekStart": "2026-01-12",
+            "cups": 4028,
+            "days": 7,
+            "avgDaily": 575.4
+          },
+          {
+            "week": "2026-W04",
+            "weekStart": "2026-01-19",
+            "cups": 3207,
+            "days": 7,
+            "avgDaily": 458.1
+          },
+          {
+            "week": "2026-W05",
+            "weekStart": "2026-01-26",
+            "cups": 2811,
+            "days": 7,
+            "avgDaily": 401.6
+          },
+          {
+            "week": "2026-W06",
+            "weekStart": "2026-02-02",
+            "cups": 2676,
+            "days": 7,
+            "avgDaily": 382.3
+          },
+          {
+            "week": "2026-W07",
+            "weekStart": "2026-02-09",
+            "cups": 3546,
+            "days": 7,
+            "avgDaily": 506.6
+          },
+          {
+            "week": "2026-W08",
+            "weekStart": "2026-02-16",
+            "cups": 3478,
+            "days": 7,
+            "avgDaily": 496.9
+          },
+          {
+            "week": "2026-W09",
+            "weekStart": "2026-02-23",
+            "cups": 3239,
+            "days": 6,
+            "avgDaily": 539.8
+          },
+          {
+            "week": "2026-W10",
+            "weekStart": "2026-03-02",
+            "cups": 3351,
+            "days": 7,
+            "avgDaily": 478.7
+          },
+          {
+            "week": "2026-W11",
+            "weekStart": "2026-03-09",
+            "cups": 3348,
+            "days": 7,
+            "avgDaily": 478.3
+          },
+          {
+            "week": "2026-W12",
+            "weekStart": "2026-03-16",
+            "cups": 3757,
+            "days": 7,
+            "avgDaily": 536.7
+          },
+          {
+            "week": "2026-W13",
+            "weekStart": "2026-03-23",
+            "cups": 3953,
+            "days": 7,
+            "avgDaily": 564.7
+          }
+        ]
+      },
+      "US00027": {
+        "name": "52nd & Madison",
+        "weeks": [
+          {
+            "week": "2026-W10",
+            "weekStart": "2026-03-02",
+            "cups": 2044,
+            "days": 7,
+            "avgDaily": 292.0
+          },
+          {
+            "week": "2026-W11",
+            "weekStart": "2026-03-09",
+            "cups": 2498,
+            "days": 7,
+            "avgDaily": 356.9
+          },
+          {
+            "week": "2026-W12",
+            "weekStart": "2026-03-16",
+            "cups": 2418,
+            "days": 6,
+            "avgDaily": 403.0
+          },
+          {
+            "week": "2026-W13",
+            "weekStart": "2026-03-23",
+            "cups": 2982,
+            "days": 7,
+            "avgDaily": 426.0
+          },
+          {
+            "week": "2026-W14",
+            "weekStart": "2026-03-30",
+            "cups": 3202,
+            "days": 7,
+            "avgDaily": 457.4
+          }
+        ]
+      }
+    },
+    "fleetWeekly": [
+      {
+        "week": "2025-W27",
+        "totalCups": 12708,
+        "storeCount": 2,
+        "avgPerStore": 6354.0
+      },
+      {
+        "week": "2025-W28",
+        "totalCups": 10913,
+        "storeCount": 2,
+        "avgPerStore": 5456.5
+      },
+      {
+        "week": "2025-W29",
+        "totalCups": 9502,
+        "storeCount": 2,
+        "avgPerStore": 4751.0
+      },
+      {
+        "week": "2025-W30",
+        "totalCups": 10003,
+        "storeCount": 2,
+        "avgPerStore": 5001.5
+      },
+      {
+        "week": "2025-W31",
+        "totalCups": 10694,
+        "storeCount": 2,
+        "avgPerStore": 5347.0
+      },
+      {
+        "week": "2025-W32",
+        "totalCups": 11647,
+        "storeCount": 2,
+        "avgPerStore": 5823.5
+      },
+      {
+        "week": "2025-W33",
+        "totalCups": 9981,
+        "storeCount": 2,
+        "avgPerStore": 4990.5
+      },
+      {
+        "week": "2025-W34",
+        "totalCups": 9224,
+        "storeCount": 2,
+        "avgPerStore": 4612.0
+      },
+      {
+        "week": "2025-W35",
+        "totalCups": 12937,
+        "storeCount": 3,
+        "avgPerStore": 4312.3
+      },
+      {
+        "week": "2025-W36",
+        "totalCups": 15650,
+        "storeCount": 4,
+        "avgPerStore": 3912.5
+      },
+      {
+        "week": "2025-W37",
+        "totalCups": 18249,
+        "storeCount": 5,
+        "avgPerStore": 3649.8
+      },
+      {
+        "week": "2025-W38",
+        "totalCups": 19818,
+        "storeCount": 5,
+        "avgPerStore": 3963.6
+      },
+      {
+        "week": "2025-W39",
+        "totalCups": 19387,
+        "storeCount": 5,
+        "avgPerStore": 3877.4
+      },
+      {
+        "week": "2025-W40",
+        "totalCups": 21070,
+        "storeCount": 5,
+        "avgPerStore": 4214.0
+      },
+      {
+        "week": "2025-W41",
+        "totalCups": 18350,
+        "storeCount": 5,
+        "avgPerStore": 3670.0
+      },
+      {
+        "week": "2025-W42",
+        "totalCups": 17750,
+        "storeCount": 5,
+        "avgPerStore": 3550.0
+      },
+      {
+        "week": "2025-W43",
+        "totalCups": 17781,
+        "storeCount": 5,
+        "avgPerStore": 3556.2
+      },
+      {
+        "week": "2025-W44",
+        "totalCups": 17403,
+        "storeCount": 5,
+        "avgPerStore": 3480.6
+      },
+      {
+        "week": "2025-W45",
+        "totalCups": 17977,
+        "storeCount": 5,
+        "avgPerStore": 3595.4
+      },
+      {
+        "week": "2025-W46",
+        "totalCups": 15864,
+        "storeCount": 5,
+        "avgPerStore": 3172.8
+      },
+      {
+        "week": "2025-W47",
+        "totalCups": 16486,
+        "storeCount": 5,
+        "avgPerStore": 3297.2
+      },
+      {
+        "week": "2025-W48",
+        "totalCups": 16757,
+        "storeCount": 6,
+        "avgPerStore": 2792.8
+      },
+      {
+        "week": "2025-W49",
+        "totalCups": 20828,
+        "storeCount": 7,
+        "avgPerStore": 2975.4
+      },
+      {
+        "week": "2025-W50",
+        "totalCups": 19743,
+        "storeCount": 7,
+        "avgPerStore": 2820.4
+      },
+      {
+        "week": "2025-W51",
+        "totalCups": 23147,
+        "storeCount": 9,
+        "avgPerStore": 2571.9
+      },
+      {
+        "week": "2025-W52",
+        "totalCups": 16499,
+        "storeCount": 9,
+        "avgPerStore": 1833.2
+      },
+      {
+        "week": "2026-W01",
+        "totalCups": 17393,
+        "storeCount": 9,
+        "avgPerStore": 1932.6
+      },
+      {
+        "week": "2026-W02",
+        "totalCups": 22365,
+        "storeCount": 9,
+        "avgPerStore": 2485.0
+      },
+      {
+        "week": "2026-W03",
+        "totalCups": 22299,
+        "storeCount": 9,
+        "avgPerStore": 2477.7
+      },
+      {
+        "week": "2026-W04",
+        "totalCups": 19667,
+        "storeCount": 9,
+        "avgPerStore": 2185.2
+      },
+      {
+        "week": "2026-W05",
+        "totalCups": 16729,
+        "storeCount": 8,
+        "avgPerStore": 2091.1
+      },
+      {
+        "week": "2026-W06",
+        "totalCups": 21213,
+        "storeCount": 9,
+        "avgPerStore": 2357.0
+      },
+      {
+        "week": "2026-W07",
+        "totalCups": 25706,
+        "storeCount": 10,
+        "avgPerStore": 2570.6
+      },
+      {
+        "week": "2026-W08",
+        "totalCups": 22050,
+        "storeCount": 10,
+        "avgPerStore": 2205.0
+      },
+      {
+        "week": "2026-W09",
+        "totalCups": 20332,
+        "storeCount": 10,
+        "avgPerStore": 2033.2
+      },
+      {
+        "week": "2026-W10",
+        "totalCups": 25867,
+        "storeCount": 11,
+        "avgPerStore": 2351.5
+      },
+      {
+        "week": "2026-W11",
+        "totalCups": 28692,
+        "storeCount": 11,
+        "avgPerStore": 2608.4
+      },
+      {
+        "week": "2026-W12",
+        "totalCups": 26998,
+        "storeCount": 11,
+        "avgPerStore": 2454.4
+      },
+      {
+        "week": "2026-W13",
+        "totalCups": 32633,
+        "storeCount": 12,
+        "avgPerStore": 2719.4
+      },
+      {
+        "week": "2026-W14",
+        "totalCups": 28873,
+        "storeCount": 10,
+        "avgPerStore": 2887.3
+      }
+    ],
+    "metadata": {
+      "totalWeeks": 40,
+      "dateRange": [
+        "2025-06-30",
+        "2026-04-07"
+      ],
+      "csvRows": 1806
+    }
+  },
+  "monthlySeasonality": {
+    "perStore": {
+      "US00001": {
+        "name": "8th & Broadway",
+        "months": [
+          {
+            "month": "2025-07",
+            "avgDaily": 755.2,
+            "days": 31
+          },
+          {
+            "month": "2025-08",
+            "avgDaily": 769.3,
+            "days": 31
+          },
+          {
+            "month": "2025-09",
+            "avgDaily": 886.4,
+            "days": 30
+          },
+          {
+            "month": "2025-10",
+            "avgDaily": 841.5,
+            "days": 31
+          },
+          {
+            "month": "2025-11",
+            "avgDaily": 719.7,
+            "days": 30
+          },
+          {
+            "month": "2025-12",
+            "avgDaily": 534.5,
+            "days": 31
+          },
+          {
+            "month": "2026-01",
+            "avgDaily": 429.0,
+            "days": 30
+          },
+          {
+            "month": "2026-02",
+            "avgDaily": 577.1,
+            "days": 27
+          },
+          {
+            "month": "2026-03",
+            "avgDaily": 607.0,
+            "days": 31
+          }
+        ]
+      },
+      "US00002": {
+        "name": "28th & 6th",
+        "months": [
+          {
+            "month": "2025-07",
+            "avgDaily": 741.3,
+            "days": 31
+          },
+          {
+            "month": "2025-08",
+            "avgDaily": 716.6,
+            "days": 31
+          },
+          {
+            "month": "2025-09",
+            "avgDaily": 543.3,
+            "days": 30
+          },
+          {
+            "month": "2025-10",
+            "avgDaily": 487.5,
+            "days": 31
+          },
+          {
+            "month": "2025-11",
+            "avgDaily": 456.5,
+            "days": 30
+          },
+          {
+            "month": "2025-12",
+            "avgDaily": 320.0,
+            "days": 31
+          },
+          {
+            "month": "2026-01",
+            "avgDaily": 276.8,
+            "days": 31
+          },
+          {
+            "month": "2026-02",
+            "avgDaily": 295.5,
+            "days": 27
+          },
+          {
+            "month": "2026-03",
+            "avgDaily": 341.5,
+            "days": 31
+          }
+        ]
+      },
+      "US00003": {
+        "name": "100 Maiden Ln",
+        "months": [
+          {
+            "month": "2025-10",
+            "avgDaily": 323.4,
+            "days": 31
+          },
+          {
+            "month": "2025-11",
+            "avgDaily": 264.3,
+            "days": 29
+          },
+          {
+            "month": "2025-12",
+            "avgDaily": 222.6,
+            "days": 30
+          },
+          {
+            "month": "2026-01",
+            "avgDaily": 226.1,
+            "days": 30
+          },
+          {
+            "month": "2026-02",
+            "avgDaily": 210.7,
+            "days": 27
+          },
+          {
+            "month": "2026-03",
+            "avgDaily": 231.9,
+            "days": 31
+          }
+        ]
+      },
+      "US00005": {
+        "name": "54th & 8th",
+        "months": [
+          {
+            "month": "2025-09",
+            "avgDaily": 453.7,
+            "days": 30
+          },
+          {
+            "month": "2025-10",
+            "avgDaily": 475.8,
+            "days": 31
+          },
+          {
+            "month": "2025-11",
+            "avgDaily": 433.0,
+            "days": 30
+          },
+          {
+            "month": "2025-12",
+            "avgDaily": 345.7,
+            "days": 31
+          },
+          {
+            "month": "2026-01",
+            "avgDaily": 323.1,
+            "days": 31
+          },
+          {
+            "month": "2026-02",
+            "avgDaily": 317.1,
+            "days": 27
+          },
+          {
+            "month": "2026-03",
+            "avgDaily": 373.5,
+            "days": 31
+          }
+        ]
+      },
+      "US00008": {
+        "name": "33rd & 10th",
+        "months": [
+          {
+            "month": "2025-12",
+            "avgDaily": 255.3,
+            "days": 30
+          },
+          {
+            "month": "2026-01",
+            "avgDaily": 275.2,
+            "days": 29
+          },
+          {
+            "month": "2026-02",
+            "avgDaily": 267.4,
+            "days": 27
+          },
+          {
+            "month": "2026-03",
+            "avgDaily": 298.5,
+            "days": 31
+          }
+        ]
+      },
+      "US00006": {
+        "name": "102 Fulton",
+        "months": [
+          {
+            "month": "2025-09",
+            "avgDaily": 503.7,
+            "days": 30
+          },
+          {
+            "month": "2025-10",
+            "avgDaily": 502.5,
+            "days": 31
+          },
+          {
+            "month": "2025-11",
+            "avgDaily": 431.8,
+            "days": 30
+          },
+          {
+            "month": "2025-12",
+            "avgDaily": 378.9,
+            "days": 31
+          },
+          {
+            "month": "2026-01",
+            "avgDaily": 336.0,
+            "days": 31
+          },
+          {
+            "month": "2026-02",
+            "avgDaily": 344.1,
+            "days": 27
+          },
+          {
+            "month": "2026-03",
+            "avgDaily": 386.5,
+            "days": 31
+          }
+        ]
+      },
+      "US00004": {
+        "name": "37th & Broadway",
+        "months": [
+          {
+            "month": "2025-12",
+            "avgDaily": 393.9,
+            "days": 31
+          },
+          {
+            "month": "2026-01",
+            "avgDaily": 393.3,
+            "days": 27
+          },
+          {
+            "month": "2026-02",
+            "avgDaily": 415.3,
+            "days": 27
+          },
+          {
+            "month": "2026-03",
+            "avgDaily": 512.4,
+            "days": 31
+          }
+        ]
+      },
+      "US00024": {
+        "name": "15th & 3rd",
+        "months": [
+          {
+            "month": "2026-01",
+            "avgDaily": 200.4,
+            "days": 31
+          },
+          {
+            "month": "2026-02",
+            "avgDaily": 196.1,
+            "days": 27
+          },
+          {
+            "month": "2026-03",
+            "avgDaily": 212.3,
+            "days": 31
+          }
+        ]
+      },
+      "US00025": {
+        "name": "221 Grand",
+        "months": [
+          {
+            "month": "2026-01",
+            "avgDaily": 517.5,
+            "days": 31
+          },
+          {
+            "month": "2026-02",
+            "avgDaily": 468.5,
+            "days": 27
+          },
+          {
+            "month": "2026-03",
+            "avgDaily": 524.9,
+            "days": 31
+          }
+        ]
+      }
+    },
+    "fleetAvgByMonth": [
+      {
+        "month": "2025-07",
+        "avgDaily": 748.2,
+        "storeCount": 2,
+        "totalDays": 62
+      },
+      {
+        "month": "2025-08",
+        "avgDaily": 743.0,
+        "storeCount": 2,
+        "totalDays": 62
+      },
+      {
+        "month": "2025-09",
+        "avgDaily": 596.8,
+        "storeCount": 4,
+        "totalDays": 120
+      },
+      {
+        "month": "2025-10",
+        "avgDaily": 526.1,
+        "storeCount": 5,
+        "totalDays": 155
+      },
+      {
+        "month": "2025-11",
+        "avgDaily": 462.4,
+        "storeCount": 5,
+        "totalDays": 149
+      },
+      {
+        "month": "2025-12",
+        "avgDaily": 351.2,
+        "storeCount": 7,
+        "totalDays": 215
+      },
+      {
+        "month": "2026-01",
+        "avgDaily": 330.3,
+        "storeCount": 9,
+        "totalDays": 271
+      },
+      {
+        "month": "2026-02",
+        "avgDaily": 343.5,
+        "storeCount": 9,
+        "totalDays": 243
+      },
+      {
+        "month": "2026-03",
+        "avgDaily": 387.6,
+        "storeCount": 9,
+        "totalDays": 279
+      }
+    ],
+    "seasonalIndex": {
+      "2025-07": 1.5,
+      "2025-08": 1.49,
+      "2025-09": 1.196,
+      "2025-10": 1.055,
+      "2025-11": 0.927,
+      "2025-12": 0.704,
+      "2026-01": 0.662,
+      "2026-02": 0.689,
+      "2026-03": 0.777
+    },
+    "overallFleetAvgDaily": 498.8,
+    "qualifyingStores": 9
+  },
+  "maturationCurves": {
+    "perStore": {
+      "US00001": {
+        "name": "8th & Broadway",
+        "steadyStateAvg": 674.6,
+        "totalWeeks": 40,
+        "curve": [
+          {
+            "week": 0,
+            "avgDaily": 858.4,
+            "pctOfSteady": 127.3,
+            "days": 7
+          },
+          {
+            "week": 1,
+            "avgDaily": 795,
+            "pctOfSteady": 117.8,
+            "days": 7
+          },
+          {
+            "week": 2,
+            "avgDaily": 706.1,
+            "pctOfSteady": 104.7,
+            "days": 7
+          },
+          {
+            "week": 3,
+            "avgDaily": 729.1,
+            "pctOfSteady": 108.1,
+            "days": 7
+          },
+          {
+            "week": 4,
+            "avgDaily": 788.4,
+            "pctOfSteady": 116.9,
+            "days": 7
+          },
+          {
+            "week": 5,
+            "avgDaily": 857.7,
+            "pctOfSteady": 127.1,
+            "days": 7
+          },
+          {
+            "week": 6,
+            "avgDaily": 732.7,
+            "pctOfSteady": 108.6,
+            "days": 7
+          },
+          {
+            "week": 7,
+            "avgDaily": 681.4,
+            "pctOfSteady": 101.0,
+            "days": 7
+          },
+          {
+            "week": 8,
+            "avgDaily": 727.7,
+            "pctOfSteady": 107.9,
+            "days": 7
+          },
+          {
+            "week": 9,
+            "avgDaily": 765.7,
+            "pctOfSteady": 113.5,
+            "days": 7
+          },
+          {
+            "week": 10,
+            "avgDaily": 890.1,
+            "pctOfSteady": 132.0,
+            "days": 7
+          },
+          {
+            "week": 11,
+            "avgDaily": 899.1,
+            "pctOfSteady": 133.3,
+            "days": 7
+          },
+          {
+            "week": 12,
+            "avgDaily": 903.6,
+            "pctOfSteady": 133.9,
+            "days": 7
+          },
+          {
+            "week": 13,
+            "avgDaily": 997.1,
+            "pctOfSteady": 147.8,
+            "days": 7
+          },
+          {
+            "week": 14,
+            "avgDaily": 848,
+            "pctOfSteady": 125.7,
+            "days": 7
+          },
+          {
+            "week": 15,
+            "avgDaily": 814.4,
+            "pctOfSteady": 120.7,
+            "days": 7
+          },
+          {
+            "week": 16,
+            "avgDaily": 783.9,
+            "pctOfSteady": 116.2,
+            "days": 7
+          },
+          {
+            "week": 17,
+            "avgDaily": 822,
+            "pctOfSteady": 121.8,
+            "days": 7
+          },
+          {
+            "week": 18,
+            "avgDaily": 819.9,
+            "pctOfSteady": 121.5,
+            "days": 7
+          },
+          {
+            "week": 19,
+            "avgDaily": 704.4,
+            "pctOfSteady": 104.4,
+            "days": 7
+          },
+          {
+            "week": 20,
+            "avgDaily": 777.1,
+            "pctOfSteady": 115.2,
+            "days": 7
+          },
+          {
+            "week": 21,
+            "avgDaily": 584.3,
+            "pctOfSteady": 86.6,
+            "days": 7
+          },
+          {
+            "week": 22,
+            "avgDaily": 757.9,
+            "pctOfSteady": 112.3,
+            "days": 7
+          },
+          {
+            "week": 23,
+            "avgDaily": 717.7,
+            "pctOfSteady": 106.4,
+            "days": 7
+          },
+          {
+            "week": 24,
+            "avgDaily": 491.3,
+            "pctOfSteady": 72.8,
+            "days": 7
+          },
+          {
+            "week": 25,
+            "avgDaily": 271,
+            "pctOfSteady": 40.2,
+            "days": 7
+          },
+          {
+            "week": 26,
+            "avgDaily": 314.4,
+            "pctOfSteady": 46.6,
+            "days": 7
+          },
+          {
+            "week": 27,
+            "avgDaily": 353,
+            "pctOfSteady": 52.3,
+            "days": 7
+          },
+          {
+            "week": 28,
+            "avgDaily": 377.1,
+            "pctOfSteady": 55.9,
+            "days": 7
+          },
+          {
+            "week": 29,
+            "avgDaily": 486.3,
+            "pctOfSteady": 72.1,
+            "days": 7
+          },
+          {
+            "week": 30,
+            "avgDaily": 575,
+            "pctOfSteady": 85.2,
+            "days": 6
+          },
+          {
+            "week": 31,
+            "avgDaily": 578.1,
+            "pctOfSteady": 85.7,
+            "days": 7
+          },
+          {
+            "week": 32,
+            "avgDaily": 635.9,
+            "pctOfSteady": 94.3,
+            "days": 7
+          },
+          {
+            "week": 33,
+            "avgDaily": 517.3,
+            "pctOfSteady": 76.7,
+            "days": 7
+          },
+          {
+            "week": 34,
+            "avgDaily": 587,
+            "pctOfSteady": 87.0,
+            "days": 6
+          },
+          {
+            "week": 35,
+            "avgDaily": 637.9,
+            "pctOfSteady": 94.6,
+            "days": 7
+          },
+          {
+            "week": 36,
+            "avgDaily": 579.9,
+            "pctOfSteady": 86.0,
+            "days": 7
+          },
+          {
+            "week": 37,
+            "avgDaily": 418.4,
+            "pctOfSteady": 62.0,
+            "days": 7
+          },
+          {
+            "week": 38,
+            "avgDaily": 729.9,
+            "pctOfSteady": 108.2,
+            "days": 7
+          },
+          {
+            "week": 39,
+            "avgDaily": 790.6,
+            "pctOfSteady": 117.2,
+            "days": 7
+          }
+        ]
+      },
+      "US00002": {
+        "name": "28th & 6th",
+        "steadyStateAvg": 432.2,
+        "totalWeeks": 40,
+        "curve": [
+          {
+            "week": 0,
+            "avgDaily": 957,
+            "pctOfSteady": 221.4,
+            "days": 7
+          },
+          {
+            "week": 1,
+            "avgDaily": 764,
+            "pctOfSteady": 176.8,
+            "days": 7
+          },
+          {
+            "week": 2,
+            "avgDaily": 651.3,
+            "pctOfSteady": 150.7,
+            "days": 7
+          },
+          {
+            "week": 3,
+            "avgDaily": 699.9,
+            "pctOfSteady": 161.9,
+            "days": 7
+          },
+          {
+            "week": 4,
+            "avgDaily": 739.3,
+            "pctOfSteady": 171.1,
+            "days": 7
+          },
+          {
+            "week": 5,
+            "avgDaily": 806.1,
+            "pctOfSteady": 186.5,
+            "days": 7
+          },
+          {
+            "week": 6,
+            "avgDaily": 693.1,
+            "pctOfSteady": 160.4,
+            "days": 7
+          },
+          {
+            "week": 7,
+            "avgDaily": 636.3,
+            "pctOfSteady": 147.2,
+            "days": 7
+          },
+          {
+            "week": 8,
+            "avgDaily": 654.7,
+            "pctOfSteady": 151.5,
+            "days": 7
+          },
+          {
+            "week": 9,
+            "avgDaily": 560.7,
+            "pctOfSteady": 129.7,
+            "days": 7
+          },
+          {
+            "week": 10,
+            "avgDaily": 532.6,
+            "pctOfSteady": 123.2,
+            "days": 7
+          },
+          {
+            "week": 11,
+            "avgDaily": 569.1,
+            "pctOfSteady": 131.7,
+            "days": 7
+          },
+          {
+            "week": 12,
+            "avgDaily": 518.3,
+            "pctOfSteady": 119.9,
+            "days": 7
+          },
+          {
+            "week": 13,
+            "avgDaily": 562.6,
+            "pctOfSteady": 130.2,
+            "days": 7
+          },
+          {
+            "week": 14,
+            "avgDaily": 469.4,
+            "pctOfSteady": 108.6,
+            "days": 7
+          },
+          {
+            "week": 15,
+            "avgDaily": 474,
+            "pctOfSteady": 109.7,
+            "days": 7
+          },
+          {
+            "week": 16,
+            "avgDaily": 477.3,
+            "pctOfSteady": 110.4,
+            "days": 7
+          },
+          {
+            "week": 17,
+            "avgDaily": 454.1,
+            "pctOfSteady": 105.1,
+            "days": 7
+          },
+          {
+            "week": 18,
+            "avgDaily": 495.4,
+            "pctOfSteady": 114.6,
+            "days": 7
+          },
+          {
+            "week": 19,
+            "avgDaily": 453.1,
+            "pctOfSteady": 104.8,
+            "days": 7
+          },
+          {
+            "week": 20,
+            "avgDaily": 458.9,
+            "pctOfSteady": 106.2,
+            "days": 7
+          },
+          {
+            "week": 21,
+            "avgDaily": 418.3,
+            "pctOfSteady": 96.8,
+            "days": 7
+          },
+          {
+            "week": 22,
+            "avgDaily": 384.7,
+            "pctOfSteady": 89.0,
+            "days": 7
+          },
+          {
+            "week": 23,
+            "avgDaily": 357.3,
+            "pctOfSteady": 82.7,
+            "days": 7
+          },
+          {
+            "week": 24,
+            "avgDaily": 325,
+            "pctOfSteady": 75.2,
+            "days": 7
+          },
+          {
+            "week": 25,
+            "avgDaily": 235.4,
+            "pctOfSteady": 54.5,
+            "days": 7
+          },
+          {
+            "week": 26,
+            "avgDaily": 257.6,
+            "pctOfSteady": 59.6,
+            "days": 7
+          },
+          {
+            "week": 27,
+            "avgDaily": 303.9,
+            "pctOfSteady": 70.3,
+            "days": 7
+          },
+          {
+            "week": 28,
+            "avgDaily": 296,
+            "pctOfSteady": 68.5,
+            "days": 7
+          },
+          {
+            "week": 29,
+            "avgDaily": 258,
+            "pctOfSteady": 59.7,
+            "days": 7
+          },
+          {
+            "week": 30,
+            "avgDaily": 261.4,
+            "pctOfSteady": 60.5,
+            "days": 7
+          },
+          {
+            "week": 31,
+            "avgDaily": 281.3,
+            "pctOfSteady": 65.1,
+            "days": 7
+          },
+          {
+            "week": 32,
+            "avgDaily": 308.4,
+            "pctOfSteady": 71.4,
+            "days": 7
+          },
+          {
+            "week": 33,
+            "avgDaily": 290.3,
+            "pctOfSteady": 67.2,
+            "days": 7
+          },
+          {
+            "week": 34,
+            "avgDaily": 299.7,
+            "pctOfSteady": 69.3,
+            "days": 6
+          },
+          {
+            "week": 35,
+            "avgDaily": 311.3,
+            "pctOfSteady": 72.0,
+            "days": 7
+          },
+          {
+            "week": 36,
+            "avgDaily": 350.7,
+            "pctOfSteady": 81.1,
+            "days": 7
+          },
+          {
+            "week": 37,
+            "avgDaily": 328.7,
+            "pctOfSteady": 76.1,
+            "days": 7
+          },
+          {
+            "week": 38,
+            "avgDaily": 367.7,
+            "pctOfSteady": 85.1,
+            "days": 7
+          },
+          {
+            "week": 39,
+            "avgDaily": 372.9,
+            "pctOfSteady": 86.3,
+            "days": 7
+          }
+        ]
+      },
+      "US00003": {
+        "name": "100 Maiden Ln",
+        "steadyStateAvg": 243.5,
+        "totalWeeks": 30,
+        "curve": [
+          {
+            "week": 0,
+            "avgDaily": 310.7,
+            "pctOfSteady": 127.6,
+            "days": 7
+          },
+          {
+            "week": 1,
+            "avgDaily": 360.6,
+            "pctOfSteady": 148.1,
+            "days": 7
+          },
+          {
+            "week": 2,
+            "avgDaily": 364.7,
+            "pctOfSteady": 149.8,
+            "days": 7
+          },
+          {
+            "week": 3,
+            "avgDaily": 381.1,
+            "pctOfSteady": 156.5,
+            "days": 7
+          },
+          {
+            "week": 4,
+            "avgDaily": 305.9,
+            "pctOfSteady": 125.6,
+            "days": 7
+          },
+          {
+            "week": 5,
+            "avgDaily": 316.1,
+            "pctOfSteady": 129.8,
+            "days": 7
+          },
+          {
+            "week": 6,
+            "avgDaily": 307.4,
+            "pctOfSteady": 126.3,
+            "days": 7
+          },
+          {
+            "week": 7,
+            "avgDaily": 300.6,
+            "pctOfSteady": 123.4,
+            "days": 7
+          },
+          {
+            "week": 8,
+            "avgDaily": 299,
+            "pctOfSteady": 122.8,
+            "days": 7
+          },
+          {
+            "week": 9,
+            "avgDaily": 269.4,
+            "pctOfSteady": 110.6,
+            "days": 7
+          },
+          {
+            "week": 10,
+            "avgDaily": 259.3,
+            "pctOfSteady": 106.5,
+            "days": 7
+          },
+          {
+            "week": 11,
+            "avgDaily": 217.5,
+            "pctOfSteady": 89.3,
+            "days": 6
+          },
+          {
+            "week": 12,
+            "avgDaily": 254.1,
+            "pctOfSteady": 104.4,
+            "days": 7
+          },
+          {
+            "week": 13,
+            "avgDaily": 237,
+            "pctOfSteady": 97.3,
+            "days": 7
+          },
+          {
+            "week": 14,
+            "avgDaily": 230.3,
+            "pctOfSteady": 94.6,
+            "days": 7
+          },
+          {
+            "week": 15,
+            "avgDaily": 157.2,
+            "pctOfSteady": 64.5,
+            "days": 6
+          },
+          {
+            "week": 16,
+            "avgDaily": 189.1,
+            "pctOfSteady": 77.7,
+            "days": 7
+          },
+          {
+            "week": 17,
+            "avgDaily": 241.4,
+            "pctOfSteady": 99.1,
+            "days": 7
+          },
+          {
+            "week": 18,
+            "avgDaily": 241,
+            "pctOfSteady": 99.0,
+            "days": 7
+          },
+          {
+            "week": 19,
+            "avgDaily": 228.8,
+            "pctOfSteady": 94.0,
+            "days": 6
+          },
+          {
+            "week": 20,
+            "avgDaily": 208.9,
+            "pctOfSteady": 85.8,
+            "days": 7
+          },
+          {
+            "week": 21,
+            "avgDaily": 204,
+            "pctOfSteady": 83.8,
+            "days": 7
+          },
+          {
+            "week": 22,
+            "avgDaily": 233.3,
+            "pctOfSteady": 95.8,
+            "days": 7
+          },
+          {
+            "week": 23,
+            "avgDaily": 193.3,
+            "pctOfSteady": 79.4,
+            "days": 6
+          },
+          {
+            "week": 24,
+            "avgDaily": 208.4,
+            "pctOfSteady": 85.6,
+            "days": 7
+          },
+          {
+            "week": 25,
+            "avgDaily": 214.7,
+            "pctOfSteady": 88.2,
+            "days": 7
+          },
+          {
+            "week": 26,
+            "avgDaily": 225.4,
+            "pctOfSteady": 92.6,
+            "days": 7
+          },
+          {
+            "week": 27,
+            "avgDaily": 233,
+            "pctOfSteady": 95.7,
+            "days": 7
+          },
+          {
+            "week": 28,
+            "avgDaily": 260.9,
+            "pctOfSteady": 107.1,
+            "days": 7
+          },
+          {
+            "week": 29,
+            "avgDaily": 256.9,
+            "pctOfSteady": 105.5,
+            "days": 7
+          }
+        ]
+      },
+      "US00005": {
+        "name": "54th & 8th",
+        "steadyStateAvg": 385.4,
+        "totalWeeks": 32,
+        "curve": [
+          {
+            "week": 0,
+            "avgDaily": 469.9,
+            "pctOfSteady": 121.9,
+            "days": 7
+          },
+          {
+            "week": 1,
+            "avgDaily": 429.9,
+            "pctOfSteady": 111.5,
+            "days": 7
+          },
+          {
+            "week": 2,
+            "avgDaily": 424.7,
+            "pctOfSteady": 110.2,
+            "days": 7
+          },
+          {
+            "week": 3,
+            "avgDaily": 476.7,
+            "pctOfSteady": 123.7,
+            "days": 7
+          },
+          {
+            "week": 4,
+            "avgDaily": 485.6,
+            "pctOfSteady": 126.0,
+            "days": 7
+          },
+          {
+            "week": 5,
+            "avgDaily": 506.1,
+            "pctOfSteady": 131.3,
+            "days": 7
+          },
+          {
+            "week": 6,
+            "avgDaily": 500.7,
+            "pctOfSteady": 129.9,
+            "days": 7
+          },
+          {
+            "week": 7,
+            "avgDaily": 463,
+            "pctOfSteady": 120.1,
+            "days": 7
+          },
+          {
+            "week": 8,
+            "avgDaily": 469.1,
+            "pctOfSteady": 121.7,
+            "days": 7
+          },
+          {
+            "week": 9,
+            "avgDaily": 456.9,
+            "pctOfSteady": 118.5,
+            "days": 7
+          },
+          {
+            "week": 10,
+            "avgDaily": 472.9,
+            "pctOfSteady": 122.7,
+            "days": 7
+          },
+          {
+            "week": 11,
+            "avgDaily": 403,
+            "pctOfSteady": 104.6,
+            "days": 7
+          },
+          {
+            "week": 12,
+            "avgDaily": 427.9,
+            "pctOfSteady": 111.0,
+            "days": 7
+          },
+          {
+            "week": 13,
+            "avgDaily": 418.3,
+            "pctOfSteady": 108.5,
+            "days": 7
+          },
+          {
+            "week": 14,
+            "avgDaily": 391.7,
+            "pctOfSteady": 101.6,
+            "days": 7
+          },
+          {
+            "week": 15,
+            "avgDaily": 379.4,
+            "pctOfSteady": 98.5,
+            "days": 7
+          },
+          {
+            "week": 16,
+            "avgDaily": 339.9,
+            "pctOfSteady": 88.2,
+            "days": 7
+          },
+          {
+            "week": 17,
+            "avgDaily": 301.3,
+            "pctOfSteady": 78.2,
+            "days": 7
+          },
+          {
+            "week": 18,
+            "avgDaily": 296,
+            "pctOfSteady": 76.8,
+            "days": 7
+          },
+          {
+            "week": 19,
+            "avgDaily": 348.1,
+            "pctOfSteady": 90.3,
+            "days": 7
+          },
+          {
+            "week": 20,
+            "avgDaily": 358.4,
+            "pctOfSteady": 93.0,
+            "days": 7
+          },
+          {
+            "week": 21,
+            "avgDaily": 319.9,
+            "pctOfSteady": 83.0,
+            "days": 7
+          },
+          {
+            "week": 22,
+            "avgDaily": 277.9,
+            "pctOfSteady": 72.1,
+            "days": 7
+          },
+          {
+            "week": 23,
+            "avgDaily": 309.3,
+            "pctOfSteady": 80.3,
+            "days": 7
+          },
+          {
+            "week": 24,
+            "avgDaily": 330.3,
+            "pctOfSteady": 85.7,
+            "days": 7
+          },
+          {
+            "week": 25,
+            "avgDaily": 322.4,
+            "pctOfSteady": 83.7,
+            "days": 7
+          },
+          {
+            "week": 26,
+            "avgDaily": 304.5,
+            "pctOfSteady": 79.0,
+            "days": 6
+          },
+          {
+            "week": 27,
+            "avgDaily": 315.1,
+            "pctOfSteady": 81.8,
+            "days": 7
+          },
+          {
+            "week": 28,
+            "avgDaily": 374.4,
+            "pctOfSteady": 97.2,
+            "days": 7
+          },
+          {
+            "week": 29,
+            "avgDaily": 356.3,
+            "pctOfSteady": 92.4,
+            "days": 7
+          },
+          {
+            "week": 30,
+            "avgDaily": 409.9,
+            "pctOfSteady": 106.3,
+            "days": 7
+          },
+          {
+            "week": 31,
+            "avgDaily": 451.6,
+            "pctOfSteady": 117.2,
+            "days": 7
+          }
+        ]
+      },
+      "US00008": {
+        "name": "33rd & 10th",
+        "steadyStateAvg": 282.6,
+        "totalWeeks": 18,
+        "curve": [
+          {
+            "week": 0,
+            "avgDaily": 286.4,
+            "pctOfSteady": 101.4,
+            "days": 7
+          },
+          {
+            "week": 1,
+            "avgDaily": 302.1,
+            "pctOfSteady": 106.9,
+            "days": 7
+          },
+          {
+            "week": 2,
+            "avgDaily": 275.4,
+            "pctOfSteady": 97.5,
+            "days": 7
+          },
+          {
+            "week": 3,
+            "avgDaily": 164.5,
+            "pctOfSteady": 58.2,
+            "days": 6
+          },
+          {
+            "week": 4,
+            "avgDaily": 179,
+            "pctOfSteady": 63.3,
+            "days": 6
+          },
+          {
+            "week": 5,
+            "avgDaily": 303.1,
+            "pctOfSteady": 107.3,
+            "days": 7
+          },
+          {
+            "week": 6,
+            "avgDaily": 314,
+            "pctOfSteady": 111.1,
+            "days": 7
+          },
+          {
+            "week": 7,
+            "avgDaily": 290.8,
+            "pctOfSteady": 102.9,
+            "days": 6
+          },
+          {
+            "week": 8,
+            "avgDaily": 223.3,
+            "pctOfSteady": 79.0,
+            "days": 7
+          },
+          {
+            "week": 9,
+            "avgDaily": 288.7,
+            "pctOfSteady": 102.2,
+            "days": 7
+          },
+          {
+            "week": 10,
+            "avgDaily": 302.4,
+            "pctOfSteady": 107.0,
+            "days": 7
+          },
+          {
+            "week": 11,
+            "avgDaily": 243.4,
+            "pctOfSteady": 86.1,
+            "days": 7
+          },
+          {
+            "week": 12,
+            "avgDaily": 236.7,
+            "pctOfSteady": 83.7,
+            "days": 6
+          },
+          {
+            "week": 13,
+            "avgDaily": 258.4,
+            "pctOfSteady": 91.4,
+            "days": 7
+          },
+          {
+            "week": 14,
+            "avgDaily": 325.6,
+            "pctOfSteady": 115.2,
+            "days": 7
+          },
+          {
+            "week": 15,
+            "avgDaily": 289.7,
+            "pctOfSteady": 102.5,
+            "days": 7
+          },
+          {
+            "week": 16,
+            "avgDaily": 309.7,
+            "pctOfSteady": 109.6,
+            "days": 7
+          },
+          {
+            "week": 17,
+            "avgDaily": 336.6,
+            "pctOfSteady": 119.1,
+            "days": 7
+          }
+        ]
+      },
+      "US00006": {
+        "name": "102 Fulton",
+        "steadyStateAvg": 400.8,
+        "totalWeeks": 32,
+        "curve": [
+          {
+            "week": 0,
+            "avgDaily": 560.7,
+            "pctOfSteady": 139.9,
+            "days": 7
+          },
+          {
+            "week": 1,
+            "avgDaily": 492.3,
+            "pctOfSteady": 122.8,
+            "days": 7
+          },
+          {
+            "week": 2,
+            "avgDaily": 505.9,
+            "pctOfSteady": 126.2,
+            "days": 7
+          },
+          {
+            "week": 3,
+            "avgDaily": 508.7,
+            "pctOfSteady": 126.9,
+            "days": 7
+          },
+          {
+            "week": 4,
+            "avgDaily": 519.9,
+            "pctOfSteady": 129.7,
+            "days": 7
+          },
+          {
+            "week": 5,
+            "avgDaily": 547.4,
+            "pctOfSteady": 136.6,
+            "days": 7
+          },
+          {
+            "week": 6,
+            "avgDaily": 462.3,
+            "pctOfSteady": 115.3,
+            "days": 7
+          },
+          {
+            "week": 7,
+            "avgDaily": 489.3,
+            "pctOfSteady": 122.1,
+            "days": 7
+          },
+          {
+            "week": 8,
+            "avgDaily": 501.1,
+            "pctOfSteady": 125.0,
+            "days": 7
+          },
+          {
+            "week": 9,
+            "avgDaily": 470,
+            "pctOfSteady": 117.3,
+            "days": 7
+          },
+          {
+            "week": 10,
+            "avgDaily": 456.3,
+            "pctOfSteady": 113.8,
+            "days": 7
+          },
+          {
+            "week": 11,
+            "avgDaily": 427.4,
+            "pctOfSteady": 106.6,
+            "days": 7
+          },
+          {
+            "week": 12,
+            "avgDaily": 449.7,
+            "pctOfSteady": 112.2,
+            "days": 7
+          },
+          {
+            "week": 13,
+            "avgDaily": 394,
+            "pctOfSteady": 98.3,
+            "days": 7
+          },
+          {
+            "week": 14,
+            "avgDaily": 434,
+            "pctOfSteady": 108.3,
+            "days": 7
+          },
+          {
+            "week": 15,
+            "avgDaily": 412.9,
+            "pctOfSteady": 103.0,
+            "days": 7
+          },
+          {
+            "week": 16,
+            "avgDaily": 338.3,
+            "pctOfSteady": 84.4,
+            "days": 7
+          },
+          {
+            "week": 17,
+            "avgDaily": 281,
+            "pctOfSteady": 70.1,
+            "days": 7
+          },
+          {
+            "week": 18,
+            "avgDaily": 342,
+            "pctOfSteady": 85.3,
+            "days": 7
+          },
+          {
+            "week": 19,
+            "avgDaily": 369.6,
+            "pctOfSteady": 92.2,
+            "days": 7
+          },
+          {
+            "week": 20,
+            "avgDaily": 332.3,
+            "pctOfSteady": 82.9,
+            "days": 7
+          },
+          {
+            "week": 21,
+            "avgDaily": 298.4,
+            "pctOfSteady": 74.5,
+            "days": 7
+          },
+          {
+            "week": 22,
+            "avgDaily": 355.6,
+            "pctOfSteady": 88.7,
+            "days": 7
+          },
+          {
+            "week": 23,
+            "avgDaily": 360.3,
+            "pctOfSteady": 89.9,
+            "days": 7
+          },
+          {
+            "week": 24,
+            "avgDaily": 344.3,
+            "pctOfSteady": 85.9,
+            "days": 7
+          },
+          {
+            "week": 25,
+            "avgDaily": 299.5,
+            "pctOfSteady": 74.7,
+            "days": 6
+          },
+          {
+            "week": 26,
+            "avgDaily": 361.3,
+            "pctOfSteady": 90.1,
+            "days": 7
+          },
+          {
+            "week": 27,
+            "avgDaily": 388.6,
+            "pctOfSteady": 96.9,
+            "days": 7
+          },
+          {
+            "week": 28,
+            "avgDaily": 370.6,
+            "pctOfSteady": 92.5,
+            "days": 7
+          },
+          {
+            "week": 29,
+            "avgDaily": 397.7,
+            "pctOfSteady": 99.2,
+            "days": 7
+          },
+          {
+            "week": 30,
+            "avgDaily": 428.1,
+            "pctOfSteady": 106.8,
+            "days": 7
+          },
+          {
+            "week": 31,
+            "avgDaily": 372.7,
+            "pctOfSteady": 93.0,
+            "days": 6
+          }
+        ]
+      },
+      "US00004": {
+        "name": "37th & Broadway",
+        "steadyStateAvg": 436.4,
+        "totalWeeks": 19,
+        "curve": [
+          {
+            "week": 0,
+            "avgDaily": 434.3,
+            "pctOfSteady": 99.5,
+            "days": 7
+          },
+          {
+            "week": 1,
+            "avgDaily": 403.4,
+            "pctOfSteady": 92.4,
+            "days": 7
+          },
+          {
+            "week": 2,
+            "avgDaily": 440,
+            "pctOfSteady": 100.8,
+            "days": 7
+          },
+          {
+            "week": 3,
+            "avgDaily": 407.6,
+            "pctOfSteady": 93.4,
+            "days": 7
+          },
+          {
+            "week": 4,
+            "avgDaily": 373.3,
+            "pctOfSteady": 85.5,
+            "days": 7
+          },
+          {
+            "week": 5,
+            "avgDaily": 290.7,
+            "pctOfSteady": 66.6,
+            "days": 7
+          },
+          {
+            "week": 6,
+            "avgDaily": 357.1,
+            "pctOfSteady": 81.8,
+            "days": 7
+          },
+          {
+            "week": 7,
+            "avgDaily": 463.1,
+            "pctOfSteady": 106.1,
+            "days": 7
+          },
+          {
+            "week": 8,
+            "avgDaily": 391.7,
+            "pctOfSteady": 89.8,
+            "days": 7
+          },
+          {
+            "week": 10,
+            "avgDaily": 407.1,
+            "pctOfSteady": 93.3,
+            "days": 7
+          },
+          {
+            "week": 11,
+            "avgDaily": 433.1,
+            "pctOfSteady": 99.3,
+            "days": 7
+          },
+          {
+            "week": 12,
+            "avgDaily": 424.4,
+            "pctOfSteady": 97.3,
+            "days": 7
+          },
+          {
+            "week": 13,
+            "avgDaily": 353,
+            "pctOfSteady": 80.9,
+            "days": 6
+          },
+          {
+            "week": 14,
+            "avgDaily": 447.7,
+            "pctOfSteady": 102.6,
+            "days": 7
+          },
+          {
+            "week": 15,
+            "avgDaily": 501,
+            "pctOfSteady": 114.8,
+            "days": 7
+          },
+          {
+            "week": 16,
+            "avgDaily": 467.7,
+            "pctOfSteady": 107.2,
+            "days": 7
+          },
+          {
+            "week": 17,
+            "avgDaily": 538.7,
+            "pctOfSteady": 123.4,
+            "days": 7
+          },
+          {
+            "week": 18,
+            "avgDaily": 624.1,
+            "pctOfSteady": 143.0,
+            "days": 7
+          },
+          {
+            "week": 19,
+            "avgDaily": 504.8,
+            "pctOfSteady": 115.7,
+            "days": 6
+          }
+        ]
+      },
+      "US00020": {
+        "name": "21st & 3rd",
+        "steadyStateAvg": 274.5,
+        "totalWeeks": 7,
+        "curve": [
+          {
+            "week": 0,
+            "avgDaily": 268.3,
+            "pctOfSteady": 97.7,
+            "days": 7
+          },
+          {
+            "week": 1,
+            "avgDaily": 287,
+            "pctOfSteady": 104.6,
+            "days": 7
+          },
+          {
+            "week": 2,
+            "avgDaily": 242,
+            "pctOfSteady": 88.2,
+            "days": 6
+          },
+          {
+            "week": 3,
+            "avgDaily": 142.4,
+            "pctOfSteady": 51.9,
+            "days": 7
+          },
+          {
+            "week": 4,
+            "avgDaily": 286.4,
+            "pctOfSteady": 104.3,
+            "days": 7
+          },
+          {
+            "week": 5,
+            "avgDaily": 290.6,
+            "pctOfSteady": 105.9,
+            "days": 7
+          },
+          {
+            "week": 6,
+            "avgDaily": 318.7,
+            "pctOfSteady": 116.1,
+            "days": 7
+          }
+        ]
+      },
+      "US00024": {
+        "name": "15th & 3rd",
+        "steadyStateAvg": 209.5,
+        "totalWeeks": 16,
+        "curve": [
+          {
+            "week": 0,
+            "avgDaily": 190.4,
+            "pctOfSteady": 90.9,
+            "days": 7
+          },
+          {
+            "week": 1,
+            "avgDaily": 150.3,
+            "pctOfSteady": 71.7,
+            "days": 7
+          },
+          {
+            "week": 2,
+            "avgDaily": 161.9,
+            "pctOfSteady": 77.3,
+            "days": 7
+          },
+          {
+            "week": 3,
+            "avgDaily": 196.3,
+            "pctOfSteady": 93.7,
+            "days": 7
+          },
+          {
+            "week": 4,
+            "avgDaily": 222,
+            "pctOfSteady": 106.0,
+            "days": 7
+          },
+          {
+            "week": 5,
+            "avgDaily": 203.4,
+            "pctOfSteady": 97.1,
+            "days": 7
+          },
+          {
+            "week": 6,
+            "avgDaily": 190.4,
+            "pctOfSteady": 90.9,
+            "days": 7
+          },
+          {
+            "week": 7,
+            "avgDaily": 208.3,
+            "pctOfSteady": 99.4,
+            "days": 7
+          },
+          {
+            "week": 8,
+            "avgDaily": 198.7,
+            "pctOfSteady": 94.9,
+            "days": 7
+          },
+          {
+            "week": 9,
+            "avgDaily": 178.3,
+            "pctOfSteady": 85.1,
+            "days": 7
+          },
+          {
+            "week": 10,
+            "avgDaily": 199.5,
+            "pctOfSteady": 95.2,
+            "days": 6
+          },
+          {
+            "week": 11,
+            "avgDaily": 205.7,
+            "pctOfSteady": 98.2,
+            "days": 7
+          },
+          {
+            "week": 12,
+            "avgDaily": 212,
+            "pctOfSteady": 101.2,
+            "days": 7
+          },
+          {
+            "week": 13,
+            "avgDaily": 189,
+            "pctOfSteady": 90.2,
+            "days": 7
+          },
+          {
+            "week": 14,
+            "avgDaily": 215.1,
+            "pctOfSteady": 102.7,
+            "days": 7
+          },
+          {
+            "week": 15,
+            "avgDaily": 288,
+            "pctOfSteady": 137.5,
+            "days": 7
+          }
+        ]
+      },
+      "US00025": {
+        "name": "221 Grand",
+        "steadyStateAvg": 493.4,
+        "totalWeeks": 15,
+        "curve": [
+          {
+            "week": 0,
+            "avgDaily": 644.1,
+            "pctOfSteady": 130.6,
+            "days": 7
+          },
+          {
+            "week": 1,
+            "avgDaily": 539.6,
+            "pctOfSteady": 109.4,
+            "days": 7
+          },
+          {
+            "week": 2,
+            "avgDaily": 558.6,
+            "pctOfSteady": 113.2,
+            "days": 7
+          },
+          {
+            "week": 3,
+            "avgDaily": 591.1,
+            "pctOfSteady": 119.8,
+            "days": 7
+          },
+          {
+            "week": 4,
+            "avgDaily": 575.4,
+            "pctOfSteady": 116.6,
+            "days": 7
+          },
+          {
+            "week": 5,
+            "avgDaily": 458.1,
+            "pctOfSteady": 92.9,
+            "days": 7
+          },
+          {
+            "week": 6,
+            "avgDaily": 401.6,
+            "pctOfSteady": 81.4,
+            "days": 7
+          },
+          {
+            "week": 7,
+            "avgDaily": 382.3,
+            "pctOfSteady": 77.5,
+            "days": 7
+          },
+          {
+            "week": 8,
+            "avgDaily": 506.6,
+            "pctOfSteady": 102.7,
+            "days": 7
+          },
+          {
+            "week": 9,
+            "avgDaily": 496.9,
+            "pctOfSteady": 100.7,
+            "days": 7
+          },
+          {
+            "week": 10,
+            "avgDaily": 539.8,
+            "pctOfSteady": 109.4,
+            "days": 6
+          },
+          {
+            "week": 11,
+            "avgDaily": 478.7,
+            "pctOfSteady": 97.0,
+            "days": 7
+          },
+          {
+            "week": 12,
+            "avgDaily": 478.3,
+            "pctOfSteady": 96.9,
+            "days": 7
+          },
+          {
+            "week": 13,
+            "avgDaily": 536.7,
+            "pctOfSteady": 108.8,
+            "days": 7
+          },
+          {
+            "week": 14,
+            "avgDaily": 564.7,
+            "pctOfSteady": 114.5,
+            "days": 7
+          }
+        ]
+      },
+      "US00027": {
+        "name": "52nd & Madison",
+        "steadyStateAvg": 433.5,
+        "totalWeeks": 6,
+        "curve": [
+          {
+            "week": 0,
+            "avgDaily": 293.3,
+            "pctOfSteady": 67.7,
+            "days": 7
+          },
+          {
+            "week": 1,
+            "avgDaily": 348.7,
+            "pctOfSteady": 80.4,
+            "days": 7
+          },
+          {
+            "week": 2,
+            "avgDaily": 339.7,
+            "pctOfSteady": 78.4,
+            "days": 7
+          },
+          {
+            "week": 3,
+            "avgDaily": 448.7,
+            "pctOfSteady": 103.5,
+            "days": 6
+          },
+          {
+            "week": 4,
+            "avgDaily": 470.4,
+            "pctOfSteady": 108.5,
+            "days": 7
+          },
+          {
+            "week": 5,
+            "avgDaily": 390.3,
+            "pctOfSteady": 90.0,
+            "days": 6
+          }
+        ]
+      }
+    },
+    "fleetAverageCurve": [
+      {
+        "week": 0,
+        "avgDaily": 479.4,
+        "pctOfSteady": 114.6,
+        "storeCount": 11
+      },
+      {
+        "week": 1,
+        "avgDaily": 443.0,
+        "pctOfSteady": 105.9,
+        "storeCount": 11
+      },
+      {
+        "week": 2,
+        "avgDaily": 424.6,
+        "pctOfSteady": 101.5,
+        "storeCount": 11
+      },
+      {
+        "week": 3,
+        "avgDaily": 431.5,
+        "pctOfSteady": 103.2,
+        "storeCount": 11
+      },
+      {
+        "week": 4,
+        "avgDaily": 449.6,
+        "pctOfSteady": 107.5,
+        "storeCount": 11
+      },
+      {
+        "week": 5,
+        "avgDaily": 451.8,
+        "pctOfSteady": 108.0,
+        "storeCount": 11
+      },
+      {
+        "week": 6,
+        "avgDaily": 427.8,
+        "pctOfSteady": 102.3,
+        "storeCount": 10
+      },
+      {
+        "week": 7,
+        "avgDaily": 435.0,
+        "pctOfSteady": 104.0,
+        "storeCount": 9
+      },
+      {
+        "week": 8,
+        "avgDaily": 441.3,
+        "pctOfSteady": 105.5,
+        "storeCount": 9
+      },
+      {
+        "week": 9,
+        "avgDaily": 435.8,
+        "pctOfSteady": 104.2,
+        "storeCount": 8
+      },
+      {
+        "week": 10,
+        "avgDaily": 451.1,
+        "pctOfSteady": 107.9,
+        "storeCount": 9
+      },
+      {
+        "week": 11,
+        "avgDaily": 430.8,
+        "pctOfSteady": 103.0,
+        "storeCount": 9
+      },
+      {
+        "week": 12,
+        "avgDaily": 433.9,
+        "pctOfSteady": 103.8,
+        "storeCount": 9
+      },
+      {
+        "week": 13,
+        "avgDaily": 438.5,
+        "pctOfSteady": 104.9,
+        "storeCount": 9
+      },
+      {
+        "week": 14,
+        "avgDaily": 436.3,
+        "pctOfSteady": 104.3,
+        "storeCount": 9
+      },
+      {
+        "week": 15,
+        "avgDaily": 414.6,
+        "pctOfSteady": 99.1,
+        "storeCount": 8
+      },
+      {
+        "week": 16,
+        "avgDaily": 415.1,
+        "pctOfSteady": 99.3,
+        "storeCount": 7
+      },
+      {
+        "week": 17,
+        "avgDaily": 425.0,
+        "pctOfSteady": 101.6,
+        "storeCount": 7
+      },
+      {
+        "week": 18,
+        "avgDaily": 469.7,
+        "pctOfSteady": 112.3,
+        "storeCount": 6
+      },
+      {
+        "week": 19,
+        "avgDaily": 434.8,
+        "pctOfSteady": 104.0,
+        "storeCount": 6
+      },
+      {
+        "week": 20,
+        "avgDaily": 427.1,
+        "pctOfSteady": 102.1,
+        "storeCount": 5
+      },
+      {
+        "week": 21,
+        "avgDaily": 365.0,
+        "pctOfSteady": 87.3,
+        "storeCount": 5
+      },
+      {
+        "week": 22,
+        "avgDaily": 401.9,
+        "pctOfSteady": 96.1,
+        "storeCount": 5
+      },
+      {
+        "week": 23,
+        "avgDaily": 387.6,
+        "pctOfSteady": 92.7,
+        "storeCount": 5
+      },
+      {
+        "week": 24,
+        "avgDaily": 339.9,
+        "pctOfSteady": 81.3,
+        "storeCount": 5
+      },
+      {
+        "week": 25,
+        "avgDaily": 268.6,
+        "pctOfSteady": 64.2,
+        "storeCount": 5
+      },
+      {
+        "week": 26,
+        "avgDaily": 292.6,
+        "pctOfSteady": 70.0,
+        "storeCount": 5
+      },
+      {
+        "week": 27,
+        "avgDaily": 318.7,
+        "pctOfSteady": 76.2,
+        "storeCount": 5
+      },
+      {
+        "week": 28,
+        "avgDaily": 335.8,
+        "pctOfSteady": 80.3,
+        "storeCount": 5
+      },
+      {
+        "week": 29,
+        "avgDaily": 351.0,
+        "pctOfSteady": 83.9,
+        "storeCount": 5
+      },
+      {
+        "week": 30,
+        "avgDaily": 418.6,
+        "pctOfSteady": 100.1,
+        "storeCount": 4
+      },
+      {
+        "week": 31,
+        "avgDaily": 420.9,
+        "pctOfSteady": 100.7,
+        "storeCount": 4
+      },
+      {
+        "week": 32,
+        "avgDaily": 472.1,
+        "pctOfSteady": 112.9,
+        "storeCount": 2
+      },
+      {
+        "week": 33,
+        "avgDaily": 403.8,
+        "pctOfSteady": 96.6,
+        "storeCount": 2
+      },
+      {
+        "week": 34,
+        "avgDaily": 443.3,
+        "pctOfSteady": 106.0,
+        "storeCount": 2
+      },
+      {
+        "week": 35,
+        "avgDaily": 474.6,
+        "pctOfSteady": 113.5,
+        "storeCount": 2
+      },
+      {
+        "week": 36,
+        "avgDaily": 465.3,
+        "pctOfSteady": 111.3,
+        "storeCount": 2
+      },
+      {
+        "week": 37,
+        "avgDaily": 373.6,
+        "pctOfSteady": 89.3,
+        "storeCount": 2
+      },
+      {
+        "week": 38,
+        "avgDaily": 548.8,
+        "pctOfSteady": 131.2,
+        "storeCount": 2
+      },
+      {
+        "week": 39,
+        "avgDaily": 581.7,
+        "pctOfSteady": 139.1,
+        "storeCount": 2
+      }
+    ],
+    "fleetSteadyStateAvg": 418.2
+  },
+  "cannibalizationEvidence": {
+    "pairs": [
+      {
+        "newStore": "33rd & 10th",
+        "affectedStore": "28th & 6th",
+        "distanceMiles": 0.71,
+        "openDate": "2025-12-01",
+        "beforePeriod": {
+          "start": "2025-11-03",
+          "end": "2025-11-30",
+          "avgDailyCups": 456.4,
+          "days": 28
+        },
+        "afterPeriod": {
+          "start": "2025-12-01",
+          "end": "2025-12-28",
+          "avgDailyCups": 325.6,
+          "days": 28
+        },
+        "rawChangePct": -28.7,
+        "marketChangePct": -14.8,
+        "marketAdjustedChangePct": -13.8,
+        "huffPredictedChangePct": -4.3,
+        "huffOverlapPct": 28.6,
+        "actualDiversionDaily": 130.8,
+        "huffPredictedDiversionDaily": 19.6,
+        "verdict": "Huff model underestimated impact \u2014 actual -13.8% vs predicted -4.3%",
+        "skipped": false
+      },
+      {
+        "newStore": "21st & 3rd",
+        "affectedStore": "15th & 3rd",
+        "distanceMiles": 0.26,
+        "openDate": "2026-02-06",
+        "beforePeriod": {
+          "start": "2026-01-09",
+          "end": "2026-02-05",
+          "avgDailyCups": 207.3,
+          "days": 28
+        },
+        "afterPeriod": {
+          "start": "2026-02-06",
+          "end": "2026-03-05",
+          "avgDailyCups": 193.2,
+          "days": 27
+        },
+        "rawChangePct": -6.8,
+        "marketChangePct": 2.0,
+        "marketAdjustedChangePct": -8.8,
+        "huffPredictedChangePct": -11.1,
+        "huffOverlapPct": 74.1,
+        "actualDiversionDaily": 14.1,
+        "huffPredictedDiversionDaily": 23.0,
+        "verdict": "Huff model reasonably accurate \u2014 actual -8.8% vs predicted -11.1%",
+        "skipped": false
+      },
+      {
+        "newStore": "52nd & Madison",
+        "affectedStore": "37th & Broadway",
+        "distanceMiles": 0.79,
+        "openDate": "2026-02-26",
+        "beforePeriod": {
+          "start": "2026-01-29",
+          "end": "2026-02-25",
+          "avgDailyCups": 406.3,
+          "days": 27
+        },
+        "afterPeriod": {
+          "start": "2026-02-26",
+          "end": "2026-03-25",
+          "avgDailyCups": 488.8,
+          "days": 28
+        },
+        "rawChangePct": 20.3,
+        "marketChangePct": 6.7,
+        "marketAdjustedChangePct": 13.6,
+        "huffPredictedChangePct": -3.1,
+        "huffOverlapPct": 20.6,
+        "actualDiversionDaily": 0,
+        "huffPredictedDiversionDaily": 12.6,
+        "verdict": "No significant cannibalization detected (market-adjusted change: +13.6%)",
+        "skipped": false
+      },
+      {
+        "newStore": "16th & 6th",
+        "affectedStore": "8th & Broadway",
+        "distanceMiles": 0.58,
+        "openDate": "2026-03-23",
+        "beforePeriod": {
+          "start": "2026-02-23",
+          "end": "2026-03-22",
+          "avgDailyCups": 554.6,
+          "days": 27
+        },
+        "afterPeriod": {
+          "start": "2026-03-23",
+          "end": "2026-04-19",
+          "avgDailyCups": 768.2,
+          "days": 16
+        },
+        "rawChangePct": 38.5,
+        "marketChangePct": 17.7,
+        "marketAdjustedChangePct": 20.8,
+        "huffPredictedChangePct": -6.3,
+        "huffOverlapPct": 42.2,
+        "actualDiversionDaily": 0,
+        "huffPredictedDiversionDaily": 35.1,
+        "verdict": "No significant cannibalization detected (market-adjusted change: +20.8%)",
+        "skipped": false
+      },
+      {
+        "newStore": "16th & 6th",
+        "affectedStore": "15th & 3rd",
+        "distanceMiles": 0.61,
+        "openDate": "2026-03-23",
+        "beforePeriod": {
+          "start": "2026-02-23",
+          "end": "2026-03-22",
+          "avgDailyCups": 204.3,
+          "days": 27
+        },
+        "afterPeriod": {
+          "start": "2026-03-23",
+          "end": "2026-04-19",
+          "avgDailyCups": 247.2,
+          "days": 16
+        },
+        "rawChangePct": 21.0,
+        "marketChangePct": 21.5,
+        "marketAdjustedChangePct": -0.5,
+        "huffPredictedChangePct": -5.8,
+        "huffOverlapPct": 38.8,
+        "actualDiversionDaily": 0,
+        "huffPredictedDiversionDaily": 11.9,
+        "verdict": "No significant cannibalization detected (market-adjusted change: -0.5%)",
+        "skipped": false
+      }
+    ],
+    "summary": {
+      "totalPairsAnalyzed": 5,
+      "pairsSkipped": 0,
+      "avgRawChangePct": 8.9,
+      "avgAdjustedChangePct": 2.3
+    }
+  },
+  "dowHeatmap": {
+    "perStore": {
+      "US00001": {
+        "name": "8th & Broadway",
+        "pattern": "balanced",
+        "dow": {
+          "Sun": {
+            "avgCups": 547.6,
+            "index": 0.812,
+            "sampleDays": 36
+          },
+          "Mon": {
+            "avgCups": 691.4,
+            "index": 1.025,
+            "sampleDays": 35
+          },
+          "Tue": {
+            "avgCups": 733.2,
+            "index": 1.087,
+            "sampleDays": 37
+          },
+          "Wed": {
+            "avgCups": 734.5,
+            "index": 1.089,
+            "sampleDays": 36
+          },
+          "Thu": {
+            "avgCups": 710.0,
+            "index": 1.052,
+            "sampleDays": 36
+          },
+          "Fri": {
+            "avgCups": 620.2,
+            "index": 0.919,
+            "sampleDays": 36
+          },
+          "Sat": {
+            "avgCups": 684.2,
+            "index": 1.014,
+            "sampleDays": 36
+          }
+        },
+        "peakDay": "Wed",
+        "troughDay": "Sun",
+        "weekdayAvg": 697.9,
+        "weekendAvg": 615.9,
+        "volatility": 0.101
+      },
+      "US00002": {
+        "name": "28th & 6th",
+        "pattern": "balanced",
+        "dow": {
+          "Sun": {
+            "avgCups": 395.1,
+            "index": 0.914,
+            "sampleDays": 36
+          },
+          "Mon": {
+            "avgCups": 400.9,
+            "index": 0.928,
+            "sampleDays": 36
+          },
+          "Tue": {
+            "avgCups": 438.1,
+            "index": 1.014,
+            "sampleDays": 37
+          },
+          "Wed": {
+            "avgCups": 450.9,
+            "index": 1.043,
+            "sampleDays": 36
+          },
+          "Thu": {
+            "avgCups": 420.5,
+            "index": 0.973,
+            "sampleDays": 36
+          },
+          "Fri": {
+            "avgCups": 426.8,
+            "index": 0.987,
+            "sampleDays": 36
+          },
+          "Sat": {
+            "avgCups": 493.2,
+            "index": 1.141,
+            "sampleDays": 36
+          }
+        },
+        "peakDay": "Sat",
+        "troughDay": "Sun",
+        "weekdayAvg": 427.4,
+        "weekendAvg": 444.1,
+        "volatility": 0.077
+      },
+      "US00003": {
+        "name": "100 Maiden Ln",
+        "pattern": "commuter",
+        "dow": {
+          "Sun": {
+            "avgCups": 173.9,
+            "index": 0.714,
+            "sampleDays": 25
+          },
+          "Mon": {
+            "avgCups": 238.3,
+            "index": 0.979,
+            "sampleDays": 25
+          },
+          "Tue": {
+            "avgCups": 282.3,
+            "index": 1.16,
+            "sampleDays": 27
+          },
+          "Wed": {
+            "avgCups": 289.7,
+            "index": 1.19,
+            "sampleDays": 26
+          },
+          "Thu": {
+            "avgCups": 280.4,
+            "index": 1.152,
+            "sampleDays": 24
+          },
+          "Fri": {
+            "avgCups": 253.7,
+            "index": 1.042,
+            "sampleDays": 26
+          },
+          "Sat": {
+            "avgCups": 184.3,
+            "index": 0.757,
+            "sampleDays": 26
+          }
+        },
+        "peakDay": "Wed",
+        "troughDay": "Sun",
+        "weekdayAvg": 268.9,
+        "weekendAvg": 179.1,
+        "volatility": 0.195
+      },
+      "US00005": {
+        "name": "54th & 8th",
+        "pattern": "balanced",
+        "dow": {
+          "Sun": {
+            "avgCups": 375.8,
+            "index": 0.975,
+            "sampleDays": 29
+          },
+          "Mon": {
+            "avgCups": 352.5,
+            "index": 0.915,
+            "sampleDays": 28
+          },
+          "Tue": {
+            "avgCups": 381.1,
+            "index": 0.989,
+            "sampleDays": 29
+          },
+          "Wed": {
+            "avgCups": 403.1,
+            "index": 1.046,
+            "sampleDays": 28
+          },
+          "Thu": {
+            "avgCups": 379.8,
+            "index": 0.985,
+            "sampleDays": 28
+          },
+          "Fri": {
+            "avgCups": 382.1,
+            "index": 0.991,
+            "sampleDays": 28
+          },
+          "Sat": {
+            "avgCups": 424.2,
+            "index": 1.101,
+            "sampleDays": 28
+          }
+        },
+        "peakDay": "Sat",
+        "troughDay": "Mon",
+        "weekdayAvg": 379.7,
+        "weekendAvg": 400.0,
+        "volatility": 0.059
+      },
+      "US00008": {
+        "name": "33rd & 10th",
+        "pattern": "commuter",
+        "dow": {
+          "Sun": {
+            "avgCups": 122.2,
+            "index": 0.432,
+            "sampleDays": 13
+          },
+          "Mon": {
+            "avgCups": 271.9,
+            "index": 0.962,
+            "sampleDays": 14
+          },
+          "Tue": {
+            "avgCups": 360.8,
+            "index": 1.277,
+            "sampleDays": 15
+          },
+          "Wed": {
+            "avgCups": 405.2,
+            "index": 1.434,
+            "sampleDays": 14
+          },
+          "Thu": {
+            "avgCups": 368.4,
+            "index": 1.303,
+            "sampleDays": 14
+          },
+          "Fri": {
+            "avgCups": 295.4,
+            "index": 1.045,
+            "sampleDays": 14
+          },
+          "Sat": {
+            "avgCups": 126.5,
+            "index": 0.448,
+            "sampleDays": 13
+          }
+        },
+        "peakDay": "Wed",
+        "troughDay": "Sun",
+        "weekdayAvg": 340.3,
+        "weekendAvg": 124.3,
+        "volatility": 0.405
+      },
+      "US00006": {
+        "name": "102 Fulton",
+        "pattern": "commuter",
+        "dow": {
+          "Sun": {
+            "avgCups": 272.3,
+            "index": 0.679,
+            "sampleDays": 28
+          },
+          "Mon": {
+            "avgCups": 389.6,
+            "index": 0.972,
+            "sampleDays": 27
+          },
+          "Tue": {
+            "avgCups": 455.1,
+            "index": 1.135,
+            "sampleDays": 28
+          },
+          "Wed": {
+            "avgCups": 497.5,
+            "index": 1.241,
+            "sampleDays": 27
+          },
+          "Thu": {
+            "avgCups": 451.8,
+            "index": 1.127,
+            "sampleDays": 28
+          },
+          "Fri": {
+            "avgCups": 420.1,
+            "index": 1.048,
+            "sampleDays": 28
+          },
+          "Sat": {
+            "avgCups": 322.4,
+            "index": 0.804,
+            "sampleDays": 28
+          }
+        },
+        "peakDay": "Wed",
+        "troughDay": "Sun",
+        "weekdayAvg": 442.8,
+        "weekendAvg": 297.4,
+        "volatility": 0.199
+      },
+      "US00004": {
+        "name": "37th & Broadway",
+        "pattern": "commuter",
+        "dow": {
+          "Sun": {
+            "avgCups": 207.1,
+            "index": 0.475,
+            "sampleDays": 15
+          },
+          "Mon": {
+            "avgCups": 458.4,
+            "index": 1.05,
+            "sampleDays": 14
+          },
+          "Tue": {
+            "avgCups": 587.7,
+            "index": 1.347,
+            "sampleDays": 15
+          },
+          "Wed": {
+            "avgCups": 629.1,
+            "index": 1.441,
+            "sampleDays": 14
+          },
+          "Thu": {
+            "avgCups": 545.9,
+            "index": 1.251,
+            "sampleDays": 16
+          },
+          "Fri": {
+            "avgCups": 399.4,
+            "index": 0.915,
+            "sampleDays": 16
+          },
+          "Sat": {
+            "avgCups": 249.4,
+            "index": 0.571,
+            "sampleDays": 16
+          }
+        },
+        "peakDay": "Wed",
+        "troughDay": "Sun",
+        "weekdayAvg": 524.1,
+        "weekendAvg": 228.2,
+        "volatility": 0.376
+      },
+      "US00020": {
+        "name": "21st & 3rd",
+        "pattern": "balanced",
+        "dow": {
+          "Sun": {
+            "avgCups": 235.2,
+            "index": 0.857,
+            "sampleDays": 5
+          },
+          "Mon": {
+            "avgCups": 266.4,
+            "index": 0.97,
+            "sampleDays": 5
+          },
+          "Tue": {
+            "avgCups": 297.8,
+            "index": 1.085,
+            "sampleDays": 4
+          },
+          "Wed": {
+            "avgCups": 318.3,
+            "index": 1.16,
+            "sampleDays": 3
+          },
+          "Thu": {
+            "avgCups": 301.3,
+            "index": 1.098,
+            "sampleDays": 3
+          },
+          "Fri": {
+            "avgCups": 292.2,
+            "index": 1.064,
+            "sampleDays": 4
+          },
+          "Sat": {
+            "avgCups": 239.8,
+            "index": 0.874,
+            "sampleDays": 4
+          }
+        },
+        "peakDay": "Wed",
+        "troughDay": "Sun",
+        "weekdayAvg": 295.2,
+        "weekendAvg": 237.5,
+        "volatility": 0.117
+      },
+      "US00024": {
+        "name": "15th & 3rd",
+        "pattern": "balanced",
+        "dow": {
+          "Sun": {
+            "avgCups": 181.5,
+            "index": 0.866,
+            "sampleDays": 13
+          },
+          "Mon": {
+            "avgCups": 194.2,
+            "index": 0.927,
+            "sampleDays": 12
+          },
+          "Tue": {
+            "avgCups": 230,
+            "index": 1.098,
+            "sampleDays": 13
+          },
+          "Wed": {
+            "avgCups": 226.6,
+            "index": 1.082,
+            "sampleDays": 12
+          },
+          "Thu": {
+            "avgCups": 207.3,
+            "index": 0.99,
+            "sampleDays": 12
+          },
+          "Fri": {
+            "avgCups": 215.6,
+            "index": 1.029,
+            "sampleDays": 12
+          },
+          "Sat": {
+            "avgCups": 211.7,
+            "index": 1.011,
+            "sampleDays": 12
+          }
+        },
+        "peakDay": "Tue",
+        "troughDay": "Sun",
+        "weekdayAvg": 214.7,
+        "weekendAvg": 196.6,
+        "volatility": 0.082
+      },
+      "US00025": {
+        "name": "221 Grand",
+        "pattern": "tourist/residential",
+        "dow": {
+          "Sun": {
+            "avgCups": 470.1,
+            "index": 0.953,
+            "sampleDays": 11
+          },
+          "Mon": {
+            "avgCups": 458.2,
+            "index": 0.929,
+            "sampleDays": 11
+          },
+          "Tue": {
+            "avgCups": 461.1,
+            "index": 0.935,
+            "sampleDays": 12
+          },
+          "Wed": {
+            "avgCups": 476.8,
+            "index": 0.966,
+            "sampleDays": 12
+          },
+          "Thu": {
+            "avgCups": 433.9,
+            "index": 0.879,
+            "sampleDays": 12
+          },
+          "Fri": {
+            "avgCups": 517.5,
+            "index": 1.049,
+            "sampleDays": 11
+          },
+          "Sat": {
+            "avgCups": 645.9,
+            "index": 1.309,
+            "sampleDays": 11
+          }
+        },
+        "peakDay": "Sat",
+        "troughDay": "Thu",
+        "weekdayAvg": 469.5,
+        "weekendAvg": 558.0,
+        "volatility": 0.144
+      }
+    },
+    "fleetAverage": {
+      "Sun": 298.1,
+      "Mon": 372.2,
+      "Tue": 422.7,
+      "Wed": 443.2,
+      "Thu": 409.9,
+      "Fri": 382.3,
+      "Sat": 358.2
+    }
+  },
+  "revenueComposition": {
+    "perStore": {
+      "US00001": {
+        "name": "8th & Broadway",
+        "avgDailyOrders": 588.5,
+        "avgDailyCups": 747,
+        "cupsPerOrder": 1.27,
+        "avgOrderValue": 4.5,
+        "avgRevenuePerCup": 3.27,
+        "dailyRevenue": 2439.39,
+        "itemsVsCupsDelta": "REVENUE_DATA items (747) includes non-cup items"
+      },
+      "US00002": {
+        "name": "28th & 6th",
+        "avgDailyOrders": 377.5,
+        "avgDailyCups": 502,
+        "cupsPerOrder": 1.33,
+        "avgOrderValue": 4.8,
+        "avgRevenuePerCup": 3.32,
+        "dailyRevenue": 1667.41,
+        "itemsVsCupsDelta": "REVENUE_DATA items (502) includes non-cup items"
+      },
+      "US00003": {
+        "name": "100 Maiden Ln",
+        "avgDailyOrders": 215.7,
+        "avgDailyCups": 286,
+        "cupsPerOrder": 1.33,
+        "avgOrderValue": 4.81,
+        "avgRevenuePerCup": 3.38,
+        "dailyRevenue": 965.37,
+        "itemsVsCupsDelta": "REVENUE_DATA items (286) includes non-cup items"
+      },
+      "US00005": {
+        "name": "54th & 8th",
+        "avgDailyOrders": 314.3,
+        "avgDailyCups": 429,
+        "cupsPerOrder": 1.36,
+        "avgOrderValue": 5.25,
+        "avgRevenuePerCup": 3.54,
+        "dailyRevenue": 1516.63,
+        "itemsVsCupsDelta": "REVENUE_DATA items (429) includes non-cup items"
+      },
+      "US00008": {
+        "name": "33rd & 10th",
+        "avgDailyOrders": 226.3,
+        "avgDailyCups": 305,
+        "cupsPerOrder": 1.35,
+        "avgOrderValue": 4.83,
+        "avgRevenuePerCup": 3.35,
+        "dailyRevenue": 1020.68,
+        "itemsVsCupsDelta": "REVENUE_DATA items (305) includes non-cup items"
+      },
+      "US00006": {
+        "name": "102 Fulton",
+        "avgDailyOrders": 349.8,
+        "avgDailyCups": 457,
+        "cupsPerOrder": 1.31,
+        "avgOrderValue": 4.9,
+        "avgRevenuePerCup": 3.44,
+        "dailyRevenue": 1573.34,
+        "itemsVsCupsDelta": "REVENUE_DATA items (457) includes non-cup items"
+      },
+      "US00004": {
+        "name": "37th & Broadway",
+        "avgDailyOrders": 346.2,
+        "avgDailyCups": 473,
+        "cupsPerOrder": 1.37,
+        "avgOrderValue": 4.83,
+        "avgRevenuePerCup": 3.31,
+        "dailyRevenue": 1564.34,
+        "itemsVsCupsDelta": "REVENUE_DATA items (473) includes non-cup items"
+      },
+      "US00012": {
+        "name": "16th & 6th",
+        "avgDailyOrders": 138.1,
+        "avgDailyCups": 194,
+        "cupsPerOrder": 1.4,
+        "avgOrderValue": 4.82,
+        "avgRevenuePerCup": 3.23,
+        "dailyRevenue": 626.86,
+        "itemsVsCupsDelta": "REVENUE_DATA items (194) includes non-cup items"
+      },
+      "US00020": {
+        "name": "21st & 3rd",
+        "avgDailyOrders": 197.8,
+        "avgDailyCups": 287,
+        "cupsPerOrder": 1.45,
+        "avgOrderValue": 4.84,
+        "avgRevenuePerCup": 3.38,
+        "dailyRevenue": 969.54,
+        "itemsVsCupsDelta": "REVENUE_DATA items (287) includes non-cup items"
+      },
+      "US00024": {
+        "name": "15th & 3rd",
+        "avgDailyOrders": 170.2,
+        "avgDailyCups": 226,
+        "cupsPerOrder": 1.33,
+        "avgOrderValue": 4.93,
+        "avgRevenuePerCup": 3.41,
+        "dailyRevenue": 770.52,
+        "itemsVsCupsDelta": "REVENUE_DATA items (226) includes non-cup items"
+      },
+      "US00025": {
+        "name": "221 Grand",
+        "avgDailyOrders": 395.1,
+        "avgDailyCups": 552,
+        "cupsPerOrder": 1.4,
+        "avgOrderValue": 4.99,
+        "avgRevenuePerCup": 3.28,
+        "dailyRevenue": 1810.39,
+        "itemsVsCupsDelta": "REVENUE_DATA items (552) includes non-cup items"
+      },
+      "US00027": {
+        "name": "52nd & Madison",
+        "avgDailyOrders": 312.0,
+        "avgDailyCups": 414,
+        "cupsPerOrder": 1.33,
+        "avgOrderValue": 4.88,
+        "avgRevenuePerCup": 3.32,
+        "dailyRevenue": 1375.56,
+        "itemsVsCupsDelta": "REVENUE_DATA items (414) includes non-cup items"
+      }
+    },
+    "fleetSummary": {
+      "avgCupsPerOrder": 1.35,
+      "avgOrderValue": 4.87,
+      "avgRevenuePerCup": 3.35,
+      "note": "Revenue per cup ($3.23-$3.54 from items) differs from per-order ($4.50-$5.25) because orders contain multiple items"
+    }
+  },
+  "rentEfficiency": {
+    "stores": [
+      {
+        "name": "221 Grand",
+        "storeId": "US00025",
+        "monthlyRent": 13000,
+        "rentSource": "GL-verified",
+        "sqft": 700,
+        "dailyCups": 493,
+        "cupsPerThousandRent": 37.9,
+        "revenuePerSqftMonthly": 77.6,
+        "rentAsPctOfRevenue": 23.9,
+        "monthlyRevenue": 54312.0,
+        "monthlyNetProfit": 1127.0,
+        "profitPerSqft": 1.6,
+        "efficiencyRank": 1
+      },
+      {
+        "name": "8th & Broadway",
+        "storeId": "US00001",
+        "monthlyRent": 18000,
+        "rentSource": "model estimate",
+        "sqft": 800,
+        "dailyCups": 675,
+        "cupsPerThousandRent": 37.5,
+        "revenuePerSqftMonthly": 91.5,
+        "rentAsPctOfRevenue": 24.6,
+        "monthlyRevenue": 73182.0,
+        "monthlyNetProfit": 6807.0,
+        "profitPerSqft": 8.5,
+        "efficiencyRank": 2
+      },
+      {
+        "name": "28th & 6th",
+        "storeId": "US00002",
+        "monthlyRent": 16000,
+        "rentSource": "model estimate",
+        "sqft": 750,
+        "dailyCups": 432,
+        "cupsPerThousandRent": 27.0,
+        "revenuePerSqftMonthly": 66.7,
+        "rentAsPctOfRevenue": 32.0,
+        "monthlyRevenue": 50022.0,
+        "monthlyNetProfit": -3418.0,
+        "profitPerSqft": -4.6,
+        "efficiencyRank": 3
+      },
+      {
+        "name": "102 Fulton",
+        "storeId": "US00006",
+        "monthlyRent": 16000,
+        "rentSource": "GL-verified",
+        "sqft": 750,
+        "dailyCups": 401,
+        "cupsPerThousandRent": 25.1,
+        "revenuePerSqftMonthly": 62.9,
+        "rentAsPctOfRevenue": 33.9,
+        "monthlyRevenue": 47200.0,
+        "monthlyNetProfit": -4845.0,
+        "profitPerSqft": -6.5,
+        "efficiencyRank": 4
+      },
+      {
+        "name": "54th & 8th",
+        "storeId": "US00005",
+        "monthlyRent": 17000,
+        "rentSource": "model estimate",
+        "sqft": 800,
+        "dailyCups": 385,
+        "cupsPerThousandRent": 22.6,
+        "revenuePerSqftMonthly": 56.9,
+        "rentAsPctOfRevenue": 37.4,
+        "monthlyRevenue": 45499.0,
+        "monthlyNetProfit": -6826.0,
+        "profitPerSqft": -8.5,
+        "efficiencyRank": 5
+      },
+      {
+        "name": "52nd & Madison",
+        "storeId": "US00027",
+        "monthlyRent": 19360,
+        "rentSource": "GL-verified",
+        "sqft": 800,
+        "dailyCups": 433,
+        "cupsPerThousandRent": 22.4,
+        "revenuePerSqftMonthly": 51.6,
+        "rentAsPctOfRevenue": 46.9,
+        "monthlyRevenue": 41267.0,
+        "monthlyNetProfit": -15578.0,
+        "profitPerSqft": -19.5,
+        "efficiencyRank": 6
+      },
+      {
+        "name": "37th & Broadway",
+        "storeId": "US00004",
+        "monthlyRent": 20000,
+        "rentSource": "model estimate",
+        "sqft": 850,
+        "dailyCups": 436,
+        "cupsPerThousandRent": 21.8,
+        "revenuePerSqftMonthly": 55.2,
+        "rentAsPctOfRevenue": 42.6,
+        "monthlyRevenue": 46930.0,
+        "monthlyNetProfit": -10690.0,
+        "profitPerSqft": -12.6,
+        "efficiencyRank": 7
+      },
+      {
+        "name": "33rd & 10th",
+        "storeId": "US00008",
+        "monthlyRent": 14000,
+        "rentSource": "model estimate",
+        "sqft": 700,
+        "dailyCups": 283,
+        "cupsPerThousandRent": 20.2,
+        "revenuePerSqftMonthly": 43.7,
+        "rentAsPctOfRevenue": 45.7,
+        "monthlyRevenue": 30620.0,
+        "monthlyNetProfit": -14115.0,
+        "profitPerSqft": -20.2,
+        "efficiencyRank": 8
+      },
+      {
+        "name": "100 Maiden Ln",
+        "storeId": "US00003",
+        "monthlyRent": 14000,
+        "rentSource": "model estimate",
+        "sqft": 700,
+        "dailyCups": 243,
+        "cupsPerThousandRent": 17.4,
+        "revenuePerSqftMonthly": 41.4,
+        "rentAsPctOfRevenue": 48.3,
+        "monthlyRevenue": 28961.0,
+        "monthlyNetProfit": -13974.0,
+        "profitPerSqft": -20.0,
+        "efficiencyRank": 9
+      },
+      {
+        "name": "15th & 3rd",
+        "storeId": "US00024",
+        "monthlyRent": 12000,
+        "rentSource": "model estimate",
+        "sqft": 600,
+        "dailyCups": 209,
+        "cupsPerThousandRent": 17.4,
+        "revenuePerSqftMonthly": 38.5,
+        "rentAsPctOfRevenue": 51.9,
+        "monthlyRevenue": 23116.0,
+        "monthlyNetProfit": -16289.0,
+        "profitPerSqft": -27.1,
+        "efficiencyRank": 10
+      },
+      {
+        "name": "16th & 6th",
+        "storeId": "US00012",
+        "monthlyRent": 10125,
+        "rentSource": "GL-verified",
+        "sqft": 750,
+        "dailyCups": 171,
+        "cupsPerThousandRent": 16.9,
+        "revenuePerSqftMonthly": 0.0,
+        "rentAsPctOfRevenue": 999,
+        "monthlyRevenue": 0,
+        "monthlyNetProfit": -35820.0,
+        "profitPerSqft": -47.8,
+        "efficiencyRank": 11
+      },
+      {
+        "name": "21st & 3rd",
+        "storeId": "US00020",
+        "monthlyRent": 18000,
+        "rentSource": "GL-verified",
+        "sqft": 650,
+        "dailyCups": 274,
+        "cupsPerThousandRent": 15.2,
+        "revenuePerSqftMonthly": 44.7,
+        "rentAsPctOfRevenue": 61.9,
+        "monthlyRevenue": 29086.0,
+        "monthlyNetProfit": -19244.0,
+        "profitPerSqft": -29.6,
+        "efficiencyRank": 12
+      }
+    ],
+    "rankings": {
+      "byCupsPerRent": [
+        "221 Grand",
+        "8th & Broadway",
+        "28th & 6th",
+        "102 Fulton",
+        "54th & 8th",
+        "52nd & Madison",
+        "37th & Broadway",
+        "33rd & 10th",
+        "100 Maiden Ln",
+        "15th & 3rd",
+        "16th & 6th",
+        "21st & 3rd"
+      ],
+      "byRevenuePerSqft": [
+        "8th & Broadway",
+        "221 Grand",
+        "28th & 6th",
+        "102 Fulton",
+        "54th & 8th",
+        "37th & Broadway",
+        "52nd & Madison",
+        "21st & 3rd",
+        "33rd & 10th",
+        "100 Maiden Ln",
+        "15th & 3rd",
+        "16th & 6th"
+      ],
+      "byLowestRentBurden": [
+        "221 Grand",
+        "8th & Broadway",
+        "28th & 6th",
+        "102 Fulton",
+        "54th & 8th",
+        "37th & Broadway",
+        "33rd & 10th",
+        "52nd & Madison",
+        "100 Maiden Ln",
+        "15th & 3rd",
+        "21st & 3rd",
+        "16th & 6th"
+      ]
+    },
+    "rentDiscrepancies": [
+      {
+        "store": "102 Fulton",
+        "storeId": "US00006",
+        "modelRent": 15000,
+        "glVerifiedRent": 16000,
+        "deltaPct": 6.7
+      },
+      {
+        "store": "16th & 6th",
+        "storeId": "US00012",
+        "modelRent": 17000,
+        "glVerifiedRent": 10125,
+        "deltaPct": -40.4
+      },
+      {
+        "store": "21st & 3rd",
+        "storeId": "US00020",
+        "modelRent": 13000,
+        "glVerifiedRent": 18000,
+        "deltaPct": 38.5
+      },
+      {
+        "store": "221 Grand",
+        "storeId": "US00025",
+        "modelRent": 14000,
+        "glVerifiedRent": 13000,
+        "deltaPct": -7.1
+      },
+      {
+        "store": "52nd & Madison",
+        "storeId": "US00027",
+        "modelRent": 22000,
+        "glVerifiedRent": 19360,
+        "deltaPct": -12.0
+      }
+    ]
+  },
+  "cohortAnalysis": {
+    "cohorts": [
+      {
+        "cohort": "Q3-2025 (Jun-Aug)",
+        "stores": [
+          "8th & Broadway",
+          "28th & 6th",
+          "54th & 8th",
+          "102 Fulton"
+        ],
+        "count": 4,
+        "steadyStateCount": 4,
+        "avgDailyCups": 473.2,
+        "medianDailyCups": 416.5,
+        "avgRent": 16500,
+        "avgRevPerCup": 3.83,
+        "avgTrendSlopePct": 3.3,
+        "weeksOfData": "27-36",
+        "topPerformer": "8th & Broadway (675)",
+        "maturityNote": "Mixed maturity (27-36 weeks)"
+      },
+      {
+        "cohort": "Q4-2025 (Sep-Nov)",
+        "stores": [
+          "100 Maiden Ln",
+          "37th & Broadway"
+        ],
+        "count": 2,
+        "steadyStateCount": 2,
+        "avgDailyCups": 339.5,
+        "medianDailyCups": 339.5,
+        "avgRent": 17000,
+        "avgRevPerCup": 3.78,
+        "avgTrendSlopePct": 4.5,
+        "weeksOfData": "15-25",
+        "topPerformer": "37th & Broadway (436)",
+        "maturityNote": "Mixed maturity (15-25 weeks)"
+      },
+      {
+        "cohort": "Q1-2026 (Dec-Feb)",
+        "stores": [
+          "33rd & 10th",
+          "21st & 3rd",
+          "15th & 3rd",
+          "221 Grand",
+          "52nd & Madison"
+        ],
+        "count": 5,
+        "steadyStateCount": 5,
+        "avgDailyCups": 338.4,
+        "medianDailyCups": 283,
+        "avgRent": 15000,
+        "avgRevPerCup": 3.53,
+        "avgTrendSlopePct": 0.5,
+        "weeksOfData": "1-13",
+        "topPerformer": "221 Grand (493)",
+        "maturityNote": "Mixed maturity (1-13 weeks)"
+      },
+      {
+        "cohort": "Q2-2026 (Mar-May)",
+        "stores": [
+          "16th & 6th"
+        ],
+        "count": 1,
+        "steadyStateCount": 0,
+        "avgDailyCups": 171,
+        "medianDailyCups": 171,
+        "avgRent": 17000,
+        "avgRevPerCup": 0,
+        "avgTrendSlopePct": 0,
+        "weeksOfData": "0-0",
+        "topPerformer": "16th & 6th (171)",
+        "maturityNote": "Mixed maturity (0-0 weeks)"
+      }
+    ],
+    "crossCohortInsight": {
+      "performanceTrend": "declining",
+      "caveat": "Newer cohorts have less data and may still be ramping up. Q1-2026 includes winter months which depress averages."
+    }
+  }
+}
