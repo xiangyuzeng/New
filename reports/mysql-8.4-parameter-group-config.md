@@ -364,12 +364,7 @@ done
 
 使用 `luckyus-prod` 的 2 个实例 (`devops`, `ldas`) 升级后统一到 `luckyus-prod-84-new`，将获得这 2 个参数。
 
-> **⚠️ 重要警告**: `devops` 和 `ldas` 当前 `lower_case_table_names=0`（已确认）。将其改为 1 是**不可逆**的，且要求：
-> 1. 升级前确认数据库内无混合大小写表名（如同时存在 `MyTable` 和 `mytable`）
-> 2. `lower_case_table_names` 只能在 major version upgrade 时一起修改
-> 3. 如果存在大小写冲突，需为这 2 个实例单独创建 `lower_case_table_names=0` 的参数组
->
-> **建议**: 如果不确定是否有大小写表名问题，可为 devops/ldas 创建一个 `luckyus-prod-84-new-lc0` 参数组（`lower_case_table_names=0`），保持与升级前一致。
+> **已验证 (2026-04-10)**: `devops` 和 `ldas` 当前 `lower_case_table_names=0`，但经检查两个实例的所有库名和表名均为纯小写，无大小写混用。可以安全切换到 `lower_case_table_names=1`，无需单独建参数组。
 
 ### 附录 B: luckyus-prod-80-new-groupconcatmaxlen 与 luckyus-prod-80-new 差异
 
