@@ -631,3 +631,49 @@ ALTER TABLE luckyus_db_collection.t_dba_bakstatus CONVERT TO CHARACTER SET utf8m
 ```
 
 > 所有表数据量 < 0.3 MB，ALTER 操作预计秒级完成，无需申请维护窗口。
+
+---
+
+## 附录 B: 客户端驱动升级建议
+
+### B.1 当前升级是否需要同步升级客户端？
+
+**不需要。** 只要参数组中设置了 `mysql_native_password=ON`（已配置），现有客户端可以照常连接 8.4。
+
+| 关注点 | 是否兼容 | 说明 |
+|--------|---------|------|
+| 认证插件 | 兼容 | `mysql_native_password=ON` 保持原有认证方式，旧驱动无需改动 |
+| 通信协议 | 兼容 | MySQL 8.4 与 8.0 使用相同的 wire protocol |
+| SQL 语法 | 兼容 | 8.4 无破坏性语法变更，常规 CRUD 不受影响 |
+| 字符集 | 兼容 | 显式设置 `character_set_server=utf8mb4`，连接行为不变 |
+
+### B.2 后续计划：迁移到 caching_sha2_password
+
+`mysql_native_password` 在 MySQL 8.4 中已标记为 deprecated，未来版本可能移除。建议在数据库升级完成后，作为独立项目推进认证插件迁移。
+
+#### 分阶段路线
+
+```
+Phase B (当前):  升级数据库 8.0 → 8.4，mysql_native_password=ON → 客户端无需改动
+Phase C (后续):  协调应用团队升级驱动 → 迁移用户到 caching_sha2_password → 关闭 mysql_native_password
+```
+
+#### Phase C 步骤
+
+1. **盘点驱动版本**: 协调各应用团队确认当前使用的 MySQL 驱动及版本
+2. **升级驱动**: 确保所有应用满足以下最低版本要求
+3. **逐库迁移用户认证插件**: `ALTER USER 'xxx'@'%' IDENTIFIED WITH caching_sha2_password BY '***';`
+4. **验证全部应用连接正常**
+5. **关闭旧插件**: 参数组设置 `mysql_native_password=OFF`，重启实例
+
+#### 客户端最低版本要求
+
+| 驱动 | 最低版本 | 支持 caching_sha2_password |
+|------|---------|---------------------------|
+| MySQL Connector/J (Java) | >= 8.0.12 | 推荐升级到 8.4.x |
+| PyMySQL (Python) | >= 1.0.0 | 推荐升级到最新 |
+| Go mysql driver | >= 1.4.0 | 推荐升级到最新 |
+| PHP mysqlnd | >= PHP 7.4 | 内置支持 |
+| Node.js mysql2 | >= 1.6.0 | 推荐升级到最新 |
+
+> **Phase C 不阻塞当前升级计划**，可在全部实例升级到 8.4 后择期启动。
