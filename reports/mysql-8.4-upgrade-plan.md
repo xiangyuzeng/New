@@ -56,7 +56,37 @@ AWS 控制台新建实例时默认版本为 8.4.7，但 **8.4.8 已可用**且�
 
 > `8.0.40 → 8.4.8` 和 `8.0.40 → 8.4.7` 均为 AWS 支持的直接升级路径。选择 8.4.8 可获得最新安全补丁和更长的标准支持周期（多 2 个月）。
 
-### 1.5 认证插件分布（抽样）
+### 1.5 AWS RDS MySQL 版本生命周期
+
+来源: `aws rds describe-db-major-engine-versions --engine mysql` (verified 2026-04-02)
+
+| 大版本 | 标准支持截止 | Extended Support 开始 | Extended Support 费用 | Extended Support 截止 |
+|--------|------------|----------------------|----------------------|----------------------|
+| MySQL 5.7 | 2024-02-29 (已过期) | 2024-03-01 | $0.11/vCPU-hour | 2027-02-28 |
+| **MySQL 8.0** | **2026-07-31** | **2026-08-01** | **$0.11/vCPU-hour** | **2029-07-31** |
+| MySQL 8.4 LTS | 2029-07-31 | 2029-08-01 | $0.11/vCPU-hour | 2032-07-31 |
+
+**两个并行的淘汰机制：**
+
+1. **小版本 EOL (2026-05-31)**: AWS Health Event 仅针对 8.0.40/8.0.41。升级到 8.0.42+ 即可解除此强制升级威胁。
+
+2. **大版本标准支持终止 (2026-07-31)**: 整个 MySQL 8.0 系列（含 8.0.45）失去标准支持。AWS 自动将所有 8.0.x 实例纳入 Extended Support，按 $0.11/vCPU-hour 收费。
+
+| 日期 | 事件 | 停留 8.0.40 | 升到 8.0.45 | 升到 8.4.8 |
+|------|------|------------|------------|------------|
+| 2026-05-31 | 小版本 EOL | **被强制升级（停机！）** | 安全 | 安全 |
+| 2026-08-01 | 8.0 进入 Extended Support | 额外收费 | 额外收费 | **免费** |
+| 2029-07-31 | 8.0 Extended Support 终止 | 必须升到 8.4+ | 必须升到 8.4+ | 安全 |
+
+### 1.6 两阶段升级策略
+
+**Phase A（紧急 — 4 月底前完成）**: 将所有 55 个 8.0.40 + 1 个 8.0.41 实例升级到 **8.0.45**（最新小版本）。解除 5 月 31 日强制升级威胁。小版本升级简单：5-10 分钟停机，无兼容性变化。注意：8.0.45 仍属 MySQL 8.0，8 月 1 日起产生 Extended Support 费用。
+
+**Phase B（必须 7 月 31 日前完成）**: 将全部实例从 8.0.45 升级到 **8.4.8 LTS**（蓝绿部署）。消除 Extended Support 费用，获得标准支持至 2029-07-31。大版本升级需谨慎测试 — 5-7 批次，4-6 周。
+
+**为什么不跳过 Phase A 直接升 8.4？** 蓝绿部署 58 个实例需 4-6 周。距 5 月 31 日仅约 3 周，无法全部完成。Phase A（小版本升级，每个 5-10 分钟，每晚可做 10-15 个）1 周内可完成。
+
+### 1.7 认证插件分布（抽样）
 
 | 实例 | mysql_native_password | caching_sha2_password | auth_socket |
 |------|----------------------|----------------------|-------------|
@@ -107,7 +137,41 @@ AWS 控制台新建实例时默认版本为 8.4.7，但 **8.4.8 已可用**且�
 
 用于 58 个 8.0 实例中的 56 个（含当前使用 `luckyus-prod-80-new` 和 `luckyus-prod` 的）。
 
-共 18 个自定义参数，详见上次对话。
+完整参数设置命令：
+
+```bash
+aws rds modify-db-parameter-group \
+  --db-parameter-group-name luckyus-prod-84-new \
+  --parameters \
+    "ParameterName=binlog_checksum,ParameterValue=CRC32,ApplyMethod=immediate" \
+    "ParameterName=binlog_format,ParameterValue=ROW,ApplyMethod=immediate" \
+    "ParameterName=binlog_order_commits,ParameterValue=0,ApplyMethod=immediate" \
+    "ParameterName=binlog_row_image,ParameterValue=full,ApplyMethod=immediate" \
+    "ParameterName=binlog_rows_query_log_events,ParameterValue=0,ApplyMethod=immediate" \
+    "ParameterName=character_set_server,ParameterValue=utf8mb4,ApplyMethod=immediate" \
+    "ParameterName=enforce_gtid_consistency,ParameterValue=ON,ApplyMethod=pending-reboot" \
+    "ParameterName=gtid-mode,ParameterValue=ON,ApplyMethod=pending-reboot" \
+    "ParameterName=innodb_adaptive_hash_index,ParameterValue=0,ApplyMethod=immediate" \
+    "ParameterName=innodb_deadlock_detect,ParameterValue=1,ApplyMethod=immediate" \
+    "ParameterName=innodb_lock_wait_timeout,ParameterValue=20,ApplyMethod=immediate" \
+    "ParameterName=innodb_print_all_deadlocks,ParameterValue=1,ApplyMethod=immediate" \
+    "ParameterName=innodb_strict_mode,ParameterValue=0,ApplyMethod=immediate" \
+    "ParameterName=log_bin_trust_function_creators,ParameterValue=1,ApplyMethod=immediate" \
+    "ParameterName=log_output,ParameterValue=FILE,ApplyMethod=immediate" \
+    "ParameterName=log_queries_not_using_indexes,ParameterValue=0,ApplyMethod=immediate" \
+    "ParameterName=log_slow_admin_statements,ParameterValue=0,ApplyMethod=immediate" \
+    "ParameterName=long_query_time,ParameterValue=0.1,ApplyMethod=immediate" \
+    "ParameterName=lower_case_table_names,ParameterValue=1,ApplyMethod=pending-reboot" \
+    "ParameterName=max_connections,ParameterValue=4000,ApplyMethod=immediate" \
+    "ParameterName=performance_schema,ParameterValue=1,ApplyMethod=pending-reboot" \
+    "ParameterName=slow_query_log,ParameterValue=1,ApplyMethod=immediate" \
+    "ParameterName=sql_mode,ParameterValue='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION',ApplyMethod=immediate" \
+    "ParameterName=transaction_isolation,ParameterValue=READ-COMMITTED,ApplyMethod=immediate" \
+    "ParameterName=mysql_native_password,ParameterValue=ON,ApplyMethod=pending-reboot" \
+  --region us-east-1
+```
+
+> 注: `mysql_native_password=ON` 确保迁移期间向后兼容。全部用户迁移到 `caching_sha2_password` 后再设为 OFF。
 
 ### 3.2 特殊参数组: `luckyus-prod-84-new-groupconcatmaxlen`
 
@@ -136,79 +200,221 @@ group_concat_max_len = 1048576
 
 > 所有 8.0.x 版本均可直接升级至 8.4.3 ~ 8.4.8 任意版本，无需中间跳板。
 
-### 4.2 单实例升级步骤
+### 4.2 升级方式对比
 
-```
-┌─────────────────────────────────────────────────────┐
-│ Phase 0: 升级前准备 (T-7天)                          │
-├─────────────────────────────────────────────────────┤
-│ 1. 创建参数组 luckyus-prod-84-new                    │
-│ 2. 在 8.4 测试实例验证参数组生效                       │
-│ 3. 确认应用连接器兼容 8.4                             │
-│ 4. 通知应用团队升级窗口                               │
-└────────────────────┬────────────────────────────────┘
-                     ▼
-┌─────────────────────────────────────────────────────┐
-│ Phase 1: 升级前检查 (T-1小时)                         │
-├─────────────────────────────────────────────────────┤
-│ 1. 手动创建 snapshot (命名: {instance}-pre84-YYYYMMDD)│
-│ 2. 检查 SHOW PROCESSLIST — 无长事务                   │
-│ 3. 检查 CloudWatch 指标基线 (CPU/Mem/IOPS/Conn)      │
-│ 4. 记录当前慢查询 baseline                            │
-│ 5. 确认没有正在运行的 DDL 操作                         │
-└────────────────────┬────────────────────────────────┘
-                     ▼
-┌─────────────────────────────────────────────────────┐
-│ Phase 2: 执行升级                                     │
-├─────────────────────────────────────────────────────┤
-│ aws rds modify-db-instance \                         │
-│   --db-instance-identifier {INSTANCE} \              │
-│   --engine-version 8.4.8 \                           │
-│   --db-parameter-group-name luckyus-prod-84-new \    │
-│   --allow-major-version-upgrade \                    │
-│   --apply-immediately                                │
-│                                                      │
-│ ⏱ 预计停机: 10-30 分钟 (Multi-AZ failover)           │
-│   - micro 实例: ~10-15 分钟                           │
-│   - large/xlarge: ~20-30 分钟 (数据量大)              │
-└────────────────────┬────────────────────────────────┘
-                     ▼
-┌─────────────────────────────────────────────────────┐
-│ Phase 3: 升级后验证 (T+0)                             │
-├─────────────────────────────────────────────────────┤
-│ 1. SELECT VERSION() — 确认 8.4.8                     │
-│ 2. SELECT plugin FROM mysql.user — 确认认证插件正常    │
-│ 3. 应用连接测试 — 各服务能正常读写                     │
-│ 4. 检查 error log — CloudWatch /error 日志            │
-│ 5. SHOW VARIABLES LIKE 'mysql_native_password'       │
-│ 6. 检查 Grafana 监控 — exporter 数据正常              │
-│ 7. 确认参数组状态为 in-sync (可能需要 reboot)          │
-└────────────────────┬────────────────────────────────┘
-                     ▼
-┌─────────────────────────────────────────────────────┐
-│ Phase 4: 升级后观察 (T+24h)                           │
-├─────────────────────────────────────────────────────┤
-│ 1. 慢查询对比 — 是否有新增慢查询                       │
-│ 2. CPU/内存趋势 — 是否有异常升高                       │
-│ 3. 连接数监控 — 是否正常                              │
-│ 4. 应用错误日志 — 是否有 SQL 兼容性问题                │
-└─────────────────────────────────────────────────────┘
+| 方式 | 停机时间 | 回滚能力 | 适用场景 |
+|------|---------|---------|---------|
+| **Blue/Green 部署（首选）** | ~30 秒（switchover） | 切换前可零影响取消 | 所有生产实例 |
+| In-Place 升级（备用） | 10-30 分钟 | 仅 snapshot 恢复 | Blue/Green 不可用时 |
+
+### 4.3 Blue/Green 部署流程（首选方案）
+
+#### T-48h: 升级前准备
+
+```bash
+INSTANCE="aws-luckyus-<service>-rw"
+
+# 1. 创建手动快照
+aws rds create-db-snapshot \
+  --db-instance-identifier $INSTANCE \
+  --db-snapshot-identifier ${INSTANCE}-pre-84-upgrade-$(date +%Y%m%d) \
+  --region us-east-1
+
+# 2. 确认无待处理的修改
+aws rds describe-db-instances \
+  --db-instance-identifier $INSTANCE \
+  --region us-east-1 \
+  --query 'DBInstances[0].PendingModifiedValues'
+
+# 3. 记录基线指标 (7天 CPU)
+aws cloudwatch get-metric-statistics \
+  --namespace AWS/RDS --metric-name CPUUtilization \
+  --dimensions Name=DBInstanceIdentifier,Value=$INSTANCE \
+  --start-time $(date -u -d '7 days ago' +%Y-%m-%dT%H:%M:%SZ) \
+  --end-time $(date -u +%Y-%m-%dT%H:%M:%SZ) \
+  --period 3600 --statistics Average --region us-east-1
+
+# 4. 兼容性检查 (via mcp-db-gateway)
+# SELECT @@version, @@sql_mode, @@default_authentication_plugin;
+# SELECT user, host, plugin FROM mysql.user WHERE plugin='mysql_native_password';
 ```
 
-### 4.3 回滚方案
+#### T-24h: 创建蓝绿部署
 
-| 方案 | 适用场景 | RTO |
-|------|---------|-----|
-| **从 snapshot 恢复** | 升级后出现严重兼容性问题 | 15-30 分钟 (需改 endpoint 或 rename) |
-| **降级不支持** | RDS MySQL 不支持 major version 降级 | N/A |
+```bash
+INSTANCE="aws-luckyus-<service>-rw"
+INSTANCE_ARN="arn:aws:rds:us-east-1:257394478466:db:$INSTANCE"
+
+aws rds create-blue-green-deployment \
+  --blue-green-deployment-name "${INSTANCE}-84-upgrade" \
+  --source "$INSTANCE_ARN" \
+  --target-engine-version "8.4.8" \
+  --target-db-parameter-group-name "luckyus-prod-84-new" \
+  --region us-east-1
+```
+
+#### T-24h ~ T-0: 监控 Green 环境
+
+```bash
+# 检查蓝绿部署状态
+aws rds describe-blue-green-deployments \
+  --region us-east-1 \
+  --query "BlueGreenDeployments[?BlueGreenDeploymentName=='${INSTANCE}-84-upgrade']"
+
+# 确认 green 实例可用
+# 确认复制延迟为 0
+# 在 green endpoint 执行测试查询验证
+```
+
+#### T-0: 执行切换（维护窗口 02:00-06:00 UTC）
+
+```bash
+DEPLOYMENT_ID="<blue-green-deployment-id>"
+
+aws rds switchover-blue-green-deployment \
+  --blue-green-deployment-identifier "$DEPLOYMENT_ID" \
+  --switchover-timeout 300 \
+  --region us-east-1
+```
+
+> 预计停机: **~30 秒**（DNS 切换）
+
+#### T+0 ~ T+1h: 切换后验证
+
+```sql
+-- Via mcp-db-gateway: 验证版本
+SELECT @@version, @@hostname, @@default_authentication_plugin;
+
+-- 验证用户认证
+SELECT user, host, plugin FROM mysql.user LIMIT 50;
+
+-- 检查错误计数
+SHOW GLOBAL STATUS LIKE 'Aborted_%';
+
+-- 验证关键参数
+SHOW VARIABLES WHERE Variable_name IN (
+  'innodb_buffer_pool_size', 'max_connections', 'sql_mode',
+  'character_set_server', 'lower_case_table_names', 'gtid_mode'
+);
+```
+
+```bash
+# CloudWatch — 确认无异常
+aws cloudwatch get-metric-statistics \
+  --namespace AWS/RDS --metric-name CPUUtilization \
+  --dimensions Name=DBInstanceIdentifier,Value=$INSTANCE \
+  --start-time $(date -u -d '1 hour ago' +%Y-%m-%dT%H:%M:%SZ) \
+  --end-time $(date -u +%Y-%m-%dT%H:%M:%SZ) \
+  --period 60 --statistics Average Maximum --region us-east-1
+```
+
+#### T+1h ~ T+72h: 浸泡观察期
+
+- 通过 CloudWatch Logs Insights 监控 error log
+- 与升级前基线对比各项指标
+- 关注应用层错误（与 Ops 团队配合）
+- 监控慢查询日志，是否出现新的慢查询模式
+
+#### T+72h: 清理
+
+```bash
+# 删除蓝绿部署元数据（保留两个实例）
+aws rds delete-blue-green-deployment \
+  --blue-green-deployment-identifier "$DEPLOYMENT_ID" \
+  --delete-target false \
+  --region us-east-1
+
+# 确认稳定后，可选删除旧 (blue) 实例
+# aws rds delete-db-instance --db-instance-identifier "${INSTANCE}-old" --skip-final-snapshot --region us-east-1
+```
+
+### 4.4 In-Place 升级流程（备用方案）
+
+当 Blue/Green 部署不可用时使用：
+
+```bash
+# 执行升级
+aws rds modify-db-instance \
+  --db-instance-identifier {INSTANCE} \
+  --engine-version 8.4.8 \
+  --db-parameter-group-name luckyus-prod-84-new \
+  --allow-major-version-upgrade \
+  --apply-immediately \
+  --region us-east-1
+
+# 预计停机: 10-30 分钟 (Multi-AZ failover)
+#   - micro 实例: ~10-15 分钟
+#   - large/xlarge: ~20-30 分钟 (数据量大)
+```
+
+### 4.5 回滚方案
+
+#### 方案 A: Blue/Green 切换前（首选 — 零影响）
+
+```bash
+# 直接删除 green 部署，生产 (blue) 完全不受影响
+aws rds delete-blue-green-deployment \
+  --blue-green-deployment-identifier "$DEPLOYMENT_ID" \
+  --delete-target true \
+  --region us-east-1
+```
+
+#### 方案 B: Blue/Green 切换后 / In-Place 升级后（应急 — 15-30 分钟停机）
+
+```bash
+# 1. 从升级前快照恢复
+aws rds restore-db-instance-from-db-snapshot \
+  --db-instance-identifier ${INSTANCE}-restored \
+  --db-snapshot-identifier ${INSTANCE}-pre-84-upgrade-$(date +%Y%m%d) \
+  --db-instance-class <ORIGINAL_CLASS> \
+  --region us-east-1
+
+# 2. 等待实例可用
+aws rds wait db-instance-available \
+  --db-instance-identifier ${INSTANCE}-restored \
+  --region us-east-1
+
+# 3. 协调 Ops 团队切换应用连接到恢复实例
+
+# 4. 重命名实例恢复原名
+aws rds modify-db-instance \
+  --db-instance-identifier $INSTANCE \
+  --new-db-instance-identifier ${INSTANCE}-bad-upgrade \
+  --apply-immediately --region us-east-1
+
+aws rds modify-db-instance \
+  --db-instance-identifier ${INSTANCE}-restored \
+  --new-db-instance-identifier $INSTANCE \
+  --apply-immediately --region us-east-1
+```
 
 > **重要**: MySQL major version 升级是**不可逆**的。唯一回滚方式是从升级前的 snapshot 恢复新实例，然后切换 endpoint。
 
 ---
 
-## 五、分批升级策略
+## 五、Go/No-Go 检查清单
 
-### 5.1 推荐分批顺序
+### Go 条件（全部满足方可执行）
+- [ ] MySQL 8.4 参数组已创建并在测试实例验证
+- [ ] 维护窗口已调整到 02:00-06:00 UTC
+- [ ] 目标实例的手动快照已创建
+- [ ] 无活跃生产事故或高优先级告警
+- [ ] Ops 团队已通知并在升级窗口内待命
+- [ ] 应用负责人已确认知晓
+- [ ] Batch 0（测试实例）已成功完成并经过 72 小时浸泡
+
+### No-Go 条件（任一触发则推迟）
+- 存在活跃生产事故
+- RDS 预检查失败（升级自动取消）
+- 应用团队无法参与验证
+- 异常流量模式（营销活动、促销）
+- 与每日批处理窗口重叠 (05:00 UTC)
+
+---
+
+## 六、分批升级策略
+
+### 6.1 推荐分批顺序
 
 | 批次 | 时间 | 实例 | 理由 |
 |------|------|------|------|
@@ -220,7 +426,7 @@ group_concat_max_len = 1048576
 | **Batch 5: 营销/订单** | Week 6 | Sales 全系 + 数据 (10个): salesmarketing, salescrm, salesorder, salespayment, isalescdp, isalesdatamarketing, isalesmembermarketing, isalesprivatedomain, cdpactivity, icyberdata | **最核心**，直接影响门店运营 |
 | **Batch 6: 数据分析** | Week 6+ | ldas, ldas01 | 最大数据量 (86GB+128GB)，升级时间最长 |
 
-### 5.2 升级窗口
+### 6.2 升级窗口
 
 - **推荐时间**: 北京时间周二/周三 17:00-20:00 (EST 05:00-08:00)
   - 美国门店尚未高峰（门店 7AM EST 开门）
@@ -230,31 +436,17 @@ group_concat_max_len = 1048576
 
 ---
 
-## 六、升级前必须完成的准备工作
+## 七、升级前必须完成的准备工作
 
-### 6.1 参数组创建（需 IAM 权限）
+### 7.1 参数组创建
 
-```bash
-# 1. 创建主参数组
-aws rds create-db-parameter-group \
-  --db-parameter-group-name luckyus-prod-84-new \
-  --db-parameter-group-family mysql8.4 \
-  --description "Luckin USA production MySQL 8.4 (migrated from luckyus-prod-80-new)" \
-  --region us-east-1
+参数组创建及完整参数设置命令见第三节。
 
-# 2. 设置参数 (18个，见上次对话)
+### 7.2 调整维护窗口
 
-# 3. 创建 salesorder 专用参数组
-aws rds create-db-parameter-group \
-  --db-parameter-group-name luckyus-prod-84-new-groupconcatmaxlen \
-  --db-parameter-group-family mysql8.4 \
-  --description "Luckin USA production MySQL 8.4 with group_concat_max_len=1048576" \
-  --region us-east-1
+将所有 35 个处于高峰时段维护窗口的实例调整到 02:00-06:00 UTC。详见 `maintenance_window_report.md`。
 
-# 4. 设置参数 (在主参数组基础上 +1 个 group_concat_max_len)
-```
-
-### 6.2 应用兼容性检查（需协调 Ops 团队）
+### 7.3 应用兼容性检查（需协调 Ops 团队）
 
 | 检查项 | 方法 | 负责 |
 |--------|------|------|
@@ -264,7 +456,7 @@ aws rds create-db-parameter-group \
 | **ORM 框架** | MyBatis/JPA 版本是否支持 8.4 | Dev |
 | **GROUP BY 排序依赖** | `grep -r "GROUP BY" 应用代码`，确认无隐式排序依赖 | Dev |
 
-### 6.3 监控准备
+### 7.4 监控准备
 
 | 检查项 | 操作 |
 |--------|------|
@@ -273,7 +465,7 @@ aws rds create-db-parameter-group \
 | **CloudWatch Alarms** | 确认告警不会因版本变更误触发 |
 | **慢查询日志** | 确认 8.4 下 slowquery log group 自动创建 |
 
-### 6.4 utf8mb3 表处理（可升级后逐步处理）
+### 7.5 utf8mb3 表处理（可升级后逐步处理）
 
 | 实例 | 数据库 | utf8mb3 表数 | 建议 |
 |------|--------|------------|------|
@@ -289,62 +481,52 @@ aws rds create-db-parameter-group \
 
 ---
 
-## 七、单实例升级命令模板
+## 八、风险评估总结
 
-```bash
-# Step 1: 创建升级前快照
-aws rds create-db-snapshot \
-  --db-instance-identifier {INSTANCE} \
-  --db-snapshot-identifier {INSTANCE}-pre84-$(date +%Y%m%d) \
-  --region us-east-1
+| # | 风险项 | 概率 | 影响 | 缓解措施 |
+|---|--------|------|------|---------|
+| R1 | RDS 预检查失败，阻塞升级 | 中 | 🟢 低 | 预检查在停机前执行。检查 PrePatchCompatibility.log 并修复 |
+| R2 | 认证失败（mysql_native_password） | 低（已处理） | 🔴 致命 | 参数组已设 `mysql_native_password=ON` |
+| R3 | 查询计划变化导致慢查询 | 中 | 🟡 中 | 升级前在测试库回放，`prefer_ordering_index=off` 已设。Blue/Green 允许切换前测试 |
+| R4 | salesmarketing-rw (46GB) 蓝绿创建时间长 | 高 | 🟢 低 | 预留 2-4 小时创建 green 环境，安排周末窗口 |
+| R5 | db.t4g.micro 实例升级时 OOM | 中 | 🟡 中 | 监控 FreeableMemory，SwapUsage > 400MB 时推迟升级 |
+| R6 | JDBC 驱动与 caching_sha2_password 不兼容 | 低 | 🔴 高 | 保持 `mysql_native_password=ON`，认证插件迁移作为独立项目 |
+| R7 | Prometheus exporter 不兼容 | 低 | 🟡 中 | 验证 exporter 兼容 8.4，需将 `SHOW SLAVE STATUS` 改为 `SHOW REPLICA STATUS` |
+| R8 | 5 月 31 日截止日期未赶上 | 中 | 🔴 高 | Phase A: 先升到 8.0.45 解除强制升级威胁（快速、低风险） |
+| R9 | GROUP BY 结果顺序变化 | 低 | 🟡 中 | 应用团队排查 SQL 依赖 |
+| R10 | utf8mb3 warning 刷日志 | 中 | 🟢 低 | 功能不受影响，升级后逐步转换 |
 
-# Step 2: 等待快照完成
-aws rds wait db-snapshot-available \
-  --db-snapshot-identifier {INSTANCE}-pre84-$(date +%Y%m%d) \
-  --region us-east-1
+---
 
-# Step 3: 执行升级
-aws rds modify-db-instance \
-  --db-instance-identifier {INSTANCE} \
-  --engine-version 8.4.8 \
-  --db-parameter-group-name luckyus-prod-84-new \
-  --allow-major-version-upgrade \
-  --apply-immediately \
-  --region us-east-1
+## 九、沟通计划
 
-# Step 4: 等待升级完成
-aws rds wait db-instance-available \
-  --db-instance-identifier {INSTANCE} \
-  --region us-east-1
+### 干系人矩阵
 
-# Step 5: 如果参数组状态为 pending-reboot，执行重启
-aws rds reboot-db-instance \
-  --db-instance-identifier {INSTANCE} \
-  --region us-east-1
+| 干系人 | 角色 | 通知方式 |
+|--------|------|---------|
+| Michael (CTO) | 审批 | 每周状态报告，Batch 5 (营销/订单) 需单独 go/no-go |
+| Ops 团队 | 应用验证 | 每批次提前 48 小时通知，切换期间实时沟通 |
+| 中国总部 DBA | 交叉验证 | 每周同步，共享升级发现 |
+| 各服务负责人 | 升级后测试 | 每批次发送邮件，含时间线和验证步骤 |
 
-# Step 6: 验证
-# SELECT VERSION();
-# SHOW VARIABLES LIKE 'mysql_native_password';
-# SELECT user,host,plugin FROM mysql.user;
+### 通知模板
+
+```
+Subject: [RDS 升级] MySQL 8.0→8.4 — 第 {N} 批 — {日期} {时间} UTC
+
+升级实例: {列表}
+预计停机: Blue/Green 切换 ~30 秒 / In-Place ~10-30 分钟
+维护窗口: 02:00-06:00 UTC
+
+需要配合: 切换后 1 小时内验证应用功能。
+回滚方案: 快照恢复可用。
+
+联系人: David Zeng (DBA)
 ```
 
 ---
 
-## 八、风险评估总结
-
-| 风险项 | 概率 | 影响 | 缓解措施 |
-|--------|------|------|---------|
-| 认证失败（mysql_native_password） | 低（已处理） | 🔴 致命 | 参数组已设 ON |
-| 查询计划变化导致慢查询 | 中 | 🟡 中 | 升级前在测试库回放，`prefer_ordering_index=off` 已设 |
-| GROUP BY 结果顺序变化 | 低 | 🟡 中 | 应用团队排查 |
-| 升级停机超预期 | 低 | 🟡 中 | Multi-AZ failover，大实例预留 30 分钟 |
-| Exporter/监控不兼容 | 低 | 🟢 低 | 先在 dba84test 验证 |
-| utf8mb3 warning 刷日志 | 中 | 🟢 低 | 功能不受影响，升级后逐步转换 |
-| t4g.micro 内存不足 | 低 | 🟡 中 | 8.4 内存优化有改善，但 performance_schema=1 有开销，需观察 |
-
----
-
-## 九、时间线
+## 十、时间线
 
 ```
 Week 0 (当前):  创建参数组 + 在 dba84test/datalink-84test 切换参数组验证
