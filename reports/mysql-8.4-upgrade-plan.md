@@ -419,12 +419,12 @@ aws rds modify-db-instance \
 | 批次 | 时间 | 实例 | 理由 |
 |------|------|------|------|
 | **Batch 0: 测试验证** | Week 1 | `aws-luckyus-dbatest-rw` (8.0.42) | 测试库，验证全流程 |
-| **Batch 1: 低风险** | Week 2 | 内部工具 (12个): ijumpserver, ilsopdevopsdata, iluckydorisops, iadmin, ipermission, igers, iehr, oplog, pubdm, iluckymedia, iriskcontrolservice, mfranchise | 内部/低流量，影响面小 |
-| **Batch 2: 中风险** | Week 3 | 运维/运营 (14个): devops, opshop, opshopsale, opproduction, opqualitycontrol, opempefficiency, iopocp, iopshopexpand, fichargecontrol, fitax, ifiaccounting, ibillingcentersrv, iunifiedreconcile, iluckyhealth | 运营后台，非直接面客 |
-| **Batch 3: SCM/平台** | Week 4 | SCM + Platform (18个): scm-*, scmcommodity, scmsrm, ireplenishment, iopenadmin, iopenlinker, iopenservice, ibizconfigcenter, iluckyams, iotplatform, upush | 供应链和平台服务 |
-| **Batch 4: 核心业务** | Week 5 | Framework + DevOps (4个): framework01, framework02, devops, iworkflowmidlayer | Nacos 配置中心、核心框架 — **有 66 张 utf8mb3 表需提前验证** |
-| **Batch 5: 营销/订单** | Week 6 | Sales 全系 + 数据 (10个): salesmarketing, salescrm, salesorder, salespayment, isalescdp, isalesdatamarketing, isalesmembermarketing, isalesprivatedomain, cdpactivity, icyberdata | **最核心**，直接影响门店运营 |
-| **Batch 6: 数据分析** | Week 6+ | ldas, ldas01 | 最大数据量 (86GB+128GB)，升级时间最长 |
+| **Batch 1: 数据分析** | Week 1-2 | ldas (8.0.40, db.t4g.large), ldas01 (8.0.41, db.t4g.large) | 仅运维内部使用的监控分析库，对业务零影响，无需跨团队沟通，便于发现和处理问题。数据量最大 (86GB+128GB)，提前验证大实例升级耗时 |
+| **Batch 2: 低风险** | Week 2-3 | 内部工具 (12个): ijumpserver, ilsopdevopsdata, iluckydorisops, iadmin, ipermission, igers, iehr, oplog, pubdm, iluckymedia, iriskcontrolservice, mfranchise | 内部/低流量，影响面小 |
+| **Batch 3: 中风险** | Week 3-4 | 运维/运营 (14个): devops, opshop, opshopsale, opproduction, opqualitycontrol, opempefficiency, iopocp, iopshopexpand, fichargecontrol, fitax, ifiaccounting, ibillingcentersrv, iunifiedreconcile, iluckyhealth | 运营后台，非直接面客 |
+| **Batch 4: SCM/平台** | Week 4-5 | SCM + Platform (18个): scm-*, scmcommodity, scmsrm, ireplenishment, iopenadmin, iopenlinker, iopenservice, ibizconfigcenter, iluckyams, iotplatform, upush | 供应链和平台服务 |
+| **Batch 5: 核心业务** | Week 5-6 | Framework + DevOps (4个): framework01, framework02, devops, iworkflowmidlayer | Nacos 配置中心、核心框架 — **有 66 张 utf8mb3 表需提前验证** |
+| **Batch 6: 营销/订单** | Week 6-7 | Sales 全系 + 数据 (10个): salesmarketing, salescrm, salesorder, salespayment, isalescdp, isalesdatamarketing, isalesmembermarketing, isalesprivatedomain, cdpactivity, icyberdata | **最核心**，直接影响门店运营，放最后充分积累经验 |
 
 ### 6.2 升级窗口
 
@@ -530,13 +530,13 @@ Subject: [RDS 升级] MySQL 8.0→8.4 — 第 {N} 批 — {日期} {时间} UTC
 
 ```
 Week 0 (当前):  创建参数组 + 在 dba84test/datalink-84test 切换参数组验证
-Week 1:         升级 dbatest → 全流程验证 + 应用兼容性检查
-Week 2:         Batch 1 — 低风险内部工具 (12个)
-Week 3:         Batch 2 — 运营后台 (14个)
-Week 4:         Batch 3 — SCM/平台 (18个)
-Week 5:         Batch 4 — 核心框架 (4个，含 utf8mb3 表实例)
-Week 6:         Batch 5 — 营销/订单核心 (10个)
-Week 6+:        Batch 6 — 数据分析 (2个，最大实例)
+Week 1:         Batch 0 — 升级 dbatest → 全流程验证 + 应用兼容性检查
+Week 1-2:       Batch 1 — 数据分析 (ldas, ldas01) — 运维内部，零业务影响
+Week 2-3:       Batch 2 — 低风险内部工具 (12个)
+Week 3-4:       Batch 3 — 运营后台 (14个)
+Week 4-5:       Batch 4 — SCM/平台 (18个)
+Week 5-6:       Batch 5 — 核心框架 (4个，含 utf8mb3 表实例)
+Week 6-7:       Batch 6 — 营销/订单核心 (10个)
 ```
 
 **预计全量完成: 6-7 周**
