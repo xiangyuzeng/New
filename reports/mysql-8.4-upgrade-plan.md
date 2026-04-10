@@ -540,3 +540,94 @@ Week 6+:        Batch 6 — 数据分析 (2个，最大实例)
 ```
 
 **预计全量完成: 6-7 周**
+
+---
+
+## 附录 A: utf8mb3 表影响分析
+
+### A.1 utf8mb3 表分布总览
+
+共 **77 张** utf8mb3 表，分布在 3 个实例，全部数据量极小（总计 < 2MB）：
+
+| 实例 | 数据库 | utf8mb3 表数 | utf8mb4 表数 | 混用情况 | 数据量 |
+|------|--------|-------------|-------------|---------|--------|
+| framework01 | luckyus_nacos | 9 | 3 | 混用 | ~0.18 MB |
+| framework01 | luckyus_sddl_platform | 54 | 5 | 混用 | ~1.1 MB |
+| framework01 | luckyus_gaea | 2 | 25 | 混用 | ~0.11 MB |
+| framework01 | luckyus_zkdoctor | 1 | 43 | 混用 | ~0.02 MB |
+| icyberdata | luckyus_icyberdata_nacos | 9 | 0 | 全 utf8mb3 | ~0.28 MB |
+| icyberdata | luckyus_icyberdata | 1 | 0 | 仅 1 张 | ~0.02 MB |
+| ldas01 | luckyus_db_collection | 1 | 0 | 仅 1 张 | ~0.02 MB |
+
+### A.2 Collation 分布
+
+| Collation | 表数 | 所在数据库 |
+|-----------|------|-----------|
+| `utf8mb3_bin` | 20 | luckyus_nacos (9), luckyus_icyberdata_nacos (9), luckyus_gaea (2) |
+| `utf8mb3_general_ci` | 57 | luckyus_sddl_platform (54), luckyus_zkdoctor (1), luckyus_icyberdata (1), luckyus_db_collection (1) |
+
+### A.3 影响评估
+
+| 影响项 | 严重程度 | 说明 |
+|--------|---------|------|
+| 升级是否会失败 | **无影响** | utf8mb3 在 8.4 中 deprecated 但仍完全可用，不阻塞升级 |
+| 现有数据读写 | **无影响** | SELECT/INSERT/UPDATE/DELETE 完全正常 |
+| 跨 charset JOIN 索引失效 | **理论有风险，实际影响极小** | utf8mb3 列与 utf8mb4 列 JOIN 时，MySQL 做隐式转换导致索引失效。但涉及的表数据量 < 2MB，几乎全是空表 |
+| Warning 日志 | **极低** | 仅 DDL（CREATE/ALTER TABLE）时产生 deprecation warning，DML 不受影响 |
+| 新增列 charset 继承 | **需注意** | 在 utf8mb3 表上新增列若不指定 charset，将继承表级 utf8mb3 而非服务器默认 utf8mb4 |
+
+### A.4 framework01 关键风险：同库混用 charset
+
+`luckyus_nacos`、`luckyus_gaea`、`luckyus_sddl_platform`、`luckyus_zkdoctor` 这 4 个库同时存在 utf8mb3 和 utf8mb4 表。如果应用 SQL 涉及跨表 JOIN：
+
+```sql
+-- 示例: utf8mb3 表 JOIN utf8mb4 表
+SELECT * FROM nacos_utf8mb3_table a
+JOIN other_utf8mb4_table b ON a.name = b.name;
+```
+
+MySQL 会执行隐式 charset 转换（utf8mb3 → utf8mb4），导致被驱动表 JOIN 列上的索引失效，查询退化为全表扫描。
+
+> 由于这些表数据量极小（大部分 0 行），即使全表扫描性能影响也可忽略。
+
+### A.5 建议处理方案
+
+**优先级**: 低。升级后择期批量转换即可，不阻塞升级计划。
+
+转换原则：
+- `utf8mb3_bin` 的表 → 转为 `utf8mb4_bin`
+- `utf8mb3_general_ci` 的表 → 转为 `utf8mb4_general_ci`
+
+```sql
+-- nacos 表示例 (utf8mb3_bin → utf8mb4_bin)
+ALTER TABLE luckyus_nacos.config_info CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;
+ALTER TABLE luckyus_nacos.config_info_aggr CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;
+ALTER TABLE luckyus_nacos.config_info_beta CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;
+ALTER TABLE luckyus_nacos.config_info_tag CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;
+ALTER TABLE luckyus_nacos.config_tags_relation CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;
+ALTER TABLE luckyus_nacos.group_capacity CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;
+ALTER TABLE luckyus_nacos.his_config_info CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;
+ALTER TABLE luckyus_nacos.tenant_capacity CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;
+ALTER TABLE luckyus_nacos.tenant_info CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;
+
+-- sddl_platform 表示例 (utf8mb3_general_ci → utf8mb4_general_ci，共 54 张)
+-- 数据量极小，可一次性执行:
+ALTER TABLE luckyus_sddl_platform.t_base_apply CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+-- ... (其余 53 张同理)
+
+-- gaea 表 (utf8mb3_bin → utf8mb4_bin)
+ALTER TABLE luckyus_gaea.t_config_center_project CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;
+ALTER TABLE luckyus_gaea.t_config_center_user_relation CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;
+
+-- zkdoctor 表 (utf8mb3_general_ci → utf8mb4_general_ci)
+ALTER TABLE luckyus_zkdoctor.zk_nosql_cache CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+
+-- icyberdata nacos 表 (utf8mb3_bin → utf8mb4_bin，共 9 张，同 nacos 结构)
+-- icyberdata 业务表 (utf8mb3_general_ci → utf8mb4_general_ci)
+ALTER TABLE luckyus_icyberdata.batch_generatetask_record CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+
+-- ldas01
+ALTER TABLE luckyus_db_collection.t_dba_bakstatus CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+```
+
+> 所有表数据量 < 0.3 MB，ALTER 操作预计秒级完成，无需申请维护窗口。
