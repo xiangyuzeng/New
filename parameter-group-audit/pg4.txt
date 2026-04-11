@@ -1,0 +1,9 @@
+========================================
+  luckyus-prod-84-new (MySQL 8.4)
+========================================
+
+aws: [ERROR]: An error occurred (DBParameterGroupNotFound) when calling the DescribeDBParameters operation: DBParameterGroup not found: luckyus-prod-84-new
+
+Additional error details:
+Type: Sender
+>>> NOT FOUND: luckyus-prod-84-new does not exist yet <<<
