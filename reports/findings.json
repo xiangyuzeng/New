@@ -1,0 +1,540 @@
+{
+  "meta": {
+    "generated_at": "2026-04-12T21:45:00Z",
+    "generator": "mcp-db-gateway mysql_query (interactive) + db_profiler.py (reproducible)",
+    "requirements_doc": "LCNA-OPS-2026-021-v2",
+    "query_date_range": "2026-04-05 to 2026-04-12 (7-day lookback)"
+  },
+  "schema_discovery": {
+    "t_order": {
+      "database": "luckyus_sales_order",
+      "column_count": 46,
+      "columns": [
+        {"name": "id", "type": "bigint unsigned", "nullable": false, "key": "PRI"},
+        {"name": "tenant", "type": "varchar(10)", "nullable": false},
+        {"name": "parent_id", "type": "bigint unsigned", "nullable": false},
+        {"name": "channel", "type": "smallint", "nullable": false},
+        {"name": "order_category", "type": "smallint unsigned", "nullable": false},
+        {"name": "order_type", "type": "smallint unsigned", "nullable": false},
+        {"name": "user_no", "type": "varchar(32)", "nullable": false, "key": "MUL"},
+        {"name": "user_type", "type": "tinyint unsigned", "nullable": false},
+        {"name": "user_nick_name", "type": "varchar(64)", "nullable": true},
+        {"name": "user_sex", "type": "smallint", "nullable": true, "default": "1"},
+        {"name": "shop_id", "type": "bigint unsigned", "nullable": false, "key": "MUL"},
+        {"name": "shop_type", "type": "smallint unsigned", "nullable": false},
+        {"name": "shop_name", "type": "varchar(100)", "nullable": true},
+        {"name": "shop_number", "type": "varchar(100)", "nullable": true},
+        {"name": "country_code", "type": "varchar(20)", "nullable": true},
+        {"name": "country_name", "type": "varchar(100)", "nullable": true},
+        {"name": "city_code", "type": "varchar(20)", "nullable": true},
+        {"name": "city_name", "type": "varchar(100)", "nullable": true},
+        {"name": "status", "type": "tinyint unsigned", "nullable": false, "default": "0"},
+        {"name": "produce_status", "type": "smallint", "nullable": true, "default": "-1"},
+        {"name": "express_status", "type": "smallint", "nullable": true, "default": "10"},
+        {"name": "invoice_status", "type": "smallint", "nullable": true, "default": "10"},
+        {"name": "refund_status", "type": "smallint", "nullable": true, "default": "0"},
+        {"name": "comment_status", "type": "smallint", "nullable": true, "default": "10"},
+        {"name": "display_flag", "type": "tinyint unsigned", "nullable": false},
+        {"name": "currency_code", "type": "varchar(10)", "nullable": false},
+        {"name": "total_money", "type": "decimal(12,4) unsigned", "nullable": false},
+        {"name": "payable_money", "type": "decimal(12,4) unsigned", "nullable": false},
+        {"name": "pay_money", "type": "decimal(12,4) unsigned", "nullable": false},
+        {"name": "pay_time", "type": "datetime", "nullable": true, "key": "MUL"},
+        {"name": "cancel_time", "type": "datetime", "nullable": true},
+        {"name": "finish_time", "type": "datetime", "nullable": true, "key": "MUL"},
+        {"name": "create_type", "type": "smallint", "nullable": false},
+        {"name": "create_id", "type": "varchar(32)", "nullable": true},
+        {"name": "create_name", "type": "varchar(60)", "nullable": true},
+        {"name": "create_time", "type": "datetime", "nullable": false, "key": "MUL"},
+        {"name": "modify_id", "type": "varchar(32)", "nullable": true},
+        {"name": "modify_name", "type": "varchar(60)", "nullable": true},
+        {"name": "modify_time", "type": "datetime", "nullable": false},
+        {"name": "version", "type": "int", "nullable": false},
+        {"name": "refund_time", "type": "datetime", "nullable": true},
+        {"name": "order_sub_type", "type": "smallint", "nullable": true},
+        {"name": "fulfill_status", "type": "smallint", "nullable": true},
+        {"name": "order_language", "type": "varchar(20)", "nullable": true},
+        {"name": "user_timezone", "type": "varchar(60)", "nullable": true},
+        {"name": "invoiced_time", "type": "datetime", "nullable": true}
+      ]
+    },
+    "t_order_item": {
+      "database": "luckyus_sales_order",
+      "column_count": 48,
+      "columns": [
+        {"name": "id", "type": "bigint unsigned", "nullable": false, "key": "PRI"},
+        {"name": "tenant", "type": "varchar(10)", "nullable": false},
+        {"name": "order_id", "type": "bigint unsigned", "nullable": false, "key": "MUL"},
+        {"name": "spu_type", "type": "smallint", "nullable": false},
+        {"name": "spu_code", "type": "varchar(50)", "nullable": false},
+        {"name": "spu_name", "type": "varchar(100)", "nullable": false},
+        {"name": "spu_mode", "type": "smallint", "nullable": true},
+        {"name": "one_category_mid", "type": "varchar(20)", "nullable": true},
+        {"name": "two_category_mid", "type": "varchar(20)", "nullable": true},
+        {"name": "three_category_mid", "type": "varchar(20)", "nullable": true},
+        {"name": "one_category_name", "type": "varchar(100)", "nullable": true},
+        {"name": "two_category_name", "type": "varchar(100)", "nullable": true},
+        {"name": "three_category_name", "type": "varchar(100)", "nullable": true},
+        {"name": "sku_code", "type": "varchar(255)", "nullable": false},
+        {"name": "sku_name", "type": "varchar(400)", "nullable": true},
+        {"name": "sku_attributes", "type": "varchar(2000)", "nullable": true},
+        {"name": "sku_image", "type": "varchar(255)", "nullable": true},
+        {"name": "sort", "type": "int", "nullable": true},
+        {"name": "origin_price", "type": "decimal(12,4) unsigned", "nullable": false},
+        {"name": "sale_price", "type": "decimal(12,4) unsigned", "nullable": true},
+        {"name": "addition_money", "type": "decimal(12,4)", "nullable": true},
+        {"name": "payable_money", "type": "decimal(12,4)", "nullable": false},
+        {"name": "pay_money", "type": "decimal(12,4)", "nullable": false},
+        {"name": "invoice_status", "type": "smallint", "nullable": false},
+        {"name": "invoice_money", "type": "decimal(12,4)", "nullable": false},
+        {"name": "invoiced_money", "type": "decimal(12,4)", "nullable": false},
+        {"name": "refund_status", "type": "smallint", "nullable": false},
+        {"name": "refund_money", "type": "decimal(12,4)", "nullable": false},
+        {"name": "refunded_money", "type": "decimal(12,4)", "nullable": false},
+        {"name": "return_type", "type": "smallint", "nullable": true},
+        {"name": "tax_info", "type": "varchar(500)", "nullable": false},
+        {"name": "stock_flag", "type": "tinyint unsigned", "nullable": false},
+        {"name": "sku_num", "type": "tinyint unsigned", "nullable": false},
+        {"name": "gift_flag", "type": "tinyint unsigned", "nullable": false},
+        {"name": "commodity_info", "type": "varchar(500)", "nullable": false},
+        {"name": "delete_flag", "type": "tinyint unsigned", "nullable": false},
+        {"name": "create_time", "type": "datetime", "nullable": false},
+        {"name": "modify_time", "type": "datetime", "nullable": false},
+        {"name": "version", "type": "int", "nullable": false},
+        {"name": "tax_rate", "type": "decimal(14,6)", "nullable": true},
+        {"name": "tax", "type": "decimal(14,4)", "nullable": true},
+        {"name": "sku_type", "type": "smallint", "nullable": true},
+        {"name": "spu_show_name", "type": "varchar(100)", "nullable": true},
+        {"name": "sxu_code", "type": "varchar(255)", "nullable": true},
+        {"name": "spu_src_type", "type": "smallint", "nullable": false},
+        {"name": "voucher_share_money", "type": "decimal(14,4)", "nullable": true},
+        {"name": "coupon_share_money", "type": "decimal(14,4)", "nullable": true},
+        {"name": "tax_mode", "type": "tinyint", "nullable": true}
+      ]
+    },
+    "t_order_make": {
+      "database": "luckyus_sales_order",
+      "column_count": 21,
+      "columns": [
+        {"name": "id", "type": "bigint unsigned", "nullable": false, "key": "PRI"},
+        {"name": "tenant", "type": "varchar(10)", "nullable": false},
+        {"name": "order_id", "type": "bigint", "nullable": false, "key": "MUL"},
+        {"name": "dispatch_type", "type": "smallint", "nullable": true, "default": "1"},
+        {"name": "dispatch_status", "type": "smallint", "nullable": true, "default": "1"},
+        {"name": "dispatch_again", "type": "smallint", "nullable": false, "default": "0"},
+        {"name": "dispatch_no", "type": "varchar(30)", "nullable": true},
+        {"name": "dispatch_time", "type": "datetime", "nullable": true},
+        {"name": "accept_type", "type": "smallint", "nullable": false, "default": "1"},
+        {"name": "accept_time", "type": "datetime", "nullable": true},
+        {"name": "finish_type", "type": "smallint", "nullable": true},
+        {"name": "finish_time", "type": "datetime", "nullable": true},
+        {"name": "cancel_time", "type": "datetime", "nullable": true},
+        {"name": "expect_time", "type": "datetime", "nullable": true},
+        {"name": "make_order_no", "type": "varchar(32)", "nullable": true},
+        {"name": "make_id", "type": "varchar(32)", "nullable": true},
+        {"name": "make_name", "type": "varchar(50)", "nullable": true},
+        {"name": "make_type", "type": "smallint", "nullable": true, "default": "1"},
+        {"name": "create_time", "type": "datetime", "nullable": false},
+        {"name": "modify_time", "type": "datetime", "nullable": false},
+        {"name": "auto_finish_flag", "type": "smallint", "nullable": false, "default": "0"}
+      ]
+    },
+    "t_order_comment": {
+      "database": "luckyus_sales_order",
+      "column_count": 31,
+      "columns": [
+        {"name": "id", "type": "bigint unsigned", "nullable": false, "key": "PRI"},
+        {"name": "tenant", "type": "varchar(10)", "nullable": false},
+        {"name": "order_id", "type": "bigint", "nullable": false, "key": "MUL"},
+        {"name": "type", "type": "smallint", "nullable": false},
+        {"name": "level", "type": "smallint", "nullable": true},
+        {"name": "labels", "type": "varchar(200)", "nullable": true},
+        {"name": "comment", "type": "varchar(1000)", "nullable": true},
+        {"name": "comment_business_type", "type": "varchar(100)", "nullable": true},
+        {"name": "reply", "type": "varchar(300)", "nullable": true},
+        {"name": "reply_time", "type": "datetime", "nullable": true},
+        {"name": "create_id", "type": "varchar(32)", "nullable": true},
+        {"name": "create_user", "type": "varchar(60)", "nullable": true},
+        {"name": "create_type", "type": "smallint", "nullable": true},
+        {"name": "create_time", "type": "datetime", "nullable": true},
+        {"name": "modify_id", "type": "varchar(32)", "nullable": true},
+        {"name": "modify_user", "type": "varchar(60)", "nullable": true},
+        {"name": "modify_type", "type": "smallint", "nullable": true},
+        {"name": "modify_time", "type": "datetime", "nullable": true},
+        {"name": "remark", "type": "varchar(300)", "nullable": true},
+        {"name": "complaint_flag", "type": "smallint", "nullable": false, "default": "0"},
+        {"name": "picture_url", "type": "varchar(1024)", "nullable": true},
+        {"name": "dept_id", "type": "bigint", "nullable": false, "key": "MUL"},
+        {"name": "user_no", "type": "varchar(32)", "nullable": false, "key": "MUL"},
+        {"name": "origin", "type": "smallint", "nullable": true},
+        {"name": "customer_reply_status", "type": "tinyint", "nullable": false},
+        {"name": "customer_reply_content", "type": "varchar(500)", "nullable": true},
+        {"name": "compensation_send_coupon", "type": "tinyint", "nullable": true},
+        {"name": "contact_customer", "type": "tinyint", "nullable": true},
+        {"name": "reach_agreement", "type": "tinyint", "nullable": true},
+        {"name": "compensation_reason_id", "type": "bigint", "nullable": true},
+        {"name": "proposal_no", "type": "varchar(45)", "nullable": true}
+      ]
+    },
+    "t_collect_order_tenant_inter": {
+      "database": "luckyus_iluckyhealth",
+      "column_count": 10,
+      "columns": [
+        {"name": "id", "type": "bigint unsigned", "nullable": false, "key": "PRI"},
+        {"name": "metric_tenant_name", "type": "varchar(100)", "nullable": true, "key": "MUL"},
+        {"name": "metric_name", "type": "varchar(100)", "nullable": true},
+        {"name": "metric_name_comment", "type": "varchar(200)", "nullable": true},
+        {"name": "metric_value", "type": "int", "nullable": true},
+        {"name": "metric_value_comment", "type": "varchar(200)", "nullable": true},
+        {"name": "metric_count", "type": "int", "nullable": true},
+        {"name": "metric_count_comment", "type": "varchar(200)", "nullable": true},
+        {"name": "create_time", "type": "timestamp", "nullable": false},
+        {"name": "insert_time", "type": "datetime", "nullable": true, "key": "MUL"}
+      ]
+    },
+    "t_collect_shop_inter": {
+      "database": "luckyus_iluckyhealth",
+      "column_count": 9,
+      "columns": [
+        {"name": "id", "type": "bigint unsigned", "nullable": false, "key": "PRI"},
+        {"name": "metric_name", "type": "varchar(100)", "nullable": true, "key": "MUL"},
+        {"name": "metric_name_comment", "type": "varchar(200)", "nullable": true},
+        {"name": "metric_value", "type": "int", "nullable": true},
+        {"name": "metric_value_comment", "type": "varchar(200)", "nullable": true},
+        {"name": "metric_count", "type": "int", "nullable": true},
+        {"name": "metric_count_comment", "type": "varchar(200)", "nullable": true},
+        {"name": "create_time", "type": "timestamp", "nullable": false},
+        {"name": "insert_time", "type": "datetime", "nullable": true, "key": "MUL"}
+      ]
+    },
+    "t_shop_info": {
+      "database": "luckyus_opshop",
+      "column_count": 53,
+      "columns": [
+        {"name": "id", "type": "bigint unsigned", "nullable": false, "key": "PRI"},
+        {"name": "tenant", "type": "varchar(4)", "nullable": true, "key": "MUL"},
+        {"name": "dept_id", "type": "bigint", "nullable": false, "key": "MUL"},
+        {"name": "shop_no", "type": "varchar(8)", "nullable": false},
+        {"name": "shop_name", "type": "varchar(128)", "nullable": true},
+        {"name": "status", "type": "int", "nullable": true},
+        {"name": "dept_name", "type": "varchar(128)", "nullable": true},
+        {"name": "manager_name", "type": "varchar(128)", "nullable": true},
+        {"name": "manager_phone", "type": "varchar(64)", "nullable": true},
+        {"name": "time_zone", "type": "varchar(32)", "nullable": true},
+        {"name": "shop_email", "type": "varchar(64)", "nullable": true},
+        {"name": "shop_phone", "type": "varchar(64)", "nullable": true},
+        {"name": "brand_no", "type": "varchar(32)", "nullable": true},
+        {"name": "shop_level", "type": "varchar(32)", "nullable": true},
+        {"name": "operation_mode", "type": "tinyint(1)", "nullable": true},
+        {"name": "cooperation_no", "type": "varchar(32)", "nullable": true},
+        {"name": "shop_model", "type": "tinyint(1)", "nullable": true},
+        {"name": "shop_price_level", "type": "varchar(10)", "nullable": true},
+        {"name": "shop_out_price_level", "type": "varchar(10)", "nullable": true},
+        {"name": "dispatch_range", "type": "varchar(2000)", "nullable": true},
+        {"name": "set_up_time", "type": "datetime", "nullable": true},
+        {"name": "shut_up_time", "type": "datetime", "nullable": true},
+        {"name": "off_time", "type": "datetime", "nullable": true},
+        {"name": "internal", "type": "tinyint(1)", "nullable": true},
+        {"name": "eat_in", "type": "tinyint(1)", "nullable": true},
+        {"name": "close_type", "type": "tinyint(1)", "nullable": true},
+        {"name": "app_show_licence", "type": "tinyint(1)", "nullable": true},
+        {"name": "qrcode", "type": "varchar(32)", "nullable": true},
+        {"name": "scene_type", "type": "varchar(32)", "nullable": true},
+        {"name": "scene_detail", "type": "varchar(32)", "nullable": true},
+        {"name": "country_no", "type": "varchar(32)", "nullable": true},
+        {"name": "country_name", "type": "varchar(64)", "nullable": true},
+        {"name": "administrative_area_mid", "type": "varchar(32)", "nullable": true},
+        {"name": "administrative_area_name", "type": "varchar(128)", "nullable": true},
+        {"name": "locality_mid", "type": "varchar(32)", "nullable": true, "key": "MUL"},
+        {"name": "locality_name", "type": "varchar(128)", "nullable": true},
+        {"name": "sublocality_mid", "type": "varchar(32)", "nullable": true},
+        {"name": "sublocality_name", "type": "varchar(128)", "nullable": true},
+        {"name": "location_longitude", "type": "decimal(10,6)", "nullable": true},
+        {"name": "location_latitude", "type": "decimal(10,6)", "nullable": true},
+        {"name": "address", "type": "varchar(500)", "nullable": true},
+        {"name": "remark", "type": "varchar(1000)", "nullable": true},
+        {"name": "create_by", "type": "int", "nullable": true},
+        {"name": "creator_name", "type": "varchar(64)", "nullable": true},
+        {"name": "create_time", "type": "datetime", "nullable": true},
+        {"name": "modify_by", "type": "int", "nullable": true},
+        {"name": "modifier_name", "type": "varchar(64)", "nullable": true},
+        {"name": "modify_time", "type": "datetime", "nullable": true},
+        {"name": "test_flag", "type": "tinyint(1)", "nullable": true, "default": "0"},
+        {"name": "shop_phone_area", "type": "varchar(10)", "nullable": true},
+        {"name": "manager_phone_area", "type": "varchar(10)", "nullable": true},
+        {"name": "biz_no", "type": "varchar(64)", "nullable": true, "key": "UNI"},
+        {"name": "operation_area", "type": "varchar(40)", "nullable": true}
+      ]
+    }
+  },
+  "critical_questions": {
+    "Q1_comment_has_order_id": true,
+    "Q1_note": "t_order_comment.order_id (bigint, indexed MUL) enables JOIN to t_order for per-store satisfaction",
+    "Q2_order_has_cancel_reason": false,
+    "Q2_note": "No cancel_reason or cancel_type column. Only refund_status (smallint, values: 0,1,2,3,5). Cancel reason breakdown NOT feasible from t_order alone.",
+    "Q3_order_item_extra_columns": ["sku_code", "sku_name", "sku_attributes", "sku_num (quantity)", "origin_price", "sale_price", "addition_money", "coupon_share_money", "voucher_share_money", "tax_rate", "tax", "three-level category hierarchy (one/two/three_category_name)", "spu_code", "spu_show_name"],
+    "Q3_note": "Rich product analysis is feasible: quantity, pricing tiers, discount tracking, 3-level taxonomy, SKU attributes (size/ice/sugar)",
+    "Q4_order_has_coupon_columns": true,
+    "Q4_note": "t_order has total_money/payable_money/pay_money (gross-to-net chain). t_order_item has coupon_share_money and voucher_share_money for per-item discount tracking. No coupon_id on t_order.",
+    "Q5_order_make_has_barista": true,
+    "Q5_note": "make_id + make_name = barista identifier. dispatch_time -> accept_time -> finish_time = full timeline. expect_time for SLA. No explicit queue_time but derivable from dispatch_time to accept_time.",
+    "Q6_shop_info_has_geo": true,
+    "Q6_note": "location_longitude/location_latitude (decimal 10,6). Also: set_up_time, shut_up_time, shop_level, shop_model, operation_mode, operation_area, scene_type. No capacity/area_sqft."
+  },
+  "distributions": {
+    "3A_channel": {
+      "query": "Channel distribution (7 days)",
+      "data": [
+        {"channel": 2, "name": "Own App", "orders": 20683, "revenue": 97241.29, "avg_ticket": 4.70, "unique_customers": 14263, "share_pct": 84.1},
+        {"channel": 1, "name": "Mini Program", "orders": 2088, "revenue": 10317.59, "avg_ticket": 4.94, "unique_customers": 1478, "share_pct": 8.5},
+        {"channel": 3, "name": "POS / Walk-in", "orders": 1456, "revenue": 10443.38, "avg_ticket": 7.17, "unique_customers": 1292, "share_pct": 5.9},
+        {"channel": 10, "name": "Grubhub", "orders": 204, "revenue": 3894.61, "avg_ticket": 19.09, "unique_customers": 1, "share_pct": 0.8},
+        {"channel": 8, "name": "UberEats", "orders": 109, "revenue": 1490.40, "avg_ticket": 13.67, "unique_customers": 1, "share_pct": 0.4},
+        {"channel": 9, "name": "DoorDash", "orders": 40, "revenue": 594.87, "avg_ticket": 14.87, "unique_customers": 1, "share_pct": 0.2}
+      ],
+      "total_orders": 24580,
+      "analysis": "All 6 known channels present. No unknown channel codes. 3P marketplace channels (8,9,10) show unique_customers=1 because orders route through a single system account — new/returning split is NOT feasible for 3P channels."
+    },
+    "3B_refund_status": {
+      "query": "Refund status distribution (7 days)",
+      "data": [
+        {"refund_status": 2, "order_count": 24538, "label": "no refund (completed)"},
+        {"refund_status": 1, "order_count": 589, "label": "refund pending/partial"},
+        {"refund_status": 5, "order_count": 222, "label": "refunded (excluded from valid)"},
+        {"refund_status": 3, "order_count": 22, "label": "unknown/other"}
+      ],
+      "total_orders": 25371,
+      "analysis": "Only 4 refund_status values. Not granular enough for cancel REASON breakdown. Refund rate = (222+589)/25371 = 3.2%. Combined cancel+refund exclusion rate when including status=0 orders is higher."
+    },
+    "3C_order_status": {
+      "query": "Order status distribution (7 days)",
+      "data": [
+        {"status": 90, "order_count": 24535, "label": "completed"},
+        {"status": 0, "order_count": 791, "label": "cancelled/initial"},
+        {"status": 20, "order_count": 45, "label": "paid/in-progress"}
+      ],
+      "total_orders": 25371,
+      "analysis": "Only 3 status codes. status=90 dominates (96.7%). status=0 = cancelled (3.1%). status=20 = currently in-progress (0.2%). Cancel rate = 791/25371 = 3.1%. No sub-status for cancel reasons."
+    },
+    "3D_product_category": {
+      "query": "Product category distribution (7 days)",
+      "data": [
+        {"category": "Drink", "item_count": 29320, "unique_products": 36, "share_pct": 91.3},
+        {"category": "Food", "item_count": 2665, "unique_products": 5, "share_pct": 8.3},
+        {"category": "Merchandise", "item_count": 111, "unique_products": 1, "share_pct": 0.3}
+      ],
+      "analysis": "3 categories exist (not just Drink). Food is 8.3% of items — meaningful for category mix. Merchandise is negligible. 36 drink products + 5 food + 1 merch = 42 total active SKUs."
+    },
+    "3E_repeat_behavior": {
+      "query": "Customer repeat behavior (30 days)",
+      "data": [
+        {"bucket": "1_time", "customer_count": 32082, "share_pct": 63.9},
+        {"bucket": "2_3_times", "customer_count": 11790, "share_pct": 23.5},
+        {"bucket": "4_7_times", "customer_count": 4722, "share_pct": 9.4},
+        {"bucket": "8_14_times", "customer_count": 1361, "share_pct": 2.7},
+        {"bucket": "15_plus", "customer_count": 342, "share_pct": 0.7}
+      ],
+      "total_customers_30d": 50297,
+      "analysis": "63.9% single-purchase in 30 days = high acquisition but low retention. 36.1% repeat rate. Power users (8+) = 3.4%. Retention analysis is highly feasible and valuable."
+    },
+    "3F_spend_tier": {
+      "query": "Spend tier distribution ($3/$5/$8 boundaries, 7 days)",
+      "data": [
+        {"tier": "tier_0_3", "order_count": 5622, "total_revenue": 13617.79, "avg_in_tier": 2.42, "share_pct": 22.9},
+        {"tier": "tier_3_5", "order_count": 10561, "total_revenue": 40576.74, "avg_in_tier": 3.84, "share_pct": 43.0},
+        {"tier": "tier_5_8", "order_count": 5499, "total_revenue": 35112.74, "avg_in_tier": 6.39, "share_pct": 22.4},
+        {"tier": "tier_8_plus", "order_count": 2898, "total_revenue": 34674.87, "avg_in_tier": 11.97, "share_pct": 11.8}
+      ],
+      "analysis": "Tiers create meaningful segments. $3-5 is the dominant bucket (43%). $8+ is only 11.8% of orders but 28% of revenue — important for upsell tracking. Boundaries are appropriate."
+    },
+    "3G_review_volume": {
+      "query": "Comment/review volume (7 days)",
+      "data": {
+        "total_reviews": 2890,
+        "satisfied_level_1": 2802,
+        "unsatisfied_level_2": 88,
+        "satisfaction_pct": 96.95,
+        "distinct_levels": 2,
+        "min_level": 1,
+        "max_level": 2
+      },
+      "analysis": "2890 reviews/week = ~413/day. Binary levels only (1=satisfied, 2=unsatisfied). Sufficient for per-store breakdown (12 stores get 44-488 reviews/week each). No NPS-style scoring possible."
+    },
+    "3H_prep_time": {
+      "query": "Prep time distribution (7 days)",
+      "data": {
+        "total_orders": 25389,
+        "avg_min": 3.0,
+        "min_min": 0.1,
+        "max_min": 111.7,
+        "within_3min": 16174,
+        "within_3min_pct": 63.7,
+        "within_5min": 21981,
+        "within_5min_pct": 86.6,
+        "null_timestamps": 622,
+        "null_pct": 2.5
+      },
+      "analysis": "Avg prep = 3.0 min. 63.7% within 3 min, 86.6% within 5 min. Null timestamps = 2.5% (acceptable). Max 111.7 min is an outlier. 3-min SLA as target is tight — only 63.7% meet it. 5-min SLA would capture 86.6%."
+    },
+    "3I_user_no_coverage": {
+      "query": "New vs returning feasibility (7 days)",
+      "data": {
+        "total_users": 17017,
+        "null_user_orders": 0,
+        "total_orders": 24578,
+        "user_coverage_pct": 100.0
+      },
+      "analysis": "100% of valid orders have user_no. New/returning analysis is fully feasible for 1P channels (Own App, Mini Program, POS). 3P channels (Grubhub/UberEats/DoorDash) route through single system account — exclude from customer analysis."
+    },
+    "3J_per_store_satisfaction": {
+      "query": "Per-store comment JOIN test (7 days)",
+      "data": [
+        {"shop_name": "8th & Broadway", "reviews": 488, "sat_pct": 96.1},
+        {"shop_name": "37th & Broadway", "reviews": 432, "sat_pct": 95.4},
+        {"shop_name": "52nd & Madison", "reviews": 288, "sat_pct": 98.3},
+        {"shop_name": "102 Fulton", "reviews": 287, "sat_pct": 96.5},
+        {"shop_name": "54th & 8th", "reviews": 284, "sat_pct": 97.2},
+        {"shop_name": "28th & 6th", "reviews": 229, "sat_pct": 98.3},
+        {"shop_name": "33rd & 10th", "reviews": 214, "sat_pct": 98.1},
+        {"shop_name": "21st & 3rd", "reviews": 191, "sat_pct": 98.4},
+        {"shop_name": "15th & 3rd", "reviews": 153, "sat_pct": 98.0},
+        {"shop_name": "100 Maiden Ln", "reviews": 142, "sat_pct": 94.4},
+        {"shop_name": "16th & 6th", "reviews": 138, "sat_pct": 98.6},
+        {"shop_name": "29th & 3rd", "reviews": 44, "sat_pct": 95.5}
+      ],
+      "analysis": "JOIN works perfectly. All 12 stores have reviews. Min = 44/week (29th & 3rd, new store), max = 488/week. Per-store satisfaction is CONFIRMED feasible. Range: 94.4% to 98.6%."
+    },
+    "3K_historical_depth": {
+      "query": "Historical data depth",
+      "data": {
+        "earliest_order": "2025-06-27",
+        "latest_order": "2026-04-12",
+        "total_orders": 672002,
+        "days_span": 289
+      },
+      "analysis": "289 days of history (~9.6 months). 672K total orders. Sufficient for 30-day trend, MoM comparison, and seasonal analysis. Not enough for full YoY comparison yet."
+    },
+    "supplemental_discount_analysis": {
+      "query": "Discount gap (total_money - pay_money) distribution",
+      "data": [
+        {"discount_diff": 4.46, "order_count": 1651},
+        {"discount_diff": 3.22, "order_count": 1411},
+        {"discount_diff": 2.76, "order_count": 1291},
+        {"discount_diff": 0.00, "order_count": 1040},
+        {"discount_diff": 1.46, "order_count": 899}
+      ],
+      "analysis": "Most orders have a discount gap. Only 1040 (4.2%) paid full price. Average discount ~$3-4. total_money - pay_money is a reliable proxy for discount amount."
+    },
+    "supplemental_health_metrics": {
+      "query": "iluckyhealth metric vocabulary (7 days)",
+      "data_summary": "20 metric types found, including per-channel (order_channel_*), per-type (order_type_*), per-shop (order_shop_*), overall (order_all_*), and coffee-specific (order_coffee_*). Each has create/pay/cancel/done variants.",
+      "analysis": "Rich metric vocabulary beyond the 4 currently used. Per-shop and per-channel breakdowns available from iluckyhealth for real-time funnel analysis."
+    },
+    "supplemental_shop_status": {
+      "query": "Shop info status distribution",
+      "data": [
+        {"status": 1, "count": 13, "label": "active"},
+        {"status": 2, "count": 17, "label": "inactive/closed"}
+      ],
+      "analysis": "13 active US stores (status=1), 17 inactive/historical. Matches expected ~12-13 operating stores."
+    }
+  },
+  "feasibility_matrix": [
+    {
+      "id": "REQ-CH2-01",
+      "section": "Chapter 2",
+      "metric": "Store ranking composite score (revenue + completion + avg_ticket + prep)",
+      "status": "CONFIRMED",
+      "data_gap": null,
+      "recommendation": "All 4 inputs are reliable per store. Per-store data confirmed with 12 active stores."
+    },
+    {
+      "id": "REQ-CH3-01",
+      "section": "Chapter 3",
+      "metric": "Cancel reason breakdown",
+      "status": "NOT_FEASIBLE",
+      "data_gap": "No cancel_reason or cancel_type column in t_order. Only refund_status with 4 values (0,1,2,3,5).",
+      "recommendation": "Replace with refund_status breakdown (4 categories). Or add cancel_reason column to t_order (requires app team change). Alternative: use comment labels from t_order_comment for complaint categorization."
+    },
+    {
+      "id": "REQ-CH3-02",
+      "section": "Chapter 3",
+      "metric": "Per-store customer satisfaction",
+      "status": "CONFIRMED",
+      "data_gap": null,
+      "recommendation": "t_order_comment.order_id JOIN t_order confirmed working. 44-488 reviews/store/week. Binary level (1/2). Also has labels column for category tags and comment text for NLP."
+    },
+    {
+      "id": "REQ-CH4-01",
+      "section": "Chapter 4",
+      "metric": "Per-channel new/returning customer split",
+      "status": "PARTIAL",
+      "data_gap": "3P channels (Grubhub/UberEats/DoorDash) route all orders through unique_customers=1 system account. New/returning is meaningless for 3P.",
+      "recommendation": "Report new/returning split for 1P channels only (Own App, Mini Program, POS = 98.6% of orders). Note 3P limitation in report footnote."
+    },
+    {
+      "id": "REQ-CH4-02",
+      "section": "Chapter 4",
+      "metric": "Channel commission estimates",
+      "status": "CONFIRMED",
+      "data_gap": null,
+      "recommendation": "All 6 channel codes (1,2,3,8,9,10) are stable and accounted for. No unknown codes. Commission rates can be applied to 3P channel revenue (Grubhub $3894, UberEats $1490, DoorDash $595/week)."
+    },
+    {
+      "id": "REQ-CH5-01",
+      "section": "Chapter 5",
+      "metric": "Product-hour heatmap",
+      "status": "CONFIRMED",
+      "data_gap": null,
+      "recommendation": "t_order_item JOIN t_order with HOUR(CONVERT_TZ(create_time)) produces meaningful data. 3 categories (Drink 91.3%, Food 8.3%, Merchandise 0.3%) and 42 active products."
+    },
+    {
+      "id": "REQ-CH5-02",
+      "section": "Chapter 5",
+      "metric": "Product margin/discount analysis",
+      "status": "CONFIRMED",
+      "data_gap": null,
+      "recommendation": "t_order_item has origin_price, sale_price, pay_money, coupon_share_money, voucher_share_money. Full discount decomposition is possible at item level."
+    },
+    {
+      "id": "REQ-CH6-01",
+      "section": "Chapter 6",
+      "metric": "Spend tier boundaries ($3/$5/$8)",
+      "status": "CONFIRMED",
+      "data_gap": null,
+      "recommendation": "Tiers produce meaningful segments: 22.9%/43.0%/22.4%/11.8%. $3-5 bucket is dominant. Consider adding a $15+ tier to separate multi-item 3P orders (avg $14-19)."
+    },
+    {
+      "id": "REQ-CH6-02",
+      "section": "Chapter 6",
+      "metric": "Customer repeat purchase frequency",
+      "status": "CONFIRMED",
+      "data_gap": null,
+      "recommendation": "63.9% single-purchase, 36.1% repeat (30-day window). 100% user_no coverage. Analysis is reliable and valuable for retention insights."
+    },
+    {
+      "id": "REQ-AI-O2",
+      "section": "AI Insight Rule O-2",
+      "metric": "Cancel rate threshold >5%",
+      "status": "ADJUST_THRESHOLD",
+      "data_gap": null,
+      "recommendation": "Actual cancel rate = 3.1% (status=0: 791/25371). Refund rate = 3.2%. 5% threshold would rarely trigger. Recommend lowering to 4% or using per-store comparison (flag stores >1.5x fleet average)."
+    },
+    {
+      "id": "REQ-AI-OPS3",
+      "section": "AI Insight Rule OPS-3",
+      "metric": "Prep SLA 3 minutes",
+      "status": "ADJUST_THRESHOLD",
+      "data_gap": null,
+      "recommendation": "Only 63.7% of orders within 3 min. Average is exactly 3.0 min. 3-min SLA would flag most stores every week. Recommend either: (a) raise to 5 min (86.6% compliance) as standard SLA, or (b) keep 3 min but use median instead of average, or (c) use percentile-based: flag if p75 > 5 min."
+    },
+    {
+      "id": "REQ-AI-MKT2",
+      "section": "AI Insight Rule MKT-2",
+      "metric": "Channel concentration >50%",
+      "status": "ADJUST_THRESHOLD",
+      "data_gap": null,
+      "recommendation": "Own App = 84.1% of orders. 50% threshold is always triggered. Recommend raising to 85% or 90%, or switching to a 'diversification score' that flags meaningful WoW shifts in channel mix."
+    }
+  ]
+}
