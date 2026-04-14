@@ -16,7 +16,7 @@
 | 风险等级 | **低** — 无参数默认值变化、无参数废弃/移除、无不兼容变更 |
 | 预计停机 | Multi-AZ：~30 秒 failover；Single-AZ：1-3 分钟 |
 | 参数组 | **无需修改** — `luckyus-prod-80-new` 全部参数 100% 兼容 8.0.45 |
-| 回滚方式 | 升级前全量快照恢复 + binlog 增量追回 |
+| 回滚方式 | 阻断写入 → PITR 恢复 → Rename 切换（详见三） |
 
 ### 批次计划（4 周 4 阶段）
 
@@ -31,7 +31,7 @@
 
 - **首选**: 周二至周四，09:00-11:00 UTC（04:00-06:00 EST）
 - **禁止**: 05:00 UTC（每日批处理窗口）、周一上午、周五下午
-- **批量**: micro 实例 5-8 台/窗口，medium 以上 2-3 台/窗口
+- **频率**: 每个窗口仅升级 1 台实例，完成全部验证后再升级下一台
 
 ---
 
@@ -93,11 +93,13 @@ aws cloudwatch get-metric-statistics \
 
 ```sql
 -- 通过 mcp-db-gateway 执行
--- 活跃连接数
-SELECT COUNT(*) as total_connections,
-       SUM(CASE WHEN Command != 'Sleep' THEN 1 ELSE 0 END) as active_queries
+-- 活跃连接数（按用户统计，作为升级后对比基线）
+SELECT User, COUNT(*) as conn_count,
+       SUM(CASE WHEN Command != 'Sleep' THEN 1 ELSE 0 END) as active_queries,
+       GROUP_CONCAT(DISTINCT DB) as databases
 FROM information_schema.PROCESSLIST
-WHERE User NOT IN ('rdsadmin', 'event_scheduler');
+WHERE User NOT IN ('rdsadmin', 'event_scheduler')
+GROUP BY User ORDER BY conn_count DESC;
 
 -- 长事务检查（> 60 秒）
 SELECT ID, USER, HOST, DB, COMMAND, TIME, STATE, LEFT(INFO, 100) as query_preview
@@ -110,14 +112,56 @@ SELECT trx_id, trx_state, trx_started, TIMESTAMPDIFF(SECOND, trx_started, NOW())
        trx_rows_locked, trx_rows_modified, trx_query
 FROM information_schema.INNODB_TRX
 ORDER BY trx_started LIMIT 10;
+
+-- Canal 连接检查（如为 Canal 实例，见 4.2 完整列表）
+SELECT ID, User, Host, Command, Time, State
+FROM information_schema.PROCESSLIST
+WHERE User = 'datalink_canal';
 ```
 
 **检查项**：
 - [ ] 无超过 300 秒的长事务
 - [ ] 无大量等待锁的会话
-- [ ] Canal 连接（`datalink_canal`）如有，记录当前 GTID 位置
+- [ ] 记录各用户连接数（作为升级后对比基线，保存到 pre-upgrade.txt）
+- [ ] Canal 连接（`datalink_canal`）如有，记录连接数量和当前 GTID 位置
 
-#### 1.4 记录升级前基线
+#### 1.4 检查参数组和 Buffer Pool
+
+```sql
+-- 确认参数组名称（升级后需保持不变）
+-- 通过 AWS CLI 查看：
+-- aws rds describe-db-instances --db-instance-identifier ${INSTANCE} --region us-east-1 \
+--   --query 'DBInstances[0].DBParameterGroups[0].{Name:DBParameterGroupName,Status:ParameterApplyStatus}'
+
+-- 检查 innodb_buffer_pool_size（记录当前值，升级后对比）
+-- 历史问题：AWS 曾在升级过程中自动缩减 buffer_pool_size
+SHOW GLOBAL VARIABLES WHERE Variable_name = 'innodb_buffer_pool_size';
+
+-- 抽查关键参数值（升级后需保持一致）
+SHOW GLOBAL VARIABLES WHERE Variable_name IN (
+  'transaction_isolation', 'long_query_time', 'max_connections',
+  'innodb_lock_wait_timeout', 'innodb_adaptive_hash_index',
+  'lower_case_table_names', 'gtid_mode', 'enforce_gtid_consistency',
+  'performance_schema', 'slow_query_log', 'innodb_buffer_pool_size'
+);
+```
+
+**特殊实例参数检查**：
+
+```sql
+-- salesorder 实例必须检查（默认值 1024 会导致业务报错）
+-- 仅针对 aws-luckyus-salesorder-rw 执行
+SHOW GLOBAL VARIABLES WHERE Variable_name = 'group_concat_max_len';
+-- 预期值: 1048576（必须！回到默认 1024 将导致业务异常）
+```
+
+**检查项**：
+- [ ] 参数组名称记录（通常为 `luckyus-prod-80-new`）
+- [ ] innodb_buffer_pool_size 记录当前值: ____________ bytes
+- [ ] **salesorder**: group_concat_max_len = 1048576 ✓
+- [ ] 关键参数值已记录到 pre-upgrade.txt
+
+#### 1.5 记录升级前基线
 
 ```sql
 -- 记录当前版本
@@ -134,7 +178,35 @@ SHOW GLOBAL STATUS WHERE Variable_name IN (
 );
 ```
 
-> **将以上输出保存到 `/app/reports/upgrade-logs/${INSTANCE}-pre-upgrade.txt`**
+#### 1.6 采集关键表行数基线（数据完整性校验）
+
+> 升级后将对比这些行数，确认数据无丢失。选择各业务库中的核心表。
+
+```sql
+-- 根据实例业务选择关键表，以下为示例模板
+-- 每个实例至少选 3-5 张核心业务表
+
+-- 通用：查看各表行数（通过 information_schema 快速获取近似值）
+SELECT TABLE_SCHEMA, TABLE_NAME, TABLE_ROWS, DATA_LENGTH, INDEX_LENGTH
+FROM information_schema.TABLES
+WHERE TABLE_SCHEMA NOT IN ('mysql', 'sys', 'information_schema', 'performance_schema')
+  AND TABLE_TYPE = 'BASE TABLE'
+ORDER BY TABLE_ROWS DESC
+LIMIT 20;
+
+-- 对核心表执行精确 COUNT（根据实际业务选择）
+-- SELECT COUNT(*) as row_count FROM <database>.<core_table>;
+```
+
+> **将 Step 1.3 ~ 1.6 全部输出保存到 `/app/reports/upgrade-logs/${INSTANCE}-pre-upgrade.txt`**
+> 
+> 保存内容清单：
+> - 各用户连接数（1.3）
+> - Canal 连接详情（1.3，如适用）
+> - 参数组名称和 buffer_pool_size（1.4）
+> - 特殊参数值（1.4，如适用）
+> - 版本、GTID、状态变量（1.5）
+> - 关键表行数基线（1.6）
 
 ---
 
@@ -270,52 +342,104 @@ done
 
 ### Step 5: DBA 技术验证（升级后立即执行）
 
-#### 5.1 版本与参数确认
+#### 5.1 版本、参数组与 Buffer Pool 确认
+
+```bash
+# 确认参数组名称未被更改（与升级前 pre-upgrade.txt 对比）
+aws rds describe-db-instances \
+  --db-instance-identifier ${INSTANCE} \
+  --region us-east-1 \
+  --query 'DBInstances[0].DBParameterGroups[0].{Name:DBParameterGroupName,Status:ParameterApplyStatus}' \
+  --output table
+```
 
 ```sql
 -- 确认版本
 SELECT VERSION();
 -- 预期结果: 8.0.45
 
--- 确认参数组生效（抽查关键参数）
+-- 确认 innodb_buffer_pool_size 未被缩减（与 pre-upgrade.txt 对比）
+-- 历史问题：AWS 曾在升级过程中自动缩减此值
+SHOW GLOBAL VARIABLES WHERE Variable_name = 'innodb_buffer_pool_size';
+
+-- 确认参数组生效（抽查关键参数，与 pre-upgrade.txt 对比）
 SHOW GLOBAL VARIABLES WHERE Variable_name IN (
   'transaction_isolation', 'long_query_time', 'max_connections',
   'innodb_lock_wait_timeout', 'innodb_adaptive_hash_index',
   'lower_case_table_names', 'gtid_mode', 'enforce_gtid_consistency',
-  'performance_schema', 'slow_query_log'
+  'performance_schema', 'slow_query_log', 'innodb_buffer_pool_size'
 );
+```
+
+**特殊实例参数验证**：
+
+```sql
+-- 仅针对 aws-luckyus-salesorder-rw —— 必须检查！
+SHOW GLOBAL VARIABLES WHERE Variable_name = 'group_concat_max_len';
+-- 必须 = 1048576。如果回到默认值 1024，业务将报错，需立即修复：
+-- 方法: 确认参数组中该值正确，或临时执行 SET GLOBAL group_concat_max_len = 1048576;
 ```
 
 **检查项**：
 - [ ] VERSION() = 8.0.45
+- [ ] 参数组名称与升级前一致（通常为 `luckyus-prod-80-new`），ParameterApplyStatus = `in-sync`
+- [ ] **innodb_buffer_pool_size 与升级前一致**（对比 pre-upgrade.txt，不允许有差异）
 - [ ] transaction_isolation = READ-COMMITTED
 - [ ] long_query_time = 0.100000
 - [ ] max_connections = 4000
 - [ ] gtid_mode = ON
 - [ ] performance_schema = ON
 - [ ] slow_query_log = ON
+- [ ] **salesorder**: group_concat_max_len = 1048576 ✓（默认 1024 = 业务故障）
 
 #### 5.2 连接与进程检查
 
 ```sql
--- 应用连接是否恢复
-SELECT User, COUNT(*) as conn_count, GROUP_CONCAT(DISTINCT DB) as databases
+-- 应用连接是否恢复（与 pre-upgrade.txt 中 Step 1.3 的连接数对比）
+SELECT User, COUNT(*) as conn_count,
+       SUM(CASE WHEN Command != 'Sleep' THEN 1 ELSE 0 END) as active_queries,
+       GROUP_CONCAT(DISTINCT DB) as databases
 FROM information_schema.PROCESSLIST
 WHERE User NOT IN ('rdsadmin', 'event_scheduler')
 GROUP BY User ORDER BY conn_count DESC;
 
--- Canal 连接是否恢复（如适用）
+-- Canal 连接是否恢复（如为 Canal 实例，见 4.2 完整列表）
 SELECT ID, User, Host, Command, Time, State
 FROM information_schema.PROCESSLIST
 WHERE User = 'datalink_canal';
 ```
 
 **检查项**：
-- [ ] 应用用户连接已恢复（对比升级前基线）
+- [ ] 各用户连接数与升级前基线一致（对比 pre-upgrade.txt Step 1.3 记录）
+  - 如连接数差异 > 20%，需排查原因（应用未重连？连接池未恢复？）
+  - 特别关注业务主用户（如 `luckydb`、`readonly` 等）的连接数
 - [ ] Canal binlog dump 连接已恢复（Command = `Binlog Dump GTID`）
+  - 连接数量与升级前一致（对比 pre-upgrade.txt）
+  - 如未恢复：联系中间件团队重启 Canal 实例
 - [ ] monitor_exporter 连接正常
 
-#### 5.3 Prometheus/Grafana 监控确认
+#### 5.3 数据完整性校验
+
+```sql
+-- 与 pre-upgrade.txt Step 1.6 的行数基线对比
+-- 通过 information_schema 快速获取近似行数
+SELECT TABLE_SCHEMA, TABLE_NAME, TABLE_ROWS, DATA_LENGTH, INDEX_LENGTH
+FROM information_schema.TABLES
+WHERE TABLE_SCHEMA NOT IN ('mysql', 'sys', 'information_schema', 'performance_schema')
+  AND TABLE_TYPE = 'BASE TABLE'
+ORDER BY TABLE_ROWS DESC
+LIMIT 20;
+
+-- 对升级前记录的核心表执行精确 COUNT（与 pre-upgrade.txt 对比）
+-- SELECT COUNT(*) as row_count FROM <database>.<core_table>;
+```
+
+**检查项**：
+- [ ] 各核心表行数与升级前基线一致（允许因正常业务写入有小幅增长）
+- [ ] 无表行数异常减少（减少 = 数据丢失风险，需立即排查）
+- [ ] 数据库列表完整（`SHOW DATABASES` 与升级前一致）
+
+#### 5.4 Prometheus/Grafana 监控确认
 
 ```promql
 # 确认 exporter 正常采集
@@ -333,7 +457,7 @@ mysql_global_status_innodb_buffer_pool_pages_free{dbinstance_identifier="${INSTA
 - [ ] 慢查询率无异常飙升
 - [ ] Buffer pool free pages 稳定
 
-#### 5.4 CloudWatch 指标确认
+#### 5.5 CloudWatch 指标确认
 
 ```bash
 # 升级后 15 分钟内的关键指标
@@ -358,7 +482,7 @@ done
 - [ ] DatabaseConnections 恢复到升级前水平
 - [ ] IOPS 正常
 
-#### 5.5 慢查询日志确认
+#### 5.6 慢查询日志确认
 
 ```bash
 # 确认慢查询日志流向 CloudWatch
@@ -471,20 +595,89 @@ echo "Post-upgrade snapshot: ${POST_SNAPSHOT_ID}"
 | 慢查询率升高但可忽略（< 10%） | 否，继续观察 |
 | 个别连接超时但自动恢复 | 否，继续观察 |
 
+### 回滚前提条件（在 Step 1 ~ Step 2 中已完成）
+
+回滚流程依赖以下前期准备，必须在升级前确认全部就绪：
+
+- [ ] 升级前快照已创建且状态 = available（Step 2）
+- [ ] 升级前 GTID 已记录到 pre-upgrade.txt（Step 1.5）
+- [ ] 各用户连接数基线已记录（Step 1.3）
+- [ ] Canal 连接详情已记录（Step 1.3，如为 Canal 实例）
+- [ ] 关键表行数基线已记录（Step 1.6）
+- [ ] 参数组名称和 buffer_pool_size 已记录（Step 1.4）
+- [ ] 特殊参数值已记录（Step 1.4，如 salesorder 的 group_concat_max_len）
+- [ ] 已确认实例的子网组、安全组、参数组信息（Step 1.1，用于恢复时指定）
+
 ### 回滚流程
 
-#### R1: 从升级前快照恢复新实例
+#### R1: 阻止业务数据继续写入
+
+> **必须先止血，再恢复。** 如果不阻止写入，回滚后会丢失回滚期间的增量数据。
+
+```sql
+-- 1. 在升级后有问题的实例上，设置为只读，阻止业务写入
+-- 注意：RDS 不能直接 SET GLOBAL read_only，需通过参数组或以下方式
+```
 
 ```bash
-RESTORE_INSTANCE="${INSTANCE}-restore"
-SNAPSHOT_ID="${INSTANCE}-pre-8045-YYYYMMDDHHMM"  # 替换为实际快照 ID
+# 方式：通过安全组阻断应用写入流量
+# 记录当前安全组 ID（回滚后需恢复）
+aws rds describe-db-instances \
+  --db-instance-identifier ${INSTANCE} \
+  --region us-east-1 \
+  --query 'DBInstances[0].VpcSecurityGroups[*].VpcSecurityGroupId' \
+  --output text
 
-aws rds restore-db-instance-from-db-snapshot \
-  --db-instance-identifier ${RESTORE_INSTANCE} \
-  --db-snapshot-identifier ${SNAPSHOT_ID} \
+# 替换为仅允许 DBA 跳板机访问的安全组，阻断所有应用连接
+# （需提前准备好 DBA-only 安全组，仅允许 10.238.3.43 入站 3306）
+aws rds modify-db-instance \
+  --db-instance-identifier ${INSTANCE} \
+  --vpc-security-group-ids <dba-only-sg-id> \
+  --apply-immediately \
+  --region us-east-1
+```
+
+```sql
+-- 2. 停止 Canal 同步（如为 Canal 实例，见 4.2 列表）
+-- 通知中间件团队暂停该实例的 Canal 任务
+-- Canal 服务器: 10.238.3.246 / 10.238.3.233
+
+-- 3. 确认所有应用连接已断开
+SELECT User, COUNT(*) as conn_count FROM information_schema.PROCESSLIST
+WHERE User NOT IN ('rdsadmin', 'event_scheduler', 'databasecheck', 'monitor_exporter')
+GROUP BY User;
+-- 预期：业务用户连接数 = 0
+```
+
+**检查项**：
+- [ ] 安全组已替换，应用无法连接
+- [ ] Canal 任务已暂停（如适用）
+- [ ] 确认无业务写入
+
+#### R2: PITR 恢复到回滚决策时间点
+
+> 使用 RDS Point-in-Time Recovery，自动应用 binlog 到指定时间点，恢复为独立实例。
+
+```bash
+# 恢复到安全组切换前的时间点（即业务数据最后写入时刻）
+RESTORE_INSTANCE="${INSTANCE}-restore"
+RESTORE_TIME="2026-XX-XXT HH:MM:SSZ"  # 填入 R1 阻断写入的时间点
+
+# 获取原实例配置信息（用于恢复时指定）
+aws rds describe-db-instances \
+  --db-instance-identifier ${INSTANCE} \
+  --region us-east-1 \
+  --query 'DBInstances[0].{Class:DBInstanceClass,SubnetGroup:DBSubnetGroup.DBSubnetGroupName,MultiAZ:MultiAZ,ParamGroup:DBParameterGroups[0].DBParameterGroupName}' \
+  --output table
+
+# 执行 PITR 恢复
+aws rds restore-db-instance-to-point-in-time \
+  --source-db-instance-identifier ${INSTANCE} \
+  --target-db-instance-identifier ${RESTORE_INSTANCE} \
+  --restore-time "${RESTORE_TIME}" \
   --db-instance-class <原实例类型> \
-  --db-subnet-group-name <原子网组> \
-  --vpc-security-group-ids <原安全组> \
+  --db-parameter-group-name <原参数组名称> \
+  --vpc-security-group-ids <原安全组ID> \
   --multi-az \
   --region us-east-1
 
@@ -494,79 +687,45 @@ aws rds wait db-instance-available \
   --region us-east-1
 ```
 
-#### R2: 用 binlog 追回增量数据
-
-快照恢复的是升级前的时间点，升级后到回滚期间产生的增量数据需要通过 binlog 追回。
-
-##### R2.1 确认升级前 GTID 位置
-
-```sql
--- 在恢复出的实例上执行
-SELECT @@global.gtid_executed;
--- 此为快照时间点的 GTID 集合
-```
-
-##### R2.2 从升级后实例导出 binlog
-
-```bash
-# 查看可用的 binlog 文件
-aws rds describe-db-log-files \
-  --db-instance-identifier ${INSTANCE} \
-  --region us-east-1 \
-  --query 'DescribeDBLogFiles[?contains(LogFileName, `mysql-bin-changelog`)].[LogFileName,Size,LastWritten]' \
-  --output table
-
-# 下载 binlog（从升级前快照时间点到现在）
-aws rds download-db-log-file-portion \
-  --db-instance-identifier ${INSTANCE} \
-  --log-file-name mysql-bin-changelog.XXXXXX \
-  --region us-east-1 \
-  --output text > /tmp/${INSTANCE}-binlog.sql
-```
-
-##### R2.3 使用 mysqlbinlog 过滤并应用增量
-
-```bash
-# 使用 GTID 过滤，只应用快照之后的事务
-mysqlbinlog \
-  --exclude-gtids='<快照时的GTID集合>' \
-  /tmp/${INSTANCE}-binlog.sql \
-  | mysql -h <恢复实例endpoint> -u admin -p
-```
-
-> **注意**: RDS 不直接提供 binlog 文件下载。实际操作中，增量追回的替代方案：
-> 
-> 1. **RDS Point-in-Time Recovery (PITR)** — 更推荐的方式：
->    ```bash
->    aws rds restore-db-instance-to-point-in-time \
->      --source-db-instance-identifier ${INSTANCE} \
->      --target-db-instance-identifier ${RESTORE_INSTANCE} \
->      --restore-time "2026-04-XX T HH:MM:SSZ" \
->      --region us-east-1
->    ```
->    PITR 会自动应用 binlog 到指定时间点，**无需手动处理增量**。
->
-> 2. **如果升级后实例仍可访问**，可用 mysqldump/mydumper 导出升级后有变化的表，导入到恢复实例。
+> **为什么用 PITR 而非快照恢复**: PITR 自动应用 binlog 到指定时间点，包含升级后到阻断写入期间的所有业务数据，无需手动追回增量。
 
 #### R3: 验证恢复实例
 
 ```sql
--- 确认版本是升级前的
+-- 在恢复实例上执行（通过 endpoint 连接）
+
+-- 1. 确认版本（PITR 恢复的实例仍为升级后版本 8.0.45，但数据完整）
 SELECT VERSION();
 
--- 确认数据完整性
-SHOW DATABASES;
+-- 2. 数据完整性校验（与 pre-upgrade.txt Step 1.6 基线对比）
+SELECT TABLE_SCHEMA, TABLE_NAME, TABLE_ROWS
+FROM information_schema.TABLES
+WHERE TABLE_SCHEMA NOT IN ('mysql', 'sys', 'information_schema', 'performance_schema')
+  AND TABLE_TYPE = 'BASE TABLE'
+ORDER BY TABLE_ROWS DESC LIMIT 20;
 
--- 抽查关键表数据量
-SELECT COUNT(*) FROM <关键业务表>;
+-- 3. 核心表精确行数对比
+-- SELECT COUNT(*) FROM <database>.<core_table>;
+
+-- 4. 确认参数正常
+SHOW GLOBAL VARIABLES WHERE Variable_name IN (
+  'innodb_buffer_pool_size', 'max_connections', 'gtid_mode'
+);
+
+-- 5. salesorder 特殊检查（如适用）
+-- SHOW GLOBAL VARIABLES WHERE Variable_name = 'group_concat_max_len';
 ```
+
+**检查项**：
+- [ ] 数据库列表完整
+- [ ] 关键表行数与阻断写入前一致（应 ≥ pre-upgrade.txt 基线）
+- [ ] 参数值正常（buffer_pool_size、max_connections 等）
+- [ ] 特殊参数正常（如 salesorder group_concat_max_len = 1048576）
 
 #### R4: 切换流量到恢复实例
 
-**方式一：Rename 实例（推荐，对应用透明）**
-
 ```bash
-# 1. 将当前有问题的实例改名
+# 1. 将当前有问题的实例改名（腾出原名）
 aws rds modify-db-instance \
   --db-instance-identifier ${INSTANCE} \
   --new-db-instance-identifier ${INSTANCE}-broken \
@@ -578,7 +737,7 @@ aws rds wait db-instance-available \
   --db-instance-identifier ${INSTANCE}-broken \
   --region us-east-1
 
-# 2. 将恢复实例改名为原名
+# 2. 将恢复实例改名为原名（应用通过 endpoint DNS 自动连接）
 aws rds modify-db-instance \
   --db-instance-identifier ${RESTORE_INSTANCE} \
   --new-db-instance-identifier ${INSTANCE} \
@@ -588,30 +747,43 @@ aws rds modify-db-instance \
 aws rds wait db-instance-available \
   --db-instance-identifier ${INSTANCE} \
   --region us-east-1
+
+# 3. 确认恢复实例的安全组为原生产安全组（允许应用访问）
+aws rds describe-db-instances \
+  --db-instance-identifier ${INSTANCE} \
+  --region us-east-1 \
+  --query 'DBInstances[0].VpcSecurityGroups[*].{Id:VpcSecurityGroupId,Status:Status}' \
+  --output table
+# 如安全组不对，需修改为原生产安全组
 ```
 
 > **注意**: Rename 会改变 endpoint DNS，需要等待 DNS 传播（通常 1-2 分钟）。
 
-**方式二：修改应用配置/DNS 指向恢复实例**
-
-如果使用 Route53 CNAME 或应用配置管理（如 Nacos），直接修改指向。
-
 #### R5: 回滚后验证
 
-- [ ] 应用连接恢复正常
-- [ ] 业务功能验证通过
-- [ ] Canal 连接恢复（如适用，可能需要重新配置 GTID 位置）
-- [ ] 监控指标恢复正常
+```sql
+-- 确认应用连接恢复（与 pre-upgrade.txt Step 1.3 对比）
+SELECT User, COUNT(*) as conn_count FROM information_schema.PROCESSLIST
+WHERE User NOT IN ('rdsadmin', 'event_scheduler')
+GROUP BY User ORDER BY conn_count DESC;
+```
+
+**检查项**：
+- [ ] 应用连接恢复正常（连接数与基线一致）
+- [ ] 业务功能验证通过（通知研发验证）
+- [ ] Canal 连接恢复（通知中间件团队重新启动 Canal 任务，可能需要重置 GTID 位置）
+- [ ] Prometheus exporter 正常（`up{dbinstance_identifier="${INSTANCE}"} == 1`）
+- [ ] CloudWatch 指标恢复正常
 - [ ] 通知研发回滚完成
 
 #### R6: 回滚后清理
 
 ```bash
 # 确认回滚成功且运行稳定 24 小时后
-# 删除有问题的实例
+# 删除有问题的实例（需创建最终快照以备查）
 aws rds delete-db-instance \
   --db-instance-identifier ${INSTANCE}-broken \
-  --skip-final-snapshot \
+  --final-db-snapshot-identifier ${INSTANCE}-broken-final-$(date +%Y%m%d) \
   --region us-east-1
 ```
 
@@ -619,11 +791,12 @@ aws rds delete-db-instance \
 
 | 步骤 | 预计耗时 | 说明 |
 |------|---------|------|
-| R1: 快照恢复 | 10-30 min | 取决于数据量 |
-| R2: PITR 增量追回 | 5-15 min | 使用 PITR 自动完成 |
-| R3: 验证 | 5-10 min | |
+| R1: 阻断写入 | 2-5 min | 安全组切换 + Canal 暂停 |
+| R2: PITR 恢复 | 10-30 min | 取决于数据量和增量大小 |
+| R3: 验证 | 5-10 min | 数据完整性校验 |
 | R4: 切换流量 | 5-10 min | Rename + DNS 传播 |
-| **总计** | **25-65 min** | |
+| R5: 回滚后验证 | 5-10 min | 连接恢复 + Canal 重启 |
+| **总计** | **27-65 min** | |
 
 ---
 
@@ -637,12 +810,59 @@ aws rds delete-db-instance \
 - **升级窗口**: 避开 05:00 UTC 批处理高峰
 - **已验证**: iluckyams-rw (8.0.44, db.t4g.micro) 运行稳定，内存无异常
 
-### 4.2 Canal 实例（~10 台有 datalink_canal 连接）
+### 4.2 Canal 实例（36 台有 datalink_canal 连接）
 
-- Canal 使用 `Binlog Dump GTID` 同步数据
-- 升级 failover 后 Canal 需要自动重连
-- **升级后**: 确认 Canal 连接恢复（PROCESSLIST 中 Command = `Binlog Dump GTID`）
-- **如未恢复**: 联系中间件团队重启 Canal 实例
+Canal 服务器 IP: **10.238.3.246** / **10.238.3.233**（中间件团队管理）
+
+Canal 使用 `Binlog Dump GTID` 同步数据，升级 failover 后 Canal 需要自动重连。
+
+**完整 Canal 实例列表**：
+
+| 分组 | 实例 | Canal 连接数 | Canal 服务器 IP |
+|------|------|-------------|----------------|
+| **销售/CRM** | salescrm | 4 | 10.238.3.246 |
+| | salesmarketing | 2 | 10.238.3.246 |
+| | salesorder | 2 | 10.238.3.233 |
+| | salespayment | 2 | 10.238.3.246 |
+| | isalescdp | 2 | 10.238.3.233 |
+| | isalesdatamarketing | 2 | 10.238.3.233 |
+| | isalesmembermarketing | 2 | 10.238.3.233 |
+| | isalesprivatedomain | 2 | 10.238.3.233 |
+| | cdpactivity | 2 | 10.238.3.246 |
+| **SCM** | scm-asset | 6 | 10.238.3.233 |
+| | scm-openapi | 2 | 10.238.3.246 |
+| | scm-ordering | 2 | 10.238.3.233 |
+| | scm-plan | 2 | 10.238.3.246 |
+| | scm-purchase | 4 | 10.238.3.246 / .233 |
+| | scm-shopstock | 6 | 10.238.3.246 / .233 |
+| | scm-wds | 4 | 10.238.3.246 |
+| | scmcommodity | 6 | 10.238.3.246 |
+| | scmsrm | 7 | 10.238.3.246 / .233 |
+| | ireplenishment | 2 | 10.238.3.233 |
+| **运营** | opempefficiency | 4 | 10.238.3.246 |
+| | opproduction | 4 | 10.238.3.233 |
+| | opshop | 6 | 10.238.3.246 / .233 |
+| | opshopsale | 4 | 10.238.3.246 / .233 |
+| | iopshopexpand | 2 | 10.238.3.246 |
+| | iopocp | 2 | 10.238.3.233 |
+| | mfranchise | 2 | 10.238.3.233 |
+| **财务** | fichargecontrol | 2 | 10.238.3.246 |
+| | ifiaccounting | 2 | 10.238.3.233 |
+| | ibillingcentersrv | 2 | 10.238.3.233 |
+| **DevOps/平台** | devops | 2 | 10.238.3.233 |
+| | iadmin | 2 | 10.238.3.233 |
+| | framework01 | 2 | 10.238.3.246 |
+| | upush | 8 | 10.238.3.246 / .233 |
+| | iotplatform | 2 | 10.238.3.233 |
+| **数据/其他** | pubdm | 2 | 10.238.3.233 |
+| | iehr | 6 | 10.238.3.233 |
+
+**Canal 实例升级注意事项**：
+
+- **升级前**（Step 1.3）: 记录 Canal 连接数量和 GTID 位置
+- **升级后**（Step 5.2）: 确认 Canal 连接恢复（PROCESSLIST 中 Command = `Binlog Dump GTID`），连接数量与升级前一致
+- **如未恢复**: 联系中间件团队重启 Canal 实例（提供 Canal 服务器 IP 和实例名称）
+- **回滚时**（R1）: 必须先通知中间件团队暂停 Canal 任务，阻止 Canal 继续消费 binlog
 
 ### 4.3 大数据量实例
 
@@ -663,57 +883,9 @@ aws rds delete-db-instance \
 
 ---
 
-## 五、升级命令速查
+## 五、单实例升级命令速查
 
-### 批量升级脚本（谨慎使用）
-
-```bash
-#!/bin/bash
-# =============================================================================
-# Script: batch-upgrade-8045.sh
-# Purpose: Batch upgrade MySQL instances to 8.0.45
-# Usage: ./batch-upgrade-8045.sh instance1 instance2 instance3 ...
-# Date: 2026-04-14
-# Author: David Zeng (DBA)
-#
-# WARNING: 只在 DBA 手动确认每个实例的事前检查和快照后使用
-# =============================================================================
-
-set -euo pipefail
-REGION="us-east-1"
-TARGET_VERSION="8.0.45"
-
-for INSTANCE in "$@"; do
-  echo ""
-  echo "============================================"
-  echo "  Upgrading: ${INSTANCE} → ${TARGET_VERSION}"
-  echo "  Time: $(date -u)"
-  echo "============================================"
-
-  # 确认当前状态
-  CURRENT=$(aws rds describe-db-instances \
-    --db-instance-identifier "${INSTANCE}" \
-    --region "${REGION}" \
-    --query 'DBInstances[0].[DBInstanceStatus,EngineVersion]' \
-    --output text)
-  echo "Current: ${CURRENT}"
-
-  # 执行升级
-  aws rds modify-db-instance \
-    --db-instance-identifier "${INSTANCE}" \
-    --engine-version "${TARGET_VERSION}" \
-    --apply-immediately \
-    --region "${REGION}" \
-    --query 'DBInstance.{Status:DBInstanceStatus,PendingVersion:PendingModifiedValues.EngineVersion}' \
-    --output table
-
-  echo "Upgrade initiated for ${INSTANCE}"
-  echo ""
-done
-
-echo "=== All upgrades initiated. Monitor with: ==="
-echo 'aws rds describe-db-instances --query "DBInstances[?EngineVersion!='"'"'8.0.45'"'"'].[DBInstanceIdentifier,EngineVersion,DBInstanceStatus]" --output table --region us-east-1'
-```
+> **注意**: 每个实例必须逐一升级，不使用批量升级。每个实例升级前必须完成 Step 1 ~ Step 3 全部检查，升级后完成 Step 5 ~ Step 6 全部验证。
 
 ### 单实例完整升级一键脚本
 
@@ -786,44 +958,54 @@ echo "=========================================="
 
 ```
 实例: ________________________  升级日期: ____________
+Canal 实例？ [ ] 是  [ ] 否      特殊实例？ [ ] salesorder  [ ] 其他: ________
 
-事前检查:
-  [ ] 实例状态 = available
-  [ ] 当前版本确认: ____________
-  [ ] FreeableMemory > 阈值
-  [ ] CPU < 50%
-  [ ] 无长事务 (> 300s)
-  [ ] 升级前基线已记录
+事前检查 (Step 1):
+  [ ] 1.1 实例状态 = available
+  [ ] 1.1 当前版本确认: ____________
+  [ ] 1.2 FreeableMemory > 阈值
+  [ ] 1.2 CPU < 50%
+  [ ] 1.3 无长事务 (> 300s)
+  [ ] 1.3 各用户连接数已记录
+  [ ] 1.3 Canal 连接数已记录（如适用）: ______ 条
+  [ ] 1.4 参数组名称已记录: ________________________
+  [ ] 1.4 innodb_buffer_pool_size 已记录: ____________ bytes
+  [ ] 1.4 salesorder group_concat_max_len = 1048576（如适用）
+  [ ] 1.5 版本、GTID、状态变量已记录
+  [ ] 1.6 关键表行数基线已记录
 
-全量备份:
+全量备份 (Step 2):
   [ ] 快照已创建: ________________________
   [ ] 快照状态 = available
 
-通知:
+通知 (Step 3):
   [ ] 研发已通知
   [ ] 研发已确认无冲突
 
-执行升级:
+执行升级 (Step 4):
   [ ] 升级命令已执行
   [ ] 版本确认 = 8.0.45
 
-DBA 验证:
-  [ ] 参数组生效
-  [ ] 应用连接恢复
-  [ ] Canal 连接恢复（如适用）
-  [ ] Prometheus exporter 正常
-  [ ] CloudWatch 指标正常
-  [ ] 慢查询日志正常
+DBA 验证 (Step 5):
+  [ ] 5.1 参数组名称未变，状态 = in-sync
+  [ ] 5.1 innodb_buffer_pool_size 与升级前一致
+  [ ] 5.1 salesorder group_concat_max_len = 1048576（如适用）
+  [ ] 5.2 各用户连接数与升级前一致
+  [ ] 5.2 Canal 连接恢复，数量一致（如适用）
+  [ ] 5.3 关键表行数与升级前基线一致
+  [ ] 5.4 Prometheus exporter 正常
+  [ ] 5.5 CloudWatch 指标正常
+  [ ] 5.6 慢查询日志正常
 
-研发验证:
+研发验证 (Step 6):
   [ ] 业务功能正常
   [ ] 无异常错误日志
   [ ] 响应时间正常
 
-升级后备份:
+升级后备份 (Step 7):
   [ ] 升级后快照已创建: ________________________
 
-跟踪表:
+跟踪表 (Step 8):
   [ ] 已更新升级跟踪表
 
 签字: ____________  日期: ____________
