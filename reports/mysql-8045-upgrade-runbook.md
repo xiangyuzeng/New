@@ -125,41 +125,66 @@ WHERE User = 'datalink_canal';
 - [ ] 记录各用户连接数（作为升级后对比基线，保存到 pre-upgrade.txt）
 - [ ] Canal 连接（`datalink_canal`）如有，记录连接数量和当前 GTID 位置
 
-#### 1.4 检查参数组和 Buffer Pool
+#### 1.4 记录参数组和关键参数值
+
+> 升级后将逐一比对以下所有关键参数，任何参数值变化都视为异常，必须修复。
+
+```bash
+# 确认参数组名称（升级后需保持不变）
+aws rds describe-db-instances \
+  --db-instance-identifier ${INSTANCE} \
+  --region us-east-1 \
+  --query 'DBInstances[0].DBParameterGroups[0].{Name:DBParameterGroupName,Status:ParameterApplyStatus}' \
+  --output table
+```
 
 ```sql
--- 确认参数组名称（升级后需保持不变）
--- 通过 AWS CLI 查看：
--- aws rds describe-db-instances --db-instance-identifier ${INSTANCE} --region us-east-1 \
---   --query 'DBInstances[0].DBParameterGroups[0].{Name:DBParameterGroupName,Status:ParameterApplyStatus}'
-
--- 检查 innodb_buffer_pool_size（记录当前值，升级后对比）
--- 历史问题：AWS 曾在升级过程中自动缩减 buffer_pool_size
-SHOW GLOBAL VARIABLES WHERE Variable_name = 'innodb_buffer_pool_size';
-
--- 抽查关键参数值（升级后需保持一致）
+-- 记录全部关键参数的当前值（升级后必须逐一比对，不允许有差异）
+-- 历史问题：AWS 曾在升级过程中自动缩减 innodb_buffer_pool_size
+-- 历史问题：salesorder 的 group_concat_max_len 回到默认值 1024 导致业务报错
 SHOW GLOBAL VARIABLES WHERE Variable_name IN (
-  'transaction_isolation', 'long_query_time', 'max_connections',
-  'innodb_lock_wait_timeout', 'innodb_adaptive_hash_index',
-  'lower_case_table_names', 'gtid_mode', 'enforce_gtid_consistency',
-  'performance_schema', 'slow_query_log', 'innodb_buffer_pool_size'
+  -- 引擎核心参数
+  'innodb_buffer_pool_size',
+  'innodb_lock_wait_timeout',
+  'innodb_adaptive_hash_index',
+  -- 连接与查询参数
+  'max_connections',
+  'long_query_time',
+  'transaction_isolation',
+  'group_concat_max_len',
+  -- 复制与 GTID
+  'gtid_mode',
+  'enforce_gtid_consistency',
+  -- 系统行为参数
+  'lower_case_table_names',
+  'performance_schema',
+  'slow_query_log',
+  'character_set_server',
+  'collation_server'
 );
 ```
 
-**特殊实例参数检查**：
+> 将上述查询结果原样保存到 `${INSTANCE}-pre-upgrade.txt`，升级后 Step 5.1 将用同一条 SQL 查询并逐行比对。
 
-```sql
--- salesorder 实例必须检查（默认值 1024 会导致业务报错）
--- 仅针对 aws-luckyus-salesorder-rw 执行
-SHOW GLOBAL VARIABLES WHERE Variable_name = 'group_concat_max_len';
--- 预期值: 1048576（必须！回到默认 1024 将导致业务异常）
-```
+**关键参数预期值参考**（以 `luckyus-prod-80-new` 参数组为准）：
+
+| 参数 | 预期值 | 特别说明 |
+|------|--------|---------|
+| innodb_buffer_pool_size | 因实例规格而异 | **AWS 曾自动缩减，必须记录原值** |
+| group_concat_max_len | 1048576 (salesorder) / 1024 (其他) | **salesorder 回到 1024 = 业务故障** |
+| max_connections | 4000 | |
+| transaction_isolation | READ-COMMITTED | |
+| long_query_time | 0.100000 | |
+| gtid_mode | ON | |
+| lower_case_table_names | 1 | |
+| performance_schema | ON | |
+| slow_query_log | ON | |
 
 **检查项**：
-- [ ] 参数组名称记录（通常为 `luckyus-prod-80-new`）
-- [ ] innodb_buffer_pool_size 记录当前值: ____________ bytes
-- [ ] **salesorder**: group_concat_max_len = 1048576 ✓
-- [ ] 关键参数值已记录到 pre-upgrade.txt
+- [ ] 参数组名称已记录: ________________________
+- [ ] 全部关键参数值已记录到 pre-upgrade.txt（共 14 项）
+- [ ] innodb_buffer_pool_size 当前值: ____________ bytes
+- [ ] group_concat_max_len 当前值: ____________（salesorder 必须为 1048576）
 
 #### 1.5 记录升级前基线
 
@@ -203,8 +228,8 @@ LIMIT 20;
 > 保存内容清单：
 > - 各用户连接数（1.3）
 > - Canal 连接详情（1.3，如适用）
-> - 参数组名称和 buffer_pool_size（1.4）
-> - 特殊参数值（1.4，如适用）
+> - 参数组名称（1.4）
+> - 14 项关键参数值（1.4，升级后 Step 5.1 将逐行比对）
 > - 版本、GTID、状态变量（1.5）
 > - 关键表行数基线（1.6）
 
@@ -246,6 +271,64 @@ aws rds describe-db-snapshots \
 - [ ] 记录快照 ID 和创建时间
 
 > **重要**: 此快照是回滚的基础，保留至升级验证完成后至少 7 天。
+
+#### 2.3 本地 Binlog 备份（回滚补充手段）
+
+> 在升级前启动 `mysqlbinlog` 从 RDS 实例实时流式拉取 binlog 到本地。
+> 作用：如果 PITR 因故不可用（如自动备份被意外关闭、binlog 保留过期），本地 binlog 可作为增量数据追回的补充手段。
+
+```bash
+# 在 DBA 跳板机（10.238.3.43）上执行
+BINLOG_DIR="/data/binlog-backup/${INSTANCE}"
+mkdir -p "${BINLOG_DIR}"
+
+# 查看 RDS 当前 binlog 文件列表
+mysql -h ${INSTANCE_ENDPOINT} -u databasecheck -p -e "SHOW BINARY LOGS;" \
+  | tee "${BINLOG_DIR}/binlog-list-pre-upgrade.txt"
+
+# 记录当前 binlog 位置（升级前的起点）
+mysql -h ${INSTANCE_ENDPOINT} -u databasecheck -p -e "SHOW MASTER STATUS\G" \
+  | tee "${BINLOG_DIR}/master-status-pre-upgrade.txt"
+
+# 启动 mysqlbinlog 实时流式备份（后台运行，升级期间持续拉取）
+# --read-from-remote-server: 从远程 MySQL 拉取 binlog
+# --raw: 以原始二进制格式保存（可直接用于恢复）
+# --stop-never: 持续拉取，不中断
+# --result-file: 保存到本地目录
+nohup mysqlbinlog \
+  --read-from-remote-server \
+  --host=${INSTANCE_ENDPOINT} \
+  --user=databasecheck \
+  --password='<password>' \
+  --raw \
+  --stop-never \
+  --result-file="${BINLOG_DIR}/" \
+  $(mysql -h ${INSTANCE_ENDPOINT} -u databasecheck -p -BNe "SHOW BINARY LOGS" | tail -1 | awk '{print $1}') \
+  > "${BINLOG_DIR}/mysqlbinlog.log" 2>&1 &
+
+echo "Binlog streaming PID: $!"
+echo $! > "${BINLOG_DIR}/mysqlbinlog.pid"
+```
+
+> **升级完成且验证通过后**，停止 binlog 流式备份：
+> ```bash
+> kill $(cat /data/binlog-backup/${INSTANCE}/mysqlbinlog.pid)
+> ```
+>
+> **如需使用本地 binlog 追回增量**（仅当 PITR 不可用时）：
+> ```bash
+> # 从快照恢复后，用本地 binlog 追回增量
+> mysqlbinlog \
+>   --exclude-gtids='<快照时的 GTID 集合，见 pre-upgrade.txt Step 1.5>' \
+>   ${BINLOG_DIR}/mysql-bin-changelog.* \
+>   | mysql -h <恢复实例 endpoint> -u admin -p
+> ```
+
+**检查项**：
+- [ ] mysqlbinlog 流式进程已启动，PID 已记录
+- [ ] 升级前 binlog 位置已记录（master-status-pre-upgrade.txt）
+
+> **注意**: 此步骤需要 `databasecheck` 用户具有 `REPLICATION SLAVE` 权限。如权限不足，在 dbatest 上先验证。
 
 ---
 
@@ -342,10 +425,12 @@ done
 
 ### Step 5: DBA 技术验证（升级后立即执行）
 
-#### 5.1 版本、参数组与 Buffer Pool 确认
+#### 5.1 版本与关键参数逐一比对
+
+> 使用与 Step 1.4 完全相同的 SQL，将升级后的结果与 pre-upgrade.txt 逐行比对，**所有参数值必须保持不变**。
 
 ```bash
-# 确认参数组名称未被更改（与升级前 pre-upgrade.txt 对比）
+# 确认参数组名称未被更改
 aws rds describe-db-instances \
   --db-instance-identifier ${INSTANCE} \
   --region us-east-1 \
@@ -358,39 +443,41 @@ aws rds describe-db-instances \
 SELECT VERSION();
 -- 预期结果: 8.0.45
 
--- 确认 innodb_buffer_pool_size 未被缩减（与 pre-upgrade.txt 对比）
--- 历史问题：AWS 曾在升级过程中自动缩减此值
-SHOW GLOBAL VARIABLES WHERE Variable_name = 'innodb_buffer_pool_size';
-
--- 确认参数组生效（抽查关键参数，与 pre-upgrade.txt 对比）
+-- 与 pre-upgrade.txt Step 1.4 逐一比对（同一条 SQL，结果必须完全一致）
 SHOW GLOBAL VARIABLES WHERE Variable_name IN (
-  'transaction_isolation', 'long_query_time', 'max_connections',
-  'innodb_lock_wait_timeout', 'innodb_adaptive_hash_index',
-  'lower_case_table_names', 'gtid_mode', 'enforce_gtid_consistency',
-  'performance_schema', 'slow_query_log', 'innodb_buffer_pool_size'
+  'innodb_buffer_pool_size',
+  'innodb_lock_wait_timeout',
+  'innodb_adaptive_hash_index',
+  'max_connections',
+  'long_query_time',
+  'transaction_isolation',
+  'group_concat_max_len',
+  'gtid_mode',
+  'enforce_gtid_consistency',
+  'lower_case_table_names',
+  'performance_schema',
+  'slow_query_log',
+  'character_set_server',
+  'collation_server'
 );
 ```
 
-**特殊实例参数验证**：
+**比对方法**：将升级后输出与 pre-upgrade.txt 中 Step 1.4 的记录逐行对比，任何差异都需要立即处理。
 
-```sql
--- 仅针对 aws-luckyus-salesorder-rw —— 必须检查！
-SHOW GLOBAL VARIABLES WHERE Variable_name = 'group_concat_max_len';
--- 必须 = 1048576。如果回到默认值 1024，业务将报错，需立即修复：
--- 方法: 确认参数组中该值正确，或临时执行 SET GLOBAL group_concat_max_len = 1048576;
-```
+**如发现参数值变化的修复流程**：
+
+| 参数 | 修复方式 |
+|------|---------|
+| innodb_buffer_pool_size 被缩减 | 确认参数组中值正确 → `SET GLOBAL innodb_buffer_pool_size = <原值>;`（在线生效），同时检查参数组 apply status |
+| group_concat_max_len 回到 1024 | **salesorder 紧急**：`SET GLOBAL group_concat_max_len = 1048576;` 并确认参数组设置 |
+| 其他参数变化 | 检查参数组是否被替换（名称变了？），如参数组正确但值不对则手动 SET GLOBAL 修复 |
 
 **检查项**：
 - [ ] VERSION() = 8.0.45
-- [ ] 参数组名称与升级前一致（通常为 `luckyus-prod-80-new`），ParameterApplyStatus = `in-sync`
-- [ ] **innodb_buffer_pool_size 与升级前一致**（对比 pre-upgrade.txt，不允许有差异）
-- [ ] transaction_isolation = READ-COMMITTED
-- [ ] long_query_time = 0.100000
-- [ ] max_connections = 4000
-- [ ] gtid_mode = ON
-- [ ] performance_schema = ON
-- [ ] slow_query_log = ON
-- [ ] **salesorder**: group_concat_max_len = 1048576 ✓（默认 1024 = 业务故障）
+- [ ] 参数组名称与升级前一致，ParameterApplyStatus = `in-sync`
+- [ ] **14 项关键参数全部与 pre-upgrade.txt 一致**（逐行比对，0 差异）
+- [ ] 特别确认：innodb_buffer_pool_size = ____________（与升级前一致）
+- [ ] 特别确认：group_concat_max_len = ____________（salesorder 必须 1048576）
 
 #### 5.2 连接与进程检查
 
@@ -549,12 +636,26 @@ aws rds wait db-snapshot-available \
 echo "Post-upgrade snapshot: ${POST_SNAPSHOT_ID}"
 ```
 
-#### 7.2 快照保留策略
+#### 7.2 停止本地 Binlog 流式备份
 
-| 快照 | 保留时长 | 用途 |
+```bash
+# 升级验证通过后，停止 Step 2.3 启动的本地 binlog 流式进程
+BINLOG_DIR="/data/binlog-backup/${INSTANCE}"
+if [ -f "${BINLOG_DIR}/mysqlbinlog.pid" ]; then
+  kill "$(cat ${BINLOG_DIR}/mysqlbinlog.pid)" 2>/dev/null && echo "Binlog streaming stopped."
+  rm -f "${BINLOG_DIR}/mysqlbinlog.pid"
+fi
+# 本地 binlog 文件保留 7 天后清理
+echo "Local binlog backup at: ${BINLOG_DIR} (retain 7 days)"
+```
+
+#### 7.3 快照保留策略
+
+| 资源 | 保留时长 | 用途 |
 |------|---------|------|
 | 升级前快照 (`*-pre-8045-*`) | **7 天**（验证完成后可删除） | 回滚基础 |
 | 升级后快照 (`*-post-8045-*`) | **30 天** | 升级后基线 |
+| 本地 binlog (`/data/binlog-backup/`) | **7 天** | PITR 失败时的补充恢复手段 |
 
 ---
 
@@ -688,6 +789,8 @@ aws rds wait db-instance-available \
 ```
 
 > **为什么用 PITR 而非快照恢复**: PITR 自动应用 binlog 到指定时间点，包含升级后到阻断写入期间的所有业务数据，无需手动追回增量。
+>
+> **如果 PITR 不可用**（如自动备份被关闭、binlog 保留过期）：改用 Step 2.1 的手动快照恢复 + Step 2.3 的本地 binlog 追回增量，详见 Step 2.3 中的恢复命令。
 
 #### R3: 验证恢复实例
 
@@ -707,20 +810,19 @@ ORDER BY TABLE_ROWS DESC LIMIT 20;
 -- 3. 核心表精确行数对比
 -- SELECT COUNT(*) FROM <database>.<core_table>;
 
--- 4. 确认参数正常
+-- 4. 确认关键参数正常（与 pre-upgrade.txt Step 1.4 逐行比对）
 SHOW GLOBAL VARIABLES WHERE Variable_name IN (
-  'innodb_buffer_pool_size', 'max_connections', 'gtid_mode'
+  'innodb_buffer_pool_size', 'innodb_lock_wait_timeout', 'innodb_adaptive_hash_index',
+  'max_connections', 'long_query_time', 'transaction_isolation', 'group_concat_max_len',
+  'gtid_mode', 'enforce_gtid_consistency', 'lower_case_table_names',
+  'performance_schema', 'slow_query_log', 'character_set_server', 'collation_server'
 );
-
--- 5. salesorder 特殊检查（如适用）
--- SHOW GLOBAL VARIABLES WHERE Variable_name = 'group_concat_max_len';
 ```
 
 **检查项**：
 - [ ] 数据库列表完整
 - [ ] 关键表行数与阻断写入前一致（应 ≥ pre-upgrade.txt 基线）
-- [ ] 参数值正常（buffer_pool_size、max_connections 等）
-- [ ] 特殊参数正常（如 salesorder group_concat_max_len = 1048576）
+- [ ] 14 项关键参数全部与 pre-upgrade.txt 一致
 
 #### R4: 切换流量到恢复实例
 
@@ -950,6 +1052,183 @@ echo "  Next: Run DBA technical validation (Step 5)"
 echo "=========================================="
 ```
 
+### 单实例回滚脚本
+
+```bash
+#!/bin/bash
+# =============================================================================
+# Script: rollback-single.sh
+# Purpose: Rollback a MySQL RDS instance after failed 8.0.45 upgrade
+# Usage: ./rollback-single.sh <instance-identifier> <restore-time> <dba-only-sg-id> <prod-sg-id>
+#
+# Parameters:
+#   $1 - instance identifier (e.g. aws-luckyus-salesorder-rw)
+#   $2 - restore time in ISO 8601 format (e.g. 2026-04-15T09:30:00Z)
+#        should be the time BEFORE writes were blocked (R1)
+#   $3 - DBA-only security group ID (to block app traffic)
+#   $4 - production security group ID (to restore after rollback)
+#
+# Prerequisites:
+#   - pre-upgrade.txt exists at /app/reports/upgrade-logs/${INSTANCE}-pre-upgrade.txt
+#   - Canal team has been notified to pause Canal tasks
+#
+# Date: 2026-04-14
+# Author: David Zeng (DBA)
+# =============================================================================
+
+set -euo pipefail
+REGION="us-east-1"
+INSTANCE=$1
+RESTORE_TIME=$2
+DBA_SG=$3
+PROD_SG=$4
+RESTORE_INSTANCE="${INSTANCE}-restore"
+BINLOG_DIR="/data/binlog-backup/${INSTANCE}"
+
+echo ""
+echo "============================================"
+echo "  ROLLBACK: ${INSTANCE}"
+echo "  Restore to: ${RESTORE_TIME}"
+echo "  Time: $(date -u)"
+echo "============================================"
+
+# ----- R1: 阻断业务写入 -----
+echo ""
+echo "=== [R1] Blocking application traffic ==="
+
+# 记录当前安全组
+CURRENT_SGS=$(aws rds describe-db-instances \
+  --db-instance-identifier "${INSTANCE}" \
+  --region "${REGION}" \
+  --query 'DBInstances[0].VpcSecurityGroups[*].VpcSecurityGroupId' \
+  --output text)
+echo "Current security groups: ${CURRENT_SGS}"
+
+# 切换到 DBA-only 安全组
+aws rds modify-db-instance \
+  --db-instance-identifier "${INSTANCE}" \
+  --vpc-security-group-ids "${DBA_SG}" \
+  --apply-immediately \
+  --region "${REGION}" \
+  --query 'DBInstance.VpcSecurityGroups[*].{Id:VpcSecurityGroupId,Status:Status}' \
+  --output table
+
+echo "Security group switched to DBA-only. Waiting 30s for connections to drop..."
+sleep 30
+
+# 停止本地 binlog 流式备份（如有）
+if [ -f "${BINLOG_DIR}/mysqlbinlog.pid" ]; then
+  echo "Stopping local binlog streaming (PID: $(cat ${BINLOG_DIR}/mysqlbinlog.pid))"
+  kill "$(cat ${BINLOG_DIR}/mysqlbinlog.pid)" 2>/dev/null || true
+fi
+
+echo ">>> MANUAL STEP: Confirm Canal tasks are paused for ${INSTANCE} <<<"
+echo ">>> Canal servers: 10.238.3.246 / 10.238.3.233 <<<"
+read -p "Press ENTER after Canal is paused..."
+
+# ----- R2: PITR 恢复 -----
+echo ""
+echo "=== [R2] Restoring via PITR to ${RESTORE_TIME} ==="
+
+# 获取原实例配置
+INSTANCE_CLASS=$(aws rds describe-db-instances \
+  --db-instance-identifier "${INSTANCE}" \
+  --region "${REGION}" \
+  --query 'DBInstances[0].DBInstanceClass' --output text)
+PARAM_GROUP=$(aws rds describe-db-instances \
+  --db-instance-identifier "${INSTANCE}" \
+  --region "${REGION}" \
+  --query 'DBInstances[0].DBParameterGroups[0].DBParameterGroupName' --output text)
+
+echo "Instance class: ${INSTANCE_CLASS}"
+echo "Parameter group: ${PARAM_GROUP}"
+
+aws rds restore-db-instance-to-point-in-time \
+  --source-db-instance-identifier "${INSTANCE}" \
+  --target-db-instance-identifier "${RESTORE_INSTANCE}" \
+  --restore-time "${RESTORE_TIME}" \
+  --db-instance-class "${INSTANCE_CLASS}" \
+  --db-parameter-group-name "${PARAM_GROUP}" \
+  --vpc-security-group-ids "${PROD_SG}" \
+  --multi-az \
+  --region "${REGION}"
+
+echo "PITR initiated. Waiting for restore to complete..."
+aws rds wait db-instance-available \
+  --db-instance-identifier "${RESTORE_INSTANCE}" \
+  --region "${REGION}"
+echo "Restore complete: ${RESTORE_INSTANCE}"
+
+# ----- R3: 验证恢复实例 -----
+echo ""
+echo "=== [R3] Verifying restored instance ==="
+RESTORE_ENDPOINT=$(aws rds describe-db-instances \
+  --db-instance-identifier "${RESTORE_INSTANCE}" \
+  --region "${REGION}" \
+  --query 'DBInstances[0].Endpoint.Address' --output text)
+echo "Restored endpoint: ${RESTORE_ENDPOINT}"
+echo ""
+echo ">>> MANUAL STEP: Connect to ${RESTORE_ENDPOINT} and verify: <<<"
+echo ">>>   1. SELECT VERSION();"
+echo ">>>   2. Compare key table row counts with pre-upgrade.txt Step 1.6"
+echo ">>>   3. Compare 14 key parameters with pre-upgrade.txt Step 1.4"
+echo ">>>   4. SHOW DATABASES; (verify all databases present)"
+read -p "Press ENTER after verification passes..."
+
+# ----- R4: 切换流量 -----
+echo ""
+echo "=== [R4] Switching traffic to restored instance ==="
+
+# Rename 有问题的实例
+echo "Renaming ${INSTANCE} → ${INSTANCE}-broken"
+aws rds modify-db-instance \
+  --db-instance-identifier "${INSTANCE}" \
+  --new-db-instance-identifier "${INSTANCE}-broken" \
+  --apply-immediately \
+  --region "${REGION}"
+
+echo "Waiting for rename to complete..."
+aws rds wait db-instance-available \
+  --db-instance-identifier "${INSTANCE}-broken" \
+  --region "${REGION}"
+
+# Rename 恢复实例为原名
+echo "Renaming ${RESTORE_INSTANCE} → ${INSTANCE}"
+aws rds modify-db-instance \
+  --db-instance-identifier "${RESTORE_INSTANCE}" \
+  --new-db-instance-identifier "${INSTANCE}" \
+  --apply-immediately \
+  --region "${REGION}"
+
+echo "Waiting for rename to complete..."
+aws rds wait db-instance-available \
+  --db-instance-identifier "${INSTANCE}" \
+  --region "${REGION}"
+
+# 确认安全组
+echo "Verifying security groups..."
+aws rds describe-db-instances \
+  --db-instance-identifier "${INSTANCE}" \
+  --region "${REGION}" \
+  --query 'DBInstances[0].{Endpoint:Endpoint.Address,SGs:VpcSecurityGroups[*].VpcSecurityGroupId,Version:EngineVersion,Status:DBInstanceStatus}' \
+  --output table
+
+echo ""
+echo "=========================================="
+echo "  ROLLBACK COMPLETE"
+echo "  Instance:        ${INSTANCE}"
+echo "  Restored to:     ${RESTORE_TIME}"
+echo "  Broken instance: ${INSTANCE}-broken (delete after 24h)"
+echo ""
+echo "  Next steps:"
+echo "    1. Verify app connections are recovering"
+echo "    2. Notify middleware team to restart Canal tasks"
+echo "    3. Run DBA validation (Step 5 checks)"
+echo "    4. Notify dev team: rollback complete"
+echo "    5. After 24h stable: delete ${INSTANCE}-broken"
+echo "=========================================="
+```
+
 ---
 
 ## 六、检查清单总表
@@ -969,14 +1248,16 @@ Canal 实例？ [ ] 是  [ ] 否      特殊实例？ [ ] salesorder  [ ] 其他
   [ ] 1.3 各用户连接数已记录
   [ ] 1.3 Canal 连接数已记录（如适用）: ______ 条
   [ ] 1.4 参数组名称已记录: ________________________
-  [ ] 1.4 innodb_buffer_pool_size 已记录: ____________ bytes
-  [ ] 1.4 salesorder group_concat_max_len = 1048576（如适用）
+  [ ] 1.4 14 项关键参数值已记录
+  [ ] 1.4 innodb_buffer_pool_size = ____________ bytes
+  [ ] 1.4 group_concat_max_len = ____________（salesorder 必须 1048576）
   [ ] 1.5 版本、GTID、状态变量已记录
   [ ] 1.6 关键表行数基线已记录
 
 全量备份 (Step 2):
   [ ] 快照已创建: ________________________
   [ ] 快照状态 = available
+  [ ] 本地 binlog 流式备份已启动，PID: ________
 
 通知 (Step 3):
   [ ] 研发已通知
@@ -988,8 +1269,9 @@ Canal 实例？ [ ] 是  [ ] 否      特殊实例？ [ ] salesorder  [ ] 其他
 
 DBA 验证 (Step 5):
   [ ] 5.1 参数组名称未变，状态 = in-sync
+  [ ] 5.1 14 项关键参数全部与 pre-upgrade.txt 一致（0 差异）
   [ ] 5.1 innodb_buffer_pool_size 与升级前一致
-  [ ] 5.1 salesorder group_concat_max_len = 1048576（如适用）
+  [ ] 5.1 group_concat_max_len 与升级前一致（salesorder = 1048576）
   [ ] 5.2 各用户连接数与升级前一致
   [ ] 5.2 Canal 连接恢复，数量一致（如适用）
   [ ] 5.3 关键表行数与升级前基线一致
