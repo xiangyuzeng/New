@@ -223,10 +223,10 @@ class DatabaseClient:
 class DataCollector:
     """Collects all data for one report week from production databases."""
 
-    # Database names
-    DB_ORDER = "salesorder"
-    DB_HEALTH = "iluckyhealth"
-    DB_SHOP = "opshop"
+    # Database names (actual schema names on RDS)
+    DB_ORDER = "luckyus_sales_order"
+    DB_HEALTH = "luckyus_iluckyhealth"
+    DB_SHOP = "luckyus_opshop"
 
     def __init__(self, db: DatabaseClient, week_start: datetime):
         self.db = db
@@ -445,16 +445,15 @@ class DataCollector:
             rows = self.db.query(self.DB_ORDER, f"""
                 SELECT
                     o.shop_id,
-                    s.shop_name,
+                    o.shop_name,
                     COUNT(*) AS total_orders,
                     SUM(CASE WHEN o.status IN (20,90) THEN 1 ELSE 0 END) AS completed,
                     SUM(CASE WHEN o.status IN (20,90) THEN o.pay_money ELSE 0 END) AS revenue,
                     AVG(CASE WHEN o.status IN (20,90) THEN o.pay_money END) AS avg_ticket,
                     SUM(CASE WHEN o.status IN (20,90) THEN 1 ELSE 0 END) / COUNT(*) AS completion_rate
                 FROM t_order o
-                LEFT JOIN t_shop s ON s.id = o.shop_id
                 WHERE o.status IN (0, 20, 90) AND {wf}
-                GROUP BY o.shop_id, s.shop_name
+                GROUP BY o.shop_id, o.shop_name
                 ORDER BY revenue DESC
             """)
             stores = []
@@ -2036,7 +2035,7 @@ class PDFReportBuilder:
         story.append(Spacer(1, 8 * mm))
         story.append(HRFlowable(width="100%", thickness=0.5, color=colors.lightgrey))
         story.append(Paragraph(
-            f"本报告由 AI 自动生成。数据来源：salesorder + iluckyhealth + opshop"
+            f"本报告由 AI 自动生成。数据来源：luckyus_sales_order + luckyus_opshop"
             f"（截至 {self.data['week_end']} 00:00 UTC）。如有疑问请联系 DBA 团队。",
             styles["Small_CN"]
         ))
