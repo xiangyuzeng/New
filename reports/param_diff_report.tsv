@@ -1,0 +1,46 @@
+instance_hostname	variable_name	instance_value	fleet_default	is_different
+# ===== 8.4 TEST INSTANCES (different parameter group expected) =====
+aws-luckyus-datalink-84test	gtid_mode	OFF_PERMISSIVE	ON	YES
+aws-luckyus-datalink-84test	innodb_buffer_pool_size	134217728	268435456	YES
+aws-luckyus-datalink-84test	innodb_strict_mode	ON	OFF	YES
+aws-luckyus-datalink-84test	log_bin_trust_function_creators	OFF	ON	YES
+aws-luckyus-datalink-84test	lower_case_table_names	0	1	YES
+aws-luckyus-datalink-84test	max_connections	60	4000	YES
+aws-luckyus-datalink-84test	sql_mode	NO_ENGINE_SUBSTITUTION	STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION	YES
+aws-luckyus-dba84test	gtid_mode	OFF_PERMISSIVE	ON	YES
+aws-luckyus-dba84test	innodb_buffer_pool_size	134217728	268435456	YES
+aws-luckyus-dba84test	innodb_strict_mode	ON	OFF	YES
+aws-luckyus-dba84test	log_bin_trust_function_creators	OFF	ON	YES
+aws-luckyus-dba84test	lower_case_table_names	0	1	YES
+aws-luckyus-dba84test	max_connections	60	4000	YES
+aws-luckyus-dba84test	sql_mode	NO_ENGINE_SUBSTITUTION	STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION	YES
+# ===== PRODUCTION 8.0 INSTANCES WITH NON-BUFFER-POOL DEVIATIONS =====
+aws-luckyus-devops-rw	lower_case_table_names	0	1	YES
+aws-luckyus-devops-rw	log_bin_trust_function_creators	OFF	ON	YES
+aws-luckyus-devops-rw	innodb_buffer_pool_size	2147483648	268435456	YES
+aws-luckyus-ldas-rw	lower_case_table_names	0	1	YES
+aws-luckyus-ldas-rw	log_bin_trust_function_creators	OFF	ON	YES
+aws-luckyus-ldas-rw	innodb_buffer_pool_size	5368709120	268435456	YES
+aws-luckyus-salesorder-rw	group_concat_max_len	1048576	1024	YES
+aws-luckyus-salesorder-rw	innodb_buffer_pool_size	2147483648	268435456	YES
+# ===== PRODUCTION 8.0 INSTANCES WITH BUFFER POOL ONLY DEVIATIONS =====
+# Note: innodb_buffer_pool_size is auto-tuned by RDS based on instance class; differences are expected
+aws-luckyus-fitax-rw	innodb_buffer_pool_size	134217728	268435456	YES
+aws-luckyus-framework01-rw	innodb_buffer_pool_size	134217728	268435456	YES
+aws-luckyus-opproduction-rw	innodb_buffer_pool_size	134217728	268435456	YES
+aws-luckyus-iluckyhealth-rw	innodb_buffer_pool_size	1073741824	268435456	YES
+aws-luckyus-cdpactivity-rw	innodb_buffer_pool_size	2147483648	268435456	YES
+aws-luckyus-framework02-rw	innodb_buffer_pool_size	2147483648	268435456	YES
+aws-luckyus-iadmin-rw	innodb_buffer_pool_size	2147483648	268435456	YES
+aws-luckyus-iluckyams-rw	innodb_buffer_pool_size	2147483648	268435456	YES
+aws-luckyus-isalescdp-rw	innodb_buffer_pool_size	2147483648	268435456	YES
+aws-luckyus-mfranchise-rw	innodb_buffer_pool_size	2147483648	268435456	YES
+aws-luckyus-opshop-rw	innodb_buffer_pool_size	2147483648	268435456	YES
+aws-luckyus-salesmarketing-rw	innodb_buffer_pool_size	11811160064	268435456	YES
+aws-luckyus-salespayment-rw	innodb_buffer_pool_size	2147483648	268435456	YES
+aws-luckyus-scm-wds-rw	innodb_buffer_pool_size	2147483648	268435456	YES
+aws-luckyus-scmcommodity-rw	innodb_buffer_pool_size	2147483648	268435456	YES
+aws-luckyus-upush-rw	innodb_buffer_pool_size	2147483648	268435456	YES
+aws-luckyus-ldas01-rw	innodb_buffer_pool_size	5368709120	268435456	YES
+# ===== UNREACHABLE =====
+# recovery-dbatest: connection refused — cannot check parameters
