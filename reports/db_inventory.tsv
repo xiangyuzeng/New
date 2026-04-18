@@ -1,0 +1,106 @@
+instance_hostname	db_name	size_gb	table_count	current_version	custom_params
+aws-luckyus-cdpactivity-rw	luckyus_cdp_activity	15.16	36	8.0.40	innodb_buffer_pool_size=2147483648
+aws-luckyus-dbatest-rw	test	0.01	2	8.0.45
+aws-luckyus-devops-rw	luckyus_auth	0.00	36	8.0.40	innodb_buffer_pool_size=2147483648; lower_case_table_names=0
+aws-luckyus-devops-rw	luckyus_authservice	0.02	18	8.0.40	innodb_buffer_pool_size=2147483648; lower_case_table_names=0
+aws-luckyus-devops-rw	luckyus_uam	0.00	6	8.0.40	innodb_buffer_pool_size=2147483648; lower_case_table_names=0
+aws-luckyus-devops-rw	luckyus_izeus	0.13	78	8.0.40	innodb_buffer_pool_size=2147483648; lower_case_table_names=0
+aws-luckyus-devops-rw	luckyus_umbgrafana	0.05	82	8.0.40	innodb_buffer_pool_size=2147483648; lower_case_table_names=0
+aws-luckyus-devops-rw	luckyus_iluckyptsweb	0.04	32	8.0.40	innodb_buffer_pool_size=2147483648; lower_case_table_names=0
+aws-luckyus-devops-rw	luckyus_ilopamanager	0.01	24	8.0.40	innodb_buffer_pool_size=2147483648; lower_case_table_names=0
+aws-luckyus-fichargecontrol-rw	luckyus_fi_chargecontrol	0.04	33	8.0.40
+aws-luckyus-fichargecontrol-rw	backup_tables	0.00	7	8.0.40
+aws-luckyus-fitax-rw	luckyus_fi_tax	0.00	13	8.0.40	innodb_buffer_pool_size=134217728
+aws-luckyus-framework01-rw	luckyus_bsportal	0.01	10	8.0.40	innodb_buffer_pool_size=2147483648
+aws-luckyus-framework01-rw	luckyus_gaea	0.10	27	8.0.40	innodb_buffer_pool_size=2147483648
+aws-luckyus-framework01-rw	luckyus_horae	0.00	4	8.0.40	innodb_buffer_pool_size=2147483648
+aws-luckyus-framework01-rw	luckyus_isentineldashboard	0.00	8	8.0.40	innodb_buffer_pool_size=2147483648
+aws-luckyus-framework01-rw	luckyus_kbx	0.03	55	8.0.40	innodb_buffer_pool_size=2147483648
+aws-luckyus-framework01-rw	luckyus_lcp_apiserver	0.00	16	8.0.40	innodb_buffer_pool_size=2147483648
+aws-luckyus-framework01-rw	luckyus_lcp_noahusercenter	0.00	10	8.0.40	innodb_buffer_pool_size=2147483648
+aws-luckyus-framework01-rw	luckyus_nacos	0.00	12	8.0.40	innodb_buffer_pool_size=2147483648
+aws-luckyus-framework01-rw	luckyus_sddl_platform	0.00	59	8.0.40	innodb_buffer_pool_size=2147483648
+aws-luckyus-framework01-rw	luckyus_zkdoctor	0.05	44	8.0.40	innodb_buffer_pool_size=2147483648
+aws-luckyus-framework01-rw	luckyus_koalaadmin	0.00	13	8.0.40	innodb_buffer_pool_size=2147483648
+aws-luckyus-framework01-rw	luckyus_iluckyenvsystemweb	0.10	27	8.0.40	innodb_buffer_pool_size=2147483648
+aws-luckyus-framework02-rw	luckyus_ilkm	0.00	13	8.0.40	innodb_buffer_pool_size=2147483648
+aws-luckyus-framework02-rw	luckyus_chronusconsole	0.01	52	8.0.40	innodb_buffer_pool_size=2147483648
+aws-luckyus-framework02-rw	luckyus_onepiececonsole	3.01	13	8.0.40	innodb_buffer_pool_size=2147483648
+aws-luckyus-framework02-rw	luckyus_ihmonitorconsole	0.00	33	8.0.40	innodb_buffer_pool_size=2147483648
+aws-luckyus-framework02-rw	luckyus_datalink	0.09	82	8.0.40	innodb_buffer_pool_size=2147483648
+aws-luckyus-framework02-rw	luckyus_iluckyflowadmin	0.20	104	8.0.40	innodb_buffer_pool_size=2147483648
+aws-luckyus-framework02-rw	luckyus_src	0.00	1	8.0.40	innodb_buffer_pool_size=2147483648
+aws-luckyus-framework02-rw	luckyus_target	0.00	1	8.0.40	innodb_buffer_pool_size=2147483648
+aws-luckyus-iadmin-rw	luckyus_iadmin	0.08	23	8.0.40
+aws-luckyus-ibillingcentersrv-rw	luckyus_ibillingcenterservice	1.22	13	8.0.40
+aws-luckyus-ibillingcentersrv-rw	backup_tables	0.00	1	8.0.40
+aws-luckyus-ibizconfigcenter-rw	luckyus_ibizconfigcenter	0.02	9	8.0.40
+aws-luckyus-icyberdata-rw	luckyus_icyberdata	23.36	440	8.0.40	innodb_buffer_pool_size=2147483648
+aws-luckyus-icyberdata-rw	luckyus_icyberdata_user	0.00	12	8.0.40	innodb_buffer_pool_size=2147483648
+aws-luckyus-icyberdata-rw	luckyus_icyberdata_nacos	0.00	12	8.0.40	innodb_buffer_pool_size=2147483648
+aws-luckyus-iehr-rw	luckyus_iehr	0.02	56	8.0.40
+aws-luckyus-ifiaccounting-rw	luckyus_ifiaccounting	0.23	83	8.0.40
+aws-luckyus-ifiaccounting-rw	backup_tables	0.00	1	8.0.40
+aws-luckyus-igers-rw	luckyus_igers	0.00	5	8.0.40
+aws-luckyus-ijumpserver-jumpserver-rw	luckyus_ijumpserver_jumpserver	0.11	168	8.0.40
+aws-luckyus-iluckyams-rw	luckyus_iluckyams	0.00	10	8.0.44
+aws-luckyus-iluckyauthapi-rw	luckyus_iluckyauthapi	0.00	1	8.0.40
+aws-luckyus-iluckydorisops-rw	luckyus_iluckydorisops	0.00	3	8.0.40
+aws-luckyus-iluckyhealth-rw	luckyus_iluckyhealth	29.44	15	8.0.40	innodb_buffer_pool_size=1073741824
+aws-luckyus-iluckymedia-rw	luckyus_iluckymedia	0.00	5	8.0.40
+aws-luckyus-iopenadmin-rw	luckyus_iopenadmin	0.00	16	8.0.40
+aws-luckyus-iopenlinker-rw	luckyus_iopenlinker	0.09	14	8.0.40
+aws-luckyus-iopenservice-rw	luckyus_iopenservice	0.00	1	8.0.40
+aws-luckyus-iopocp-rw	luckyus_iopocp	1.64	9	8.0.40
+aws-luckyus-iopshopexpand-rw	luckyus_iopshopexpand	0.00	10	8.0.40
+aws-luckyus-iotplatform-rw	luckyus_iot_platform	0.53	93	8.0.40	innodb_buffer_pool_size=2147483648
+aws-luckyus-ipermission-rw	luckyus_ipermission	0.08	31	8.0.40
+aws-luckyus-ireplenishment-rw	luckyus_ireplenishment	1.29	7	8.0.40
+aws-luckyus-iriskcontrolservice-rw	luckyus_iriskcontrolservice	18.84	157	8.0.40
+aws-luckyus-isalescdp-rw	luckyus_isales_cdp	1.60	4	8.0.40
+aws-luckyus-isalesdatamarketing-rw	luckyus_isalesdatamarketing	7.40	26	8.0.40	innodb_buffer_pool_size=2147483648
+aws-luckyus-isalesmembermarketing-rw	luckyus_isalesmembermarketing	0.00	24	8.0.40
+aws-luckyus-isalesprivatedomain-rw	luckyus_isales_privatedomain	1.85	25	8.0.40
+aws-luckyus-iunifiedreconcile-rw	luckyus_iunifiedreconcile	0.00	11	8.0.40
+aws-luckyus-iworkflowmidlayer-rw	luckyus_iworkflowmidlayer	5.49	26	8.0.40	innodb_buffer_pool_size=2147483648
+aws-luckyus-ldas-rw	luckyus_ldas_nacos	0.00	12	8.0.40	innodb_buffer_pool_size=2147483648
+aws-luckyus-ldas-rw	luckyus_ldas_cmdb	0.00	28	8.0.40	innodb_buffer_pool_size=2147483648
+aws-luckyus-ldas-rw	luckyus_dbmsdbsearch	0.04	3	8.0.40	innodb_buffer_pool_size=2147483648
+aws-luckyus-ldas-rw	luckyus_ozono	0.00	8	8.0.40	innodb_buffer_pool_size=2147483648
+aws-luckyus-ldas-rw	luckyus_apigatewayadmin	0.25	17	8.0.40	innodb_buffer_pool_size=2147483648
+aws-luckyus-ldas-rw	luckyus_ikafadmin	1.26	44	8.0.40	innodb_buffer_pool_size=2147483648
+aws-luckyus-ldas01-rw	luckyus_db_collection	89.73	64	8.0.41	innodb_buffer_pool_size=5368709120; lower_case_table_names=0
+aws-luckyus-ldas01-rw	luckyus_ldas_slowquery	10.70	2	8.0.41	innodb_buffer_pool_size=5368709120; lower_case_table_names=0
+aws-luckyus-mfranchise-rw	luckyus_mfranchise	0.00	69	8.0.40
+aws-luckyus-opempefficiency-rw	luckyus_opempefficiency	0.09	33	8.0.40
+aws-luckyus-oplog-rw	luckyus_oplog	0.00	1	8.0.40
+aws-luckyus-opproduction-rw	luckyus_opproduction	4.30	14	8.0.40	innodb_buffer_pool_size=134217728
+aws-luckyus-opqualitycontrol-rw	luckyus_opqualitycontrol	0.56	44	8.0.40
+aws-luckyus-opshop-rw	luckyus_opshop	0.03	34	8.0.40	innodb_buffer_pool_size=2147483648
+aws-luckyus-opshopsale-rw	luckyus_opshopsale	0.27	23	8.0.40
+aws-luckyus-pubdm-rw	luckyus_pub_dm	0.01	67	8.0.40
+aws-luckyus-salescrm-rw	luckyus_sales_crm	0.53	29	8.0.40	innodb_buffer_pool_size=2147483648
+aws-luckyus-salesmarketing-rw	luckyus_sales_marketing	46.14	171	8.0.40	innodb_buffer_pool_size=11811160064
+aws-luckyus-salesorder-rw	luckyus_sales_order	4.84	40	8.0.40	innodb_buffer_pool_size=2147483648; group_concat_max_len=1048576
+aws-luckyus-salespayment-rw	luckyus_sales_payment	0.60	28	8.0.40	innodb_buffer_pool_size=2147483648
+aws-luckyus-scm-asset-rw	luckyus_scm_asset	0.02	146	8.0.40
+aws-luckyus-scm-openapi-rw	luckyus_scm_openapi	0.15	22	8.0.40
+aws-luckyus-scm-ordering-rw	luckyus_scm_ordering	0.31	107	8.0.40
+aws-luckyus-scm-ordering-rw	backup_tables	0.00	1	8.0.40
+aws-luckyus-scm-plan-rw	luckyus_scm_plan	0.00	40	8.0.40
+aws-luckyus-scm-purchase-rw	luckyus_scm_purchase	0.14	159	8.0.40
+aws-luckyus-scm-shopstock-rw	luckyus_scm_shopstock	6.52	192	8.0.40
+aws-luckyus-scm-wds-rw	luckyus_scm_wds	0.16	157	8.0.40
+aws-luckyus-scm-wmssimulate-rw	luckyus_scm_wmssimulate	0.03	86	8.0.40
+aws-luckyus-scmcommodity-rw	luckyus_scm_commodity	0.17	143	8.0.40
+aws-luckyus-scmsrm-rw	luckyus_scm_srm	0.11	132	8.0.40
+aws-luckyus-scmsrm-rw	backup_tables	0.00	2	8.0.40
+aws-luckyus-upush-rw	luckyus_imdmext	0.00	21	8.0.40	innodb_buffer_pool_size=2147483648
+aws-luckyus-upush-rw	luckyus_iupushadmin	0.00	7	8.0.40	innodb_buffer_pool_size=2147483648
+aws-luckyus-upush-rw	luckyus_iupushaid	0.11	24	8.0.40	innodb_buffer_pool_size=2147483648
+aws-luckyus-upush-rw	luckyus_iupushapp	10.64	33	8.0.40	innodb_buffer_pool_size=2147483648
+aws-luckyus-upush-rw	luckyus_iupushemail	0.44	7	8.0.40	innodb_buffer_pool_size=2147483648
+aws-luckyus-upush-rw	luckyus_iupushsms	5.21	89	8.0.40	innodb_buffer_pool_size=2147483648
+aws-luckyus-upush-rw	luckyus_iupushusercenter	0.15	4	8.0.40	innodb_buffer_pool_size=2147483648
+aws-luckyus-upush-rw	luckyus_mdm	0.01	364	8.0.40	innodb_buffer_pool_size=2147483648
+aws-luckyus-upush-rw	luckyus_mdmadmin	1.49	316	8.0.40	innodb_buffer_pool_size=2147483648
