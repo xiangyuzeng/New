@@ -8,18 +8,18 @@ database:
   luckyus_sales_order:
     host: aws-luckyus-salesorder-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com
     port: 3306
-    user: ${LCNA_USER}
-    password: ${LCNA_PASSWORD}
+    user: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
   luckyus_iluckyhealth:
     host: aws-luckyus-iluckyhealth-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com
     port: 3306
-    user: ${LCNA_USER}
-    password: ${LCNA_PASSWORD}
+    user: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
   luckyus_opshop:
     host: aws-luckyus-opshop-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com
     port: 3306
-    user: ${LCNA_USER}
-    password: ${LCNA_PASSWORD}
+    user: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
 
   # Connection defaults applied to every schema above.
   defaults:
@@ -28,6 +28,6 @@ database:
     read_timeout: 30
 
 output:
-  dir: /app/reports
-  font_path: /usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc
+  dir: ./reports
+  font_path: ${HOME}/.fonts/NotoSansCJK-Regular.ttc
   action_items: action_items.yaml

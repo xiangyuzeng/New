@@ -38,11 +38,43 @@ import argparse
 import json
 import os
 import sys
-import yaml
 from collections import defaultdict
 from datetime import datetime, timedelta
 from decimal import Decimal, ROUND_HALF_UP
 from typing import Any, Optional
+
+# Third-party deps — imported up front so missing packages fail before any
+# database work is done. Install with:  pip install pymysql pyyaml reportlab
+try:
+    import yaml
+    import pymysql
+    from reportlab.lib import colors
+    from reportlab.lib.pagesizes import A4
+    from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+    from reportlab.lib.units import mm, cm
+    from reportlab.lib.enums import TA_LEFT, TA_CENTER, TA_RIGHT
+    from reportlab.platypus import (
+        SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle,
+        PageBreak, HRFlowable, KeepTogether,
+    )
+    from reportlab.pdfbase import pdfmetrics
+    from reportlab.pdfbase.ttfonts import TTFont
+    from reportlab.pdfbase.cidfonts import UnicodeCIDFont
+except ImportError as exc:
+    missing = exc.name or str(exc)
+    sys.stderr.write(
+        f"ERROR: required Python package not installed: {missing}\n"
+        f"Install all dependencies with:\n"
+        f"  pip install pymysql pyyaml reportlab\n"
+    )
+    sys.exit(2)
+
+import time
+
+
+def _log(msg: str) -> None:
+    """Print a timestamped progress line to stdout (flushed immediately)."""
+    print(f"[{time.strftime('%H:%M:%S')}] {msg}", flush=True)
 
 # ---------------------------------------------------------------------------
 # Configuration
@@ -298,7 +330,6 @@ class DatabaseClient:
                 f"No DB config registered for schema '{database}'. "
                 f"Known schemas: {sorted(self.configs)}"
             )
-        import pymysql
         return pymysql.connect(
             **self.configs[database],
             database=database,
@@ -332,16 +363,22 @@ class DataCollector:
         self.this_mon, self.this_sun = week_bounds(week_start)
         prev_start = self.this_mon - timedelta(days=7)
         self.prev_mon, self.prev_sun = week_bounds(prev_start)
-        # ET (US Eastern) offset used in SQL: orders store UTC, convert via
-        # CONVERT_TZ or direct date filter in ET.  We assume order_time is in
-        # US-Eastern or UTC — adjust the SQL if your schema differs.
+        # t_order.create_time is stored in UTC; business lives in America/New_York.
+        # Every time-filter, DATE(), HOUR(), DAYOFWEEK() uses CONVERT_TZ so
+        # week boundaries align with the ET business day (Mon 00:00 – Sun 23:59 ET).
 
     # ---- helpers ----
+    @staticmethod
+    def _et(col: str) -> str:
+        """Wrap a UTC timestamp column so downstream SQL sees America/New_York time."""
+        return f"CONVERT_TZ({col}, 'UTC', 'America/New_York')"
+
     def _week_filter(self, col: str, which: str = "this") -> str:
+        et_col = self._et(col)
         if which == "this":
-            return f"{col} >= '{self.this_mon:%Y-%m-%d}' AND {col} < '{self.this_sun + timedelta(seconds=1):%Y-%m-%d}'"
+            return f"{et_col} >= '{self.this_mon:%Y-%m-%d}' AND {et_col} < '{self.this_sun + timedelta(seconds=1):%Y-%m-%d}'"
         else:
-            return f"{col} >= '{self.prev_mon:%Y-%m-%d}' AND {col} < '{self.prev_sun + timedelta(seconds=1):%Y-%m-%d}'"
+            return f"{et_col} >= '{self.prev_mon:%Y-%m-%d}' AND {et_col} < '{self.prev_sun + timedelta(seconds=1):%Y-%m-%d}'"
 
     def _order_base(self, which: str = "this") -> str:
         """Base WHERE for t_order (exclude test / deleted)."""
@@ -433,8 +470,8 @@ class DataCollector:
                     SELECT user_no, COUNT(*) AS order_cnt
                     FROM t_order
                     WHERE status IN (20, 90)
-                      AND create_time >= '{start_30:%Y-%m-%d}'
-                      AND create_time < '{end_date + timedelta(seconds=1):%Y-%m-%d}'
+                      AND {self._et('create_time')} >= '{start_30:%Y-%m-%d}'
+                      AND {self._et('create_time')} < '{end_date + timedelta(seconds=1):%Y-%m-%d}'
                     GROUP BY user_no
                 ) sub
             """)
@@ -463,16 +500,17 @@ class DataCollector:
         result = {}
         for label, which in [("this", "this"), ("prev", "prev")]:
             wf = self._week_filter("create_time", which)
+            et_create = self._et("create_time")
             rows = self.db.query(self.DB_ORDER, f"""
                 SELECT
-                    DATE(create_time) AS order_date,
-                    DAYOFWEEK(create_time) AS dow,
+                    DATE({et_create}) AS order_date,
+                    DAYOFWEEK({et_create}) AS dow,
                     COUNT(*) AS orders,
                     SUM(pay_money) AS revenue,
                     AVG(pay_money) AS avg_ticket
                 FROM t_order
                 WHERE status IN (20, 90) AND {wf}
-                GROUP BY DATE(create_time)
+                GROUP BY DATE({et_create})
                 ORDER BY order_date
             """)
             result[f"{label}_daily"] = [
@@ -657,8 +695,8 @@ class DataCollector:
                     FROM t_order
                     WHERE status IN (20, 90)
                       AND channel IN (1, 2, 3)
-                      AND create_time >= '{start_30:%Y-%m-%d}'
-                      AND create_time < '{end_date + timedelta(seconds=1):%Y-%m-%d}'
+                      AND {self._et('create_time')} >= '{start_30:%Y-%m-%d}'
+                      AND {self._et('create_time')} < '{end_date + timedelta(seconds=1):%Y-%m-%d}'
                     GROUP BY user_no
                 ) sub
                 GROUP BY order_cnt
@@ -772,16 +810,17 @@ class DataCollector:
         top5_names = [p["name"] for p in result.get("this_top_products", [])[:5]]
         if top5_names:
             placeholders = ",".join(["%s"] * len(top5_names))
+            et_create = self._et("o.create_time")
             rows = self.db.query(self.DB_ORDER, f"""
                 SELECT
                     oi.spu_name,
-                    HOUR(o.create_time) AS hour,
+                    HOUR({et_create}) AS hour,
                     COUNT(*) AS cnt
                 FROM t_order_item oi
                 JOIN t_order o ON o.id = oi.order_id
                 WHERE o.status IN (20, 90) AND {wf}
                   AND oi.spu_name IN ({placeholders})
-                GROUP BY oi.spu_name, HOUR(o.create_time)
+                GROUP BY oi.spu_name, HOUR({et_create})
                 ORDER BY oi.spu_name, hour
             """, tuple(top5_names))
             hourly = defaultdict(dict)
@@ -803,11 +842,18 @@ class DataCollector:
         data["prev_week_end"] = self.prev_sun.strftime("%Y-%m-%d")
         data["generated_at"] = datetime.now().strftime("%Y-%m-%d %H:%M EST")
 
-        data["overview"] = self.collect_overview()
-        data["revenue"] = self.collect_revenue()
-        data["stores"] = self.collect_stores()
-        data["channels"] = self.collect_channels()
-        data["products"] = self.collect_products()
+        steps = [
+            ("overview",  "Ch1 运营概览",  self.collect_overview),
+            ("revenue",   "Ch2 营收与客流", self.collect_revenue),
+            ("stores",    "Ch3 门店排名",  self.collect_stores),
+            ("channels",  "Ch4 渠道与营销", self.collect_channels),
+            ("products",  "Ch5 产品与供应链", self.collect_products),
+        ]
+        for i, (key, label, fn) in enumerate(steps, 1):
+            _log(f"[{i}/{len(steps)}] Collecting {label}...")
+            t0 = time.monotonic()
+            data[key] = fn()
+            _log(f"[{i}/{len(steps)}] {label} done in {time.monotonic() - t0:.1f}s")
 
         return data
 
@@ -1285,19 +1331,6 @@ class PDFReportBuilder:
         self.text = text
 
     def build(self, output_path: str):
-        from reportlab.lib import colors
-        from reportlab.lib.pagesizes import A4
-        from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-        from reportlab.lib.units import mm, cm
-        from reportlab.lib.enums import TA_LEFT, TA_CENTER, TA_RIGHT
-        from reportlab.platypus import (
-            SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle,
-            PageBreak, HRFlowable, KeepTogether,
-        )
-        from reportlab.pdfbase import pdfmetrics
-        from reportlab.pdfbase.ttfonts import TTFont
-        from reportlab.pdfbase.cidfonts import UnicodeCIDFont
-
         # Register Chinese font
         font_registered = False
         font_name = "NotoSansSC"
@@ -1972,8 +2005,12 @@ def _check_data_completeness(data: dict) -> list[str]:
         problems.append("overview.this_total_revenue is 0 — no revenue for the week.")
 
     stores = data.get("stores") or {}
-    if not stores.get("rankings"):
-        problems.append("stores.rankings is empty — no per-store data collected.")
+    if not stores.get("this_stores"):
+        problems.append(
+            "stores.this_stores is empty — no per-store rows returned for the "
+            "target week. Verify salesorder RDS reachability, t_order.shop_id/"
+            "shop_name populated, and the WHERE status IN (0,20,90) filter."
+        )
 
     return problems
 
@@ -1992,8 +2029,10 @@ def main():
                         help="Also dump raw data to a JSON file.")
     args = parser.parse_args()
 
+    t_start = time.monotonic()
+
     # Load YAML config (populates DB_CONFIGS, OUTPUT_DIR, FONT_PATH, ACTION_ITEMS_PATH).
-    print(f"Loading config: {args.config}")
+    _log(f"Loading config: {args.config}")
     try:
         load_config(args.config)
     except (FileNotFoundError, ValueError, RuntimeError) as e:
@@ -2016,18 +2055,20 @@ def main():
 
     mon, sun = week_bounds(week_start)
     iso_year, iso_week, _ = mon.isocalendar()
-    print(f"Report week: {mon:%Y-%m-%d} (Mon) to {sun:%Y-%m-%d} (Sun) — W{iso_week:02d}")
+    _log(f"Report week: {mon:%Y-%m-%d} (Mon) to {sun:%Y-%m-%d} (Sun) — W{iso_week:02d}")
 
     # Collect data — always from real databases.
-    print("Connecting to databases...")
+    _log(f"Connecting to {len(DB_CONFIGS)} database schemas: {', '.join(sorted(DB_CONFIGS))}")
     db = DatabaseClient(DB_CONFIGS)
     collector = DataCollector(db, week_start)
+    t_collect = time.monotonic()
     try:
         data = collector.collect_all()
     except Exception as e:
         print(f"ERROR: data collection failed: {type(e).__name__}: {e}",
               file=sys.stderr)
         sys.exit(3)
+    _log(f"Data collection finished in {time.monotonic() - t_collect:.1f}s")
 
     problems = _check_data_completeness(data)
     if problems:
@@ -2043,19 +2084,23 @@ def main():
             sys.exit(4)
 
     # Run insight engine
+    _log("Running insight rules...")
     engine = InsightEngine(data)
     insights = engine.run_all()
-    print(f"Generated {len(insights)} insights: "
-          f"{sum(1 for i in insights if i['priority'] == 'RED')} RED, "
-          f"{sum(1 for i in insights if i['priority'] == 'YELLOW')} YELLOW, "
-          f"{sum(1 for i in insights if i['priority'] == 'GREEN')} GREEN")
+    _log(f"Generated {len(insights)} insights: "
+         f"{sum(1 for i in insights if i['priority'] == 'RED')} RED, "
+         f"{sum(1 for i in insights if i['priority'] == 'YELLOW')} YELLOW, "
+         f"{sum(1 for i in insights if i['priority'] == 'GREEN')} GREEN")
 
     # Compute store scores
+    _log("Computing store scores...")
     store_scores = compute_store_scores(data)
+    _log(f"Ranked {len(store_scores)} stores")
 
-    # Generate action items
+    # Generate action items (auto + manual)
     generated_date = datetime.now()
     action_items = generate_action_items(insights, generated_date)
+    _log(f"Assembled {len(action_items)} action items for next week")
 
     # Text renderer
     text = TextRenderer(data, insights)
@@ -2064,7 +2109,7 @@ def main():
     if args.json_out:
         with open(args.json_out, "w") as f:
             json.dump(data, f, indent=2, ensure_ascii=False, default=str)
-        print(f"Data JSON saved: {args.json_out}")
+        _log(f"Data JSON saved: {args.json_out}")
 
     if args.dry_run:
         print("\n=== DRY RUN: Summary ===")
@@ -2098,9 +2143,18 @@ def main():
     else:
         output_path = os.path.join(OUTPUT_DIR, f"weekly-report-{iso_year}-W{iso_week:02d}.pdf")
 
+    _log(f"Rendering PDF: {output_path}")
+    t_pdf = time.monotonic()
     builder = PDFReportBuilder(data, insights, store_scores, action_items, text)
     builder.build(output_path)
-    print(f"\nDone. Report saved to: {output_path}")
+    _log(f"PDF rendered in {time.monotonic() - t_pdf:.1f}s")
+
+    try:
+        size_kb = os.path.getsize(output_path) / 1024.0
+        size_str = f" ({size_kb:,.0f} KB)"
+    except OSError:
+        size_str = ""
+    _log(f"Done in {time.monotonic() - t_start:.1f}s — report saved to: {output_path}{size_str}")
 
 
 if __name__ == "__main__":
