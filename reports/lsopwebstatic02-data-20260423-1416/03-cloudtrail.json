@@ -1,0 +1,48 @@
+{
+    "Events": [
+        {
+            "EventId": "3d05c208-aac4-4831-8940-e4eb2d70d34d",
+            "EventName": "RunInstances",
+            "ReadOnly": "false",
+            "AccessKeyId": "AKIATX3PIBWBMD46HH7B",
+            "EventTime": "2026-04-21T01:58:08+00:00",
+            "EventSource": "ec2.amazonaws.com",
+            "Username": "LSOP-API",
+            "Resources": [
+                {
+                    "ResourceType": "AWS::EC2::VPC",
+                    "ResourceName": "vpc-0dce7ca7770422d33"
+                },
+                {
+                    "ResourceType": "AWS::EC2::Ami",
+                    "ResourceName": "ami-07427280a0cebb96d"
+                },
+                {
+                    "ResourceType": "AWS::EC2::NetworkInterface",
+                    "ResourceName": "eni-0e9ef950182af7bdd"
+                },
+                {
+                    "ResourceType": "AWS::EC2::Instance",
+                    "ResourceName": "i-02be4444086ac922c"
+                },
+                {
+                    "ResourceType": "AWS::EC2::KeyPair",
+                    "ResourceName": "sre_aws2573"
+                },
+                {
+                    "ResourceType": "AWS::EC2::SecurityGroup",
+                    "ResourceName": "sg-0deaa7cf7437e39c7"
+                },
+                {
+                    "ResourceType": "AWS::EC2::SecurityGroup",
+                    "ResourceName": "sg_public_prod"
+                },
+                {
+                    "ResourceType": "AWS::EC2::Subnet",
+                    "ResourceName": "subnet-0828db1b483e7e580"
+                }
+            ],
+            "CloudTrailEvent": "{\"eventVersion\":\"1.11\",\"userIdentity\":{\"type\":\"IAMUser\",\"principalId\":\"AIDATX3PIBWBF36EC5ET7\",\"arn\":\"arn:aws:iam::257394478466:user/LSOP-API\",\"accountId\":\"257394478466\",\"accessKeyId\":\"AKIATX3PIBWBMD46HH7B\",\"userName\":\"LSOP-API\"},\"eventTime\":\"2026-04-21T01:58:08Z\",\"eventSource\":\"ec2.amazonaws.com\",\"eventName\":\"RunInstances\",\"awsRegion\":\"us-east-1\",\"sourceIPAddress\":\"18.97.15.233\",\"userAgent\":\"aws-sdk-go/1.44.147 (go1.17; linux; amd64)\",\"requestParameters\":{\"instancesSet\":{\"items\":[{\"imageId\":\"ami-07427280a0cebb96d\",\"minCount\":1,\"maxCount\":1,\"keyName\":\"sre_aws2573\"}]},\"groupSet\":{\"items\":[{\"groupId\":\"sg-0deaa7cf7437e39c7\"}]},\"userData\":\"<sensitiveDataRemoved>\",\"instanceType\":\"c6i.large\",\"blockDeviceMapping\":{\"items\":[{\"deviceName\":\"/dev/xvda\",\"ebs\":{\"volumeSize\":40,\"deleteOnTermination\":true,\"volumeType\":\"gp3\"}}]},\"placementGroupId\":\"pg-06248b999ba7e7f0a\",\"monitoring\":{\"enabled\":false},\"subnetId\":\"subnet-0828db1b483e7e580\",\"disableApiTermination\":false,\"disableApiStop\":false,\"clientToken\":\"C1653809-C238-4E50-89C5-8E1BBB1B82F1\",\"tagSpecificationSet\":{\"items\":[{\"resourceType\":\"instance\",\"tags\":[{\"key\":\"Name\",\"value\":\"lsopwebstatic02-prod-usa-aws\"},{\"key\":\"env_type\",\"value\":\"prod\"},{\"key\":\"app_name\",\"value\":\"lsopwebstatic\"}]}]},\"metadataOptions\":{\"instanceMetadataTags\":\"enabled\"}},\"responseElements\":{\"requestId\":\"d325a3c2-e0b2-4eb2-8bf9-30651a7a18c0\",\"reservationId\":\"r-051a2f41f4e08ef7a\",\"ownerId\":\"257394478466\",\"groupSet\":{},\"instancesSet\":{\"items\":[{\"instanceId\":\"i-02be4444086ac922c\",\"imageId\":\"ami-07427280a0cebb96d\",\"currentInstanceBootMode\":\"legacy-bios\",\"instanceState\":{\"code\":0,\"name\":\"pending\"},\"privateDnsName\":\"ip-10-238-3-221.ec2.internal\",\"keyName\":\"sre_aws2573\",\"operator\":{\"managed\":false},\"amiLaunchIndex\":0,\"productCodes\":{},\"instanceType\":\"c6i.large\",\"launchTime\":1776736688000,\"placement\":{\"availabilityZone\":\"us-east-1a\",\"availabilityZoneId\":\"use1-az1\",\"placementGroupId\":\"pg-06248b999ba7e7f0a\",\"tenancy\":\"default\"},\"monitoring\":{\"state\":\"disabled\"},\"subnetId\":\"subnet-0828db1b483e7e580\",\"vpcId\":\"vpc-0dce7ca7770422d33\",\"privateIpAddress\":\"10.238.3.221\",\"stateReason\":{\"code\":\"pending\",\"message\":\"pending\"},\"architecture\":\"x86_64\",\"rootDeviceType\":\"ebs\",\"rootDeviceName\":\"/dev/xvda\",\"blockDeviceMapping\":{},\"virtualizationType\":\"hvm\",\"hypervisor\":\"xen\",\"tagSet\":{\"items\":[{\"key\":\"Name\",\"value\":\"lsopwebstatic02-prod-usa-aws\"},{\"key\":\"env_type\",\"value\":\"prod\"},{\"key\":\"app_name\",\"value\":\"lsopwebstatic\"}]},\"clientToken\":\"C1653809-C238-4E50-89C5-8E1BBB1B82F1\",\"groupSet\":{\"items\":[{\"groupId\":\"sg-0deaa7cf7437e39c7\",\"groupName\":\"sg_public_prod\"}]},\"sourceDestCheck\":true,\"networkInterfaceSet\":{\"items\":[{\"networkInterfaceId\":\"eni-0e9ef950182af7bdd\",\"subnetId\":\"subnet-0828db1b483e7e580\",\"vpcId\":\"vpc-0dce7ca7770422d33\",\"ownerId\":\"257394478466\",\"operator\":{\"managed\":false},\"status\":\"in-use\",\"macAddress\":\"02:54:96:20:f2:b5\",\"privateIpAddress\":\"10.238.3.221\",\"privateDnsName\":\"ip-10-238-3-221.ec2.internal\",\"sourceDestCheck\":true,\"interfaceType\":\"interface\",\"groupSet\":{\"items\":[{\"groupId\":\"sg-0deaa7cf7437e39c7\",\"groupName\":\"sg_public_prod\"}]},\"attachment\":{\"attachmentId\":\"eni-attach-0d49dd002fd6fdb26\",\"deviceIndex\":0,\"networkCardIndex\":0,\"status\":\"attaching\",\"attachTime\":1776736688000,\"deleteOnTermination\":true},\"privateIpAddressesSet\":{\"item\":[{\"privateIpAddress\":\"10.238.3.221\",\"privateDnsName\":\"ip-10-238-3-221.ec2.internal\",\"primary\":true}]},\"ipv6AddressesSet\":{},\"tagSet\":{}}]},\"ebsOptimized\":false,\"enaSupport\":true,\"cpuOptions\":{\"coreCount\":1,\"threadsPerCore\":2},\"capacityReservationSpecification\":{\"capacityReservationPreference\":\"open\"},\"enclaveOptions\":{\"enabled\":false},\"metadataOptions\":{\"state\":\"pending\",\"httpTokens\":\"optional\",\"httpPutResponseHopLimit\":1,\"httpEndpoint\":\"enabled\",\"httpProtocolIpv4\":\"enabled\",\"httpProtocolIpv6\":\"disabled\",\"instanceMetadataTags\":\"enabled\"},\"maintenanceOptions\":{\"autoRecovery\":\"default\",\"rebootMigration\":\"default\"},\"privateDnsNameOptions\":{\"hostnameType\":\"ip-name\",\"enableResourceNameDnsARecord\":false,\"enableResourceNameDnsAAAARecord\":false}}]}},\"requestID\":\"d325a3c2-e0b2-4eb2-8bf9-30651a7a18c0\",\"eventID\":\"3d05c208-aac4-4831-8940-e4eb2d70d34d\",\"readOnly\":false,\"resources\":[{\"accountId\":\"257394478466\",\"type\":\"AWS::EC2::Instance\",\"ARN\":\"arn:aws:ec2:us-east-1:257394478466:instance/i-02be4444086ac922c\"}],\"eventType\":\"AwsApiCall\",\"managementEvent\":true,\"recipientAccountId\":\"257394478466\",\"eventCategory\":\"Management\",\"tlsDetails\":{\"tlsVersion\":\"TLSv1.3\",\"cipherSuite\":\"TLS_AES_128_GCM_SHA256\",\"clientProvidedHostHeader\":\"ec2.us-east-1.amazonaws.com\"}}"
+        }
+    ]
+}

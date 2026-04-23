@@ -1,0 +1,13 @@
+=== ping ===
+ping: command not found on this host
+=== nc port 22 ===
+nc: command not found, using /dev/tcp fallback
+port 22: OPEN
+=== nc port 80 ===
+bash: connect: Connection refused
+bash: line 1: /dev/tcp/10.238.3.221/80: Connection refused
+port 80: CLOSED/FILTERED/TIMEOUT
+=== nc port 443 ===
+bash: connect: Connection refused
+bash: line 1: /dev/tcp/10.238.3.221/443: Connection refused
+port 443: CLOSED/FILTERED/TIMEOUT

@@ -1,0 +1,16 @@
+{
+    "Activities": [
+        {
+            "ActivityId": "1f16740e-ec5f-6b29-5bd8-a83cff83e91d",
+            "AutoScalingGroupName": "eks-eksNativeNodegroup-08cac53d-385a-2024-c72d-454b5d391c7b",
+            "Description": "Launching a new EC2 instance: i-061be31d472f8d9dc",
+            "Cause": "At 2026-03-19T01:34:39Z a user request update of AutoScalingGroup constraints to min: 1, max: 4, desired: 4 changing the desired capacity from 3 to 4.  At 2026-03-19T01:34:43Z an instance was started in response to a difference between desired and actual capacity, increasing the capacity from 3 to 4.",
+            "StartTime": "2026-03-19T01:34:46.234000+00:00",
+            "EndTime": "2026-03-19T01:35:53+00:00",
+            "StatusCode": "Successful",
+            "Progress": 100,
+            "Details": "{\"Availability Zone ID\":\"use1-az1\",\"Subnet ID\":\"subnet-039d21486ed5a0311\",\"Availability Zone\":\"us-east-1a\"}",
+            "AutoScalingGroupARN": "arn:aws:autoscaling:us-east-1:257394478466:autoScalingGroup:ff8d59c8-032b-4316-b905-38505fac3e7c:autoScalingGroupName/eks-eksNativeNodegroup-08cac53d-385a-2024-c72d-454b5d391c7b"
+        }
+    ]
+}

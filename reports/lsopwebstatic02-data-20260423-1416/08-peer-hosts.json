@@ -1,0 +1,311 @@
+{
+    "Reservations": [
+        {
+            "ReservationId": "r-04862da6b72059331",
+            "OwnerId": "257394478466",
+            "Groups": [],
+            "Instances": [
+                {
+                    "Architecture": "x86_64",
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/xvda",
+                            "Ebs": {
+                                "AttachTime": "2025-02-12T05:35:41+00:00",
+                                "DeleteOnTermination": true,
+                                "Status": "attached",
+                                "VolumeId": "vol-04f46dd7d21816a18",
+                                "EbsCardIndex": 0
+                            }
+                        }
+                    ],
+                    "ClientToken": "5ac7ec59-e070-4ee8-9ca6-7fabdcac584f",
+                    "EbsOptimized": true,
+                    "EnaSupport": true,
+                    "Hypervisor": "xen",
+                    "NetworkInterfaces": [
+                        {
+                            "Attachment": {
+                                "AttachTime": "2025-02-12T05:35:41+00:00",
+                                "AttachmentId": "eni-attach-03f63249e2125dc6f",
+                                "DeleteOnTermination": true,
+                                "DeviceIndex": 0,
+                                "Status": "attached",
+                                "NetworkCardIndex": 0
+                            },
+                            "Description": "",
+                            "Groups": [
+                                {
+                                    "GroupId": "sg-0deaa7cf7437e39c7",
+                                    "GroupName": "sg_public_prod"
+                                }
+                            ],
+                            "Ipv6Addresses": [],
+                            "MacAddress": "02:23:58:e4:4d:c5",
+                            "NetworkInterfaceId": "eni-06a5401d5ddc5235f",
+                            "OwnerId": "257394478466",
+                            "PrivateDnsName": "ip-10-238-3-59.ec2.internal",
+                            "PrivateIpAddress": "10.238.3.59",
+                            "PrivateIpAddresses": [
+                                {
+                                    "Primary": true,
+                                    "PrivateDnsName": "ip-10-238-3-59.ec2.internal",
+                                    "PrivateIpAddress": "10.238.3.59"
+                                }
+                            ],
+                            "SourceDestCheck": true,
+                            "Status": "in-use",
+                            "SubnetId": "subnet-0828db1b483e7e580",
+                            "VpcId": "vpc-0dce7ca7770422d33",
+                            "InterfaceType": "interface",
+                            "Operator": {
+                                "Managed": false
+                            }
+                        }
+                    ],
+                    "RootDeviceName": "/dev/xvda",
+                    "RootDeviceType": "ebs",
+                    "SecurityGroups": [
+                        {
+                            "GroupId": "sg-0deaa7cf7437e39c7",
+                            "GroupName": "sg_public_prod"
+                        }
+                    ],
+                    "SourceDestCheck": true,
+                    "Tags": [
+                        {
+                            "Key": "Name",
+                            "Value": "lsopwebstatic01-prod-usa-aws"
+                        }
+                    ],
+                    "VirtualizationType": "hvm",
+                    "CpuOptions": {
+                        "CoreCount": 2,
+                        "ThreadsPerCore": 2
+                    },
+                    "CapacityReservationSpecification": {
+                        "CapacityReservationPreference": "open"
+                    },
+                    "HibernationOptions": {
+                        "Configured": false
+                    },
+                    "MetadataOptions": {
+                        "State": "applied",
+                        "HttpTokens": "optional",
+                        "HttpPutResponseHopLimit": 1,
+                        "HttpEndpoint": "enabled",
+                        "HttpProtocolIpv6": "disabled",
+                        "InstanceMetadataTags": "disabled"
+                    },
+                    "EnclaveOptions": {
+                        "Enabled": false
+                    },
+                    "PlatformDetails": "Linux/UNIX",
+                    "UsageOperation": "RunInstances",
+                    "UsageOperationUpdateTime": "2025-02-12T05:35:41+00:00",
+                    "PrivateDnsNameOptions": {
+                        "HostnameType": "ip-name",
+                        "EnableResourceNameDnsARecord": false,
+                        "EnableResourceNameDnsAAAARecord": false
+                    },
+                    "MaintenanceOptions": {
+                        "AutoRecovery": "default",
+                        "RebootMigration": "default"
+                    },
+                    "CurrentInstanceBootMode": "legacy-bios",
+                    "NetworkPerformanceOptions": {
+                        "BandwidthWeighting": "default"
+                    },
+                    "Operator": {
+                        "Managed": false
+                    },
+                    "SecondaryInterfaces": [],
+                    "InstanceId": "i-0ab276f33e9d3061d",
+                    "ImageId": "ami-07427280a0cebb96d",
+                    "State": {
+                        "Code": 16,
+                        "Name": "running"
+                    },
+                    "PrivateDnsName": "ip-10-238-3-59.ec2.internal",
+                    "PublicDnsName": "",
+                    "StateTransitionReason": "",
+                    "KeyName": "sre_aws2573",
+                    "AmiLaunchIndex": 0,
+                    "ProductCodes": [],
+                    "InstanceType": "c6i.xlarge",
+                    "LaunchTime": "2025-02-12T05:48:16+00:00",
+                    "Placement": {
+                        "AvailabilityZoneId": "use1-az1",
+                        "GroupName": "",
+                        "Tenancy": "default",
+                        "AvailabilityZone": "us-east-1a"
+                    },
+                    "Monitoring": {
+                        "State": "disabled"
+                    },
+                    "SubnetId": "subnet-0828db1b483e7e580",
+                    "VpcId": "vpc-0dce7ca7770422d33",
+                    "PrivateIpAddress": "10.238.3.59"
+                }
+            ]
+        },
+        {
+            "ReservationId": "r-051a2f41f4e08ef7a",
+            "OwnerId": "257394478466",
+            "Groups": [],
+            "Instances": [
+                {
+                    "Architecture": "x86_64",
+                    "BlockDeviceMappings": [
+                        {
+                            "DeviceName": "/dev/xvda",
+                            "Ebs": {
+                                "AttachTime": "2026-04-21T01:58:09+00:00",
+                                "DeleteOnTermination": true,
+                                "Status": "attached",
+                                "VolumeId": "vol-031989217cd9b26a6",
+                                "EbsCardIndex": 0
+                            }
+                        }
+                    ],
+                    "ClientToken": "C1653809-C238-4E50-89C5-8E1BBB1B82F1",
+                    "EbsOptimized": false,
+                    "EnaSupport": true,
+                    "Hypervisor": "xen",
+                    "NetworkInterfaces": [
+                        {
+                            "Attachment": {
+                                "AttachTime": "2026-04-21T01:58:08+00:00",
+                                "AttachmentId": "eni-attach-0d49dd002fd6fdb26",
+                                "DeleteOnTermination": true,
+                                "DeviceIndex": 0,
+                                "Status": "attached",
+                                "NetworkCardIndex": 0
+                            },
+                            "Description": "",
+                            "Groups": [
+                                {
+                                    "GroupId": "sg-0deaa7cf7437e39c7",
+                                    "GroupName": "sg_public_prod"
+                                }
+                            ],
+                            "Ipv6Addresses": [],
+                            "MacAddress": "02:54:96:20:f2:b5",
+                            "NetworkInterfaceId": "eni-0e9ef950182af7bdd",
+                            "OwnerId": "257394478466",
+                            "PrivateDnsName": "ip-10-238-3-221.ec2.internal",
+                            "PrivateIpAddress": "10.238.3.221",
+                            "PrivateIpAddresses": [
+                                {
+                                    "Primary": true,
+                                    "PrivateDnsName": "ip-10-238-3-221.ec2.internal",
+                                    "PrivateIpAddress": "10.238.3.221"
+                                }
+                            ],
+                            "SourceDestCheck": true,
+                            "Status": "in-use",
+                            "SubnetId": "subnet-0828db1b483e7e580",
+                            "VpcId": "vpc-0dce7ca7770422d33",
+                            "InterfaceType": "interface",
+                            "Operator": {
+                                "Managed": false
+                            }
+                        }
+                    ],
+                    "RootDeviceName": "/dev/xvda",
+                    "RootDeviceType": "ebs",
+                    "SecurityGroups": [
+                        {
+                            "GroupId": "sg-0deaa7cf7437e39c7",
+                            "GroupName": "sg_public_prod"
+                        }
+                    ],
+                    "SourceDestCheck": true,
+                    "Tags": [
+                        {
+                            "Key": "Name",
+                            "Value": "lsopwebstatic02-prod-usa-aws"
+                        },
+                        {
+                            "Key": "env_type",
+                            "Value": "prod"
+                        },
+                        {
+                            "Key": "app_name",
+                            "Value": "lsopwebstatic"
+                        }
+                    ],
+                    "VirtualizationType": "hvm",
+                    "CpuOptions": {
+                        "CoreCount": 1,
+                        "ThreadsPerCore": 2
+                    },
+                    "CapacityReservationSpecification": {
+                        "CapacityReservationPreference": "open"
+                    },
+                    "HibernationOptions": {
+                        "Configured": false
+                    },
+                    "MetadataOptions": {
+                        "State": "applied",
+                        "HttpTokens": "optional",
+                        "HttpPutResponseHopLimit": 1,
+                        "HttpEndpoint": "enabled",
+                        "HttpProtocolIpv6": "disabled",
+                        "InstanceMetadataTags": "enabled"
+                    },
+                    "EnclaveOptions": {
+                        "Enabled": false
+                    },
+                    "PlatformDetails": "Linux/UNIX",
+                    "UsageOperation": "RunInstances",
+                    "UsageOperationUpdateTime": "2026-04-21T01:58:08+00:00",
+                    "PrivateDnsNameOptions": {
+                        "HostnameType": "ip-name",
+                        "EnableResourceNameDnsARecord": false,
+                        "EnableResourceNameDnsAAAARecord": false
+                    },
+                    "MaintenanceOptions": {
+                        "AutoRecovery": "default",
+                        "RebootMigration": "default"
+                    },
+                    "CurrentInstanceBootMode": "legacy-bios",
+                    "NetworkPerformanceOptions": {
+                        "BandwidthWeighting": "default"
+                    },
+                    "Operator": {
+                        "Managed": false
+                    },
+                    "SecondaryInterfaces": [],
+                    "InstanceId": "i-02be4444086ac922c",
+                    "ImageId": "ami-07427280a0cebb96d",
+                    "State": {
+                        "Code": 16,
+                        "Name": "running"
+                    },
+                    "PrivateDnsName": "ip-10-238-3-221.ec2.internal",
+                    "PublicDnsName": "",
+                    "StateTransitionReason": "",
+                    "KeyName": "sre_aws2573",
+                    "AmiLaunchIndex": 0,
+                    "ProductCodes": [],
+                    "InstanceType": "c6i.large",
+                    "LaunchTime": "2026-04-21T01:58:08+00:00",
+                    "Placement": {
+                        "AvailabilityZoneId": "use1-az1",
+                        "GroupName": "lsopwebstatic-01",
+                        "Tenancy": "default",
+                        "GroupId": "pg-06248b999ba7e7f0a",
+                        "AvailabilityZone": "us-east-1a"
+                    },
+                    "Monitoring": {
+                        "State": "disabled"
+                    },
+                    "SubnetId": "subnet-0828db1b483e7e580",
+                    "VpcId": "vpc-0dce7ca7770422d33",
+                    "PrivateIpAddress": "10.238.3.221"
+                }
+            ]
+        }
+    ]
+}
