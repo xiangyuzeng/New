@@ -17,9 +17,19 @@ Usage:
     python3 weekly_ops_report_generator.py                          # current week
     python3 weekly_ops_report_generator.py --week-start 2026-04-06  # specific week
     python3 weekly_ops_report_generator.py --dry-run                # preview data, no PDF
-    python3 weekly_ops_report_generator.py --demo                   # generate with demo data
+    python3 weekly_ops_report_generator.py --config /path/config.yaml    # custom config
 
-Data source: MySQL via pymysql (salesorder, opshop, iluckyhealth databases).
+All configuration (per-schema DB hosts, output paths, font) is read from
+config.yaml alongside this script (override via --config). ${ENV_VAR} tokens
+in the YAML are expanded from the environment — use them for passwords.
+
+Data source: MySQL via pymysql. The three schemas
+(luckyus_sales_order / luckyus_iluckyhealth / luckyus_opshop) each live
+on a separate RDS instance and are configured per-schema in config.yaml.
+
+No demo / synthetic data path exists — if any required query returns
+nothing, the script prints an explicit error and refuses to emit a PDF.
+
 PDF engine: ReportLab with NotoSansSC font.
 Brand colors: #0365C0 (primary), #1F4E79 (dark).
 """
@@ -104,19 +114,100 @@ THRESHOLDS = {
     "completion_rate_red": 0.93,    # below => RED
 }
 
-DB_CONFIG = {
-    "host": os.environ.get("LCNA_DB_HOST", "127.0.0.1"),
-    "port": int(os.environ.get("LCNA_DB_PORT", "3306")),
-    "user": os.environ.get("LCNA_DB_USER", "readonly"),
-    "password": os.environ.get("LCNA_DB_PASSWORD", ""),
-    "charset": "utf8mb4",
-    "connect_timeout": 10,
-    "read_timeout": 30,
-}
+import re
 
-OUTPUT_DIR = os.environ.get("LCNA_OUTPUT_DIR", "/app/reports")
-FONT_PATH = os.environ.get("LCNA_FONT_PATH", "/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc")
-ACTION_ITEMS_PATH = os.environ.get("LCNA_ACTION_ITEMS", "action_items.yaml")
+# Populated by load_config() in main(). None until loaded so that
+# accidental early use trips a clear AttributeError.
+DB_CONFIGS: Optional[dict] = None
+OUTPUT_DIR: Optional[str] = None
+FONT_PATH: Optional[str] = None
+ACTION_ITEMS_PATH: Optional[str] = None
+
+DEFAULT_CONFIG_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "config.yaml")
+
+_ENV_VAR_RE = re.compile(r"\$\{([A-Z_][A-Z0-9_]*)(?::-([^}]*))?\}")
+
+
+def _expand_env(value):
+    """Recursively expand ${VAR} / ${VAR:-default} tokens in strings."""
+    if isinstance(value, str):
+        def sub(m):
+            name, default = m.group(1), m.group(2)
+            val = os.environ.get(name)
+            if val is not None:
+                return val
+            if default is not None:
+                return default
+            raise RuntimeError(
+                f"Config references environment variable ${{{name}}} but it is not set."
+            )
+        return _ENV_VAR_RE.sub(sub, value)
+    if isinstance(value, dict):
+        return {k: _expand_env(v) for k, v in value.items()}
+    if isinstance(value, list):
+        return [_expand_env(v) for v in value]
+    return value
+
+
+def load_config(path: str) -> dict:
+    """Read YAML config, expand ${ENV_VAR} tokens, populate module-level globals.
+
+    Returns the fully resolved config dict. Raises with a clear message if
+    required sections or schemas are missing.
+    """
+    global DB_CONFIGS, OUTPUT_DIR, FONT_PATH, ACTION_ITEMS_PATH
+
+    if not os.path.exists(path):
+        raise FileNotFoundError(
+            f"Config file not found: {path}\n"
+            f"Copy {DEFAULT_CONFIG_PATH} and fill in your RDS hosts / credentials."
+        )
+
+    with open(path, "r") as f:
+        raw = yaml.safe_load(f) or {}
+
+    cfg = _expand_env(raw)
+
+    db_section = cfg.get("database")
+    if not db_section:
+        raise ValueError(f"{path}: missing top-level 'database' section")
+
+    defaults = db_section.get("defaults", {})
+    required_schemas = ("luckyus_sales_order", "luckyus_iluckyhealth", "luckyus_opshop")
+    resolved = {}
+    for schema in required_schemas:
+        entry = db_section.get(schema)
+        if not entry:
+            raise ValueError(
+                f"{path}: missing database.{schema} section. "
+                f"All three schemas must be configured."
+            )
+        for key in ("host", "user", "password"):
+            if not entry.get(key):
+                raise ValueError(
+                    f"{path}: database.{schema}.{key} is empty. "
+                    f"Set it directly or via ${{ENV_VAR}}."
+                )
+        resolved[schema] = {
+            "host": entry["host"],
+            "port": int(entry.get("port", 3306)),
+            "user": entry["user"],
+            "password": entry["password"],
+            "charset": entry.get("charset", defaults.get("charset", "utf8mb4")),
+            "connect_timeout": int(entry.get("connect_timeout",
+                                             defaults.get("connect_timeout", 10))),
+            "read_timeout": int(entry.get("read_timeout",
+                                          defaults.get("read_timeout", 30))),
+        }
+
+    out_section = cfg.get("output", {})
+    DB_CONFIGS = resolved
+    OUTPUT_DIR = out_section.get("dir", "/app/reports")
+    FONT_PATH = out_section.get("font_path",
+                                "/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc")
+    ACTION_ITEMS_PATH = out_section.get("action_items", "action_items.yaml")
+
+    return cfg
 
 
 # ---------------------------------------------------------------------------
@@ -192,16 +283,24 @@ def safe_div(a, b, default=0.0):
 # ---------------------------------------------------------------------------
 
 class DatabaseClient:
-    """Thin wrapper around pymysql for read-only queries."""
+    """Thin wrapper around pymysql for read-only queries.
 
-    def __init__(self, config: dict):
-        self.config = config
-        self._conn = None
+    Accepts a per-schema config mapping {schema_name: pymysql_kwargs} so that
+    different schemas can live on different RDS instances.
+    """
+
+    def __init__(self, configs: dict):
+        self.configs = configs
 
     def _get_conn(self, database: str):
+        if database not in self.configs:
+            raise KeyError(
+                f"No DB config registered for schema '{database}'. "
+                f"Known schemas: {sorted(self.configs)}"
+            )
         import pymysql
         return pymysql.connect(
-            **self.config,
+            **self.configs[database],
             database=database,
             cursorclass=pymysql.cursors.DictCursor,
         )
@@ -711,210 +810,6 @@ class DataCollector:
         data["products"] = self.collect_products()
 
         return data
-
-
-# ---------------------------------------------------------------------------
-# Demo data generator (for testing without DB)
-# ---------------------------------------------------------------------------
-
-def generate_demo_data(week_start: datetime) -> dict:
-    """Generate realistic demo data matching the W15 template."""
-    mon, sun = week_bounds(week_start)
-    prev_mon = mon - timedelta(days=7)
-    prev_sun = sun - timedelta(days=7)
-
-    data = {
-        "week_start": mon.strftime("%Y-%m-%d"),
-        "week_end": sun.strftime("%Y-%m-%d"),
-        "prev_week_start": prev_mon.strftime("%Y-%m-%d"),
-        "prev_week_end": prev_sun.strftime("%Y-%m-%d"),
-        "generated_at": datetime.now().strftime("%Y-%m-%d %H:%M EST"),
-    }
-
-    # Overview
-    data["overview"] = {
-        "active_stores": 12,
-        "this_total_orders": 24535, "prev_total_orders": 23773,
-        "this_total_revenue": 123982.0, "prev_total_revenue": 121789.0,
-        "this_avg_ticket": 5.04, "prev_avg_ticket": 5.11,
-        "this_completion_rate": 0.967, "prev_completion_rate": 0.962,
-        "this_cancel_rate": 0.031, "prev_cancel_rate": 0.033,
-        "this_avg_make_min": 3.0, "prev_avg_make_min": 3.0,
-        "this_satisfaction": 0.9695, "prev_satisfaction": 0.9665,
-        "this_new_customers": 8200, "prev_new_customers": 8640,
-        "this_return_rate": 0.361, "prev_return_rate": 0.349,
-        "this_total_users_30d": 50297, "this_returning_users_30d": 18157,
-    }
-
-    # Revenue
-    import random
-    random.seed(42)
-    this_daily = []
-    base_orders = [3900, 3850, 3800, 3900, 3830, 2600, 2455]
-    base_rev = [19700, 19500, 19200, 19700, 19300, 13200, 12382]
-    for i in range(7):
-        d = mon + timedelta(days=i)
-        this_daily.append({
-            "date": d.strftime("%Y-%m-%d"),
-            "dow": d.isoweekday(),
-            "orders": base_orders[i] + random.randint(-50, 50),
-            "revenue": base_rev[i] + random.randint(-200, 200),
-            "avg_ticket": round(base_rev[i] / base_orders[i], 2),
-        })
-    prev_daily = []
-    for i in range(7):
-        d = prev_mon + timedelta(days=i)
-        prev_daily.append({
-            "date": d.strftime("%Y-%m-%d"),
-            "dow": d.isoweekday(),
-            "orders": int(base_orders[i] * 0.97) + random.randint(-50, 50),
-            "revenue": int(base_rev[i] * 0.98) + random.randint(-200, 200),
-            "avg_ticket": round(base_rev[i] * 0.98 / (base_orders[i] * 0.97), 2),
-        })
-
-    data["revenue"] = {
-        "this_daily": this_daily,
-        "prev_daily": prev_daily,
-        "this_tiers": [
-            {"tier": "$0-3", "orders": 5622, "revenue": 13618, "avg_price": 2.42},
-            {"tier": "$3-5", "orders": 10561, "revenue": 40577, "avg_price": 3.84},
-            {"tier": "$5-8", "orders": 5499, "revenue": 35113, "avg_price": 6.39},
-            {"tier": "$8-15", "orders": 2400, "revenue": 24000, "avg_price": 10.00},
-            {"tier": "$15+", "orders": 498, "revenue": 10675, "avg_price": 21.44},
-        ],
-        "prev_tiers": [
-            {"tier": "$0-3", "orders": 5450, "revenue": 13190, "avg_price": 2.42},
-            {"tier": "$3-5", "orders": 10200, "revenue": 39168, "avg_price": 3.84},
-            {"tier": "$5-8", "orders": 5350, "revenue": 34187, "avg_price": 6.39},
-            {"tier": "$8-15", "orders": 2300, "revenue": 23000, "avg_price": 10.00},
-            {"tier": "$15+", "orders": 473, "revenue": 10144, "avg_price": 21.44},
-        ],
-        "this_discount_rate": 0.958, "prev_discount_rate": 0.952,
-        "this_avg_discount": 3.50, "prev_avg_discount": 3.40,
-    }
-
-    # Stores
-    store_data = [
-        {"shop_id": 1, "shop_name": "8th & Broadway", "orders": 3412, "revenue": 16384, "avg_ticket": 4.80, "completion_rate": 0.962, "make_min": 2.8, "sla5": 0.89, "sat": 0.961, "comments": 488},
-        {"shop_id": 2, "shop_name": "54th & 8th", "orders": 2876, "revenue": 14230, "avg_ticket": 4.95, "completion_rate": 0.971, "make_min": 2.5, "sla5": 0.92, "sat": 0.972, "comments": 380},
-        {"shop_id": 3, "shop_name": "102 Fulton", "orders": 2654, "revenue": 13120, "avg_ticket": 4.94, "completion_rate": 0.958, "make_min": 3.1, "sla5": 0.85, "sat": 0.965, "comments": 350},
-        {"shop_id": 4, "shop_name": "28th & 6th", "orders": 2340, "revenue": 12890, "avg_ticket": 5.51, "completion_rate": 0.968, "make_min": 3.2, "sla5": 0.84, "sat": 0.983, "comments": 310},
-        {"shop_id": 5, "shop_name": "37th & Broadway", "orders": 2156, "revenue": 11450, "avg_ticket": 5.31, "completion_rate": 0.972, "make_min": 2.3, "sla5": 0.93, "sat": 0.954, "comments": 432},
-        {"shop_id": 6, "shop_name": "15th & 3rd", "orders": 1890, "revenue": 10230, "avg_ticket": 5.41, "completion_rate": 0.981, "make_min": 3.1, "sla5": 0.86, "sat": 0.980, "comments": 260},
-        {"shop_id": 7, "shop_name": "16th & 6th", "orders": 1756, "revenue": 9870, "avg_ticket": 5.62, "completion_rate": 0.975, "make_min": 2.9, "sla5": 0.88, "sat": 0.986, "comments": 240},
-        {"shop_id": 8, "shop_name": "33rd & 10th", "orders": 1645, "revenue": 9240, "avg_ticket": 5.62, "completion_rate": 0.969, "make_min": 2.8, "sla5": 0.89, "sat": 0.981, "comments": 220},
-        {"shop_id": 9, "shop_name": "21st & 3rd", "orders": 1580, "revenue": 8410, "avg_ticket": 5.32, "completion_rate": 0.973, "make_min": 2.5, "sla5": 0.91, "sat": 0.984, "comments": 200},
-        {"shop_id": 10, "shop_name": "100 Maiden Ln", "orders": 1520, "revenue": 8220, "avg_ticket": 5.41, "completion_rate": 0.970, "make_min": 1.8, "sla5": 0.95, "sat": 0.944, "comments": 142},
-        {"shop_id": 11, "shop_name": "52nd & Madison", "orders": 1390, "revenue": 7560, "avg_ticket": 5.44, "completion_rate": 0.965, "make_min": 2.6, "sla5": 0.90, "sat": 0.983, "comments": 180},
-        {"shop_id": 12, "shop_name": "29th & 3rd", "orders": 1315, "revenue": 7150, "avg_ticket": 5.44, "completion_rate": 0.978, "make_min": 2.1, "sla5": 0.94, "sat": 0.955, "comments": 44},
-    ]
-
-    this_stores = [
-        {"shop_id": s["shop_id"], "shop_name": s["shop_name"], "orders": s["orders"],
-         "revenue": s["revenue"], "avg_ticket": s["avg_ticket"], "completion_rate": s["completion_rate"]}
-        for s in store_data
-    ]
-    prev_stores = [
-        {"shop_id": s["shop_id"], "shop_name": s["shop_name"],
-         "orders": int(s["orders"] * 0.97), "revenue": int(s["revenue"] * 0.98),
-         "avg_ticket": round(s["avg_ticket"] * 1.01, 2), "completion_rate": round(s["completion_rate"] - 0.005, 3)}
-        for s in store_data
-    ]
-    this_make = {s["shop_id"]: {"avg_make_min": s["make_min"], "sla_5min_rate": s["sla5"]} for s in store_data}
-    prev_make = {s["shop_id"]: {"avg_make_min": round(s["make_min"] + 0.1, 1), "sla_5min_rate": round(s["sla5"] - 0.01, 2)} for s in store_data}
-    this_sat = {s["shop_id"]: {"satisfaction": s["sat"], "comment_count": s["comments"]} for s in store_data}
-    prev_sat = {s["shop_id"]: {"satisfaction": round(s["sat"] - 0.003, 3), "comment_count": int(s["comments"] * 0.95)} for s in store_data}
-
-    data["stores"] = {
-        "this_stores": this_stores, "prev_stores": prev_stores,
-        "this_store_make": this_make, "prev_store_make": prev_make,
-        "this_store_satisfaction": this_sat, "prev_store_satisfaction": prev_sat,
-    }
-
-    # Channels
-    channel_data = [
-        {"channel": 2, "orders": 20683, "revenue": 97241, "avg_ticket": 4.70},
-        {"channel": 3, "orders": 2088, "revenue": 10318, "avg_ticket": 4.94},
-        {"channel": 1, "orders": 1456, "revenue": 10443, "avg_ticket": 7.17},
-        {"channel": 8, "orders": 204, "revenue": 3895, "avg_ticket": 19.09},
-        {"channel": 9, "orders": 109, "revenue": 1490, "avg_ticket": 13.67},
-        {"channel": 10, "orders": 40, "revenue": 595, "avg_ticket": 14.87},
-    ]
-    prev_channel_data = [
-        {"channel": c["channel"], "orders": int(c["orders"] * 0.97),
-         "revenue": round(c["revenue"] * 0.98, 2), "avg_ticket": round(c["avg_ticket"] * 1.01, 2)}
-        for c in channel_data
-    ]
-
-    freq_this = [
-        {"bucket": "1 次", "users": 32082, "type": "一次性客户", "tip": "拉新→首单转复购"},
-        {"bucket": "2-3 次", "users": 11790, "type": "初期回头客", "tip": "复购券巩固习惯"},
-        {"bucket": "4-7 次", "users": 4722, "type": "稳定回头客", "tip": "会员体系核心"},
-        {"bucket": "8-14 次", "users": 1361, "type": "高频忠实客", "tip": "VIP 专属权益"},
-        {"bucket": "15+ 次", "users": 342, "type": "超级用户", "tip": "品牌大使候选"},
-    ]
-    freq_prev = [
-        {"bucket": b["bucket"], "users": int(b["users"] * 0.97), "type": b["type"], "tip": b["tip"]}
-        for b in freq_this
-    ]
-
-    data["channels"] = {
-        "this_channels": channel_data, "prev_channels": prev_channel_data,
-        "this_frequency": freq_this, "prev_frequency": freq_prev,
-        "first_order_products": [
-            {"name": "Iced Coconut Latte", "count": 320, "revenue": 1120},
-            {"name": "Iced Latte", "count": 280, "revenue": 980},
-            {"name": "Iced Kyoto Matcha Latte", "count": 250, "revenue": 900},
-            {"name": "Latte", "count": 200, "revenue": 700},
-            {"name": "Iced Spring Matcha Oat Latte", "count": 150, "revenue": 600},
-        ],
-    }
-
-    # Products
-    top_products = [
-        {"name": "Iced Coconut Latte", "category": "Drink", "sales": 4800, "revenue": 16800},
-        {"name": "Iced Kyoto Matcha Latte", "category": "Drink", "sales": 3550, "revenue": 12700},
-        {"name": "Iced Latte", "category": "Drink", "sales": 3510, "revenue": 12200},
-        {"name": "Latte", "category": "Drink", "sales": 2900, "revenue": 10100},
-        {"name": "Iced Spring Matcha Oat Latte", "category": "Specialty", "sales": 2100, "revenue": 8400},
-        {"name": "Coconut Latte", "category": "Drink", "sales": 1800, "revenue": 6300},
-        {"name": "Americano", "category": "Drink", "sales": 1500, "revenue": 4500},
-        {"name": "Iced Americano", "category": "Drink", "sales": 1400, "revenue": 4200},
-        {"name": "Croissant", "category": "Food", "sales": 1200, "revenue": 3600},
-        {"name": "Matcha Latte", "category": "Drink", "sales": 980, "revenue": 3430},
-    ]
-    prev_top = [
-        {"name": p["name"], "category": p["category"],
-         "sales": int(p["sales"] * 0.97), "revenue": int(p["revenue"] * 0.97)}
-        for p in top_products
-    ]
-    bottom_products = [
-        {"name": "Merchandise Cup", "category": "Merchandise", "sales": 111, "revenue": 1665},
-        {"name": "Cookie", "category": "Food", "sales": 180, "revenue": 540},
-        {"name": "Sparkling Water", "category": "Drink", "sales": 210, "revenue": 630},
-        {"name": "Hot Chocolate", "category": "Drink", "sales": 250, "revenue": 875},
-        {"name": "Fruit Tea", "category": "Drink", "sales": 280, "revenue": 840},
-    ]
-
-    data["products"] = {
-        "this_categories": [
-            {"category": "Drink", "count": 29320, "skus": 36},
-            {"category": "Food", "count": 2665, "skus": 5},
-            {"category": "Merchandise", "count": 111, "skus": 1},
-        ],
-        "prev_categories": [
-            {"category": "Drink", "count": 28440, "skus": 36},
-            {"category": "Food", "count": 2550, "skus": 5},
-            {"category": "Merchandise", "count": 105, "skus": 1},
-        ],
-        "this_top_products": top_products,
-        "prev_top_products": prev_top,
-        "this_bottom_products": bottom_products,
-        "prev_bottom_products": bottom_products,
-        "hourly_distribution": {},
-    }
-
-    return data
 
 
 # ---------------------------------------------------------------------------
@@ -1431,7 +1326,7 @@ class PDFReportBuilder:
             except Exception:
                 font_name = "Helvetica"
                 print("WARNING: No CJK font found. Chinese characters may not render correctly.")
-                print("Install NotoSansCJK or set LCNA_FONT_PATH environment variable.")
+                print("Install NotoSansCJK or update output.font_path in config.yaml.")
 
         # Colors
         brand = colors.HexColor("#0365C0")
@@ -2050,19 +1945,60 @@ class PDFReportBuilder:
 # Main entry point
 # ---------------------------------------------------------------------------
 
+def _check_data_completeness(data: dict) -> list[str]:
+    """Return a list of human-readable problems detected in the collected data.
+
+    Checks that each required section exists and contains real numbers.
+    Empty DBs or failed queries surface here so a blank PDF is never emitted.
+    """
+    problems: list[str] = []
+    required_sections = ("overview", "revenue", "stores", "channels", "products")
+    for name in required_sections:
+        section = data.get(name)
+        if section is None:
+            problems.append(f"section '{name}' is missing (collector returned None)")
+            continue
+        if isinstance(section, dict) and not section:
+            problems.append(f"section '{name}' is empty")
+
+    ov = data.get("overview") or {}
+    if not ov.get("this_total_orders"):
+        problems.append(
+            "overview.this_total_orders is 0 — no completed orders found for the "
+            "target week. Verify week range, t_order.status filter, and that the "
+            "salesorder RDS is reachable."
+        )
+    if not ov.get("this_total_revenue"):
+        problems.append("overview.this_total_revenue is 0 — no revenue for the week.")
+
+    stores = data.get("stores") or {}
+    if not stores.get("rankings"):
+        problems.append("stores.rankings is empty — no per-store data collected.")
+
+    return problems
+
+
 def main():
     parser = argparse.ArgumentParser(description="Luckin Coffee NA Weekly Operations Report Generator")
+    parser.add_argument("--config", type=str, default=DEFAULT_CONFIG_PATH,
+                        help=f"Path to YAML config file. Default: {DEFAULT_CONFIG_PATH}")
     parser.add_argument("--week-start", type=str, default=None,
                         help="Monday of the report week (YYYY-MM-DD). Default: most recent completed Monday.")
     parser.add_argument("--output", type=str, default=None,
-                        help="Output PDF path. Default: /app/reports/weekly-report-YYYY-WNN.pdf")
+                        help="Output PDF path. Default: <output.dir>/weekly-report-YYYY-WNN.pdf")
     parser.add_argument("--dry-run", action="store_true",
                         help="Collect data and print summary, skip PDF generation.")
-    parser.add_argument("--demo", action="store_true",
-                        help="Use demo data instead of querying the database.")
     parser.add_argument("--json-out", type=str, default=None,
                         help="Also dump raw data to a JSON file.")
     args = parser.parse_args()
+
+    # Load YAML config (populates DB_CONFIGS, OUTPUT_DIR, FONT_PATH, ACTION_ITEMS_PATH).
+    print(f"Loading config: {args.config}")
+    try:
+        load_config(args.config)
+    except (FileNotFoundError, ValueError, RuntimeError) as e:
+        print(f"ERROR: {e}", file=sys.stderr)
+        sys.exit(2)
 
     # Determine week
     if args.week_start:
@@ -2082,15 +2018,29 @@ def main():
     iso_year, iso_week, _ = mon.isocalendar()
     print(f"Report week: {mon:%Y-%m-%d} (Mon) to {sun:%Y-%m-%d} (Sun) — W{iso_week:02d}")
 
-    # Collect data
-    if args.demo:
-        print("Using demo data...")
-        data = generate_demo_data(week_start)
-    else:
-        print("Connecting to database...")
-        db = DatabaseClient(DB_CONFIG)
-        collector = DataCollector(db, week_start)
+    # Collect data — always from real databases.
+    print("Connecting to databases...")
+    db = DatabaseClient(DB_CONFIGS)
+    collector = DataCollector(db, week_start)
+    try:
         data = collector.collect_all()
+    except Exception as e:
+        print(f"ERROR: data collection failed: {type(e).__name__}: {e}",
+              file=sys.stderr)
+        sys.exit(3)
+
+    problems = _check_data_completeness(data)
+    if problems:
+        print("\nERROR: required data is missing or empty:", file=sys.stderr)
+        for p in problems:
+            print(f"  - {p}", file=sys.stderr)
+        print(
+            "\nRefusing to emit a PDF. Fix the data source and rerun.\n"
+            "(Use --dry-run --json-out <file> to inspect the partial data.)",
+            file=sys.stderr,
+        )
+        if not args.dry_run:
+            sys.exit(4)
 
     # Run insight engine
     engine = InsightEngine(data)

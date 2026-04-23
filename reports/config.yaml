@@ -1,0 +1,33 @@
+# Luckin Coffee NA — Weekly Ops Report Generator configuration
+# ---------------------------------------------------------------
+# Supports ${ENV_VAR} substitution; use it for secrets so they stay
+# out of version control.
+
+database:
+  # Each business schema lives on its own RDS instance.
+  luckyus_sales_order:
+    host: aws-luckyus-salesorder-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com
+    port: 3306
+    user: ${LCNA_USER}
+    password: ${LCNA_PASSWORD}
+  luckyus_iluckyhealth:
+    host: aws-luckyus-iluckyhealth-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com
+    port: 3306
+    user: ${LCNA_USER}
+    password: ${LCNA_PASSWORD}
+  luckyus_opshop:
+    host: aws-luckyus-opshop-rw.cxwu08m2qypw.us-east-1.rds.amazonaws.com
+    port: 3306
+    user: ${LCNA_USER}
+    password: ${LCNA_PASSWORD}
+
+  # Connection defaults applied to every schema above.
+  defaults:
+    charset: utf8mb4
+    connect_timeout: 10
+    read_timeout: 30
+
+output:
+  dir: /app/reports
+  font_path: /usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc
+  action_items: action_items.yaml
